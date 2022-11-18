@@ -1,6 +1,8 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { DidUrl } from '@zcloak/did-resolver/types';
+
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Box, Button, FormControl, Grid, InputLabel, OutlinedInput } from '@mui/material';
 import FileSaver from 'file-saver';
@@ -17,7 +19,8 @@ const Step3: React.FC<{
   nextStep: () => void;
   mnemonic: string;
   password?: string;
-}> = ({ mnemonic, nextStep, password, prevStep }) => {
+  setDidUrl: (didUrl: DidUrl) => void;
+}> = ({ mnemonic, nextStep, password, prevStep, setDidUrl }) => {
   const [keyWordsIndex, setKeyWordsIndex] = useState<number[]>([]);
   const [keyWords, setKeyWords] = useState<string[]>([]);
 
@@ -56,8 +59,9 @@ const Step3: React.FC<{
 
     FileSaver.saveAs(blobSiningJson, `${json.didUrl}.json`);
 
+    setDidUrl(did.id);
     nextStep();
-  }, [mnemonic, nextStep, password]);
+  }, [mnemonic, nextStep, password, setDidUrl]);
 
   return (
     <>

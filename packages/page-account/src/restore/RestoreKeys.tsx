@@ -1,6 +1,8 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { DidUrl } from '@zcloak/did-resolver/types';
+
 import {
   Button,
   Divider,
@@ -15,7 +17,7 @@ import React, { useCallback, useContext, useState } from 'react';
 import { InputPassword, NotificationContext } from '@credential/react-components';
 import { didManager, keyring } from '@credential/react-dids/instance';
 
-const Restore: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
+const Restore: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess }) => {
   const [password, setPassword] = useState<string>();
   const [keyfilePassword, setKeyfilePassword] = useState<string>();
   const [file, setFile] = useState<File>();
@@ -31,7 +33,9 @@ const Restore: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     file
       .text()
       .then((text) => {
-        didManager.restore(JSON.parse(text), keyfilePassword);
+        const did = didManager.restore(JSON.parse(text), keyfilePassword);
+
+        return did.id;
       })
       .then(onSuccess)
       .catch((error) => {
