@@ -42,11 +42,13 @@ export class CredentialDidResolver extends ArweaveDidResolver {
     }
   }
 
-  async submitClaimerImportCtype(claimerDidUrl: DidUrl, ctypeHash: HexString) {
+  async submitClaimerImportCtype(claimerDidUrl: DidUrl, ctypeHash: HexString): Promise<CType> {
     const res = await get(`${this.server}/claimer/${claimerDidUrl}/ctype/${ctypeHash}/import`);
 
     if (res?.code !== 200) {
       throw new Error(res?.message);
+    } else {
+      return res.data.rawData;
     }
   }
 
@@ -64,7 +66,7 @@ export class CredentialDidResolver extends ArweaveDidResolver {
     if (res?.code !== 200) {
       throw new Error(res?.message);
     } else {
-      return res.data;
+      return res.data.rawData;;
     }
   }
 

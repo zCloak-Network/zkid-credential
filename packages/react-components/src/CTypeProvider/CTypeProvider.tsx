@@ -2,11 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { HexString } from '@zcloak/crypto/types';
+import { assert } from '@polkadot/util';
 
 import React, { createContext, useCallback, useContext, useMemo } from 'react';
 
 import { CType, useCTypes } from '@credential/app-store';
 import { DidsContext } from '@credential/react-dids';
+import { resolver } from '@credential/react-dids/instance';
+import { useDB } from '@credential/app-store/useDB';
 
 interface State {
   ctypes: CType[];
@@ -20,15 +23,25 @@ export const CTypeContext = createContext<State>({} as State);
 const CTypeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { did } = useContext(DidsContext);
   const ctypes = useCTypes(did?.id);
+  const db = useDB(did?.id);
 
   const importCType = useCallback(async (hash: HexString) => {
-    // TODO
-    return Promise.resolve();
+    // TODO import claimer ctype
+
+    assert(did?.id, 'did not found');
+    assert(db, 'index db not init');
+
+    const ctype = await resolver.submitClaimerImportCtype(did.id, hash);
+    await db.ctype.add(ctype);
   }, []);
 
+  // TODO delete claimer ctype
   const deleteCType = useCallback(async (hash: HexString) => {
-    // TODO
-    return Promise.resolve();
+    assert(did?.id, 'did not found');
+    assert(db, 'index db not init');
+
+    await resolver.deleteClaimerImportCtype(did.id, hash);
+    await db.ctype.delete(hash);
   }, []);
 
   const value = useMemo(() => {

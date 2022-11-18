@@ -3,21 +3,30 @@
 
 import { Box, Stack, Tab, Tabs } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
+import { assert } from '@polkadot/util';
 
 import { CType } from '@zcloak/ctype/types';
 
 import { DidsContext } from '@credential/react-dids';
 
 import CTypes from './CTypes';
+import { resolver } from '@credential/react-dids/instance';
+import { useDB } from '@credential/app-store/useDB';
 
 const OwnerCType: React.FC = () => {
   const { did } = useContext(DidsContext);
   const [ownCTypes, setOwnCTypes] = useState<CType[]>([]);
-
+  const db = useDB(did?.id);
   useEffect(() => {
     if (did) {
       // TODO fetch ownCTYpes
-      setOwnCTypes([]);
+      assert(did?.id, 'did not found');
+      assert(db, 'index db not init');
+
+      resolver.getClaimerCtypes(did.id).then((ctypes) => {
+        setOwnCTypes(ctypes);
+        db.ctype.bulkPut(ctypes);
+      });
     }
   }, [did]);
 
