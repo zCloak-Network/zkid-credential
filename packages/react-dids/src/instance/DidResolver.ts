@@ -5,7 +5,7 @@ import type { HexString } from '@zcloak/crypto/types';
 import type { CType } from '@zcloak/ctype/types';
 import type { DidDocumentWithProof, DidUrl } from '@zcloak/did-resolver/types';
 import type { Message, MessageType } from '@zcloak/message/types';
-import type { ServerMessage } from '../types';
+import type { ServerCtypes, ServerMessage } from '../types';
 
 import { ArweaveDidResolver } from '@zcloak/did-resolver';
 
@@ -32,7 +32,7 @@ export class CredentialDidResolver extends ArweaveDidResolver {
     }
   }
 
-  async getAttesterCtypes(): Promise<CType[]> {
+  async getAttesterCtypes(): Promise<ServerCtypes[]> {
     const res = await get(`${this.server}/ctype`);
 
     if (res?.code !== 200) {

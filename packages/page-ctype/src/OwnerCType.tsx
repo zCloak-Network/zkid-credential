@@ -10,6 +10,7 @@ import { CType } from '@zcloak/ctype/types';
 import { useDB } from '@credential/app-store/useDB';
 import { DidsContext } from '@credential/react-dids';
 import { resolver } from '@credential/react-dids/instance';
+import { isSameUri } from '@zcloak/did/utils';
 
 import CTypes from './CTypes';
 
@@ -23,7 +24,11 @@ const OwnerCType: React.FC = () => {
       // TODO fetch ownCTYpes
       assert(db, 'index db not init');
 
-      resolver.getClaimerCtypes(did.id).then((ctypes) => {
+      resolver.getAttesterCtypes().then((_ctypes) => {
+        const ctypes = _ctypes
+          .filter((item) => isSameUri(item.rawData.publisher, did.id))
+          .map((item) => item.rawData);
+
         setOwnCTypes(ctypes);
         db.ctype.bulkPut(ctypes);
       });
