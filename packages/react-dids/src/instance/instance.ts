@@ -14,8 +14,8 @@ export let keyring: Keyring;
 export let didManager: DidManager;
 
 initCrypto().then(() => {
-  resolver = new CredentialDidResolver();
   keyring = new Keyring();
+  resolver = new CredentialDidResolver();
   didManager = new DidManager(keyring, resolver);
 
   keyring.load();

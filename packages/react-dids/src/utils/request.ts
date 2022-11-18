@@ -23,8 +23,9 @@ export const post = async <T = any>(url: string, data?: T): Promise<Response> =>
   }
 };
 
-export const get = async (url: string): Promise<Response> => {
-  const res = await fetch(url, { method: 'GET' });
+export const get = async (url: string, query?: Record<string, any>): Promise<Response> => {
+  const search = serializeQuery(query);
+  const res = await fetch(`${url}${search ? '?' + search : ''}`, { method: 'GET' });
 
   if (res.ok) {
     return res.json();
@@ -32,3 +33,33 @@ export const get = async (url: string): Promise<Response> => {
     throw new Error(res.statusText);
   }
 };
+
+export function serializeQuery(obj?: Record<string, any>): string {
+  if (!obj) {
+    return '';
+  }
+
+  const keys: string[] = [];
+
+  for (const key in obj) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (obj.hasOwnProperty(key) && obj[key] !== undefined) {
+      keys.push(String(key));
+    }
+  }
+
+  keys.sort((l, r) => (l > r ? 1 : -1));
+
+  return keys
+    .map(
+      (key) =>
+        key +
+        '=' +
+        encodeURIComponent(
+          Array.isArray(obj[key])
+            ? `[${(obj[key] as any[]).map((v) => `"${v.toString()}"`).join(',')}]`
+            : obj[key].toString()
+        )
+    )
+    .join('&');
+}

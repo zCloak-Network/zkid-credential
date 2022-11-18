@@ -5,6 +5,8 @@ import type { Message, MessageType } from '@zcloak/message/types';
 
 import { assert } from '@polkadot/util';
 
+import { resolver } from '../instance';
+
 export async function sendMessage<T extends MessageType>(
   encryptedMessage?: Message<T> | null,
   reCaptchaToken?: string | null
@@ -12,6 +14,5 @@ export async function sendMessage<T extends MessageType>(
   assert(encryptedMessage, 'Not encrypted message found');
   assert(reCaptchaToken, 'No recaptcha token provided');
 
-  // TODO send message to server
-  return Promise.resolve();
+  await resolver.postMessage(encryptedMessage, reCaptchaToken);
 }
