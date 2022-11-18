@@ -14,5 +14,12 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.17.1"
+  "version": "0.0.0",
+  "dependencies": {
+    "@zcloak/ctype": "^0.0.3",
+    "@zcloak/did": "^0.0.3",
+    "@zcloak/did-resolver": "^0.0.3",
+    "@zcloak/message": "^0.0.3",
+    "@zcloak/vc": "^0.0.3"
+  }
 }

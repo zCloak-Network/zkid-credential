@@ -17,7 +17,7 @@ export class Keyring extends KeyringInstance {
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
 
-      if (key?.startsWith(`${PREFIX}:0x`)) {
+      if (key?.startsWith(`${PREFIX}0x`)) {
         const value = localStorage.getItem(key);
 
         if (value) {

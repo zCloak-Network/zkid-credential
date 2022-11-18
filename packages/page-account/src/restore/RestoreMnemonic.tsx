@@ -2,8 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Button, Divider, FormControl, InputLabel, OutlinedInput, Stack } from '@mui/material';
-import { mnemonicValidate } from '@polkadot/util-crypto';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
+
+import { validateMnemonic } from '@zcloak/crypto';
 
 import { InputPassword, NotificationContext } from '@credential/react-components';
 import { didManager, keyring } from '@credential/react-dids/instance';
@@ -13,7 +14,7 @@ const RestoreMnemonic: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => 
   const { notifyError } = useContext(NotificationContext);
   const [mnemonic, setMnemonic] = useState<string>();
 
-  const isMnemonic = useMemo(() => mnemonic && mnemonicValidate(mnemonic), [mnemonic]);
+  const isMnemonic = useMemo(() => mnemonic && validateMnemonic(mnemonic), [mnemonic]);
 
   const restore = useCallback(() => {
     if (!password) return;

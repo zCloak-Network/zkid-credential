@@ -1492,6 +1492,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/app-store@workspace:packages/app-store"
   dependencies:
+    "@zcloak/ctype": ^0.0.3
+    "@zcloak/did-resolver": ^0.0.3
+    "@zcloak/keyring": ^0.0.3
+    "@zcloak/message": ^0.0.3
+    "@zcloak/vc": ^0.0.3
     dexie: ^3.2.2
     dexie-observable: ^3.0.0-beta.11
     dexie-react-hooks: ^1.1.1
@@ -1510,7 +1515,15 @@ __metadata:
     "@mui/material": ^5.10.5
     "@svgr/webpack": ^6.3.1
     "@types/punycode": ^2.1.0
-    "@zcloak/dev": ^0.6.5
+    "@zcloak/crypto": ^0.0.3
+    "@zcloak/ctype": ^0.0.3
+    "@zcloak/dev": ^0.6.6
+    "@zcloak/did": ^0.0.3
+    "@zcloak/did-resolver": ^0.0.3
+    "@zcloak/keyring": ^0.0.3
+    "@zcloak/message": ^0.0.3
+    "@zcloak/vc": ^0.0.3
+    "@zcloak/verify": ^0.0.3
     assert: ^2.0.0
     babel-loader: ^8.2.5
     buffer: ^6.0.3
@@ -1547,6 +1560,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/page-account@workspace:packages/page-account"
   dependencies:
+    "@zcloak/crypto": ^0.0.3
+    "@zcloak/did": ^0.0.3
+    "@zcloak/did-resolver": ^0.0.3
+    "@zcloak/keyring": ^0.0.3
     file-saver: ^2.0.5
   languageName: unknown
   linkType: soft
@@ -1554,38 +1571,65 @@ __metadata:
 "@credential/page-claims@workspace:packages/page-claims":
   version: 0.0.0-use.local
   resolution: "@credential/page-claims@workspace:packages/page-claims"
+  dependencies:
+    "@zcloak/did": ^0.0.3
+    "@zcloak/did-resolver": ^0.0.3
+    "@zcloak/vc": ^0.0.3
   languageName: unknown
   linkType: soft
 
 "@credential/page-ctype@workspace:packages/page-ctype":
   version: 0.0.0-use.local
   resolution: "@credential/page-ctype@workspace:packages/page-ctype"
+  dependencies:
+    "@zcloak/ctype": ^0.0.3
+    "@zcloak/did": ^0.0.3
+    "@zcloak/did-resolver": ^0.0.3
   languageName: unknown
   linkType: soft
 
 "@credential/page-did@workspace:packages/page-did":
   version: 0.0.0-use.local
   resolution: "@credential/page-did@workspace:packages/page-did"
+  dependencies:
+    "@zcloak/crypto": ^0.0.3
+    "@zcloak/did": ^0.0.3
+    "@zcloak/did-resolver": ^0.0.3
+    "@zcloak/keyring": ^0.0.3
   languageName: unknown
   linkType: soft
 
 "@credential/page-message@workspace:packages/page-message":
   version: 0.0.0-use.local
   resolution: "@credential/page-message@workspace:packages/page-message"
+  dependencies:
+    "@zcloak/crypto": ^0.0.3
+    "@zcloak/ctype": ^0.0.3
+    "@zcloak/did": ^0.0.3
+    "@zcloak/did-resolver": ^0.0.3
+    "@zcloak/keyring": ^0.0.3
+    "@zcloak/message": ^0.0.3
+    "@zcloak/vc": ^0.0.3
   languageName: unknown
   linkType: soft
 
 "@credential/page-tasks@workspace:packages/page-tasks":
   version: 0.0.0-use.local
   resolution: "@credential/page-tasks@workspace:packages/page-tasks"
+  dependencies:
+    "@zcloak/ctype": ^0.0.3
+    "@zcloak/did": ^0.0.3
+    "@zcloak/did-resolver": ^0.0.3
+    "@zcloak/message": ^0.0.3
+    "@zcloak/vc": ^0.0.3
   languageName: unknown
   linkType: soft
 
-"@credential/react-components@0.17.1, @credential/react-components@workspace:packages/react-components":
+"@credential/react-components@0.0.0, @credential/react-components@workspace:packages/react-components":
   version: 0.0.0-use.local
   resolution: "@credential/react-components@workspace:packages/react-components"
   dependencies:
-    "@credential/react-hooks": 0.17.1
+    "@credential/react-hooks": 0.0.0
     "@date-io/date-fns": ^2.14.0
     "@date-io/moment": ^2.14.0
     "@emotion/react": ^11.10.4
@@ -1595,7 +1639,14 @@ __metadata:
     "@mui/lab": ^5.0.0-alpha.99
     "@mui/material": ^5.10.5
     "@mui/x-date-pickers": ^5.0.1
+    "@zcloak/ctype": ^0.0.3
+    "@zcloak/did": ^0.0.3
+    "@zcloak/did-resolver": ^0.0.3
     "@zcloak/extension-core": ^0.3.1
+    "@zcloak/keyring": ^0.0.3
+    "@zcloak/message": ^0.0.3
+    "@zcloak/vc": ^0.0.3
+    "@zcloak/verify": ^0.0.3
     qr-scanner: ^1.4.1
     qrcode-generator: ^1.4.4
     react-dropzone: ^14.2.2
@@ -1606,29 +1657,48 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/react-ctype@workspace:packages/react-ctype"
   dependencies:
-    "@credential/react-components": 0.17.1
-    "@credential/react-dids": 0.17.1
+    "@credential/react-components": 0.0.0
+    "@credential/react-dids": 0.0.0
     "@mui/lab": ^5.0.0-alpha.99
     "@mui/material": ^5.10.5
+    "@zcloak/ctype": ^0.0.3
   languageName: unknown
   linkType: soft
 
-"@credential/react-dids@0.17.1, @credential/react-dids@workspace:packages/react-dids":
+"@credential/react-dids@0.0.0, @credential/react-dids@workspace:^, @credential/react-dids@workspace:packages/react-dids":
   version: 0.0.0-use.local
   resolution: "@credential/react-dids@workspace:packages/react-dids"
   dependencies:
     "@mui/material": ^5.10.5
     "@polkadot/util": ^10.1.12
+    "@zcloak/crypto": ^0.0.3
+    "@zcloak/ctype": ^0.0.3
+    "@zcloak/did": ^0.0.3
+    "@zcloak/did-resolver": ^0.0.3
+    "@zcloak/keyring": ^0.0.3
+    "@zcloak/message": ^0.0.3
+    "@zcloak/vc": ^0.0.3
+    "@zcloak/verify": ^0.0.3
     eventemitter3: ^4.0.7
   languageName: unknown
   linkType: soft
 
-"@credential/react-hooks@0.17.1, @credential/react-hooks@workspace:packages/react-hooks":
+"@credential/react-hooks@0.0.0, @credential/react-hooks@workspace:packages/react-hooks":
   version: 0.0.0-use.local
   resolution: "@credential/react-hooks@workspace:packages/react-hooks"
   dependencies:
-    "@zcloak/service": ^0.3.1
+    "@credential/react-dids": "workspace:^"
+    "@polkadot/util": ^10.1.12
+    "@zcloak/crypto": ^0.0.3
+    "@zcloak/ctype": ^0.0.3
+    "@zcloak/did": ^0.0.3
+    "@zcloak/did-resolver": ^0.0.3
+    "@zcloak/keyring": ^0.0.3
+    "@zcloak/message": ^0.0.3
+    "@zcloak/vc": ^0.0.3
+    "@zcloak/verify": ^0.0.3
     copy-to-clipboard: ^3.3.2
+    react-router-dom: ^6.4.3
     search-query-parser: ^1.6.0
     ua-parser-js: ^1.0.2
   languageName: unknown
@@ -4165,9 +4235,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/dev@npm:^0.6.5":
-  version: 0.6.5
-  resolution: "@zcloak/dev@npm:0.6.5"
+"@zcloak/dev@npm:^0.6.6":
+  version: 0.6.6
+  resolution: "@zcloak/dev@npm:0.6.6"
   dependencies:
     "@babel/cli": ^7.19.3
     "@babel/core": ^7.20.2
@@ -4195,7 +4265,7 @@ __metadata:
     "@rushstack/eslint-patch": ^1.2.0
     "@typescript-eslint/eslint-plugin": ^5.42.1
     "@typescript-eslint/parser": ^5.42.1
-    "@zcloak/lint": 0.6.5
+    "@zcloak/lint": 0.6.6
     babel-jest: ^29.3.1
     babel-plugin-module-extension-resolver: ^1.0.0-rc.2
     babel-plugin-module-resolver: ^4.1.0
@@ -4261,7 +4331,7 @@ __metadata:
     zcloak-exec-rollup: scripts/zcloak-exec-rollup.mjs
     zcloak-exec-tsc: scripts/zcloak-exec-tsc.mjs
     zcloak-exec-webpack: scripts/zcloak-exec-webpack.mjs
-  checksum: 9ed96ea4339baeb225c229df6857036e0071fbfb50d4abd54251aba9ae395f9bc6d9555343c9c14eda274259613dd984875f994d819b7d1a0dcef8dfc822b4c1
+  checksum: 36e9cd9c28502b6f5eeb860f1741847d02f021f11eabe58b36b242a4b2ab9e243d62e7e1f016d1ab8857e0086440e061e23327a93808b4f2c01117f47f90dfd3
   languageName: node
   linkType: hard
 
@@ -4303,15 +4373,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/lint@npm:0.6.5":
-  version: 0.6.5
-  resolution: "@zcloak/lint@npm:0.6.5"
+"@zcloak/lint@npm:0.6.6":
+  version: 0.6.6
+  resolution: "@zcloak/lint@npm:0.6.6"
   dependencies:
     chalk: ^5.1.2
     glob: ^8.0.3
     parse-imports-ts: ^1.0.2
     throat: ^6.0.1
-  checksum: 0652783e49456b2de673d30450607d40eaa5f68e6979dc56dffc60a9c3d26e3063dd77bc19297bed906a9072f992749e7553ab2782a6cd7dc410d4a28ff4e386
+  checksum: c11b643571e3d60d63e93ca7d12d4bf3b2b01e4f8e70fb2a2a0818d3932b90672443b48ff3607ab23dfbdbfaf7608dd4b225556391cb3cec03c5af11be80bf50
   languageName: node
   linkType: hard
 
@@ -4325,13 +4395,6 @@ __metadata:
     "@zcloak/did-resolver": 0.0.3
     "@zcloak/vc": 0.0.3
   checksum: d2a408df38d043d62b9a2ef95bf85ae4044882781af3ea2794a868b759f46fa22aa40b27995d5387cda7a4ee6d04e46bdce6a9990f0ee3cad246fb9bf6dacf95
-  languageName: node
-  linkType: hard
-
-"@zcloak/service@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@zcloak/service@npm:0.2.1"
-  checksum: b1e7544e6d7e4ea270666a6797ae54af11878f1f8a981f1dfd7393bd88ef6caad0bf597822ecd4c0cda99d2e156998ce521d6d3d631c8abd3ecfb23cc6de8cb4
   languageName: node
   linkType: hard
 
@@ -13188,7 +13251,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^6.3.0":
+"react-router-dom@npm:^6.3.0, react-router-dom@npm:^6.4.3":
   version: 6.4.3
   resolution: "react-router-dom@npm:6.4.3"
   dependencies:
@@ -13791,16 +13854,7 @@ __metadata:
     "@types/react": ^18.0.17
     "@types/react-dom": ^18.0.6
     "@types/ua-parser-js": ^0.7.36
-    "@zcloak/crypto": ^0.0.3
-    "@zcloak/ctype": ^0.0.3
-    "@zcloak/dev": ^0.6.5
-    "@zcloak/did": ^0.0.3
-    "@zcloak/did-resolver": ^0.0.3
-    "@zcloak/keyring": ^0.0.3
-    "@zcloak/message": ^0.0.3
-    "@zcloak/service": ^0.3.1
-    "@zcloak/vc": ^0.0.3
-    "@zcloak/verify": ^0.0.3
+    "@zcloak/dev": ^0.6.6
     concurrently: ^7.2.1
     devtron: ^1.4.0
     material-ui-popup-state: ^4.0.2

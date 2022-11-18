@@ -1,12 +1,13 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { CType } from '@zcloak/ctype/types';
+import type { BaseCType, CType } from '@zcloak/ctype/types';
 import type { Did } from '@zcloak/did';
 import type { RawCredential, VerifiableCredential } from '@zcloak/vc/types';
 
 import { assert } from '@polkadot/util';
 
+import { getPublish } from '@zcloak/ctype';
 import { VerifiableCredentialBuilder } from '@zcloak/vc';
 
 export async function signAndBuildVC(
@@ -25,4 +26,13 @@ export async function signAndBuildVC(
   const vc = builder.build(sender);
 
   return Promise.resolve(vc);
+}
+
+export async function signCType(base?: BaseCType | null, publisher?: Did | null): Promise<CType> {
+  assert(publisher, 'No publisher did provided');
+  assert(base, 'No BaseType provided');
+
+  const ctype = getPublish(base, publisher);
+
+  return Promise.resolve(ctype);
 }

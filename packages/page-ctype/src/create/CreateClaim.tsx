@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CType } from '@zcloak/ctype/types';
+import type { AnyJson } from '@zcloak/vc/types';
 
 import { Box, Button, Typography } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
@@ -23,7 +24,7 @@ import SubmitClaim from './SubmitClaim';
 function CreateClaim({ ctype }: { ctype: CType }) {
   const [open, toggleOpen] = useToggle();
   const [attester, setAttester] = useState<Did | null>(null);
-  const [contents, setContents] = useState<Record<string, unknown>>({});
+  const [contents, setContents] = useState<AnyJson>({});
   const [contentsError, setContentsError] = useState<Record<string, Error | null | undefined>>({});
   const navigate = useNavigate();
 

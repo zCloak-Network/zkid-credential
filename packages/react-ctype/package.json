@@ -14,11 +14,12 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.17.1",
+  "version": "0.0.0",
   "dependencies": {
-    "@credential/react-components": "0.17.1",
-    "@credential/react-dids": "0.17.1",
+    "@credential/react-components": "0.0.0",
+    "@credential/react-dids": "0.0.0",
     "@mui/lab": "^5.0.0-alpha.99",
-    "@mui/material": "^5.10.5"
+    "@mui/material": "^5.10.5",
+    "@zcloak/ctype": "^0.0.3"
   }
 }

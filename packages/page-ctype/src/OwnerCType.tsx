@@ -17,6 +17,7 @@ const OwnerCType: React.FC = () => {
   useEffect(() => {
     if (did) {
       // TODO fetch ownCTYpes
+      setOwnCTypes([]);
     }
   }, [did]);
 

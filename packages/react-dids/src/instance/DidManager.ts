@@ -42,7 +42,7 @@ export class DidManager extends Events {
 
   public addDid(did: Did): void {
     this.#dids.set(did.id, did);
-    localStorage.setItem(did.id, JSON.stringify(JSON.stringify(did.getDocument())));
+    localStorage.setItem(did.id, JSON.stringify(did.getDocument()));
     this.emit('add', did);
   }
 

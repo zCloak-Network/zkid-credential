@@ -3,6 +3,7 @@
 
 import type React from 'react';
 import type { InstanceType } from '@zcloak/ctype/types';
+import type { NativeType } from '@zcloak/vc/types';
 
 export interface ItemProps {
   name: string;
@@ -10,7 +11,7 @@ export interface ItemProps {
   type?: InstanceType;
   defaultValue?: unknown;
   onError?: (key: string, error: Error | null) => void;
-  onChange?: (key: string, value: unknown) => void;
+  onChange?: (key: string, value: NativeType) => void;
 }
 
 export type ItemMap = Record<InstanceType, React.FC<ItemProps>>;

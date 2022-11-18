@@ -3,6 +3,7 @@
 
 import type { CType } from '@zcloak/ctype/types';
 import type { Did } from '@zcloak/did';
+import type { NativeType } from '@zcloak/vc/types';
 
 import { Box, FormControl, InputLabel, OutlinedInput, Stack } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -15,8 +16,8 @@ const CTypeForm: React.FC<
   React.PropsWithChildren<{
     cType: CType;
     disabled?: boolean;
-    defaultData?: Record<string, unknown>;
-    onChange?: (data: Record<string, unknown>) => void;
+    defaultData?: Record<string, NativeType>;
+    onChange?: (data: Record<string, NativeType>) => void;
     onError?: (error: Record<string, Error | null | undefined>) => void;
     defaultAttester?: string;
     handleAttester?: (value: Did | null) => void;
@@ -31,10 +32,10 @@ const CTypeForm: React.FC<
   defaultData = {},
   children
 }) => {
-  const [data, setData] = useState<Record<string, unknown>>(defaultData);
+  const [data, setData] = useState<Record<string, NativeType>>(defaultData);
   const [error, setError] = useState<Record<string, Error | null | undefined>>({});
 
-  const _onChange = useCallback((key: string, value: unknown) => {
+  const _onChange = useCallback((key: string, value: NativeType) => {
     setData((data) => ({
       ...data,
       [key]: value

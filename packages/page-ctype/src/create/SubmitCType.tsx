@@ -2,11 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Button } from '@mui/material';
-import React, { useCallback, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 
-import { DidsModal, useDerivedDid } from '@credential/react-dids';
-import { didManager } from '@credential/react-dids/initManager';
-import { addCtype, signAndSend, Steps } from '@credential/react-dids/steps';
+import { BaseCType, CType } from '@zcloak/ctype/types';
+
+import { DidsContext, DidsModal } from '@credential/react-dids';
+import { addCtype, signCType, Steps } from '@credential/react-dids/steps';
 import { useToggle } from '@credential/react-hooks';
 
 const SubmitCType: React.FC<{
@@ -15,38 +16,23 @@ const SubmitCType: React.FC<{
   onDone: () => void;
   description?: string;
 }> = ({ description, onDone, properties, title }) => {
+  const { did: publisher } = useContext(DidsContext);
   const [open, toggleOpen] = useToggle();
-  const attester = useDerivedDid();
+  const [ctype, setCType] = useState<CType>();
 
-  const ctype = useMemo(() => {
-    if (!properties || !title) return null;
-
-    try {
-      return CType.fromSchema({
-        title,
-        $schema: 'http://kilt-protocol.org/draft-01/ctype#',
-        type: 'object',
-        properties
-      });
-    } catch (error) {
-      return null;
-    }
-  }, [properties, title]);
-
-  const getExtrinsic = useCallback(async () => {
-    if (!ctype) {
-      throw new Error('Ctype generate failed');
-    }
-
-    if (!(attester instanceof Did.FullDidDetails)) {
-      throw new Error('The DID with the given identifier is not on chain.');
-    }
-
-    const tx = await ctype.getStoreTx();
-    const extrinsic = await attester.authorizeExtrinsic(tx, didManager, attester.identifier);
-
-    return extrinsic;
-  }, [attester, ctype]);
+  const base: BaseCType | null = useMemo(
+    () =>
+      title && description && properties
+        ? {
+            title,
+            description,
+            type: 'object',
+            properties,
+            required: []
+          }
+        : null,
+    [description, properties, title]
+  );
 
   return (
     <>
@@ -61,19 +47,13 @@ const SubmitCType: React.FC<{
             onDone={onDone}
             steps={[
               {
-                label: 'Sign and submit ctype',
+                label: 'Sign ctype',
                 paused: true,
-                exec: (report) =>
-                  signAndSend(
-                    report,
-                    didManager,
-                    attester?.authenticationKey.publicKey,
-                    getExtrinsic
-                  )
+                exec: () => signCType(base, publisher).then(setCType)
               },
               {
                 label: 'Upload ctype',
-                exec: () => addCtype(ctype, attester?.uri, description)
+                exec: () => addCtype(ctype)
               }
             ]}
             submitText="Submit ctype"
