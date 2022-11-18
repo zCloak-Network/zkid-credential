@@ -1,8 +1,8 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { DecryptedMessage, MessageType, RejectAttestation } from '@zcloak/message/types';
-import type { RawCredential, VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/types';
+import type { Message, MessageType } from '@zcloak/message/types';
+import type { VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/types';
 
 import Circle from '@mui/icons-material/Circle';
 import {
@@ -16,34 +16,41 @@ import {
   useTheme
 } from '@mui/material';
 import moment from 'moment';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { decryptMessage } from '@zcloak/message';
 
 import { IconNewMessage, IconNewTask } from '@credential/app-config/icons';
 import { CredentialModal, CTypeName } from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
+import { didManager, resolver } from '@credential/react-dids/instance';
 import { useToggle } from '@credential/react-hooks';
 
-function getCredential(message: DecryptedMessage<MessageType>): VerifiableCredential | null {
-  switch (message.msgType) {
+async function getCredential(message: Message<MessageType>): Promise<VerifiableCredential | null> {
+  const did = didManager.getDid(message.receiver);
+
+  const decryptedMessage = await decryptMessage(message, did, resolver);
+
+  switch (decryptedMessage.msgType) {
     case 'Send_VP':
-      return (message.data as VerifiablePresentation).verifiableCredential[0];
+      return (decryptedMessage.data as VerifiablePresentation).verifiableCredential[0];
 
     case 'Response_Accept_VP':
-      return (message.data as VerifiablePresentation).verifiableCredential[0];
+      return (decryptedMessage.data as VerifiablePresentation).verifiableCredential[0];
 
     case 'Send_issuedVC':
-      return message.data as VerifiableCredential;
+      return decryptedMessage.data as VerifiableCredential;
 
     case 'Response_Approve_Attestation':
-      return message.data as VerifiableCredential;
+      return decryptedMessage.data as VerifiableCredential;
 
     default:
       return null;
   }
 }
 
-function getDesc({ data, msgType, sender }: DecryptedMessage<MessageType>): React.ReactNode {
+function getDesc({ ctype, msgType, sender }: Message<MessageType>): React.ReactNode {
   switch (msgType) {
     case 'Request_Attestation':
       return (
@@ -53,7 +60,7 @@ function getDesc({ data, msgType, sender }: DecryptedMessage<MessageType>): Reac
           </Link>{' '}
           submitted{' '}
           <Link>
-            <CTypeName cTypeHash={(data as RawCredential).ctype} />
+            <CTypeName cTypeHash={ctype} />
           </Link>{' '}
           verification request, Please deal with it in time!
         </>
@@ -67,7 +74,7 @@ function getDesc({ data, msgType, sender }: DecryptedMessage<MessageType>): Reac
           </Link>{' '}
           approved{' '}
           <Link>
-            <CTypeName cTypeHash={(data as VerifiableCredential).ctype} />
+            <CTypeName cTypeHash={ctype} />
           </Link>{' '}
           attestation
         </>
@@ -81,7 +88,7 @@ function getDesc({ data, msgType, sender }: DecryptedMessage<MessageType>): Reac
           </Link>{' '}
           rejected{' '}
           <Link>
-            <CTypeName cTypeHash={(data as RejectAttestation).ctype} />
+            <CTypeName cTypeHash={ctype} />
           </Link>
           attestation
         </>
@@ -104,14 +111,14 @@ function Cell({
   onRead
 }: {
   isRead: boolean;
-  message: DecryptedMessage<MessageType>;
+  message: Message<MessageType>;
   onRead: () => void;
 }) {
   const theme = useTheme();
   const upSm = useMediaQuery(theme.breakpoints.up('sm'));
   const navigate = useNavigate();
 
-  const credential = useMemo(() => getCredential(message), [message]);
+  const credential = useRef<VerifiableCredential | null>(null);
 
   const [open, toggleOpen] = useToggle();
 
@@ -122,10 +129,15 @@ function Cell({
 
     if (message.msgType === 'Request_Attestation') {
       navigate(`/attester/tasks/${message.id}`);
-    } else if (credential) {
-      toggleOpen();
+    } else {
+      getCredential(message).then((_credential) => {
+        if (_credential) {
+          credential.current = _credential;
+          toggleOpen();
+        }
+      });
     }
-  }, [credential, message.id, message.msgType, navigate, onRead, toggleOpen]);
+  }, [message, navigate, onRead, toggleOpen]);
 
   return (
     <>
@@ -189,7 +201,9 @@ function Cell({
           )}
         </Box>
       </Stack>
-      {open && credential && <CredentialModal credential={credential} onClose={toggleOpen} />}
+      {open && credential.current && (
+        <CredentialModal credential={credential.current} onClose={toggleOpen} />
+      )}
     </>
   );
 }

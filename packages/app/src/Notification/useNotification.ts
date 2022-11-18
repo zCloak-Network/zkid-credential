@@ -1,30 +1,70 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { DecryptedMessage, MessageType } from '@zcloak/message/types';
+import type { MessageType } from '@zcloak/message/types';
 
-import { useMemo } from 'react';
+import type { MessageWithMeta } from '@credential/react-hooks/types';
+
+import { useContext, useMemo } from 'react';
+
+import { DidsContext } from '@credential/react-dids';
+import { useMessages } from '@credential/react-hooks';
+
+type All = MessageWithMeta<MessageType>;
+type Task = MessageWithMeta<'Request_Attestation'>;
+type Message = MessageWithMeta<Exclude<MessageType, 'Request_Attestation'>>;
 
 export type UseNotification = {
-  all: DecryptedMessage<MessageType>[];
-  task: DecryptedMessage<'Request_Attestation'>[];
-  message: DecryptedMessage<Exclude<MessageType, 'Request_Attestation'>>[];
+  all: All[];
+  task: Task[];
+  message: Message[];
   allUnread: number;
   taskUnread: number;
   messageUnread: number;
 };
 
+function getNotification(messages: All[]): UseNotification {
+  const _all: All[] = [];
+  const _task: Task[] = [];
+  const _message: Message[] = [];
+  let allUnread = 0;
+  let taskUnread = 0;
+  let messageUnread = 0;
+
+  for (const message of messages) {
+    _all.push(message);
+
+    if (!message.meta.isRead) {
+      allUnread++;
+
+      if (message.msgType === 'Request_Attestation') {
+        taskUnread++;
+      } else {
+        messageUnread++;
+      }
+    }
+
+    if (message.msgType === 'Request_Attestation') {
+      _task.push(message as Task);
+    } else {
+      _message.push(message as Message);
+    }
+  }
+
+  return {
+    all: _all,
+    task: _task,
+    message: _message,
+    allUnread,
+    taskUnread,
+    messageUnread
+  };
+}
+
 export function useNotification(): UseNotification {
-  return useMemo(
-    () =>
-      ({
-        all: [],
-        task: [],
-        message: [],
-        allUnread: [],
-        taskUnread: [],
-        messageUnread: []
-      } as any),
-    []
-  );
+  const { did } = useContext(DidsContext);
+
+  const messages = useMessages('received', did?.id);
+
+  return useMemo(() => getNotification(messages), [messages]);
 }

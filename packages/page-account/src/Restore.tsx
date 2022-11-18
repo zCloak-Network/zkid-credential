@@ -1,6 +1,8 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { DidUrl } from '@zcloak/did-resolver/types';
+
 import { alpha, Box, Button, Container, Typography } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -16,16 +18,19 @@ const Restore: React.FC = () => {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<number>();
   const [redirect] = useQueryParam<string>('redirect');
+  const [didUrl, setDidUrl] = useState<DidUrl>();
 
-  const onSuccess = useCallback(() => {
+  const onSuccess = useCallback((didUrl: DidUrl) => {
+    setDidUrl(didUrl);
     setSuccess(true);
   }, []);
 
   return (
     <Container maxWidth="sm" sx={{ mt: 8 }}>
-      {success ? (
+      {success && didUrl ? (
         <Success
           desc="Remember to keep your secret recovery phrase safe, it’s your responsibility."
+          didUrl={didUrl}
           title="Your account has been restored account!"
           toggleStart={() => navigate(`/${redirect ?? 'claimer'}`)}
         />

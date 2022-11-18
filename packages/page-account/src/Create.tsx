@@ -1,6 +1,8 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { DidUrl } from '@zcloak/did-resolver/types';
+
 import {
   Container,
   Stack,
@@ -29,6 +31,7 @@ const Create: React.FC = () => {
   const mnemonic = useMemo(() => generateMnemonic(12), []);
   const navigate = useNavigate();
   const [redirect] = useQueryParam<string>('redirect');
+  const [didUrl, setDidUrl] = useState<DidUrl>();
 
   const nextStep = useCallback(() => {
     setStep((step) => step + 1);
@@ -39,9 +42,10 @@ const Create: React.FC = () => {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 4 }}>
-      {step === 3 ? (
+      {step === 3 && didUrl ? (
         <Success
           desc="Remember to keep your secret recovery phrase safe, it’s your responsibility."
+          didUrl={didUrl}
           title="Your account has been restored account!"
           toggleStart={() => navigate(`/${redirect ?? 'claimer'}`)}
         />
@@ -88,6 +92,7 @@ const Create: React.FC = () => {
               nextStep={nextStep}
               password={password}
               prevStep={prevStep}
+              setDidUrl={setDidUrl}
             />
           )}
         </Stack>

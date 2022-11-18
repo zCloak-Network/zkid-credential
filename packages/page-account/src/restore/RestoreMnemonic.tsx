@@ -1,6 +1,8 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { DidUrl } from '@zcloak/did-resolver/types';
+
 import { Button, Divider, FormControl, InputLabel, OutlinedInput, Stack } from '@mui/material';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 
@@ -9,7 +11,7 @@ import { validateMnemonic } from '@zcloak/crypto';
 import { InputPassword, NotificationContext } from '@credential/react-components';
 import { didManager, keyring } from '@credential/react-dids/instance';
 
-const RestoreMnemonic: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
+const RestoreMnemonic: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess }) => {
   const [password, setPassword] = useState<string>();
   const { notifyError } = useContext(NotificationContext);
   const [mnemonic, setMnemonic] = useState<string>();
@@ -23,8 +25,9 @@ const RestoreMnemonic: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => 
 
     try {
       keyring.unlock(password);
-      didManager.create(mnemonic);
-      onSuccess();
+      const did = didManager.create(mnemonic);
+
+      onSuccess(did.id);
     } catch (error) {
       notifyError(error);
     }
