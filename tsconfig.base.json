@@ -1,0 +1,36 @@
+{
+  "extends": "@zcloak/dev/config/tsconfig.json",
+  "compilerOptions": {
+    "composite": false,
+    "jsx": "react-jsx",
+    "paths": {
+      "@credential/app": ["app/src"],
+      "@credential/app/*": ["app/src/*"],
+      "@credential/app-config": ["app-config/src"],
+      "@credential/app-config/*": ["app-config/src/*"],
+      "@credential/app-store": ["app-store/src"],
+      "@credential/app-store/*": ["app-store/src/*"],
+      "@credential/page-account": ["page-account/src"],
+      "@credential/page-account/*": ["page-account/src/*"],
+      "@credential/page-claims": ["page-claims/src"],
+      "@credential/page-claims/*": ["page-claims/src/*"],
+      "@credential/page-ctype": ["page-ctype/src"],
+      "@credential/page-ctype/*": ["page-ctype/src/*"],
+      "@credential/page-did": ["page-did/src"],
+      "@credential/page-did/*": ["page-did/src/*"],
+      "@credential/page-message": ["page-message/src"],
+      "@credential/page-message/*": ["page-message/src/*"],
+      "@credential/page-tasks": ["page-tasks/src"],
+      "@credential/page-tasks/*": ["page-tasks/src/*"],
+      "@credential/react-components": ["react-components/src"],
+      "@credential/react-components/*": ["react-components/src/*"],
+      "@credential/react-ctype": ["react-ctype/src"],
+      "@credential/react-ctype/*": ["react-ctype/src/*"],
+      "@credential/react-dids": ["react-dids/src"],
+      "@credential/react-dids/*": ["react-dids/src/*"],
+      "@credential/react-hooks": ["react-hooks/src"],
+      "@credential/react-hooks/*": ["react-hooks/src/*"],
+    },
+    "skipLibCheck": true
+  }
+}

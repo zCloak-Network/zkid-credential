@@ -1,0 +1,18 @@
+{
+  "author": "zCloak",
+  "bugs": "https://github.com/zCloak-Network/credential-interface/issues",
+  "contributors": [],
+  "description": "credential page-ctype",
+  "homepage": "https://github.com/zCloak-Network/credential-interface/tree/master/packages/page-ctype#readme",
+  "license": "Apache-2.0",
+  "maintainers": [],
+  "name": "@credential/page-ctype",
+  "repository": {
+    "directory": "packages/page-ctype",
+    "type": "git",
+    "url": "https://github.com/zCloak-Network/credential-interface.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.17.1"
+}

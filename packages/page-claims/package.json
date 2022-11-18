@@ -1,0 +1,18 @@
+{
+  "author": "zCloak",
+  "bugs": "https://github.com/zCloak-Network/credential-interface/issues",
+  "contributors": [],
+  "description": "credential page-claims",
+  "homepage": "https://github.com/zCloak-Network/credential-interface/tree/master/packages/page-claims#readme",
+  "license": "Apache-2.0",
+  "maintainers": [],
+  "name": "@credential/page-claims",
+  "repository": {
+    "directory": "packages/page-claims",
+    "type": "git",
+    "url": "https://github.com/zCloak-Network/credential-interface.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.17.1"
+}

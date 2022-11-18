@@ -1,0 +1,18 @@
+{
+  "author": "zCloak",
+  "bugs": "https://github.com/zCloak-Network/credential-interface/issues",
+  "contributors": [],
+  "description": "credential app-config",
+  "homepage": "https://github.com/zCloak-Network/credential-interface/tree/master/packages/app-config#readme",
+  "license": "Apache-2.0",
+  "maintainers": [],
+  "name": "@credential/app-config",
+  "repository": {
+    "directory": "packages/app-config",
+    "type": "git",
+    "url": "https://github.com/zCloak-Network/credential-interface.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.17.1"
+}

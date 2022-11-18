@@ -1,0 +1,24 @@
+{
+  "author": "zCloak",
+  "bugs": "https://github.com/zCloak-Network/credential-interface/issues",
+  "contributors": [],
+  "description": "credential react-hooks",
+  "homepage": "https://github.com/zCloak-Network/credential-interface/tree/master/packages/react-hooks#readme",
+  "license": "Apache-2.0",
+  "maintainers": [],
+  "name": "@credential/react-hooks",
+  "repository": {
+    "directory": "packages/react-hooks",
+    "type": "git",
+    "url": "https://github.com/zCloak-Network/credential-interface.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.17.1",
+  "dependencies": {
+    "@zcloak/service": "^0.3.1",
+    "copy-to-clipboard": "^3.3.2",
+    "search-query-parser": "^1.6.0",
+    "ua-parser-js": "^1.0.2"
+  }
+}

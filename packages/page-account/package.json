@@ -1,0 +1,21 @@
+{
+  "author": "zCloak",
+  "bugs": "https://github.com/zCloak-Network/credential-interface/issues",
+  "contributors": [],
+  "description": "credential page-account",
+  "homepage": "https://github.com/zCloak-Network/credential-interface/tree/master/packages/page-account#readme",
+  "license": "Apache-2.0",
+  "maintainers": [],
+  "name": "@credential/page-account",
+  "repository": {
+    "directory": "packages/page-account",
+    "type": "git",
+    "url": "https://github.com/zCloak-Network/credential-interface.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.17.1",
+  "dependencies": {
+    "file-saver": "^2.0.5"
+  }
+}
