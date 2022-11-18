@@ -4,8 +4,10 @@
 import type { CType } from '@zcloak/ctype/types';
 
 import { assert } from '@polkadot/util';
-import { resolver } from '../instance';
+
 import { getDB } from '@credential/app-store';
+
+import { resolver } from '../instance';
 
 export async function addCtype(ctype?: CType | null): Promise<void> {
   assert(ctype, 'No ctype found');

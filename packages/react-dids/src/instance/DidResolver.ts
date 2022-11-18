@@ -66,7 +66,7 @@ export class CredentialDidResolver extends ArweaveDidResolver {
     if (res?.code !== 200) {
       throw new Error(res?.message);
     } else {
-      return res.data.rawData;;
+      return res.data.rawData;
     }
   }
 

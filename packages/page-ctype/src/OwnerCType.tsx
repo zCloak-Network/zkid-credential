@@ -2,25 +2,25 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Box, Stack, Tab, Tabs } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
 import { assert } from '@polkadot/util';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { CType } from '@zcloak/ctype/types';
 
+import { useDB } from '@credential/app-store/useDB';
 import { DidsContext } from '@credential/react-dids';
+import { resolver } from '@credential/react-dids/instance';
 
 import CTypes from './CTypes';
-import { resolver } from '@credential/react-dids/instance';
-import { useDB } from '@credential/app-store/useDB';
 
 const OwnerCType: React.FC = () => {
   const { did } = useContext(DidsContext);
   const [ownCTypes, setOwnCTypes] = useState<CType[]>([]);
   const db = useDB(did?.id);
+
   useEffect(() => {
     if (did) {
       // TODO fetch ownCTYpes
-      assert(did?.id, 'did not found');
       assert(db, 'index db not init');
 
       resolver.getClaimerCtypes(did.id).then((ctypes) => {
@@ -28,7 +28,7 @@ const OwnerCType: React.FC = () => {
         db.ctype.bulkPut(ctypes);
       });
     }
-  }, [did]);
+  }, [did, db]);
 
   return (
     <Stack spacing={3}>
