@@ -1,14 +1,14 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { CType } from '@credential/app-store';
+
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { alpha, Box, IconButton, Paper, Stack, styled, Tooltip, Typography } from '@mui/material';
 import React, { useCallback, useContext } from 'react';
 
 import { IconLogoCircle } from '@credential/app-config/icons';
-import { PicCard, PicHeadportrait } from '@credential/app-config/images';
-import { CType } from '@credential/app-db/ctype';
-import { CTypeContext } from '@credential/react-components';
+import { Copy, CTypeContext } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
 import { isMobile } from '@credential/react-hooks/utils/userAgent';
@@ -93,55 +93,39 @@ const Wrapper = styled(Paper)(({ theme }) => ({
   }
 }));
 
-const CTypeCell: React.FC<{ cType: CType }> = ({ cType }) => {
+const CTypeCell: React.FC<{ ctype: CType }> = ({ ctype }) => {
   const { deleteCType } = useContext(CTypeContext);
 
   const handleDelete = useCallback(() => {
-    deleteCType(cType.hash);
-  }, [cType.hash, deleteCType]);
+    deleteCType(ctype.$id);
+  }, [ctype.$id, deleteCType]);
 
   return (
-    <Wrapper
-      sx={
-        cType.type === 'official'
-          ? {
-              background: `url(${PicCard}) no-repeat, #fff`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }
-          : {}
-      }
-    >
-      {cType.type !== 'official' && (
-        <IconButton
-          onClick={handleDelete}
-          size="small"
-          sx={{ position: 'absolute', right: 10, top: 10 }}
-        >
-          <DeleteOutlineOutlinedIcon />
-        </IconButton>
-      )}
+    <Wrapper>
+      <IconButton
+        onClick={handleDelete}
+        size="small"
+        sx={{ position: 'absolute', right: 10, top: 10 }}
+      >
+        <DeleteOutlineOutlinedIcon />
+      </IconButton>
       <Stack spacing={1.5}>
         <Box className="CTypeCell_logo">
-          {cType.type === 'official' ? (
-            <Box component="img" src={PicHeadportrait} sx={{ width: 50, height: 50 }} />
-          ) : (
-            <IconLogoCircle />
-          )}
+          <IconLogoCircle />
         </Box>
-        <Tooltip title={cType.schema.title}>
+        <Tooltip title={ctype.title}>
           <Typography className="CTypeCell_title" variant="h3">
-            {cType.schema.title}
+            {ctype.title}
           </Typography>
         </Tooltip>
         <Stack className="CTypeCell_attester" direction="row" justifyContent="space-between">
           <Box width="50%">
             <Typography sx={({ palette }) => ({ color: palette.grey[600] })} variant="inherit">
-              Attested by
+              Publisher
             </Typography>
-            <Tooltip placement="top" title={cType.owner ?? ''}>
+            <Tooltip placement="top" title={ctype.publisher ?? ''}>
               <Typography sx={{ fontWeight: 500, ...ellipsisMixin() }}>
-                <DidName value={cType.owner} />
+                <DidName value={ctype.publisher} />
               </Typography>
             </Tooltip>
           </Box>
@@ -149,13 +133,16 @@ const CTypeCell: React.FC<{ cType: CType }> = ({ cType }) => {
             <Typography sx={({ palette }) => ({ color: palette.grey[600] })} variant="inherit">
               Hash
             </Typography>
-            <Tooltip placement="top" title={cType.hash ?? ''}>
-              <Typography sx={{ fontWeight: 500, ...ellipsisMixin() }}>{cType.hash}</Typography>
-            </Tooltip>
+            <Stack direction="row" spacing={1}>
+              <Tooltip placement="top" title={ctype.$id ?? ''}>
+                <Typography sx={{ fontWeight: 500, ...ellipsisMixin() }}>{ctype.$id}</Typography>
+              </Tooltip>
+              <Copy value={ctype.$id} />
+            </Stack>
           </Box>
         </Stack>
         <Box className="CTypeCell_actions">
-          <CreateClaim ctype={cType} />
+          <CreateClaim ctype={ctype} />
         </Box>
       </Stack>
     </Wrapper>

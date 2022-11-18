@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@types/punycode": "^2.1.0",
-    "@zcloak/dev": "^0.6.4",
+    "@zcloak/dev": "^0.6.5",
     "assert": "^2.0.0",
     "babel-loader": "^8.2.5",
     "buffer": "^6.0.3",

@@ -2,24 +2,21 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Box, Stack, Tab, Tabs } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { CType } from '@zcloak/ctype/types';
 
-import { useDerivedDid } from '@credential/react-dids';
-import { credentialApi } from '@credential/react-hooks/api';
+import { DidsContext } from '@credential/react-dids';
 
 import CTypes from './CTypes';
 
 const OwnerCType: React.FC = () => {
-  const did = useDerivedDid();
+  const { did } = useContext(DidsContext);
   const [ownCTypes, setOwnCTypes] = useState<CType[]>([]);
 
   useEffect(() => {
     if (did) {
-      credentialApi.getCreatedCtypes(did.uri).then((res) => {
-        setOwnCTypes(res.data.map((d) => d));
-      });
+      // TODO fetch ownCTYpes
     }
   }, [did]);
 

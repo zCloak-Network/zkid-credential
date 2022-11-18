@@ -10,7 +10,7 @@ import CTypeList from './CTypeList';
 import ImportCType from './ImportCType';
 
 const CType: React.FC = () => {
-  const { cTypeList } = useContext(CTypeContext);
+  const { ctypes } = useContext(CTypeContext);
 
   return (
     <Box>
@@ -25,7 +25,7 @@ const CType: React.FC = () => {
         <Typography variant="h2">Credential type</Typography>
         <ImportCType />
       </Box>
-      <CTypeList list={cTypeList} />
+      <CTypeList list={ctypes} />
     </Box>
   );
 };
