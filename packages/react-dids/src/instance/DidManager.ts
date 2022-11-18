@@ -68,13 +68,15 @@ export class DidManager extends Events {
     return Array.from(this.#dids.values());
   }
 
-  public create(mnemonic: string): void {
+  public create(mnemonic: string): Did {
     const did = helpers.createEcdsaFromMnemonic(mnemonic, this.#keyring);
 
     this.addDid(did);
+
+    return did;
   }
 
-  public restore(json: DidKeys$Json, password: string): void {
+  public restore(json: DidKeys$Json, password: string): Did {
     const keyRelationship = new Map<DidUrl, KeyRelationship>();
 
     json.keys.forEach((key, index) => {
@@ -108,6 +110,8 @@ export class DidManager extends Events {
     did.init(this.#keyring);
 
     this.addDid(did);
+
+    return did;
   }
 
   public backup(didUrl: DidUrl, password: string): DidKeys$Json {

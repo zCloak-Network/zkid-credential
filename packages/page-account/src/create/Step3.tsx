@@ -6,7 +6,7 @@ import { Box, Button, FormControl, Grid, InputLabel, OutlinedInput } from '@mui/
 import FileSaver from 'file-saver';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { didManager } from '@credential/react-dids/initManager';
+import { didManager } from '@credential/react-dids/instance';
 
 function random(min = 0, max = 11): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -47,13 +47,13 @@ const Step3: React.FC<{
   const toggleContinue = useCallback(() => {
     if (!password) return;
 
-    const didDetails = didManager.addDidFromMnemonic(mnemonic);
-    const json = didManager.backupDid(didDetails, password);
+    const did = didManager.create(mnemonic);
+    const json = didManager.backup(did.id, password);
     const blobSiningJson = new Blob([JSON.stringify(json)], {
       type: 'text/plain;charset=utf-8'
     });
 
-    FileSaver.saveAs(blobSiningJson, `${json.didUri}.json`);
+    FileSaver.saveAs(blobSiningJson, `${json.didUrl}.json`);
 
     nextStep();
   }, [mnemonic, nextStep, password]);

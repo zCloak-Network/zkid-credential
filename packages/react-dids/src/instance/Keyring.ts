@@ -43,6 +43,8 @@ export class Keyring extends KeyringInstance {
   public override addPair(pair: KeyringPair): KeyringPair {
     const _pair = super.addPair(pair);
 
+    this.savePair(_pair);
+
     return _pair;
   }
 

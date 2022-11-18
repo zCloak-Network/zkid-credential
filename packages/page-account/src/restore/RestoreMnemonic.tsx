@@ -6,7 +6,7 @@ import { mnemonicValidate } from '@polkadot/util-crypto';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 
 import { InputPassword, NotificationContext } from '@credential/react-components';
-import { didManager } from '@credential/react-dids/initManager';
+import { didManager, keyring } from '@credential/react-dids/instance';
 
 const RestoreMnemonic: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
   const [password, setPassword] = useState<string>();
@@ -21,7 +21,8 @@ const RestoreMnemonic: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => 
     if (!isMnemonic) return;
 
     try {
-      didManager.addDidFromMnemonic(mnemonic, password);
+      keyring.unlock(password);
+      didManager.create(mnemonic);
       onSuccess();
     } catch (error) {
       notifyError(error);

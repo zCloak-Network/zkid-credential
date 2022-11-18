@@ -13,27 +13,31 @@ import {
 import React, { useCallback, useContext, useState } from 'react';
 
 import { InputPassword, NotificationContext } from '@credential/react-components';
-import { didManager } from '@credential/react-dids/initManager';
+import { didManager, keyring } from '@credential/react-dids/instance';
 
 const Restore: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
   const [password, setPassword] = useState<string>();
+  const [keyfilePassword, setKeyfilePassword] = useState<string>();
   const [file, setFile] = useState<File>();
   const { notifyError } = useContext(NotificationContext);
 
   const restore = useCallback(() => {
     if (!password) return;
+    if (!keyfilePassword) return;
     if (!file) return;
+
+    keyring.unlock(password);
 
     file
       .text()
       .then((text) => {
-        didManager.addDidFromJson(text, password);
+        didManager.restore(JSON.parse(text), keyfilePassword);
       })
       .then(onSuccess)
       .catch((error) => {
         notifyError(error as Error);
       });
-  }, [file, notifyError, onSuccess, password]);
+  }, [file, keyfilePassword, notifyError, onSuccess, password]);
 
   return (
     <Stack spacing={5.5}>
@@ -66,6 +70,13 @@ const Restore: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         <InputPassword
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter your password"
+        />
+      </FormControl>
+      <FormControl fullWidth variant="outlined">
+        <InputLabel shrink>Enter Keyfile password</InputLabel>
+        <InputPassword
+          onChange={(e) => setKeyfilePassword(e.target.value)}
+          placeholder="Enter keyfile password"
         />
       </FormControl>
       <Button fullWidth onClick={restore} size="large" variant="contained">
