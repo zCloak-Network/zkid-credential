@@ -1,12 +1,18 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { DecryptedTask } from '@credential/react-hooks/types';
+
 import { Box, Container, Dialog, DialogActions, DialogContent, Stack } from '@mui/material';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import { decryptMessage } from '@zcloak/message';
 
 import { DialogHeader } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
+import { DidsContext } from '@credential/react-dids';
+import { resolver } from '@credential/react-dids/instance';
 import { useTask } from '@credential/react-hooks';
 
 import Approve from './Approve';
@@ -15,12 +21,20 @@ import Details from './Details';
 import Reject from './Reject';
 
 const RequestDetails: React.FC = () => {
+  const { did } = useContext(DidsContext);
   const { id } = useParams<{ id: string }>();
 
   const task = useTask(id);
   const navigate = useNavigate();
+  const [decrypted, setDecrypted] = useState<DecryptedTask>();
 
-  if (!task) {
+  useEffect(() => {
+    if (did && task) {
+      decryptMessage(task, did, resolver).then((message) => setDecrypted({ ...message, ...task }));
+    }
+  }, [did, task]);
+
+  if (!decrypted) {
     return <Dialog fullScreen open></Dialog>;
   }
 
@@ -34,8 +48,8 @@ const RequestDetails: React.FC = () => {
         maxWidth="lg"
         sx={{ background: 'transparent !important' }}
       >
-        <ClaimInfo showActions task={task} />
-        <Details contents={task.data.credentialSubject} />
+        <ClaimInfo showActions task={decrypted} />
+        <Details contents={decrypted.data.credentialSubject} />
       </Container>
       <DialogActions>
         <Stack
@@ -44,8 +58,8 @@ const RequestDetails: React.FC = () => {
           spacing={1.5}
           sx={{ display: { md: 'none', xs: 'flex' } }}
         >
-          {task.status === 'pending' && <Approve task={task} />}
-          {task.status === 'pending' && <Reject task={task} />}
+          {decrypted.meta.taskStatus === 'pending' && <Approve task={decrypted} />}
+          {decrypted.meta.taskStatus === 'pending' && <Reject task={decrypted} />}
         </Stack>
       </DialogActions>
     </Dialog>

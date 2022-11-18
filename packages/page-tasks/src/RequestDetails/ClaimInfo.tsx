@@ -1,7 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Task } from '@credential/react-hooks/types';
+import type { DecryptedTask } from '@credential/react-hooks/types';
 
 import { Box, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -52,7 +52,7 @@ function Cell({ content, label }: { label: string; content: React.ReactNode }) {
 
 const ClaimInfo: React.FC<{
   showActions: boolean;
-  task: Task;
+  task: DecryptedTask;
 }> = ({ showActions, task }) => {
   const rootHash = useRootHash(
     task.data.credentialSubject,
@@ -85,8 +85,8 @@ const ClaimInfo: React.FC<{
             spacing={1.5}
             sx={{ display: { md: 'flex', xs: 'none' } }}
           >
-            {task.status === 'pending' && <Approve task={task} />}
-            {task.status === 'pending' && <Reject task={task} />}
+            {task.meta.taskStatus === 'pending' && <Approve task={task} />}
+            {task.meta.taskStatus === 'pending' && <Reject task={task} />}
           </Stack>
         )}
       </Box>
@@ -118,7 +118,7 @@ const ClaimInfo: React.FC<{
           <Cell
             content={
               <Stack alignItems="center" direction="row" spacing={0.75}>
-                <TaskStatusDisplay showText status={task.status} />
+                <TaskStatusDisplay showText status={task.meta.taskStatus} />
                 <Typography sx={({ palette }) => ({ color: palette.grey[700] })} variant="inherit">
                   <DidName value={task.data.holder} />
                 </Typography>

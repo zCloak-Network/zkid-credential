@@ -36,6 +36,7 @@
     "@zcloak/verify": "^0.0.3",
     "qr-scanner": "^1.4.1",
     "qrcode-generator": "^1.4.4",
-    "react-dropzone": "^14.2.2"
+    "react-dropzone": "^14.2.2",
+    "socket.io-client": "^4.5.3"
   }
 }

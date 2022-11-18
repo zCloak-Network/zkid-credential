@@ -131,7 +131,6 @@ function Header({
         </Stack>
         <Stack alignItems="center" direction="row" spacing={upMd ? 2 : 1}>
           <IconButton onClick={handleNotification} size={upMd ? 'medium' : 'small'}>
-            {/* TODO: add unparsed */}
             <Badge badgeContent={unreads.allUnread} color="warning" max={99}>
               <NotificationsNoneOutlinedIcon />
             </Badge>

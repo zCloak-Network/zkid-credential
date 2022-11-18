@@ -50,8 +50,8 @@ const ActionButton: React.FC<{
           </ListItemIcon>
           <ListItemText>Details</ListItemText>
         </MenuItem>
-        {task.status === 'pending' && <Approve task={task} type="menu" />}
-        {task.status === 'pending' && <Reject task={task} type="menu" />}
+        {task.meta.taskStatus === 'pending' && <Approve task={task} type="menu" />}
+        {task.meta.taskStatus === 'pending' && <Reject task={task} type="menu" />}
       </Menu>
     </>
   );

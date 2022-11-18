@@ -9,11 +9,11 @@ import { Did, helpers } from '@zcloak/did';
 
 import { resolver } from './instance';
 
-export function useDid(didUrl: DidUrl): Did | null {
+export function useDid(didUrl?: DidUrl | null): Did | null {
   const [did, setDid] = useState<Did | null>(null);
 
   useEffect(() => {
-    helpers.fromDid(didUrl, undefined, resolver).then(setDid);
+    didUrl && helpers.fromDid(didUrl, undefined, resolver).then(setDid);
   }, [didUrl]);
 
   return did;

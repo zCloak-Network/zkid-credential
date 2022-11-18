@@ -1,16 +1,18 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Task } from '@credential/react-hooks/types';
+import type { DecryptedTask, Task } from '@credential/react-hooks/types';
 
 import { alpha, Button, ListItemIcon, ListItemText, MenuItem } from '@mui/material';
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 
+import { decryptMessage } from '@zcloak/message';
 import { Message } from '@zcloak/message/types';
 
 import { IconReject } from '@credential/app-config/icons';
 import { Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal, useDid } from '@credential/react-dids';
+import { resolver } from '@credential/react-dids/instance';
 import { encryptMessageStep, sendMessage, Steps } from '@credential/react-dids/steps';
 import { useStopPropagation, useToggle } from '@credential/react-hooks';
 
@@ -24,8 +26,20 @@ const Reject: React.FC<{
     useState<Message<'Response_Reject_Attestation'>>();
   const [recaptchaToken, setRecaptchaToken] = useState<string>();
 
-  const claimer = useDid(task.data.holder);
-  const _toggleOpen = useStopPropagation(toggleOpen);
+  const [decrypted, setDecrypted] = useState<DecryptedTask | null>(null);
+  const claimer = useDid(decrypted?.data.holder);
+
+  const _toggleOpen = useStopPropagation(
+    useCallback(() => {
+      if (attester && task) {
+        decryptMessage(task, attester, resolver).then((message) => {
+          setDecrypted({ ...message, ...task });
+
+          toggleOpen();
+        });
+      }
+    }, [attester, task, toggleOpen])
+  );
 
   return (
     <>
@@ -53,40 +67,42 @@ const Reject: React.FC<{
           <ListItemText>Reject</ListItemText>
         </MenuItem>
       )}
-      <DidsModal
-        onClose={_toggleOpen}
-        open={open}
-        steps={
-          <Steps
-            onDone={_toggleOpen}
-            steps={[
-              {
-                label: 'Encrypt message',
-                exec: () =>
-                  encryptMessageStep(
-                    'Response_Reject_Attestation',
-                    {
-                      ctype: task.data.ctype,
-                      holder: task.data.holder,
-                      reason: 'No reason'
-                    },
-                    attester,
-                    claimer,
-                    task.id
-                  ).then(setEncryptedMessage)
-              },
-              {
-                label: 'Send message',
-                paused: true,
-                content: <Recaptcha onCallback={setRecaptchaToken} />,
-                exec: () => sendMessage(encryptedMessage, recaptchaToken)
-              }
-            ]}
-            submitText="Reject"
-          />
-        }
-        title="Reject the request"
-      />
+      {open && decrypted && (
+        <DidsModal
+          onClose={_toggleOpen}
+          open={open}
+          steps={
+            <Steps
+              onDone={_toggleOpen}
+              steps={[
+                {
+                  label: 'Encrypt message',
+                  exec: () =>
+                    encryptMessageStep(
+                      'Response_Reject_Attestation',
+                      {
+                        ctype: decrypted.data.ctype,
+                        holder: decrypted.data.holder,
+                        reason: 'No reason'
+                      },
+                      attester,
+                      claimer,
+                      task.id
+                    ).then(setEncryptedMessage)
+                },
+                {
+                  label: 'Send message',
+                  paused: true,
+                  content: <Recaptcha onCallback={setRecaptchaToken} />,
+                  exec: () => sendMessage(encryptedMessage, recaptchaToken)
+                }
+              ]}
+              submitText="Reject"
+            />
+          }
+          title="Reject the request"
+        />
+      )}
     </>
   );
 };

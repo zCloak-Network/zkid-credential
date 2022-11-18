@@ -5,9 +5,8 @@ import type { MessageType } from '@zcloak/message/types';
 
 import type { MessageWithMeta } from '@credential/react-hooks/types';
 
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 
-import { DidsContext } from '@credential/react-dids';
 import { useMessages } from '@credential/react-hooks';
 
 type All = MessageWithMeta<MessageType>;
@@ -62,9 +61,7 @@ function getNotification(messages: All[]): UseNotification {
 }
 
 export function useNotification(): UseNotification {
-  const { did } = useContext(DidsContext);
-
-  const messages = useMessages('received', did?.id);
+  const messages = useMessages('received');
 
   return useMemo(() => getNotification(messages), [messages]);
 }

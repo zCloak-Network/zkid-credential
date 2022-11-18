@@ -1,61 +1,32 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { DidUrl } from '@zcloak/did-resolver/types';
-import type { Task } from './types';
+import type { MessageType } from '@zcloak/message/types';
+import type { MessageWithMeta, Task } from './types';
 
-import { useEffect, useState } from 'react';
+import { useContext, useMemo } from 'react';
 
-import { Did } from '@zcloak/did';
-import { decryptMessage } from '@zcloak/message';
+import { AppContext } from '@credential/react-components';
 
-import { didManager, resolver } from '@credential/react-dids/instance';
-import { ServerMessage } from '@credential/react-dids/types';
-
-async function decryptToTask(
-  messages: ServerMessage<'Request_Attestation'>[],
-  did: Did
-): Promise<Task[]> {
-  const decryptedMessages = await Promise.all(
-    messages.map((message) => decryptMessage(message.rawData, did, resolver))
-  );
-
-  return decryptedMessages.map((message) => ({
-    ...message,
-    status: 'pending'
-  }));
+function filterMessages(messages: MessageWithMeta<MessageType>[]): Task[] {
+  return messages.filter((message) => message.msgType === 'Request_Attestation') as Task[];
 }
 
-export function useTasks(didUrl?: DidUrl): Task[] {
-  const [tasks, setTasks] = useState<Task[]>([]);
+function filterMessagesWithId(messages: MessageWithMeta<MessageType>[], id?: string): Task | null {
+  return messages.filter(
+    (message) => message.msgType === 'Request_Attestation' && message.id === id
+  )[0] as Task | null;
+}
 
-  useEffect(() => {
-    if (didUrl) {
-      resolver.getMessages({ receiver: didUrl, msgType: 'Request_Attestation' }).then((data) => {
-        const did = didManager.getDid(didUrl);
-
-        decryptToTask(data, did).then(setTasks);
-      });
-    }
-  }, [didUrl]);
+export function useTasks(): Task[] {
+  const { messages } = useContext(AppContext);
+  const tasks = useMemo(() => filterMessages(messages), [messages]);
 
   return tasks;
 }
 
-export function useTask(id?: string, didUrl?: DidUrl): Task | null {
-  const [task, setTask] = useState<Task | null>(null);
+export function useTask(id?: string): Task | null {
+  const { messages } = useContext(AppContext);
 
-  useEffect(() => {
-    if (id && didUrl) {
-      resolver.getMessages({ receiver: didUrl, msgType: 'Request_Attestation' }).then((data) => {
-        if (data.length > 0) {
-          const did = didManager.getDid(didUrl);
-
-          decryptToTask([data[0]], did).then((tasks) => setTask(tasks[0]));
-        }
-      });
-    }
-  }, [didUrl, id]);
-
-  return task;
+  return useMemo(() => filterMessagesWithId(messages, id), [id, messages]);
 }

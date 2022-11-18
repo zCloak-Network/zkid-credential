@@ -2,16 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Box, Stack, Tab, Tabs } from '@mui/material';
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { DidsContext } from '@credential/react-dids';
 import { useMessages } from '@credential/react-hooks';
 
 import Messages from './Messages';
 
 const AttesterMessage: React.FC = () => {
-  const { did } = useContext(DidsContext);
-  const messages = useMessages('received', did?.id);
+  const messages = useMessages('received');
 
   return (
     <Stack spacing={3}>

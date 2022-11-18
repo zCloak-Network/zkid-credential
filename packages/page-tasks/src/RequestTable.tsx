@@ -16,11 +16,11 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import moment from 'moment';
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import { Link as LinkRouter, useNavigate } from 'react-router-dom';
 
 import { CTypeName, TaskStatusDisplay } from '@credential/react-components';
-import { DidName, DidsContext } from '@credential/react-dids';
+import { DidName } from '@credential/react-dids';
 import { useTasks } from '@credential/react-hooks';
 
 import Approve from './RequestDetails/Approve';
@@ -46,13 +46,13 @@ const Row: React.FC<{ task: Task }> = ({ task }) => {
           <ActionButton task={task} />
         ) : (
           <>
-            {task.status === 'pending' && <Approve task={task} type="button" />}
-            {task.status === 'pending' && <Reject task={task} type="button" />}
+            {task.meta.taskStatus === 'pending' && <Approve task={task} type="button" />}
+            {task.meta.taskStatus === 'pending' && <Reject task={task} type="button" />}
           </>
         )
       }
     >
-      <TaskCardItem content={<DidName value={task.data.holder} />} label="Claimer" />
+      <TaskCardItem content={<DidName value={task.sender} />} label="Sender" />
       <TaskCardItem
         content={
           <Link component={LinkRouter} to={`/attester/tasks/${task.id}`}>
@@ -61,12 +61,15 @@ const Row: React.FC<{ task: Task }> = ({ task }) => {
         }
         label="Task id"
       />
-      <TaskCardItem content={<CTypeName cTypeHash={task.data.ctype} />} label="Credential type" />
+      <TaskCardItem content={<CTypeName cTypeHash={task.ctype} />} label="Credential type" />
       <TaskCardItem
         content={moment(task.createTime).format('YYYY-MM-DD HH:mm:ss')}
         label="Approval initiation time"
       />
-      <TaskCardItem content={<TaskStatusDisplay showText status={task.status} />} label="Status" />
+      <TaskCardItem
+        content={<TaskStatusDisplay showText status={task.meta.taskStatus} />}
+        label="Status"
+      />
     </TaskCard>
   );
 };
@@ -75,8 +78,7 @@ const RequestTable: React.FC = () => {
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
 
-  const { did } = useContext(DidsContext);
-  const list = useTasks(did?.id);
+  const list = useTasks();
 
   if (upMd) {
     return (
@@ -84,7 +86,7 @@ const RequestTable: React.FC = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Claimer</TableCell>
+              <TableCell>Sender</TableCell>
               <TableCell>Claim hash</TableCell>
               <TableCell>Credential type</TableCell>
               <TableCell>Approval initiation time</TableCell>
