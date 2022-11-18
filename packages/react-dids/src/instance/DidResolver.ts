@@ -43,7 +43,7 @@ export class CredentialDidResolver extends ArweaveDidResolver {
   }
 
   async submitClaimerImportCtype(claimerDidUrl: DidUrl, ctypeHash: HexString): Promise<CType> {
-    const res = await get(`${this.server}/claimer/${claimerDidUrl}/ctype/${ctypeHash}/import`);
+    const res = await post(`${this.server}/claimer/${claimerDidUrl}/ctype/${ctypeHash}/import`);
 
     if (res?.code !== 200) {
       throw new Error(res?.message);
@@ -53,7 +53,7 @@ export class CredentialDidResolver extends ArweaveDidResolver {
   }
 
   async deleteClaimerImportCtype(claimerDidUrl: DidUrl, ctypeHash: HexString) {
-    const res = await get(`${this.server}/claimer/${claimerDidUrl}/ctype/${ctypeHash}/unimport`);
+    const res = await post(`${this.server}/claimer/${claimerDidUrl}/ctype/${ctypeHash}/unimport`);
 
     if (res?.code !== 200) {
       throw new Error(res?.message);
