@@ -1,6 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { CType } from '@credential/app-store';
 import type { Did } from '@zcloak/did';
 import type { DidUrl } from '@zcloak/did-resolver/types';
 import type { KeyringPair$Json } from '@zcloak/keyring/types';
@@ -34,4 +35,13 @@ export interface ServerMessage<T extends MessageType> {
   isRead: boolean;
   isPush: boolean;
   rawData: Message<T>;
+}
+
+export interface ServerCtypes {
+  _id: string;
+  status: number;
+  rawData: CType;
+  id: string;
+  title: string;
+  transactionId: string;
 }
