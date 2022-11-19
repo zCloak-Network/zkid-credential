@@ -14,7 +14,7 @@ import { decryptMessage } from '@zcloak/message';
 import { IconApprove } from '@credential/app-config/icons';
 import { Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal, useDid } from '@credential/react-dids';
-import { resolver } from '@credential/react-dids/instance';
+import { didManager, resolver } from '@credential/react-dids/instance';
 import {
   encryptMessageStep,
   sendMessage,
@@ -27,7 +27,7 @@ const Approve: React.FC<{
   type?: 'button' | 'menu';
   task: Task;
 }> = ({ task, type = 'button' }) => {
-  const { did: attester } = useContext(DidsContext);
+  const { did: attester, unlock } = useContext(DidsContext);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] =
     useState<Message<'Response_Approve_Attestation'>>();
@@ -38,15 +38,19 @@ const Approve: React.FC<{
   const claimer = useDid(decrypted?.data.holder);
 
   const _toggleOpen = useStopPropagation(
-    useCallback(() => {
+    useCallback(async () => {
       if (attester && task) {
+        if (didManager.isLocked(attester.id)) {
+          await unlock();
+        }
+
         decryptMessage(task, attester, resolver).then((message) => {
           setDecrypted({ ...message, ...task });
 
           toggleOpen();
         });
       }
-    }, [attester, task, toggleOpen])
+    }, [attester, task, toggleOpen, unlock])
   );
 
   return (

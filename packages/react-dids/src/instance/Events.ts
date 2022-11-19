@@ -3,7 +3,7 @@
 
 import EventEmitter from 'eventemitter3';
 
-export type DidEvents = 'add' | 'remove';
+export type DidEvents = 'add' | 'remove' | 'unlocked';
 
 export class Events {
   #eventemitter = new EventEmitter();

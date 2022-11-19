@@ -1,6 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { Did } from '@zcloak/did';
 import type { MessageType } from '@zcloak/message/types';
 
 import type { ServerMessage } from '@credential/react-dids/types';
@@ -8,8 +9,14 @@ import type { MessageWithMeta } from '@credential/react-hooks/types';
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
+import { decryptMessage } from '@zcloak/message';
+
+import { addVC } from '@credential/app-store';
+import { DB } from '@credential/app-store/db';
+import { updatePendingCredential } from '@credential/app-store/pending-credential';
+import { useDB } from '@credential/app-store/useDB';
 import { DidsContext } from '@credential/react-dids';
-import { resolver } from '@credential/react-dids/instance';
+import { didManager, resolver } from '@credential/react-dids/instance';
 
 import { SyncProvider } from './SyncProvider';
 
@@ -21,7 +28,7 @@ interface State {
 export const AppContext = createContext({} as State);
 
 function sortMessages<T extends MessageType>(messages: MessageWithMeta<T>[]): MessageWithMeta<T>[] {
-  return messages.sort((l, r) => l.createTime - r.createTime);
+  return messages.sort((l, r) => r.createTime - l.createTime);
 }
 
 function transformMessage<T extends MessageType>(data: ServerMessage<T>[]): MessageWithMeta<T>[] {
@@ -31,10 +38,20 @@ function transformMessage<T extends MessageType>(data: ServerMessage<T>[]): Mess
       meta: {
         isRead: d.isRead,
         isPush: d.isPush,
-        // TODO
-        taskStatus: 'pending'
+        taskStatus:
+          d.replyStatus === 'approved'
+            ? 'approved'
+            : d.replyStatus === 'reject'
+            ? 'rejected'
+            : 'pending'
       }
     }))
+  );
+}
+
+function saveIssuedVC(db: DB, did: Did, message: MessageWithMeta<'Response_Approve_Attestation'>) {
+  return decryptMessage(message, did, resolver).then((decryptedMessage) =>
+    addVC(decryptedMessage.data, db)
   );
 }
 
@@ -43,6 +60,8 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { did } = useContext(DidsContext);
   const [messages, setMessages] = useState<MessageWithMeta<MessageType>[]>([]);
   const [sentMessages, setSentMessages] = useState<MessageWithMeta<MessageType>[]>([]);
+  const [isLocked, setIsLocked] = useState<boolean>(true);
+  const db = useDB(did?.id);
 
   const didUrl = useMemo(() => {
     try {
@@ -77,6 +96,36 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       syncProvider.close();
     };
   }, [didUrl]);
+
+  useEffect(() => {
+    did && setIsLocked(didManager.isLocked(did.id));
+
+    const toggleUnlock = () => {
+      did && setIsLocked(didManager.isLocked(did.id));
+    };
+
+    didManager.on('unlocked', toggleUnlock);
+
+    return () => {
+      didManager.off('unlocked', toggleUnlock);
+    };
+  }, [did]);
+
+  useEffect(() => {
+    if (!db || !did) return;
+
+    messages.forEach((message) => {
+      if (message.msgType === 'Response_Approve_Attestation') {
+        if (!isLocked) {
+          saveIssuedVC(db, did, message as MessageWithMeta<'Response_Approve_Attestation'>);
+        }
+
+        if (message.reply) updatePendingCredential(message.reply, 'approved', db);
+      } else if (message.msgType === 'Response_Reject_Attestation') {
+        if (message.reply) updatePendingCredential(message.reply, 'rejected', db);
+      }
+    });
+  }, [db, did, isLocked, messages]);
 
   const value = useMemo(() => ({ messages, sentMessages }), [messages, sentMessages]);
 

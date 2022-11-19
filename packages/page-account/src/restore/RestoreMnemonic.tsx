@@ -9,7 +9,7 @@ import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { validateMnemonic } from '@zcloak/crypto';
 
 import { InputPassword, NotificationContext } from '@credential/react-components';
-import { didManager, keyring } from '@credential/react-dids/instance';
+import { didManager } from '@credential/react-dids/instance';
 
 const RestoreMnemonic: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess }) => {
   const [password, setPassword] = useState<string>();
@@ -24,8 +24,7 @@ const RestoreMnemonic: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ on
     if (!isMnemonic) return;
 
     try {
-      keyring.unlock(password);
-      const did = didManager.create(mnemonic);
+      const did = didManager.create(mnemonic, password);
 
       onSuccess(did.id);
     } catch (error) {

@@ -34,7 +34,7 @@ const CTypeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
       const ctype = await resolver.submitClaimerImportCtype(did.id, hash);
 
-      await db.ctype.add(ctype);
+      await db.ctype.put(ctype);
     },
     [did, db]
   );

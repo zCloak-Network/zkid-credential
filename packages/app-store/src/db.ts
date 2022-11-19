@@ -1,8 +1,6 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dexie-observable';
-
 import type { Credential } from './credential';
 import type { CType } from './ctype';
 import type { PendingCredential } from './pending-credential';

@@ -6,11 +6,13 @@ import type { Did } from '@zcloak/did';
 import type { AnyJson } from '@zcloak/vc/types';
 
 import { Button } from '@mui/material';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 
 import { Message } from '@zcloak/message/types';
 import { Raw } from '@zcloak/vc';
 
+import { addPendingCredential } from '@credential/app-store/pending-credential';
+import { useDB } from '@credential/app-store/useDB';
 import { Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal } from '@credential/react-dids';
 import { encryptMessageStep, sendMessage, Steps } from '@credential/react-dids/steps';
@@ -24,6 +26,7 @@ const SubmitClaim: React.FC<{
   onDone?: () => void;
 }> = ({ attester, contents, ctype, hasError, onDone }) => {
   const { did: sender } = useContext(DidsContext);
+  const db = useDB(sender?.id);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] = useState<Message<'Request_Attestation'>>();
   const [recaptchaToken, setRecaptchaToken] = useState<string>();
@@ -33,17 +36,29 @@ const SubmitClaim: React.FC<{
       return null;
     }
 
-    const raw = new Raw({
-      contents,
-      owner: sender.id,
-      ctype,
-      hashType: 'Rescue'
-    });
+    try {
+      const raw = new Raw({
+        contents,
+        owner: sender.id,
+        ctype,
+        hashType: 'Rescue'
+      });
 
-    raw.calcRootHash();
+      raw.calcRootHash();
 
-    return raw.toRawCredential();
+      return raw.toRawCredential();
+    } catch {}
+
+    return null;
   }, [contents, ctype, sender]);
+
+  const _onDone = useCallback(() => {
+    if (rawCredential && encryptedMessage && db && attester) {
+      addPendingCredential(rawCredential, attester.id, encryptedMessage.id, db);
+    }
+
+    onDone?.();
+  }, [attester, db, encryptedMessage, onDone, rawCredential]);
 
   return (
     <>
@@ -60,7 +75,7 @@ const SubmitClaim: React.FC<{
           open={open}
           steps={
             <Steps
-              onDone={onDone}
+              onDone={_onDone}
               steps={[
                 {
                   label: 'Encrypt message',

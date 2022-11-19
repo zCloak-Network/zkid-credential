@@ -15,7 +15,7 @@ import {
 import React, { useCallback, useContext, useState } from 'react';
 
 import { InputPassword, NotificationContext } from '@credential/react-components';
-import { didManager, keyring } from '@credential/react-dids/instance';
+import { didManager } from '@credential/react-dids/instance';
 
 const Restore: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess }) => {
   const [password, setPassword] = useState<string>();
@@ -27,8 +27,6 @@ const Restore: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess 
     if (!password) return;
     if (!keyfilePassword) return;
     if (!file) return;
-
-    keyring.unlock(password);
 
     file
       .text()

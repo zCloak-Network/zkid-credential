@@ -22,7 +22,6 @@
     "@zcloak/message": "^0.0.3",
     "@zcloak/vc": "^0.0.3",
     "dexie": "^3.2.2",
-    "dexie-observable": "^3.0.0-beta.11",
     "dexie-react-hooks": "^1.1.1"
   }
 }

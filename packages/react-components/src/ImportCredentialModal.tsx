@@ -11,7 +11,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { isVC } from '@zcloak/vc/utils';
 import { vcVerify } from '@zcloak/verify';
 
-import { useImportVcCallback } from '@credential/app-store';
+import { addVC } from '@credential/app-store';
+import { useDB } from '@credential/app-store/useDB';
 import { DialogHeader } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
 import { resolver } from '@credential/react-dids/instance';
@@ -24,13 +25,12 @@ const ImportCredentialModal: React.FC<{ open: boolean; onClose?: () => void }> =
   open
 }) => {
   const { did } = useContext(DidsContext);
+  const db = useDB(did?.id);
   const [value, setValue] = useState<File[]>([]);
   const [result, setResult] = useState<
     { error: null; vc: VerifiableCredential } | { error: Error; vc: null }
   >();
   const { notifyError } = useContext(NotificationContext);
-
-  const importVc = useImportVcCallback(result?.vc, did?.id);
 
   useEffect(() => {
     if (value.length > 0) {
@@ -92,9 +92,11 @@ const ImportCredentialModal: React.FC<{ open: boolean; onClose?: () => void }> =
                 <Typography variant="h5">Import successful</Typography>
                 <Button
                   onClick={() => {
-                    importVc()
-                      .then(() => onClose?.())
-                      .catch(notifyError);
+                    if (result.vc && db) {
+                      addVC(result.vc, db)
+                        .then(() => onClose?.())
+                        .catch(notifyError);
+                    }
                   }}
                   size="large"
                   variant="contained"

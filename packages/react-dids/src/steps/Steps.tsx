@@ -17,6 +17,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 const DidsModal: React.FC<{
   submitText?: string;
   onDone?: () => void;
+  beforeStart?: () => Promise<void>;
   steps: DidsStepProps[];
 }> = ({ onDone, steps, submitText }) => {
   const [activeStep, setActiveStep] = useState(0);

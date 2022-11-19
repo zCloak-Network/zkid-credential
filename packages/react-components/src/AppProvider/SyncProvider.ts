@@ -27,7 +27,6 @@ export class SyncProvider extends Socket {
     this.on('message:list', this.#handleMessages);
     this.isReady = new Promise((resolve) => {
       this.once('connect', () => {
-        console.log(1234);
         resolve(this);
       });
     });

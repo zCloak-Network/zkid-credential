@@ -6,11 +6,11 @@ import { assert } from '@polkadot/util';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { CType } from '@zcloak/ctype/types';
+import { isSameUri } from '@zcloak/did/utils';
 
 import { useDB } from '@credential/app-store/useDB';
 import { DidsContext } from '@credential/react-dids';
 import { resolver } from '@credential/react-dids/instance';
-import { isSameUri } from '@zcloak/did/utils';
 
 import CTypes from './CTypes';
 
@@ -26,7 +26,13 @@ const OwnerCType: React.FC = () => {
 
       resolver.getAttesterCtypes().then((_ctypes) => {
         const ctypes = _ctypes
-          .filter((item) => isSameUri(item.rawData.publisher, did.id))
+          .filter((item) => {
+            try {
+              return isSameUri(item.rawData.publisher, did.id);
+            } catch {}
+
+            return false;
+          })
           .map((item) => item.rawData);
 
         setOwnCTypes(ctypes);

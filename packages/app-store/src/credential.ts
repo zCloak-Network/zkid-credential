@@ -7,10 +7,10 @@ import type { HashType, VerifiableCredential } from '@zcloak/vc/types';
 
 import { isHex } from '@polkadot/util';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { useCallback } from 'react';
 
 import { calcRoothash } from '@zcloak/vc';
 
+import { DB } from './db';
 import { useDB } from './useDB';
 
 export interface Credential {
@@ -37,38 +37,43 @@ export function useCredentials(name?: string): Credential[] | undefined {
   }, [db]);
 }
 
-export function useImportVcCallback(
+export async function addVC(
   vc: VerifiableCredential | null | undefined,
-  name?: string
-): () => Promise<void> {
-  const db = useDB(name);
+  db: DB
+): Promise<Credential | null> {
+  if (!vc) return null;
 
-  return useCallback(async () => {
-    if (!db || !vc) return;
+  if (isHex(vc.credentialSubject)) {
+    throw new Error('The vc subject is not an object');
+  }
 
-    const exists = await db.credential
-      .filter((credential) => credential.digest === vc.digest && credential.issuer === vc.issuer)
-      .first();
+  const rootHash = calcRoothash(
+    vc.credentialSubject,
+    vc.hasher[0],
+    vc.credentialSubjectNonceMap
+  ).rootHash;
 
-    if (exists) {
-      throw new Error(`The vc with digest: ${vc.digest} and issuer: ${vc.issuer} is exists`);
-    }
+  const exists = await db.credential
+    .filter((credential) => credential.digest === vc.digest && credential.issuer === vc.issuer)
+    .first();
 
-    if (isHex(vc.credentialSubject)) {
-      throw new Error('The vc subject is not an object');
-    }
+  if (exists) {
+    return null;
+  }
 
-    await db.credential.add({
-      digest: vc.digest,
-      rootHash: calcRoothash(vc.credentialSubject, vc.hasher[0], vc.credentialSubjectNonceMap)
-        .rootHash,
-      ctype: vc.ctype,
-      issuer: vc.issuer,
-      holder: vc.holder,
-      hasher: vc.hasher,
-      issuanceDate: vc.issuanceDate,
-      expirationDate: vc.expirationDate,
-      vc
-    });
-  }, [db, vc]);
+  const credential: Credential = {
+    digest: vc.digest,
+    rootHash,
+    ctype: vc.ctype,
+    issuer: vc.issuer,
+    holder: vc.holder,
+    hasher: vc.hasher,
+    issuanceDate: vc.issuanceDate,
+    expirationDate: vc.expirationDate,
+    vc
+  };
+
+  await db.credential.add(credential);
+
+  return credential;
 }

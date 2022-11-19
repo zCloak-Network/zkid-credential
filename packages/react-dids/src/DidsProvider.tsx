@@ -1,7 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { createContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Did } from '@zcloak/did';
 
@@ -20,10 +20,16 @@ let unlockPromiseReject: (error: Error) => void;
 const DidsProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [unlockOpen, toggleUnlock] = useToggle();
   const [all, setAll] = useState<Did[]>(didManager.getAll());
-  const did = useMemo(() => (all.length > 0 ? all[0] : null), [all]);
+  const [did, setDid] = useState<Did | null>(all.length > 0 ? all[0] : null);
 
   useEffect(() => {
-    const didChange = () => setAll(didManager.getAll());
+    const didChange = () => {
+      const all = didManager.getAll();
+      const did = all.length > 0 ? all[0] : null;
+
+      setAll(didManager.getAll());
+      setDid(did);
+    };
 
     didManager.on('add', didChange);
     didManager.on('remove', didChange);
@@ -32,14 +38,23 @@ const DidsProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       didManager.off('add', didChange);
       didManager.off('remove', didChange);
     };
-  }, []);
+  }, [did]);
+
+  const unlock = useCallback(() => {
+    return new Promise<void>((resolve, reject) => {
+      unlockPromiseResolve = resolve;
+      unlockPromiseReject = reject;
+      toggleUnlock();
+    });
+  }, [toggleUnlock]);
 
   const value: DidsState = useMemo(
     (): DidsState => ({
       all,
-      did
+      did,
+      unlock
     }),
-    [all, did]
+    [all, did, unlock]
   );
 
   return (

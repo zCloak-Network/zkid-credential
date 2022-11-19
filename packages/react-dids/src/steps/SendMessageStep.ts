@@ -12,7 +12,6 @@ export async function sendMessage<T extends MessageType>(
   reCaptchaToken?: string | null
 ): Promise<void> {
   assert(encryptedMessage, 'Not encrypted message found');
-  assert(reCaptchaToken, 'No recaptcha token provided');
 
-  await resolver.postMessage(encryptedMessage, reCaptchaToken);
+  await resolver.postMessage(encryptedMessage, reCaptchaToken ?? undefined);
 }

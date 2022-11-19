@@ -3,8 +3,8 @@
 
 import type { DidResolver } from '@zcloak/did-resolver';
 import type { DidDocument, DidUrl } from '@zcloak/did-resolver/types';
-import type { Keyring } from '@zcloak/keyring';
 import type { DidKeys$Json } from '../types';
+import type { Keyring } from './Keyring';
 
 import { Did, helpers } from '@zcloak/did';
 import { KeyRelationship } from '@zcloak/did/types';
@@ -68,9 +68,35 @@ export class DidManager extends Events {
     return Array.from(this.#dids.values());
   }
 
-  public create(mnemonic: string): Did {
+  public isLocked(didUrl: DidUrl): boolean {
+    const did = this.getDid(didUrl);
+
+    return Array.from(did.keyRelationship.values())
+      .map(({ publicKey }) => this.#keyring.getPair(publicKey).isLocked)
+      .includes(true);
+  }
+
+  public unlock(didUrl: DidUrl, password: string): void {
+    const did = this.getDid(didUrl);
+
+    Array.from(did.keyRelationship.values()).forEach(({ publicKey }) =>
+      this.#keyring.getPair(publicKey).unlock(password)
+    );
+
+    this.emit('unlocked', did);
+  }
+
+  public saveDid(did: Did, password: string): void {
+    // save key
+    Array.from(did.keyRelationship.values()).forEach(({ publicKey }) => {
+      this.#keyring.savePair(publicKey, password);
+    });
+  }
+
+  public create(mnemonic: string, password: string): Did {
     const did = helpers.createEcdsaFromMnemonic(mnemonic, this.#keyring);
 
+    this.saveDid(did, password);
     this.addDid(did);
 
     return did;
@@ -109,6 +135,7 @@ export class DidManager extends Events {
 
     did.init(this.#keyring);
 
+    this.saveDid(did, password);
     this.addDid(did);
 
     return did;

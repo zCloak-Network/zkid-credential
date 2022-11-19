@@ -16,14 +16,14 @@ import {
   useTheme
 } from '@mui/material';
 import moment from 'moment';
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useContext, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { decryptMessage } from '@zcloak/message';
 
 import { IconNewMessage, IconNewTask } from '@credential/app-config/icons';
 import { CredentialModal, CTypeName } from '@credential/react-components';
-import { DidName } from '@credential/react-dids';
+import { DidName, DidsContext } from '@credential/react-dids';
 import { didManager, resolver } from '@credential/react-dids/instance';
 import { useToggle } from '@credential/react-hooks';
 
@@ -114,6 +114,7 @@ function Cell({
   message: Message<MessageType>;
   onRead: () => void;
 }) {
+  const { did, unlock } = useContext(DidsContext);
   const theme = useTheme();
   const upSm = useMediaQuery(theme.breakpoints.up('sm'));
   const navigate = useNavigate();
@@ -124,20 +125,27 @@ function Cell({
 
   const desc = useMemo(() => getDesc(message), [message]);
 
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback(async () => {
     onRead();
 
     if (message.msgType === 'Request_Attestation') {
       navigate(`/attester/tasks/${message.id}`);
     } else {
-      getCredential(message).then((_credential) => {
-        if (_credential) {
-          credential.current = _credential;
-          toggleOpen();
-        }
-      });
+      if (!did) return;
+      const isLocked = didManager.isLocked(did.id);
+
+      if (isLocked) {
+        await unlock();
+      }
+
+      const _credential = await getCredential(message);
+
+      if (_credential) {
+        credential.current = _credential;
+        toggleOpen();
+      }
     }
-  }, [message, navigate, onRead, toggleOpen]);
+  }, [did, message, navigate, onRead, toggleOpen, unlock]);
 
   return (
     <>

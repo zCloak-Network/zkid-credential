@@ -12,7 +12,7 @@ import { decryptMessage } from '@zcloak/message';
 import { DialogHeader } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidsContext } from '@credential/react-dids';
-import { resolver } from '@credential/react-dids/instance';
+import { didManager, resolver } from '@credential/react-dids/instance';
 import { useTask } from '@credential/react-hooks';
 
 import Approve from './Approve';
@@ -21,7 +21,7 @@ import Details from './Details';
 import Reject from './Reject';
 
 const RequestDetails: React.FC = () => {
-  const { did } = useContext(DidsContext);
+  const { did, unlock } = useContext(DidsContext);
   const { id } = useParams<{ id: string }>();
 
   const task = useTask(id);
@@ -30,9 +30,11 @@ const RequestDetails: React.FC = () => {
 
   useEffect(() => {
     if (did && task) {
-      decryptMessage(task, did, resolver).then((message) => setDecrypted({ ...message, ...task }));
+      (didManager.isLocked(did.id) ? unlock() : Promise.resolve()).then(() =>
+        decryptMessage(task, did, resolver).then((message) => setDecrypted({ ...message, ...task }))
+      );
     }
-  }, [did, task]);
+  }, [did, task, unlock]);
 
   if (!decrypted) {
     return <Dialog fullScreen open></Dialog>;

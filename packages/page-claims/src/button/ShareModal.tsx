@@ -108,7 +108,9 @@ const ShareModal: React.FC<{
             if (sender) {
               const builder = new VerifiablePresentationBuilder(sender);
 
-              setPresentation(builder.addVC(credential, 'VP_SelectiveDisclosure').build());
+              setPresentation(
+                builder.addVC(credential, 'VP_SelectiveDisclosure', selectedAttributes).build()
+              );
             }
           }}
           variant="contained"

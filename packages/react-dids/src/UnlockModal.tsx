@@ -3,11 +3,12 @@
 
 import LockIcon from '@mui/icons-material/Lock';
 import { Button, Dialog, DialogContent, InputAdornment, Stack } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 
 import { DialogHeader, InputPassword } from '@credential/react-components';
 
-import { keyring } from './instance';
+import { DidsContext } from './DidsProvider';
+import { didManager } from './instance';
 
 function UnlockModal({
   onClose,
@@ -18,17 +19,18 @@ function UnlockModal({
   onClose?: () => void;
   onUnlock: () => void;
 }) {
+  const { did } = useContext(DidsContext);
   const [password, setPassword] = useState<string>();
 
   const _onUnlock = useCallback(() => {
     try {
-      if (!password) return;
+      if (!password || !did) return;
 
-      keyring.unlock(password);
+      didManager.unlock(did.id, password);
 
       onUnlock();
     } catch (error) {}
-  }, [onUnlock, password]);
+  }, [did, onUnlock, password]);
 
   return (
     <Dialog maxWidth="sm" onClose={onClose} open={open}>

@@ -1498,7 +1498,6 @@ __metadata:
     "@zcloak/message": ^0.0.3
     "@zcloak/vc": ^0.0.3
     dexie: ^3.2.2
-    dexie-observable: ^3.0.0-beta.11
     dexie-react-hooks: ^1.1.1
   languageName: unknown
   linkType: soft
@@ -1548,6 +1547,7 @@ __metadata:
     stream-browserify: ^3.0.0
     stream-http: ^3.2.0
     thread-loader: ^3.0.4
+    url: ^0.11.0
     url-loader: ^4.1.1
     webpack: ^5.74.0
     webpack-cli: ^4.10.0
@@ -6910,15 +6910,6 @@ __metadata:
     highlight.js: ^9.3.0
     humanize-plus: ^1.8.1
   checksum: b18bdaaebb92d758a547793a4341be5ea56f36ad2ea925f0617fa9b582c511bda7573351644a397236d5fa607f9ccca97118837c766647cfa277b2ea2aec431d
-  languageName: node
-  linkType: hard
-
-"dexie-observable@npm:^3.0.0-beta.11":
-  version: 3.0.0-beta.11
-  resolution: "dexie-observable@npm:3.0.0-beta.11"
-  peerDependencies:
-    dexie: ^3.0.2
-  checksum: af154708ca5a47d3c35a78fdf5b1a0935d1f8a394dbaaf09576344289188f02855f77776428bf68deb1d2489b3f69d9ca8690f76d06b50826ca471fefd5610a1
   languageName: node
   linkType: hard
 
@@ -13105,6 +13096,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"punycode@npm:1.3.2":
+  version: 1.3.2
+  resolution: "punycode@npm:1.3.2"
+  checksum: b8807fd594b1db33335692d1f03e8beeddde6fda7fbb4a2e32925d88d20a3aa4cd8dcc0c109ccaccbd2ba761c208dfaaada83007087ea8bfb0129c9ef1b99ed6
+  languageName: node
+  linkType: hard
+
 "punycode@npm:^2.1.0, punycode@npm:^2.1.1":
   version: 2.1.1
   resolution: "punycode@npm:2.1.1"
@@ -13157,6 +13155,13 @@ __metadata:
   version: 6.5.3
   resolution: "qs@npm:6.5.3"
   checksum: 6f20bf08cabd90c458e50855559539a28d00b2f2e7dddcb66082b16a43188418cb3cb77cbd09268bcef6022935650f0534357b8af9eeb29bf0f27ccb17655692
+  languageName: node
+  linkType: hard
+
+"querystring@npm:0.2.0":
+  version: 0.2.0
+  resolution: "querystring@npm:0.2.0"
+  checksum: 8258d6734f19be27e93f601758858c299bdebe71147909e367101ba459b95446fbe5b975bf9beb76390156a592b6f4ac3a68b6087cea165c259705b8b4e56a69
   languageName: node
   linkType: hard
 
@@ -15620,6 +15625,16 @@ __metadata:
     querystringify: ^2.1.1
     requires-port: ^1.0.0
   checksum: fbdba6b1d83336aca2216bbdc38ba658d9cfb8fc7f665eb8b17852de638ff7d1a162c198a8e4ed66001ddbf6c9888d41e4798912c62b4fd777a31657989f7bdf
+  languageName: node
+  linkType: hard
+
+"url@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "url@npm:0.11.0"
+  dependencies:
+    punycode: 1.3.2
+    querystring: 0.2.0
+  checksum: 50d100d3dd2d98b9fe3ada48cadb0b08aa6be6d3ac64112b867b56b19be4bfcba03c2a9a0d7922bfd7ac17d4834e88537749fe182430dfd9b68e520175900d90
   languageName: node
   linkType: hard
 

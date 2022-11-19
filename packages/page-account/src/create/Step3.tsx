@@ -8,7 +8,7 @@ import { Box, Button, FormControl, Grid, InputLabel, OutlinedInput } from '@mui/
 import FileSaver from 'file-saver';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { didManager, keyring } from '@credential/react-dids/instance';
+import { didManager } from '@credential/react-dids/instance';
 
 function random(min = 0, max = 11): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -50,8 +50,7 @@ const Step3: React.FC<{
   const toggleContinue = useCallback(() => {
     if (!password) return;
 
-    keyring.unlock(password);
-    const did = didManager.create(mnemonic);
+    const did = didManager.create(mnemonic, password);
     const json = didManager.backup(did.id, password);
     const blobSiningJson = new Blob([JSON.stringify(json)], {
       type: 'text/plain;charset=utf-8'

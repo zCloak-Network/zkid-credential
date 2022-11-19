@@ -1,17 +1,19 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { CType } from '@credential/app-store';
 import type { Did } from '@zcloak/did';
 import type { DidUrl } from '@zcloak/did-resolver/types';
 import type { KeyringPair$Json } from '@zcloak/keyring/types';
 import type { Message, MessageType } from '@zcloak/message/types';
+
+import { CType } from '@credential/app-store';
 
 export type DidRole = 'attester' | 'claimer';
 
 export interface DidsState {
   all: Did[];
   did: Did | null;
+  unlock: () => Promise<void>;
 }
 
 type DidKeys$JsonVersion = '1';
@@ -34,6 +36,7 @@ export interface ServerMessage<T extends MessageType> {
   receiver: DidUrl;
   isRead: boolean;
   isPush: boolean;
+  replyStatus?: 'approved' | 'reject';
   rawData: Message<T>;
 }
 

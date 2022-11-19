@@ -3,11 +3,12 @@
 
 import LockIcon from '@mui/icons-material/Lock';
 import { Button, Dialog, DialogContent, InputAdornment, lighten, Stack } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import { DialogHeader, InputPassword } from '@credential/react-components';
 
-import { keyring } from './instance';
+import { DidsContext } from './DidsProvider';
+import { didManager } from './instance';
 
 const DidsModal: React.FC<
   React.PropsWithChildren<{
@@ -15,17 +16,26 @@ const DidsModal: React.FC<
     open: boolean;
     steps?: React.ReactNode;
     onClose?: () => void;
+    onUnlock?: () => void;
   }>
-> = ({ children, onClose, open, steps, title }) => {
-  const [password, setPassword] = useState<string>('');
+> = ({ children, onClose, onUnlock, open, steps, title }) => {
+  const { did } = useContext(DidsContext);
+  const [password, setPassword] = useState<string>();
+  const [isLocked, setIsLocked] = useState<boolean>(true);
+
+  useEffect(() => {
+    did && setIsLocked(didManager.isLocked(did?.id));
+  }, [did]);
 
   const unlock = useCallback(() => {
-    if (!password) return;
+    if (!password || !did) return;
 
-    keyring.unlock(password);
-  }, [password]);
+    didManager.unlock(did.id, password);
 
-  const isLocked = keyring.isLocked;
+    onUnlock?.();
+    setPassword(undefined);
+    setIsLocked(false);
+  }, [did, onUnlock, password]);
 
   return (
     <Dialog maxWidth="sm" open={open}>
