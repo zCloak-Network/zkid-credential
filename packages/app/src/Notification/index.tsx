@@ -3,7 +3,9 @@
 
 import CloseIcon from '@mui/icons-material/Close';
 import { Badge, Box, Drawer, IconButton, Tab, Tabs, Typography } from '@mui/material';
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
+
+import { AppContext } from '@credential/react-components';
 
 import Cell from './Cell';
 import { UseNotification } from './useNotification';
@@ -19,6 +21,7 @@ const Notification: React.FC<Props> = ({
   open,
   unreads: { all, allUnread, message, messageUnread, task, taskUnread }
 }) => {
+  const { readMessage } = useContext(AppContext);
   const [type, setType] = useState(0);
 
   const messages = useMemo(
@@ -75,13 +78,12 @@ const Notification: React.FC<Props> = ({
         </Tabs>
       </Box>
       {messages?.map((message, index) => (
-        // TODO: isRead and onRead
         <Cell
-          isRead
+          isRead={message.meta.isRead}
           key={index}
           message={message}
           onRead={() => {
-            console.log('read');
+            readMessage(message.id);
           }}
         />
       ))}

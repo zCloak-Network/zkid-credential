@@ -29,7 +29,7 @@ const QrcodeButton: React.FC<{ credential: VerifiableCredential; withText?: bool
       <Tooltip title="Show QR code">
         <Stack alignItems="center">
           <IconButton onClick={_toggleOpen}>
-            <IconQrcode />
+            <IconQrcode sx={{ width: 14, height: 14 }} />
           </IconButton>
           {withText && (
             <Typography sx={({ palette }) => ({ color: palette.common.white })} variant="inherit">

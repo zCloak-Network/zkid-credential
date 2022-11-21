@@ -97,4 +97,14 @@ export class CredentialDidResolver extends ArweaveDidResolver {
       return res.data;
     }
   }
+
+  async readMessage(id: string): Promise<void> {
+    const res = await post(`${this.server}/message/${id}/read`);
+
+    if (res?.code !== 200) {
+      throw new Error(res?.message);
+    } else {
+      return res.data;
+    }
+  }
 }

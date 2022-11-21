@@ -9,7 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { decryptMessage } from '@zcloak/message';
 
-import { DialogHeader } from '@credential/react-components';
+import { AppContext, DialogHeader } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidsContext } from '@credential/react-dids';
 import { didManager, resolver } from '@credential/react-dids/instance';
@@ -22,6 +22,7 @@ import Reject from './Reject';
 
 const RequestDetails: React.FC = () => {
   const { did, unlock } = useContext(DidsContext);
+  const { readMessage } = useContext(AppContext);
   const { id } = useParams<{ id: string }>();
 
   const task = useTask(id);
@@ -35,6 +36,10 @@ const RequestDetails: React.FC = () => {
       );
     }
   }, [did, task, unlock]);
+
+  useEffect(() => {
+    id && readMessage(id);
+  }, [id, readMessage]);
 
   if (!decrypted) {
     return <Dialog fullScreen open></Dialog>;

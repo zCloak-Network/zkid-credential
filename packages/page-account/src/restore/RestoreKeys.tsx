@@ -19,19 +19,17 @@ import { didManager } from '@credential/react-dids/instance';
 
 const Restore: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess }) => {
   const [password, setPassword] = useState<string>();
-  const [keyfilePassword, setKeyfilePassword] = useState<string>();
   const [file, setFile] = useState<File>();
   const { notifyError } = useContext(NotificationContext);
 
   const restore = useCallback(() => {
     if (!password) return;
-    if (!keyfilePassword) return;
     if (!file) return;
 
     file
       .text()
       .then((text) => {
-        const did = didManager.restore(JSON.parse(text), keyfilePassword);
+        const did = didManager.restore(JSON.parse(text), password);
 
         return did.id;
       })
@@ -39,7 +37,7 @@ const Restore: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess 
       .catch((error) => {
         notifyError(error as Error);
       });
-  }, [file, keyfilePassword, notifyError, onSuccess, password]);
+  }, [file, notifyError, onSuccess, password]);
 
   return (
     <Stack spacing={5.5}>
@@ -68,17 +66,10 @@ const Restore: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess 
       </FormControl>
       <Divider sx={() => ({ marginTop: 3, marginBottom: 3 })} variant="fullWidth" />
       <FormControl fullWidth variant="outlined">
-        <InputLabel shrink>Enter password</InputLabel>
+        <InputLabel shrink>Enter Keyfile password</InputLabel>
         <InputPassword
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter your password"
-        />
-      </FormControl>
-      <FormControl fullWidth variant="outlined">
-        <InputLabel shrink>Enter Keyfile password</InputLabel>
-        <InputPassword
-          onChange={(e) => setKeyfilePassword(e.target.value)}
-          placeholder="Enter keyfile password"
         />
       </FormControl>
       <Button fullWidth onClick={restore} size="large" variant="contained">

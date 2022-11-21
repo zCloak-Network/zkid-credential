@@ -7,7 +7,7 @@ import type { MessageType } from '@zcloak/message/types';
 import type { ServerMessage } from '@credential/react-dids/types';
 import type { MessageWithMeta } from '@credential/react-hooks/types';
 
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { decryptMessage } from '@zcloak/message';
 
@@ -23,6 +23,7 @@ import { SyncProvider } from './SyncProvider';
 interface State {
   messages: MessageWithMeta<MessageType>[];
   sentMessages: MessageWithMeta<MessageType>[];
+  readMessage: (id: string) => Promise<void>;
 }
 
 export const AppContext = createContext({} as State);
@@ -127,7 +128,27 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     });
   }, [db, did, isLocked, messages]);
 
-  const value = useMemo(() => ({ messages, sentMessages }), [messages, sentMessages]);
+  const readMessage = useCallback(
+    async (id: string) => {
+      setMessages(
+        messages.map((message) => ({
+          ...message,
+          meta: {
+            ...message.meta,
+            isRead: id === message.id ? true : message.meta.isRead
+          }
+        }))
+      );
+
+      await resolver.readMessage(id);
+    },
+    [messages]
+  );
+
+  const value = useMemo(
+    () => ({ messages, sentMessages, readMessage }),
+    [messages, readMessage, sentMessages]
+  );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

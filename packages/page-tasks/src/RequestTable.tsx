@@ -16,10 +16,10 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import moment from 'moment';
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Link as LinkRouter, useNavigate } from 'react-router-dom';
 
-import { CTypeName, TaskStatusDisplay } from '@credential/react-components';
+import { AppContext, CTypeName, TaskStatusDisplay } from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
 import { useTasks } from '@credential/react-hooks';
 
@@ -29,14 +29,17 @@ import ActionButton from './ActionButton';
 import { TaskCard, TaskCardItem } from './TaskCard';
 
 const Row: React.FC<{ task: Task }> = ({ task }) => {
+  const { readMessage } = useContext(AppContext);
   const navigate = useNavigate();
 
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
 
   const handleClick = useCallback(() => {
+    readMessage(task.id);
+
     if (!upMd) navigate(`/attester/tasks/${task.id}`);
-  }, [navigate, task.id, upMd]);
+  }, [navigate, readMessage, task.id, upMd]);
 
   return (
     <TaskCard
