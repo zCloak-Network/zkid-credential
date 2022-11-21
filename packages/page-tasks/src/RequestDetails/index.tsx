@@ -3,17 +3,14 @@
 
 import type { DecryptedTask } from '@credential/react-hooks/types';
 
-import { Box, Container, Dialog, DialogActions, DialogContent, Stack } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
+import { Box, Button, Container, Dialog, DialogActions, DialogContent, Stack } from '@mui/material';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
-import { decryptMessage } from '@zcloak/message';
 
 import { AppContext, DialogHeader } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidsContext } from '@credential/react-dids';
-import { didManager, resolver } from '@credential/react-dids/instance';
-import { useTask } from '@credential/react-hooks';
+import { useDecryptedMessage, useTask } from '@credential/react-hooks';
 
 import Approve from './Approve';
 import ClaimInfo from './ClaimInfo';
@@ -21,28 +18,24 @@ import Details from './Details';
 import Reject from './Reject';
 
 const RequestDetails: React.FC = () => {
-  const { did, unlock } = useContext(DidsContext);
+  const { isLocked, unlock } = useContext(DidsContext);
   const { readMessage } = useContext(AppContext);
   const { id } = useParams<{ id: string }>();
 
   const task = useTask(id);
   const navigate = useNavigate();
-  const [decrypted, setDecrypted] = useState<DecryptedTask>();
+  const decrypted: DecryptedTask | null = useDecryptedMessage(task);
 
   useEffect(() => {
-    if (did && task) {
-      (didManager.isLocked(did.id) ? unlock() : Promise.resolve()).then(() =>
-        decryptMessage(task, did, resolver).then((message) => setDecrypted({ ...message, ...task }))
-      );
-    }
-  }, [did, task, unlock]);
-
-  useEffect(() => {
-    id && readMessage(id);
-  }, [id, readMessage]);
+    id && !isLocked && readMessage(id);
+  }, [id, readMessage, isLocked]);
 
   if (!decrypted) {
-    return <Dialog fullScreen open></Dialog>;
+    return (
+      <Dialog fullScreen open>
+        <Button onClick={unlock}>Unlock</Button>
+      </Dialog>
+    );
   }
 
   return (

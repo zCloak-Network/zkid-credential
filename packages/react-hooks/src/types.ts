@@ -15,6 +15,10 @@ export interface MessageWithMeta<T extends MessageType> extends Message<T> {
   meta: MessageMeta;
 }
 
+export interface DecryptedMessageWithMeta<T extends MessageType> extends DecryptedMessage<T> {
+  meta: MessageMeta;
+}
+
 export type Task = MessageWithMeta<'Request_Attestation'>;
 
-export type DecryptedTask = Task & DecryptedMessage<'Request_Attestation'>;
+export type DecryptedTask = DecryptedMessageWithMeta<'Request_Attestation'>;

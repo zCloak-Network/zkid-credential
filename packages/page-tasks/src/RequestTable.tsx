@@ -21,7 +21,7 @@ import { Link as LinkRouter, useNavigate } from 'react-router-dom';
 
 import { AppContext, CTypeName, TaskStatusDisplay } from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
-import { useTasks } from '@credential/react-hooks';
+import { useDecryptedMessage, useTasks } from '@credential/react-hooks';
 
 import Approve from './RequestDetails/Approve';
 import Reject from './RequestDetails/Reject';
@@ -35,6 +35,8 @@ const Row: React.FC<{ task: Task }> = ({ task }) => {
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
 
+  const decrypted = useDecryptedMessage(task);
+
   const handleClick = useCallback(() => {
     readMessage(task.id);
 
@@ -45,14 +47,15 @@ const Row: React.FC<{ task: Task }> = ({ task }) => {
     <TaskCard
       onClick={handleClick}
       operate={
-        upMd ? (
-          <ActionButton task={task} />
+        decrypted &&
+        (upMd ? (
+          <ActionButton task={decrypted} />
         ) : (
           <>
-            {task.meta.taskStatus === 'pending' && <Approve task={task} type="button" />}
-            {task.meta.taskStatus === 'pending' && <Reject task={task} type="button" />}
+            {task.meta.taskStatus === 'pending' && <Approve task={decrypted} type="button" />}
+            {task.meta.taskStatus === 'pending' && <Reject task={decrypted} type="button" />}
           </>
-        )
+        ))
       }
     >
       <TaskCardItem content={<DidName value={task.sender} />} label="Sender" />

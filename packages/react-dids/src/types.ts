@@ -13,6 +13,8 @@ export type DidRole = 'attester' | 'claimer';
 export interface DidsState {
   all: Did[];
   did: Did | null;
+  isLocked: boolean;
+  lock: () => void;
   unlock: () => Promise<void>;
 }
 

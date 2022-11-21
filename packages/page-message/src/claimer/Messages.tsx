@@ -1,7 +1,9 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { BaseMessage, MessageType } from '@zcloak/message/types';
+import type { MessageType } from '@zcloak/message/types';
+
+import type { MessageWithMeta } from '@credential/react-hooks/types';
 
 import {
   alpha,
@@ -19,7 +21,7 @@ import React from 'react';
 
 import MessageRow from '../messages/MessageRow';
 
-function Messages({ messages }: { messages?: BaseMessage<MessageType>[] }) {
+function Messages({ messages }: { messages?: MessageWithMeta<MessageType>[] }) {
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
 

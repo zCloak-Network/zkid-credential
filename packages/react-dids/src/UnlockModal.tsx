@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import LockIcon from '@mui/icons-material/Lock';
-import { Button, Dialog, DialogContent, InputAdornment, Stack } from '@mui/material';
+import { Button, Dialog, DialogContent, InputAdornment, lighten, Stack } from '@mui/material';
 import React, { useCallback, useContext, useState } from 'react';
 
 import { DialogHeader, InputPassword } from '@credential/react-components';
 
 import { DidsContext } from './DidsProvider';
-import { didManager } from './instance';
+import { keyring } from './instance';
 
 function UnlockModal({
   onClose,
@@ -26,7 +26,9 @@ function UnlockModal({
     try {
       if (!password || !did) return;
 
-      didManager.unlock(did.id, password);
+      Array.from(did.keyRelationship.values()).forEach(({ publicKey }) =>
+        keyring.getPair(publicKey).unlock(password)
+      );
 
       onUnlock();
     } catch (error) {}
@@ -38,7 +40,6 @@ function UnlockModal({
       <DialogContent>
         <Stack spacing={4}>
           <InputPassword
-            fullWidth
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Please input password"
             startAdornment={
@@ -46,6 +47,13 @@ function UnlockModal({
                 <LockIcon color="primary" />
               </InputAdornment>
             }
+            sx={({ palette }) => ({
+              '.MuiOutlinedInput-notchedOutline': {
+                borderColor: 'transparent'
+              },
+              border: 'none',
+              background: lighten(palette.primary.main, 0.94)
+            })}
           />
           <Button fullWidth onClick={_onUnlock} variant="contained">
             Unlock

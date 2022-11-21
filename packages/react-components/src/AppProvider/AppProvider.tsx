@@ -16,7 +16,7 @@ import { DB } from '@credential/app-store/db';
 import { updatePendingCredential } from '@credential/app-store/pending-credential';
 import { useDB } from '@credential/app-store/useDB';
 import { DidsContext } from '@credential/react-dids';
-import { didManager, resolver } from '@credential/react-dids/instance';
+import { resolver } from '@credential/react-dids/instance';
 
 import { SyncProvider } from './SyncProvider';
 
@@ -58,10 +58,9 @@ function saveIssuedVC(db: DB, did: Did, message: MessageWithMeta<'Response_Appro
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const { did } = useContext(DidsContext);
+  const { did, isLocked } = useContext(DidsContext);
   const [messages, setMessages] = useState<MessageWithMeta<MessageType>[]>([]);
   const [sentMessages, setSentMessages] = useState<MessageWithMeta<MessageType>[]>([]);
-  const [isLocked, setIsLocked] = useState<boolean>(true);
   const db = useDB(did?.id);
 
   const didUrl = useMemo(() => {
@@ -99,20 +98,6 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   }, [didUrl]);
 
   useEffect(() => {
-    did && setIsLocked(didManager.isLocked(did.id));
-
-    const toggleUnlock = () => {
-      did && setIsLocked(didManager.isLocked(did.id));
-    };
-
-    didManager.on('unlocked', toggleUnlock);
-
-    return () => {
-      didManager.off('unlocked', toggleUnlock);
-    };
-  }, [did]);
-
-  useEffect(() => {
     if (!db || !did) return;
 
     messages.forEach((message) => {
@@ -128,22 +113,19 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     });
   }, [db, did, isLocked, messages]);
 
-  const readMessage = useCallback(
-    async (id: string) => {
-      setMessages(
-        messages.map((message) => ({
-          ...message,
-          meta: {
-            ...message.meta,
-            isRead: id === message.id ? true : message.meta.isRead
-          }
-        }))
-      );
+  const readMessage = useCallback(async (id: string) => {
+    setMessages((messages) =>
+      messages.map((message) => ({
+        ...message,
+        meta: {
+          ...message.meta,
+          isRead: id === message.id ? true : message.meta.isRead
+        }
+      }))
+    );
 
-      await resolver.readMessage(id);
-    },
-    [messages]
-  );
+    await resolver.readMessage(id);
+  }, []);
 
   const value = useMemo(
     () => ({ messages, sentMessages, readMessage }),

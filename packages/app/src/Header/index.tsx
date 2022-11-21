@@ -1,6 +1,8 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import Lock from '@mui/icons-material/Lock';
+import LockOpen from '@mui/icons-material/LockOpen';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
@@ -61,7 +63,7 @@ function Header({
   unreads: UseNotification;
   toggleOpen: () => void;
 }) {
-  const { did } = useContext(DidsContext);
+  const { did, isLocked, lock, unlock } = useContext(DidsContext);
   const [notiOpen, toggleNotiOpen] = useToggle();
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
@@ -134,6 +136,9 @@ function Header({
             <Badge badgeContent={unreads.allUnread} color="warning" max={99}>
               <NotificationsNoneOutlinedIcon />
             </Badge>
+          </IconButton>
+          <IconButton onClick={isLocked ? unlock : lock} size={upMd ? 'medium' : 'small'}>
+            {isLocked ? <LockOpen /> : <Lock />}
           </IconButton>
           {did && <DidInfo did={did} />}
         </Stack>

@@ -1,7 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Message, MessageType } from '@zcloak/message/types';
+import type { DecryptedMessage, Message, MessageType } from '@zcloak/message/types';
 import type { VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/types';
 
 import Circle from '@mui/icons-material/Circle';
@@ -19,31 +19,25 @@ import moment from 'moment';
 import React, { useCallback, useContext, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { decryptMessage } from '@zcloak/message';
-
 import { IconNewMessage, IconNewTask } from '@credential/app-config/icons';
 import { CredentialModal, CTypeName } from '@credential/react-components';
 import { DidName, DidsContext } from '@credential/react-dids';
-import { didManager, resolver } from '@credential/react-dids/instance';
-import { useToggle } from '@credential/react-hooks';
+import { useDecryptedMessage, useToggle } from '@credential/react-hooks';
+import { MessageWithMeta } from '@credential/react-hooks/types';
 
-async function getCredential(message: Message<MessageType>): Promise<VerifiableCredential | null> {
-  const did = didManager.getDid(message.receiver);
-
-  const decryptedMessage = await decryptMessage(message, did, resolver);
-
-  switch (decryptedMessage.msgType) {
+function getCredential(message: DecryptedMessage<MessageType>): VerifiableCredential | null {
+  switch (message.msgType) {
     case 'Send_VP':
-      return (decryptedMessage.data as VerifiablePresentation).verifiableCredential[0];
+      return (message.data as VerifiablePresentation).verifiableCredential[0];
 
     case 'Response_Accept_VP':
-      return (decryptedMessage.data as VerifiablePresentation).verifiableCredential[0];
+      return (message.data as VerifiablePresentation).verifiableCredential[0];
 
     case 'Send_issuedVC':
-      return decryptedMessage.data as VerifiableCredential;
+      return message.data as VerifiableCredential;
 
     case 'Response_Approve_Attestation':
-      return decryptedMessage.data as VerifiableCredential;
+      return message.data as VerifiableCredential;
 
     default:
       return null;
@@ -111,13 +105,14 @@ function Cell({
   onRead
 }: {
   isRead: boolean;
-  message: Message<MessageType>;
+  message: MessageWithMeta<MessageType>;
   onRead: () => void;
 }) {
   const { did, unlock } = useContext(DidsContext);
   const theme = useTheme();
   const upSm = useMediaQuery(theme.breakpoints.up('sm'));
   const navigate = useNavigate();
+  const decrypted = useDecryptedMessage(message);
 
   const credential = useRef<VerifiableCredential | null>(null);
 
@@ -131,21 +126,18 @@ function Cell({
     if (message.msgType === 'Request_Attestation') {
       navigate(`/attester/tasks/${message.id}`);
     } else {
-      if (!did) return;
-      const isLocked = didManager.isLocked(did.id);
+      if (!did || !decrypted) return;
 
-      if (isLocked) {
-        await unlock();
-      }
+      await unlock();
 
-      const _credential = await getCredential(message);
+      const _credential = getCredential(decrypted);
 
       if (_credential) {
         credential.current = _credential;
         toggleOpen();
       }
     }
-  }, [did, message, navigate, onRead, toggleOpen, unlock]);
+  }, [decrypted, did, message, navigate, onRead, toggleOpen, unlock]);
 
   return (
     <>

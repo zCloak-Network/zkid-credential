@@ -4,17 +4,14 @@
 import type { Message } from '@zcloak/message/types';
 import type { VerifiableCredential } from '@zcloak/vc/types';
 
-import type { DecryptedTask, Task } from '@credential/react-hooks/types';
+import type { DecryptedTask } from '@credential/react-hooks/types';
 
 import { alpha, Button, ListItemIcon, ListItemText, MenuItem } from '@mui/material';
 import React, { useCallback, useContext, useState } from 'react';
 
-import { decryptMessage } from '@zcloak/message';
-
 import { IconApprove } from '@credential/app-config/icons';
 import { Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal, useDid } from '@credential/react-dids';
-import { didManager, resolver } from '@credential/react-dids/instance';
 import {
   encryptMessageStep,
   sendMessage,
@@ -25,7 +22,7 @@ import { useStopPropagation, useToggle } from '@credential/react-hooks';
 
 const Approve: React.FC<{
   type?: 'button' | 'menu';
-  task: Task;
+  task: DecryptedTask;
 }> = ({ task, type = 'button' }) => {
   const { did: attester, unlock } = useContext(DidsContext);
   const [open, toggleOpen] = useToggle();
@@ -34,23 +31,12 @@ const Approve: React.FC<{
   const [recaptchaToken, setRecaptchaToken] = useState<string>();
   const [vc, setVC] = useState<VerifiableCredential>();
 
-  const [decrypted, setDecrypted] = useState<DecryptedTask | null>(null);
-  const claimer = useDid(decrypted?.data.holder);
+  const claimer = useDid(task.data.holder);
 
   const _toggleOpen = useStopPropagation(
-    useCallback(async () => {
-      if (attester && task) {
-        if (didManager.isLocked(attester.id)) {
-          await unlock();
-        }
-
-        decryptMessage(task, attester, resolver).then((message) => {
-          setDecrypted({ ...message, ...task });
-
-          toggleOpen();
-        });
-      }
-    }, [attester, task, toggleOpen, unlock])
+    useCallback(() => {
+      unlock().then(toggleOpen);
+    }, [toggleOpen, unlock])
   );
 
   return (
@@ -79,7 +65,7 @@ const Approve: React.FC<{
           <ListItemText>Approve</ListItemText>
         </MenuItem>
       )}
-      {open && decrypted && (
+      {open && (
         <DidsModal
           onClose={_toggleOpen}
           open={open}
@@ -90,7 +76,7 @@ const Approve: React.FC<{
                 {
                   label: 'Sign proof and build VC',
                   paused: true,
-                  exec: () => signAndBuildVC(decrypted.data, attester).then(setVC)
+                  exec: () => signAndBuildVC(task.data, attester).then(setVC)
                 },
                 {
                   label: 'Encrypt message',

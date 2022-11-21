@@ -8,7 +8,7 @@ import { Did } from '@zcloak/did';
 import UnlockModal from '@credential/react-dids/UnlockModal';
 import { useToggle } from '@credential/react-hooks';
 
-import { didManager } from './instance';
+import { didManager, keyring } from './instance';
 import { DidsState } from './types';
 
 export const DidsContext = createContext({} as DidsState);
@@ -21,6 +21,7 @@ const DidsProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [unlockOpen, toggleUnlock] = useToggle();
   const [all, setAll] = useState<Did[]>(didManager.getAll());
   const [did, setDid] = useState<Did | null>(all.length > 0 ? all[0] : null);
+  const [isLocked, setIsLocked] = useState<boolean>(true);
 
   useEffect(() => {
     const didChange = () => {
@@ -38,23 +39,46 @@ const DidsProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       didManager.off('add', didChange);
       didManager.off('remove', didChange);
     };
+  }, []);
+
+  useEffect(() => {
+    if (did) {
+      setIsLocked(
+        Array.from(did.keyRelationship.values())
+          .map(({ publicKey }) => keyring.getPair(publicKey).isLocked)
+          .includes(true)
+      );
+    }
   }, [did]);
 
-  const unlock = useCallback(() => {
+  const unlock = useCallback((): Promise<void> => {
+    if (!isLocked) return Promise.resolve();
+
     return new Promise<void>((resolve, reject) => {
       unlockPromiseResolve = resolve;
       unlockPromiseReject = reject;
       toggleUnlock();
     });
-  }, [toggleUnlock]);
+  }, [isLocked, toggleUnlock]);
+
+  const lock = useCallback(() => {
+    if (did) {
+      Array.from(did.keyRelationship.values()).forEach(({ publicKey }) =>
+        keyring.getPair(publicKey).lock()
+      );
+      setIsLocked(true);
+    }
+  }, [did]);
 
   const value: DidsState = useMemo(
     (): DidsState => ({
       all,
       did,
+      isLocked,
+      lock,
       unlock
     }),
-    [all, did, unlock]
+    [all, did, isLocked, lock, unlock]
   );
 
   return (
@@ -69,6 +93,7 @@ const DidsProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
           onUnlock={() => {
             unlockPromiseResolve();
             toggleUnlock();
+            setIsLocked(false);
           }}
           open
         />

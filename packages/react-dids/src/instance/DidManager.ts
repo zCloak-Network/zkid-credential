@@ -68,24 +68,6 @@ export class DidManager extends Events {
     return Array.from(this.#dids.values());
   }
 
-  public isLocked(didUrl: DidUrl): boolean {
-    const did = this.getDid(didUrl);
-
-    return Array.from(did.keyRelationship.values())
-      .map(({ publicKey }) => this.#keyring.getPair(publicKey).isLocked)
-      .includes(true);
-  }
-
-  public unlock(didUrl: DidUrl, password: string): void {
-    const did = this.getDid(didUrl);
-
-    Array.from(did.keyRelationship.values()).forEach(({ publicKey }) =>
-      this.#keyring.getPair(publicKey).unlock(password)
-    );
-
-    this.emit('unlocked', did);
-  }
-
   public saveDid(did: Did, password: string): void {
     // save key
     Array.from(did.keyRelationship.values()).forEach(({ publicKey }) => {

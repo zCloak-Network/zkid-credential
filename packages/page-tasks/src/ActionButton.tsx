@@ -1,7 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Task } from '@credential/react-hooks/types';
+import type { DecryptedTask } from '@credential/react-hooks/types';
 
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
@@ -14,7 +14,7 @@ import Approve from './RequestDetails/Approve';
 import Reject from './RequestDetails/Reject';
 
 const ActionButton: React.FC<{
-  task: Task;
+  task: DecryptedTask;
 }> = ({ task }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

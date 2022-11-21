@@ -25,7 +25,7 @@ const SubmitClaim: React.FC<{
   ctype?: CType;
   onDone?: () => void;
 }> = ({ attester, contents, ctype, hasError, onDone }) => {
-  const { did: sender } = useContext(DidsContext);
+  const { did: sender, unlock } = useContext(DidsContext);
   const db = useDB(sender?.id);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] = useState<Message<'Request_Attestation'>>();
@@ -52,6 +52,10 @@ const SubmitClaim: React.FC<{
     return null;
   }, [contents, ctype, sender]);
 
+  const _toggleOpen = useCallback(() => {
+    unlock().then(toggleOpen);
+  }, [toggleOpen, unlock]);
+
   const _onDone = useCallback(() => {
     if (rawCredential && encryptedMessage && db && attester) {
       addPendingCredential(rawCredential, attester.id, encryptedMessage.id, db);
@@ -64,7 +68,7 @@ const SubmitClaim: React.FC<{
     <>
       <Button
         disabled={!attester || !ctype || !contents || hasError}
-        onClick={toggleOpen}
+        onClick={_toggleOpen}
         variant="contained"
       >
         Submit

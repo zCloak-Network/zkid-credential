@@ -3,10 +3,11 @@
 
 import type { VerifiableCredential } from '@zcloak/vc/types';
 
+import IconQrcode from '@mui/icons-material/QrCode';
 import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 
-import { IconQrcode } from '@credential/app-config/icons';
+import { DidsContext } from '@credential/react-dids';
 import { useToggle } from '@credential/react-hooks';
 
 import QrcodeModal from './QrcodeModal';
@@ -15,13 +16,16 @@ const QrcodeButton: React.FC<{ credential: VerifiableCredential; withText?: bool
   credential,
   withText = false
 }) => {
+  const { unlock } = useContext(DidsContext);
   const [open, toggleOpen] = useToggle();
   const _toggleOpen: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       e.stopPropagation();
+
+      unlock().then(toggleOpen);
       toggleOpen();
     },
-    [toggleOpen]
+    [toggleOpen, unlock]
   );
 
   return (
