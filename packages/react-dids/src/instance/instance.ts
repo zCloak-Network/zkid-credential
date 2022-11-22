@@ -3,6 +3,8 @@
 
 import { initCrypto } from '@zcloak/crypto';
 
+import { DID_SERVICE } from '@credential/app-config/endpoints';
+
 import { DidManager } from './DidManager';
 import { CredentialDidResolver } from './DidResolver';
 import { Keyring } from './Keyring';
@@ -15,7 +17,7 @@ export let didManager: DidManager;
 
 initCrypto().then(() => {
   keyring = new Keyring();
-  resolver = new CredentialDidResolver();
+  resolver = new CredentialDidResolver(DID_SERVICE);
   didManager = new DidManager(keyring, resolver);
 
   keyring.load();

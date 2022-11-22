@@ -11,6 +11,7 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useS
 
 import { decryptMessage } from '@zcloak/message';
 
+import { MESSAGE_WS } from '@credential/app-config/endpoints';
 import { addVC } from '@credential/app-store';
 import { DB } from '@credential/app-store/db';
 import { updatePendingCredential } from '@credential/app-store/pending-credential';
@@ -76,7 +77,7 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       return;
     }
 
-    const syncProvider = new SyncProvider('wss://wss.did-service.starks.network');
+    const syncProvider = new SyncProvider(MESSAGE_WS);
 
     resolver
       .getMessages({ receiver: didUrl })
