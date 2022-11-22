@@ -11,7 +11,7 @@
   },
   "sideEffects": false,
   "type": "commonjs",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "workspaces": [
     "packages/*"
   ],
@@ -19,28 +19,15 @@
     "build-assets": "./scripts/buildAssets.js"
   },
   "scripts": {
-    "build:release": "zcloak-ci-ghact-build",
-    "build:code": "NODE_ENV=production yarn zcloak-dev-build-ts",
     "build": "yarn build-assets && yarn build:code",
+    "build:code": "NODE_ENV=production yarn zcloak-dev-build-ts",
+    "build:release": "zcloak-ci-ghact-build",
     "clean": "zcloak-dev-clean-build",
     "lint": "zcloak-dev-run-lint",
     "lint:css": "stylelint './packages/**/src/**/*.tsx'",
     "start": "yarn clean && cd packages/app && yarn webpack serve --config webpack.serve.cjs --port 3000",
     "test": "zcloak-dev-run-test --coverage --forceExit --runInBand --testPathIgnorePatterns e2e",
     "test:one": "zcloak-dev-run-test --detectOpenHandles --forceExit"
-  },
-  "resolutions": {
-    "@polkadot/util": "^10.1.12",
-    "@zcloak/crypto": "^0.0.3",
-    "@zcloak/ctype": "^0.0.3",
-    "@zcloak/did": "^0.0.3",
-    "@zcloak/did-resolver": "^0.0.3",
-    "@zcloak/keyring": "^0.0.3",
-    "@zcloak/message": "^0.0.3",
-    "@zcloak/vc": "^0.0.3",
-    "@zcloak/verify": "^0.0.3",
-    "babel-core": "^7.18.10",
-    "typescript": "^4.7.3"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
@@ -60,7 +47,9 @@
     "@zcloak/dev": "^0.6.6",
     "concurrently": "^7.2.1",
     "devtron": "^1.4.0",
+    "humps": "^2.0.1",
     "material-ui-popup-state": "^4.0.2",
+    "node-html-parser": "^6.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
@@ -70,5 +59,18 @@
     "typescript": "^4.7.4",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
+  },
+  "resolutions": {
+    "@polkadot/util": "^10.1.12",
+    "@zcloak/crypto": "^0.0.3",
+    "@zcloak/ctype": "^0.0.3",
+    "@zcloak/did": "^0.0.3",
+    "@zcloak/did-resolver": "^0.0.3",
+    "@zcloak/keyring": "^0.0.3",
+    "@zcloak/message": "^0.0.3",
+    "@zcloak/vc": "^0.0.3",
+    "@zcloak/verify": "^0.0.3",
+    "babel-core": "^7.18.10",
+    "typescript": "^4.7.3"
   }
 }

@@ -14,9 +14,9 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {
-    "@credential/react-dids": "workspace:^",
+    "@credential/react-dids": "0.0.1",
     "@polkadot/util": "^10.1.12",
     "@zcloak/crypto": "^0.0.3",
     "@zcloak/ctype": "^0.0.3",

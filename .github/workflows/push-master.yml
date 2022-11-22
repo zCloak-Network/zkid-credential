@@ -1,0 +1,49 @@
+name: Master
+on:
+  push:
+    branches:
+      - master
+
+concurrency:
+  group: "master"
+  cancel-in-progress: true
+
+jobs:
+  release:
+    if: "startsWith(github.event.head_commit.message, 'stable/deploy') || startsWith(github.event.head_commit.message, '[CI Skip] release/stable')"
+    runs-on: ubuntu-latest
+    environment: master
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GH_PAT }}
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: "16"
+        cache: "yarn"
+
+    - name: install deps
+      run: |
+        yarn install --immutable | grep -v 'YN0013'
+
+    - name: build
+      env:
+        GH_PAT: ${{ secrets.GH_PAT }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: |
+        yarn build
+
+    - name: Deploy release
+      uses: appleboy/scp-action@master
+      with:
+        username: ubuntu
+        host: ${{ secrets.HOST }}
+        port: 22
+        key: ${{ secrets.KEY }}
+        source: ${{ github.workspace }}/packages/app/build
+        target: "/home/ubuntu/cred"
+        strip_components: 5
+        rm: true
