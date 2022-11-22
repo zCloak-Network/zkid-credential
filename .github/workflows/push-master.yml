@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   release:
-    if: "startsWith(github.event.head_commit.message, 'stable/deploy') || startsWith(github.event.head_commit.message, '[CI Skip] release/stable')"
+    if: "!startsWith(github.event.head_commit.message, '[CI Skip] release/')"
     runs-on: ubuntu-latest
     environment: master
     steps:
