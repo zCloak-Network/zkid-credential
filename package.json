@@ -12,6 +12,10 @@
   "sideEffects": false,
   "type": "commonjs",
   "version": "0.0.2",
+  "versions": {
+    "git": "0.0.1",
+    "npm": "0.0.1"
+  },
   "workspaces": [
     "packages/*"
   ],
