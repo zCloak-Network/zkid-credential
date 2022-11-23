@@ -23,6 +23,7 @@ type DidKeys$JsonVersion = '1';
 export interface DidKeys$Json {
   didUrl: DidUrl;
   version: DidKeys$JsonVersion;
+  identifierKey: KeyringPair$Json;
   keys: KeyringPair$Json[];
   authentication: DidUrl[];
   assertionMethod: DidUrl[];

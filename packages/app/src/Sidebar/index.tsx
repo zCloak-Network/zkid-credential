@@ -80,7 +80,7 @@ const DrawerMd = styled(MuiDrawer, {
     background:
       accountType === 'attester' ? theme.palette.common.black : theme.palette.common.white,
     zIndex: 99,
-    padding: '130px 16px 0',
+    padding: '100px 16px 0',
     borderRight: 'none',
     ...(open ? openedMixin(theme) : closedMixin(theme))
   },

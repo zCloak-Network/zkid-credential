@@ -5,7 +5,6 @@ import Lock from '@mui/icons-material/Lock';
 import LockOpen from '@mui/icons-material/LockOpen';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
 import {
   alpha,
   Badge,
@@ -75,25 +74,6 @@ function Header({
 
   return (
     <>
-      <Box
-        fontSize="small"
-        sx={({ palette }) => ({
-          zIndex: 999,
-          position: 'fixed',
-          top: 0,
-          width: '100%',
-          height: 30,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: palette.warning.main,
-          color: palette.common.white
-        })}
-      >
-        <ReportProblemOutlinedIcon fontSize="small" sx={{ marginRight: 2 }} />
-        Please backup your DID account and your credential file before logging out and do not clear
-        local storage for the duration of this event.
-      </Box>
       <Stack
         alignItems="center"
         direction="row"
@@ -103,7 +83,7 @@ function Header({
           paddingX: upMd ? 5 : 2,
           zIndex: 999,
           position: 'fixed',
-          top: 30,
+          top: 0,
           width: '100%',
           background: palette.common.white,
           borderBottom: '1px solid',
@@ -138,7 +118,7 @@ function Header({
             </Badge>
           </IconButton>
           <IconButton onClick={isLocked ? unlock : lock} size={upMd ? 'medium' : 'small'}>
-            {isLocked ? <LockOpen /> : <Lock />}
+            {isLocked ? <Lock /> : <LockOpen />}
           </IconButton>
           {did && <DidInfo did={did} />}
         </Stack>

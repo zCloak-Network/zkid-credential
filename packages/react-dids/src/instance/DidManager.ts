@@ -3,9 +3,13 @@
 
 import type { DidResolver } from '@zcloak/did-resolver';
 import type { DidDocument, DidUrl } from '@zcloak/did-resolver/types';
+import type { KeyringPair } from '@zcloak/keyring/types';
 import type { DidKeys$Json } from '../types';
 import type { Keyring } from './Keyring';
 
+import { assert } from '@polkadot/util';
+
+import { ethereumEncode } from '@zcloak/crypto';
 import { Did, helpers } from '@zcloak/did';
 import { KeyRelationship } from '@zcloak/did/types';
 
@@ -20,6 +24,16 @@ export class DidManager extends Events {
     super();
     this.#keyring = keyring;
     this.#resolver = resolver;
+  }
+
+  private getIdentifierPair(didUrl: string): KeyringPair | undefined {
+    const { identifier } = this.#resolver.parseDid(didUrl);
+
+    const identifierPair = this.#keyring
+      .getPairs()
+      .find((pair) => ethereumEncode(pair.publicKey) === identifier);
+
+    return identifierPair;
   }
 
   public load(): void {
@@ -69,6 +83,13 @@ export class DidManager extends Events {
   }
 
   public saveDid(did: Did, password: string): void {
+    // save identifier
+    const identifierPair = this.getIdentifierPair(did.id);
+
+    if (identifierPair) {
+      this.#keyring.savePair(identifierPair.publicKey, password);
+    }
+
     // save key
     Array.from(did.keyRelationship.values()).forEach(({ publicKey }) => {
       this.#keyring.savePair(publicKey, password);
@@ -102,6 +123,9 @@ export class DidManager extends Events {
         publicKey
       });
     });
+    const pair = this.#keyring.addFromJson(json.identifierKey);
+
+    pair.unlock(password);
 
     const did = new Did({
       id: json.didUrl,
@@ -125,10 +149,14 @@ export class DidManager extends Events {
 
   public backup(didUrl: DidUrl, password: string): DidKeys$Json {
     const did = this.getDid(didUrl);
+    const identifierPair = this.getIdentifierPair(didUrl);
+
+    assert(identifierPair, 'no identifier pair found');
 
     return {
       didUrl: did.id,
       version: '1',
+      identifierKey: identifierPair.toJson(password),
       keys: Array.from(did.keyRelationship.values()).map(({ publicKey }) => {
         const pair = did.getPair(publicKey);
 
@@ -145,6 +173,14 @@ export class DidManager extends Events {
   public remove(didUrl: DidUrl): void {
     const did = this.getDid(didUrl);
 
+    // remove identifier key
+    const identifierPair = this.getIdentifierPair(didUrl);
+
+    if (identifierPair) {
+      this.#keyring.removePair(identifierPair.publicKey);
+    }
+
+    // remove keys
     Array.from(did.keyRelationship.values()).forEach(({ publicKey }) => {
       this.#keyring.removePair(publicKey);
     });

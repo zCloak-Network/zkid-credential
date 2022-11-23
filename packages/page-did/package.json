@@ -1,24 +1,24 @@
 {
   "author": "zCloak",
-  "bugs": "https://github.com/zCloak-Network/credential-interface/issues",
+  "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
   "contributors": [],
   "description": "credential page-did",
-  "homepage": "https://github.com/zCloak-Network/credential-interface/tree/master/packages/page-did#readme",
+  "homepage": "https://github.com/zCloak-Network/zkid-credential/tree/master/packages/page-did#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@credential/page-did",
   "repository": {
     "directory": "packages/page-did",
     "type": "git",
-    "url": "https://github.com/zCloak-Network/credential-interface.git"
+    "url": "https://github.com/zCloak-Network/zkid-credential.git"
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "dependencies": {
-    "@zcloak/crypto": "^0.0.3",
-    "@zcloak/did": "^0.0.3",
-    "@zcloak/did-resolver": "^0.0.3",
-    "@zcloak/keyring": "^0.0.3"
+    "@zcloak/crypto": "^0.1.0",
+    "@zcloak/did": "^0.1.0",
+    "@zcloak/did-resolver": "^0.1.0",
+    "@zcloak/keyring": "^0.1.0"
   }
 }

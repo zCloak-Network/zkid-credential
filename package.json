@@ -1,20 +1,20 @@
 {
   "author": "zCloak",
-  "bugs": "https://github.com/zCloak-Network/credential-interface/issues",
-  "homepage": "https://github.com/zCloak-Network/credential-interface#readme",
+  "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
+  "homepage": "https://github.com/zCloak-Network/zkid-credential#readme",
   "license": "Apache-2.0",
   "packageManager": "yarn@3.3.0",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/zCloak-Network/credential-interface.git"
+    "url": "https://github.com/zCloak-Network/zkid-credential.git"
   },
   "sideEffects": false,
   "type": "commonjs",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "versions": {
-    "git": "0.0.3",
-    "npm": "0.0.3"
+    "git": "0.0.0",
+    "npm": "0.0.0"
   },
   "workspaces": [
     "packages/*"

@@ -1,6 +1,6 @@
-[![credential-interface](https://img.shields.io/badge/credential-interface-lightgrey?style=flat-square)](.)
+[![zkid-credential](https://img.shields.io/badge/zkid-credential-lightgrey?style=flat-square)](.)
 
-# credential-interface
+# zkid-credential
 
 ## Development
 

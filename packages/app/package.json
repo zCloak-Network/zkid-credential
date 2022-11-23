@@ -1,20 +1,20 @@
 {
   "author": "zCloak",
-  "bugs": "https://github.com/zCloak-Network/credential-interface/issues",
+  "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
   "contributors": [],
   "description": "credential interface app",
-  "homepage": "https://github.com/zCloak-Network/credential-interface/tree/master/packages/app#readme",
+  "homepage": "https://github.com/zCloak-Network/zkid-credential/tree/master/packages/app#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@credential/app",
   "repository": {
     "directory": "packages/app",
     "type": "git",
-    "url": "https://github.com/zCloak-Network/credential-interface.git"
+    "url": "https://github.com/zCloak-Network/zkid-credential.git"
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "dependencies": {
     "@babel/core": "^7.19.0",
     "@babel/polyfill": "^7.12.1",
@@ -23,14 +23,14 @@
     "@emotion/styled": "^11.10.4",
     "@mui/material": "^5.10.5",
     "@svgr/webpack": "^6.3.1",
-    "@zcloak/crypto": "^0.0.3",
-    "@zcloak/ctype": "^0.0.3",
-    "@zcloak/did": "^0.0.3",
-    "@zcloak/did-resolver": "^0.0.3",
-    "@zcloak/keyring": "^0.0.3",
-    "@zcloak/message": "^0.0.3",
-    "@zcloak/vc": "^0.0.3",
-    "@zcloak/verify": "^0.0.3",
+    "@zcloak/crypto": "^0.1.0",
+    "@zcloak/ctype": "^0.1.0",
+    "@zcloak/did": "^0.1.0",
+    "@zcloak/did-resolver": "^0.1.0",
+    "@zcloak/keyring": "^0.1.0",
+    "@zcloak/message": "^0.1.0",
+    "@zcloak/vc": "^0.1.0",
+    "@zcloak/verify": "^0.1.0",
     "material-ui-popup-state": "^4.0.2"
   },
   "devDependencies": {
