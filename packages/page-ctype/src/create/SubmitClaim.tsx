@@ -41,7 +41,7 @@ const SubmitClaim: React.FC<{
         contents,
         owner: sender.id,
         ctype,
-        hashType: 'Rescue'
+        hashType: 'RescuePrime'
       });
 
       raw.calcRootHash();

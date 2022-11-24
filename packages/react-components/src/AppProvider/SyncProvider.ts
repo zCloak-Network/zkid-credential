@@ -34,13 +34,13 @@ export class SyncProvider extends Socket {
 
   public subscribe(
     address: string,
-    startId: number,
+    startTimestamp: number,
     callback: (messages: ServerMessage<MessageType>[]) => void
   ) {
     this.#handlers.add(callback);
     this.emit('message:subscribe', {
       address,
-      start_id: startId
+      startTimestamp
     });
   }
 }
