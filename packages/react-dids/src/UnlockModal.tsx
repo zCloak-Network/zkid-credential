@@ -65,6 +65,7 @@ function UnlockModal({
               Input&nbsp; (<DidName value={did?.id} />) &nbsp;password
             </InputLabel>
             <InputPassword
+              autoFocus
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Please input password"
               startAdornment={
