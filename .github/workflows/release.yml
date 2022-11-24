@@ -1,12 +1,12 @@
-name: Master
+name: Release
 on:
   push:
     branches:
       - master
 
 jobs:
-  release:
-    if: "! startsWith(github.event.head_commit.message, '[CI Skip]')"
+  release-web:
+    if: "startsWith(github.event.head_commit.message, 'stable/deploy') || startsWith(github.event.head_commit.message, '[CI Skip] release/stable')"
     name: ${{ matrix.step }}
     runs-on: ubuntu-latest
     environment: master
@@ -31,9 +31,9 @@ jobs:
         run: |
           yarn install --immutable | grep -v 'YN0013'
 
-      - name: build:release
+      - name: build
         run: |
-          yarn build:release
+          yarn build
 
       - name: Deploy release
         uses: appleboy/scp-action@master

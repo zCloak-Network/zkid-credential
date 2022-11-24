@@ -9,6 +9,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { IconLogoCircle } from '@credential/app-config/icons';
+import { Copy } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
 
@@ -84,9 +85,12 @@ const CTypes: React.FC<{ list: CType[] }> = ({ list }) => {
               >
                 CType Hash
               </Typography>
-              <Typography sx={{ ...ellipsisMixin() }} variant="inherit">
-                {cType.$id}
-              </Typography>
+              <Stack direction="row" spacing={1}>
+                <Typography sx={{ ...ellipsisMixin() }} variant="inherit">
+                  {cType.$id}
+                </Typography>
+                <Copy value={cType.$id} />
+              </Stack>
             </Stack>
           </Paper>
         ))}

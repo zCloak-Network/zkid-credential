@@ -16,12 +16,12 @@
   "type": "module",
   "version": "0.0.1",
   "dependencies": {
-    "@zcloak/crypto": "^0.1.0",
-    "@zcloak/ctype": "^0.1.0",
-    "@zcloak/did": "^0.1.0",
-    "@zcloak/did-resolver": "^0.1.0",
-    "@zcloak/keyring": "^0.1.0",
-    "@zcloak/message": "^0.1.0",
-    "@zcloak/vc": "^0.1.0"
+    "@zcloak/crypto": "^0.2.0",
+    "@zcloak/ctype": "^0.2.0",
+    "@zcloak/did": "^0.2.0",
+    "@zcloak/did-resolver": "^0.2.0",
+    "@zcloak/keyring": "^0.2.0",
+    "@zcloak/message": "^0.2.0",
+    "@zcloak/vc": "^0.2.0"
   }
 }
