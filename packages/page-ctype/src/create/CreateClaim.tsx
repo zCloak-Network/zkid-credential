@@ -17,6 +17,7 @@ import {
   FullScreenDialogHeader
 } from '@credential/react-components';
 import { CTypeForm } from '@credential/react-ctype';
+import { resolver } from '@credential/react-dids/instance';
 import { useToggle } from '@credential/react-hooks';
 
 import SubmitClaim from './SubmitClaim';
@@ -27,6 +28,14 @@ function CreateClaim({ ctype }: { ctype: CType }) {
   const [contents, setContents] = useState<AnyJson>({});
   const [contentsError, setContentsError] = useState<Record<string, Error | null | undefined>>({});
   const navigate = useNavigate();
+
+  const defaultAttester = useMemo(() => {
+    try {
+      return resolver.parseDid(ctype.publisher).did;
+    } catch {}
+
+    return ctype.publisher;
+  }, [ctype.publisher]);
 
   const onDone = useCallback(() => {
     toggleOpen();
@@ -59,7 +68,7 @@ function CreateClaim({ ctype }: { ctype: CType }) {
           </Typography>
           <CTypeForm
             cType={ctype}
-            defaultAttester={ctype.publisher}
+            defaultAttester={defaultAttester}
             handleAttester={setAttester}
             onChange={setContents}
             onError={setContentsError}
