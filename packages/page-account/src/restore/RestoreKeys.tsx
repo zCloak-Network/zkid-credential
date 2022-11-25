@@ -65,13 +65,12 @@ const Restore: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess 
         />
       </FormControl>
       <Divider sx={() => ({ marginTop: 3, marginBottom: 3 })} variant="fullWidth" />
-      <FormControl fullWidth variant="outlined">
-        <InputLabel shrink>Enter Keyfile password</InputLabel>
-        <InputPassword
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-        />
-      </FormControl>
+      <InputPassword
+        label="Enter Keyfile password"
+        onChange={setPassword}
+        placeholder="Enter your password"
+        withBorder
+      />
       <Button fullWidth onClick={restore} size="large" variant="contained">
         Restore
       </Button>

@@ -3,14 +3,7 @@
 
 import type { IDidDetails } from '@zcloak/did/types';
 
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  FormControl,
-  FormHelperText,
-  InputLabel
-} from '@mui/material';
+import { Button, Dialog, DialogContent } from '@mui/material';
 import FileSaver from 'file-saver';
 import React, { useCallback, useState } from 'react';
 
@@ -48,11 +41,12 @@ const ExportModal: React.FC<Props> = ({ did, onClose }) => {
     <Dialog maxWidth="sm" onClose={onClose} open>
       <DialogHeader onClose={onClose}>Export did</DialogHeader>
       <DialogContent>
-        <FormControl error={!!error} fullWidth variant="outlined">
-          <InputLabel shrink>Please input password</InputLabel>
-          <InputPassword onChange={(e) => setPassword(e.target.value)} />
-          {error && <FormHelperText>Password error</FormHelperText>}
-        </FormControl>
+        <InputPassword
+          autoFocus
+          error={error}
+          label="Please input password"
+          onChange={setPassword}
+        />
         <Button
           disabled={!password}
           fullWidth
