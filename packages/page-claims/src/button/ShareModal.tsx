@@ -3,7 +3,7 @@
 
 import type { VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/types';
 
-import { Box, Button, Checkbox, FormControlLabel, lighten, Paper, Stack } from '@mui/material';
+import { Box, Button, Checkbox, FormControlLabel, Paper, Stack } from '@mui/material';
 import React, { useContext, useMemo, useState } from 'react';
 
 import { Did } from '@zcloak/did';
@@ -58,18 +58,7 @@ const ShareModal: React.FC<{
       title="Share this with others"
     >
       <Stack spacing={3}>
-        <InputDid
-          inputProps={{
-            sx: ({ palette }) => ({
-              '.MuiOutlinedInput-notchedOutline': {
-                borderColor: 'transparent'
-              },
-              border: 'none',
-              background: lighten(palette.primary.main, 0.94)
-            })
-          }}
-          onChange={setReceiver}
-        />
+        <InputDid label="Receiver" onChange={setReceiver} />
         <Paper sx={{ height: 225, overflowY: 'scroll' }} variant="outlined">
           {attributes.map((key) => (
             <Box

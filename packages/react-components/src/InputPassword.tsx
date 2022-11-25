@@ -19,7 +19,7 @@ import React, { useCallback } from 'react';
 
 import { useToggle } from '@credential/react-hooks';
 
-const InputPassword: React.FC<InputPasswordProps> = ({
+function InputPassword({
   autoFocus,
   defaultValue,
   error,
@@ -27,7 +27,7 @@ const InputPassword: React.FC<InputPasswordProps> = ({
   onChange,
   placeholder,
   withBorder
-}) => {
+}: InputPasswordProps) {
   const [showPassword, toggle] = useToggle(false);
 
   const _onChange = useCallback(
@@ -75,6 +75,6 @@ const InputPassword: React.FC<InputPasswordProps> = ({
       {error ? <FormHelperText>{error.message}</FormHelperText> : null}
     </FormControl>
   );
-};
+}
 
 export default React.memo(InputPassword);

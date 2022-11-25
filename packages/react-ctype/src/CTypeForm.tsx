@@ -8,7 +8,7 @@ import type { NativeType } from '@zcloak/vc/types';
 import { Box, FormControl, InputLabel, OutlinedInput, Stack } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { AttesterSelect } from '@credential/react-dids';
+import { InputDid } from '@credential/react-dids';
 
 import CTypeItem from './CTypeItem';
 
@@ -63,9 +63,10 @@ const CTypeForm: React.FC<
         <InputLabel shrink>Credential type</InputLabel>
         <OutlinedInput disabled value={cType.title} />
       </FormControl>
-      <AttesterSelect
+      <InputDid
         defaultValue={defaultAttester}
         disabled={disabled}
+        label="Attester"
         onChange={handleAttester}
       />
       <Box />
