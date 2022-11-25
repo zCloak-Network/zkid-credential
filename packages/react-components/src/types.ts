@@ -5,7 +5,7 @@ import React from 'react';
 
 export interface BaseInputProps<T> {
   defaultValue?: T;
-  onChange?: (value: T) => void;
+  onChange?: (value: T | undefined) => void;
   label?: React.ReactNode;
   error?: Error | null;
   autoFocus?: boolean;
@@ -14,3 +14,5 @@ export interface BaseInputProps<T> {
 }
 
 export type InputPasswordProps = BaseInputProps<string>;
+export type InputStringProps = BaseInputProps<string>;
+export type InputNumberProps = BaseInputProps<number>;

@@ -12,12 +12,13 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
-  lighten,
   OutlinedInput
 } from '@mui/material';
 import React, { useCallback } from 'react';
 
 import { useToggle } from '@credential/react-hooks';
+
+import { withBorderInput } from './utils';
 
 function InputPassword({
   autoFocus,
@@ -59,17 +60,7 @@ function InputPassword({
             <LockIcon color="primary" />
           </InputAdornment>
         }
-        sx={({ palette }) =>
-          withBorder
-            ? {}
-            : {
-                '.MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'transparent'
-                },
-                border: 'none',
-                background: lighten(palette.primary.main, 0.94)
-              }
-        }
+        sx={(theme) => withBorderInput(theme, withBorder)}
         type={showPassword ? 'text' : 'password'}
       />
       {error ? <FormHelperText>{error.message}</FormHelperText> : null}
