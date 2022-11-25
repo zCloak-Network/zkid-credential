@@ -1492,11 +1492,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/app-store@workspace:packages/app-store"
   dependencies:
-    "@zcloak/ctype": ^0.2.0
-    "@zcloak/did-resolver": ^0.2.0
-    "@zcloak/keyring": ^0.2.0
-    "@zcloak/message": ^0.2.0
-    "@zcloak/vc": ^0.2.0
+    "@zcloak/ctype": 0.2.1-0
+    "@zcloak/did-resolver": 0.2.1-0
+    "@zcloak/keyring": 0.2.1-0
+    "@zcloak/message": 0.2.1-0
+    "@zcloak/vc": 0.2.1-0
     dexie: ^3.2.2
     dexie-react-hooks: ^1.1.1
   languageName: unknown
@@ -1514,15 +1514,15 @@ __metadata:
     "@mui/material": ^5.10.5
     "@svgr/webpack": ^6.3.1
     "@types/punycode": ^2.1.0
-    "@zcloak/crypto": ^0.2.0
-    "@zcloak/ctype": ^0.2.0
+    "@zcloak/crypto": 0.2.1-0
+    "@zcloak/ctype": 0.2.1-0
     "@zcloak/dev": ^0.6.6
-    "@zcloak/did": ^0.2.0
-    "@zcloak/did-resolver": ^0.2.0
-    "@zcloak/keyring": ^0.2.0
-    "@zcloak/message": ^0.2.0
-    "@zcloak/vc": ^0.2.0
-    "@zcloak/verify": ^0.2.0
+    "@zcloak/did": 0.2.1-0
+    "@zcloak/did-resolver": 0.2.1-0
+    "@zcloak/keyring": 0.2.1-0
+    "@zcloak/message": 0.2.1-0
+    "@zcloak/vc": 0.2.1-0
+    "@zcloak/verify": 0.2.1-0
     assert: ^2.0.0
     babel-loader: ^8.2.5
     buffer: ^6.0.3
@@ -1560,10 +1560,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/page-account@workspace:packages/page-account"
   dependencies:
-    "@zcloak/crypto": ^0.2.0
-    "@zcloak/did": ^0.2.0
-    "@zcloak/did-resolver": ^0.2.0
-    "@zcloak/keyring": ^0.2.0
+    "@zcloak/crypto": 0.2.1-0
+    "@zcloak/did": 0.2.1-0
+    "@zcloak/did-resolver": 0.2.1-0
+    "@zcloak/keyring": 0.2.1-0
     file-saver: ^2.0.5
   languageName: unknown
   linkType: soft
@@ -1572,9 +1572,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/page-claims@workspace:packages/page-claims"
   dependencies:
-    "@zcloak/did": ^0.2.0
-    "@zcloak/did-resolver": ^0.2.0
-    "@zcloak/vc": ^0.2.0
+    "@zcloak/did": 0.2.1-0
+    "@zcloak/did-resolver": 0.2.1-0
+    "@zcloak/vc": 0.2.1-0
   languageName: unknown
   linkType: soft
 
@@ -1582,9 +1582,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/page-ctype@workspace:packages/page-ctype"
   dependencies:
-    "@zcloak/ctype": ^0.2.0
-    "@zcloak/did": ^0.2.0
-    "@zcloak/did-resolver": ^0.2.0
+    "@zcloak/ctype": 0.2.1-0
+    "@zcloak/did": 0.2.1-0
+    "@zcloak/did-resolver": 0.2.1-0
   languageName: unknown
   linkType: soft
 
@@ -1592,10 +1592,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/page-did@workspace:packages/page-did"
   dependencies:
-    "@zcloak/crypto": ^0.2.0
-    "@zcloak/did": ^0.2.0
-    "@zcloak/did-resolver": ^0.2.0
-    "@zcloak/keyring": ^0.2.0
+    "@zcloak/crypto": 0.2.1-0
+    "@zcloak/did": 0.2.1-0
+    "@zcloak/did-resolver": 0.2.1-0
+    "@zcloak/keyring": 0.2.1-0
   languageName: unknown
   linkType: soft
 
@@ -1603,13 +1603,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/page-message@workspace:packages/page-message"
   dependencies:
-    "@zcloak/crypto": ^0.2.0
-    "@zcloak/ctype": ^0.2.0
-    "@zcloak/did": ^0.2.0
-    "@zcloak/did-resolver": ^0.2.0
-    "@zcloak/keyring": ^0.2.0
-    "@zcloak/message": ^0.2.0
-    "@zcloak/vc": ^0.2.0
+    "@zcloak/crypto": 0.2.1-0
+    "@zcloak/ctype": 0.2.1-0
+    "@zcloak/did": 0.2.1-0
+    "@zcloak/did-resolver": 0.2.1-0
+    "@zcloak/keyring": 0.2.1-0
+    "@zcloak/message": 0.2.1-0
+    "@zcloak/vc": 0.2.1-0
   languageName: unknown
   linkType: soft
 
@@ -1617,11 +1617,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/page-tasks@workspace:packages/page-tasks"
   dependencies:
-    "@zcloak/ctype": ^0.2.0
-    "@zcloak/did": ^0.2.0
-    "@zcloak/did-resolver": ^0.2.0
-    "@zcloak/message": ^0.2.0
-    "@zcloak/vc": ^0.2.0
+    "@zcloak/ctype": 0.2.1-0
+    "@zcloak/did": 0.2.1-0
+    "@zcloak/did-resolver": 0.2.1-0
+    "@zcloak/message": 0.2.1-0
+    "@zcloak/vc": 0.2.1-0
   languageName: unknown
   linkType: soft
 
@@ -1639,14 +1639,14 @@ __metadata:
     "@mui/lab": ^5.0.0-alpha.99
     "@mui/material": ^5.10.5
     "@mui/x-date-pickers": ^5.0.1
-    "@zcloak/ctype": ^0.2.0
-    "@zcloak/did": ^0.2.0
-    "@zcloak/did-resolver": ^0.2.0
+    "@zcloak/ctype": 0.2.1-0
+    "@zcloak/did": 0.2.1-0
+    "@zcloak/did-resolver": 0.2.1-0
     "@zcloak/extension-core": ^0.3.1
-    "@zcloak/keyring": ^0.2.0
-    "@zcloak/message": ^0.2.0
-    "@zcloak/vc": ^0.2.0
-    "@zcloak/verify": ^0.2.0
+    "@zcloak/keyring": 0.2.1-0
+    "@zcloak/message": 0.2.1-0
+    "@zcloak/vc": 0.2.1-0
+    "@zcloak/verify": 0.2.1-0
     qr-scanner: ^1.4.1
     qrcode-generator: ^1.4.4
     react-dropzone: ^14.2.2
@@ -1662,7 +1662,7 @@ __metadata:
     "@credential/react-dids": 0.0.1
     "@mui/lab": ^5.0.0-alpha.99
     "@mui/material": ^5.10.5
-    "@zcloak/ctype": ^0.2.0
+    "@zcloak/ctype": 0.2.1-0
   languageName: unknown
   linkType: soft
 
@@ -1672,14 +1672,14 @@ __metadata:
   dependencies:
     "@mui/material": ^5.10.5
     "@polkadot/util": ^10.1.12
-    "@zcloak/crypto": ^0.2.0
-    "@zcloak/ctype": ^0.2.0
-    "@zcloak/did": ^0.2.0
-    "@zcloak/did-resolver": ^0.2.0
-    "@zcloak/keyring": ^0.2.0
-    "@zcloak/message": ^0.2.0
-    "@zcloak/vc": ^0.2.0
-    "@zcloak/verify": ^0.2.0
+    "@zcloak/crypto": 0.2.1-0
+    "@zcloak/ctype": 0.2.1-0
+    "@zcloak/did": 0.2.1-0
+    "@zcloak/did-resolver": 0.2.1-0
+    "@zcloak/keyring": 0.2.1-0
+    "@zcloak/message": 0.2.1-0
+    "@zcloak/vc": 0.2.1-0
+    "@zcloak/verify": 0.2.1-0
     eventemitter3: ^4.0.7
   languageName: unknown
   linkType: soft
@@ -1690,14 +1690,14 @@ __metadata:
   dependencies:
     "@credential/react-dids": 0.0.1
     "@polkadot/util": ^10.1.12
-    "@zcloak/crypto": ^0.2.0
-    "@zcloak/ctype": ^0.2.0
-    "@zcloak/did": ^0.2.0
-    "@zcloak/did-resolver": ^0.2.0
-    "@zcloak/keyring": ^0.2.0
-    "@zcloak/message": ^0.2.0
-    "@zcloak/vc": ^0.2.0
-    "@zcloak/verify": ^0.2.0
+    "@zcloak/crypto": 0.2.1-0
+    "@zcloak/ctype": 0.2.1-0
+    "@zcloak/did": 0.2.1-0
+    "@zcloak/did-resolver": 0.2.1-0
+    "@zcloak/keyring": 0.2.1-0
+    "@zcloak/message": 0.2.1-0
+    "@zcloak/vc": 0.2.1-0
+    "@zcloak/verify": 0.2.1-0
     copy-to-clipboard: ^3.3.2
     react-router-dom: ^6.4.3
     search-query-parser: ^1.6.0

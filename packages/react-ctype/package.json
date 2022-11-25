@@ -20,6 +20,6 @@
     "@credential/react-dids": "0.0.1",
     "@mui/lab": "^5.0.0-alpha.99",
     "@mui/material": "^5.10.5",
-    "@zcloak/ctype": "^0.2.0"
+    "@zcloak/ctype": "0.2.1-0"
   }
 }
