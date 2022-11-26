@@ -23,6 +23,7 @@ import { withBorderInput } from './utils';
 function InputPassword({
   autoFocus,
   defaultValue,
+  disabled,
   error,
   label,
   onChange,
@@ -46,6 +47,7 @@ function InputPassword({
       <OutlinedInput
         autoFocus={autoFocus}
         defaultValue={defaultValue}
+        disabled={disabled}
         endAdornment={
           <InputAdornment position="end">
             <IconButton edge="end" onClick={toggle}>

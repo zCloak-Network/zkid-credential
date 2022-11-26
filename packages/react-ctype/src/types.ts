@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type React from 'react';
-import type { InstanceType } from '@zcloak/ctype/types';
+import type { CTypeSchema, InstanceType } from '@zcloak/ctype/types';
 import type { NativeType } from '@zcloak/vc/types';
 
 export interface ItemProps {
@@ -15,3 +15,24 @@ export interface ItemProps {
 }
 
 export type ItemMap = Record<InstanceType, React.FC<ItemProps>>;
+
+export interface CTypeSchemaProps {
+  schema: CTypeSchema;
+  name?: string;
+  disabled?: boolean;
+  error?: Error | null;
+  defaultValue?: unknown;
+  onChange?: (value: unknown) => void;
+}
+
+export interface CTypeSchemaVectorFixedProps extends Omit<CTypeSchemaProps, 'onChange'> {
+  items: CTypeSchema[];
+  onChange?: (value: unknown[]) => void;
+}
+
+export interface CTypeSchemaVectorProps extends Omit<CTypeSchemaProps, 'onChange'> {
+  items: CTypeSchema;
+  onChange?: (value: unknown[]) => void;
+}
+
+export type ComponentMap = Record<InstanceType, React.ComponentType<CTypeSchemaProps>>;

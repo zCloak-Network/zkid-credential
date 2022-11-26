@@ -11,6 +11,7 @@ import { withBorderInput } from './utils';
 function InputNumber({
   autoFocus,
   defaultValue,
+  disabled,
   error,
   label,
   onChange,
@@ -32,6 +33,7 @@ function InputNumber({
       <OutlinedInput
         autoFocus={autoFocus}
         defaultValue={defaultValue}
+        disabled={disabled}
         onChange={_onChange}
         placeholder={placeholder}
         sx={(theme) => withBorderInput(theme, withBorder)}

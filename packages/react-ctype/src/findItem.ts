@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type React from 'react';
-import type { InstanceType } from '@zcloak/ctype/types';
-import type { ItemMap, ItemProps } from './types';
+import type { CTypeSchema, InstanceType } from '@zcloak/ctype/types';
+import type { CTypeSchemaProps, ItemMap, ItemProps } from './types';
 
 import CTypeBool from './CTypeBool';
 import CTypeInput from './CTypeInput';
@@ -18,6 +18,6 @@ const itemMap: ItemMap = {
   boolean: CTypeBool
 };
 
-export function findItem(type?: InstanceType): React.FC<ItemProps> {
+export function findItem(schema: CTypeSchema): React.ComponentType<CTypeSchemaProps> {
   return itemMap[type || 'string'];
 }
