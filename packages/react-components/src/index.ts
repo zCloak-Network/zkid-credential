@@ -13,6 +13,7 @@ export { default as Copy } from './Copy';
 export { default as CredentialModal } from './CredentialModal';
 export { default as CredentialQrcode } from './CredentialQrcode';
 export { default as CredentialStatusDisplay } from './CredentialStatusDisplay';
+export { default as CTypeCard } from './CTypeCard';
 export { default as CTypeName } from './CTypeName';
 export { default as DialogHeader } from './DialogHeader';
 export { default as FileUpload } from './FileUpload';

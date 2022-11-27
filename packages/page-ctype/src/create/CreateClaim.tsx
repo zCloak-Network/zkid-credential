@@ -47,26 +47,28 @@ function CreateClaim({ ctype }: { ctype: CType }) {
       <Button onClick={toggleOpen} variant="contained">
         Create Claim
       </Button>
-      <FullScreenDialog open={open}>
-        <FullScreenDialogHeader
-          desc={ctype.$id}
-          icon={<IconLogoCircle sx={{ width: 50, height: 50 }} />}
-          onClose={toggleOpen}
-          title={ctype.title}
-        />
-        <FullScreenDialogContent>
-          <Typography mb={4} textAlign="center" variant="h2">
-            Create Claim
-          </Typography>
-          <InputDid defaultValue={defaultAttester} label="Attester" onChange={setAttester} />
-          <Box mt={2}>
-            <CreateSubject onChange={setContents as any} schema={ctype} />
-          </Box>
-          <Box mt={4} textAlign="center">
-            <SubmitClaim attester={attester} contents={contents} ctype={ctype} onDone={onDone} />
-          </Box>
-        </FullScreenDialogContent>
-      </FullScreenDialog>
+      {open && (
+        <FullScreenDialog open={open}>
+          <FullScreenDialogHeader
+            desc={ctype.$id}
+            icon={<IconLogoCircle sx={{ width: 50, height: 50 }} />}
+            onClose={toggleOpen}
+            title={ctype.title}
+          />
+          <FullScreenDialogContent>
+            <Typography mb={4} textAlign="center" variant="h2">
+              Create Claim
+            </Typography>
+            <InputDid defaultValue={defaultAttester} label="Attester" onChange={setAttester} />
+            <Box mt={2}>
+              <CreateSubject onChange={setContents as any} schema={ctype} />
+            </Box>
+            <Box mt={4} textAlign="center">
+              <SubmitClaim attester={attester} contents={contents} ctype={ctype} onDone={onDone} />
+            </Box>
+          </FullScreenDialogContent>
+        </FullScreenDialog>
+      )}
     </>
   );
 }

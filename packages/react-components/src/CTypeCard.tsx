@@ -13,7 +13,10 @@ import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
 import { isMobile } from '@credential/react-hooks/utils/userAgent';
 
-import CreateClaim from './create/CreateClaim';
+interface Props {
+  ctype: CType;
+  actions?: React.ReactNode;
+}
 
 const Wrapper = styled(Paper)(({ theme }) => ({
   position: 'relative',
@@ -24,22 +27,22 @@ const Wrapper = styled(Paper)(({ theme }) => ({
   ':hover': {
     boxShadow: theme.shadows[3],
 
-    '.CTypeCell_logo': {
+    '.CTypeCard_logo': {
       transform: 'scale(0.8)'
     },
 
-    '.CTypeCell_title': {
+    '.CTypeCard_title': {
       transform: 'translate(60px, -62px) scale(0.8)'
     },
-    '.CTypeCell_attester': {
+    '.CTypeCard_attester': {
       transform: 'translate(0, -50px)'
     },
-    '.CTypeCell_actions': {
+    '.CTypeCard_actions': {
       opacity: 1,
       transform: 'translateY(0)'
     }
   },
-  '.CTypeCell_logo': {
+  '.CTypeCard_logo': {
     width: 60,
     height: 60,
     border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
@@ -58,7 +61,7 @@ const Wrapper = styled(Paper)(({ theme }) => ({
       height: '100%'
     }
   },
-  '.CTypeCell_title': {
+  '.CTypeCard_title': {
     transformOrigin: 'top left',
     transform: isMobile ? 'translate(60px, -62px) scale(0.8)' : null,
     ...ellipsisMixin(),
@@ -68,7 +71,7 @@ const Wrapper = styled(Paper)(({ theme }) => ({
       duration: theme.transitions.duration.enteringScreen
     })
   },
-  '.CTypeCell_attester': {
+  '.CTypeCard_attester': {
     transformOrigin: 'top left',
     transform: isMobile ? 'translate(0, -50px)' : null,
 
@@ -77,7 +80,7 @@ const Wrapper = styled(Paper)(({ theme }) => ({
       duration: theme.transitions.duration.enteringScreen
     })
   },
-  '.CTypeCell_actions': {
+  '.CTypeCard_actions': {
     left: theme.spacing(4),
     right: theme.spacing(4),
     bottom: theme.spacing(4),
@@ -93,7 +96,7 @@ const Wrapper = styled(Paper)(({ theme }) => ({
   }
 }));
 
-const CTypeCell: React.FC<{ ctype: CType }> = ({ ctype }) => {
+function CTypeCard({ actions, ctype }: Props) {
   const { deleteCType } = useContext(CTypeContext);
 
   const handleDelete = useCallback(() => {
@@ -110,15 +113,15 @@ const CTypeCell: React.FC<{ ctype: CType }> = ({ ctype }) => {
         <DeleteOutlineOutlinedIcon />
       </IconButton>
       <Stack spacing={1.5}>
-        <Box className="CTypeCell_logo">
+        <Box className="CTypeCard_logo">
           <IconLogoCircle />
         </Box>
         <Tooltip title={ctype.title}>
-          <Typography className="CTypeCell_title" variant="h3">
+          <Typography className="CTypeCard_title" variant="h3">
             {ctype.title}
           </Typography>
         </Tooltip>
-        <Stack className="CTypeCell_attester" direction="row" justifyContent="space-between">
+        <Stack className="CTypeCard_attester" direction="row" justifyContent="space-between">
           <Box width="50%">
             <Typography sx={({ palette }) => ({ color: palette.grey[600] })} variant="inherit">
               Publisher
@@ -141,12 +144,10 @@ const CTypeCell: React.FC<{ ctype: CType }> = ({ ctype }) => {
             </Stack>
           </Box>
         </Stack>
-        <Box className="CTypeCell_actions">
-          <CreateClaim ctype={ctype} />
-        </Box>
+        <Box className="CTypeCard_actions">{actions}</Box>
       </Stack>
     </Wrapper>
   );
-};
+}
 
-export default React.memo(CTypeCell);
+export default React.memo(CTypeCard);
