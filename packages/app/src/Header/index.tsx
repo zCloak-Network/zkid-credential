@@ -120,7 +120,7 @@ function Header({
           <IconButton onClick={isLocked ? unlock : lock} size={upMd ? 'medium' : 'small'}>
             {isLocked ? <Lock /> : <LockOpen />}
           </IconButton>
-          {did && <DidInfo did={did} />}
+          <DidInfo did={did} />
         </Stack>
       </Stack>
       <Notification onClose={toggleNotiOpen} open={notiOpen} unreads={unreads} />

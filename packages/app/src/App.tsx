@@ -1,6 +1,8 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { DidRole } from '@credential/react-dids/types';
+
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -17,6 +19,7 @@ import PageMessage from '@credential/page-message';
 import PageAttesterMessage from '@credential/page-message/attester';
 import PageTasks from '@credential/page-tasks';
 import PageRequestDetails from '@credential/page-tasks/RequestDetails';
+import { AppProvider, CTypeProvider, ZkidExtensionProvider } from '@credential/react-components';
 
 import AccountAuth from './Account/AccountAuth';
 import Account from './Account';
@@ -64,12 +67,24 @@ function Container({
   );
 }
 
+function BaseProvider({ children, role }: { children: any; role: DidRole }) {
+  return (
+    <AccountAuth didRole={role}>
+      <AppProvider>
+        <ZkidExtensionProvider>
+          <CTypeProvider>{children}</CTypeProvider>
+        </ZkidExtensionProvider>
+      </AppProvider>
+    </AccountAuth>
+  );
+}
+
 const createClaimerApp = () => (
   <Route
     element={
-      <AccountAuth didRole="claimer">
+      <BaseProvider role="claimer">
         <Claimer />
-      </AccountAuth>
+      </BaseProvider>
     }
     path="claimer"
   >
@@ -115,9 +130,9 @@ const createClaimerApp = () => (
 const createAttesterApp = () => (
   <Route
     element={
-      <AccountAuth didRole="attester">
+      <BaseProvider role="attester">
         <Attester />
-      </AccountAuth>
+      </BaseProvider>
     }
     path="attester"
   >

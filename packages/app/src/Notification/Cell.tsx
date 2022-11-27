@@ -108,7 +108,7 @@ function Cell({
   message: MessageWithMeta<MessageType>;
   onRead: () => void;
 }) {
-  const { did, unlock } = useContext(DidsContext);
+  const { unlock } = useContext(DidsContext);
   const theme = useTheme();
   const upSm = useMediaQuery(theme.breakpoints.up('sm'));
   const navigate = useNavigate();
@@ -126,7 +126,7 @@ function Cell({
     if (message.msgType === 'Request_Attestation') {
       navigate(`/attester/tasks/${message.id}`);
     } else {
-      if (!did || !decrypted) return;
+      if (!decrypted) return;
 
       await unlock();
 
@@ -137,7 +137,7 @@ function Cell({
         toggleOpen();
       }
     }
-  }, [decrypted, did, message, navigate, onRead, toggleOpen, unlock]);
+  }, [decrypted, message, navigate, onRead, toggleOpen, unlock]);
 
   return (
     <>

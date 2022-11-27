@@ -66,6 +66,14 @@ export class DidManager extends Events {
     this.emit('remove', did);
   }
 
+  public all(): Did[] {
+    return Array.from(this.#dids.values());
+  }
+
+  public current(): Did {
+    return Array.from(this.#dids.values())[0];
+  }
+
   public getDid(didUrl: DidUrl): Did {
     const parsed = this.#resolver.parseDid(didUrl);
 
@@ -76,10 +84,6 @@ export class DidManager extends Events {
     }
 
     return did;
-  }
-
-  public getAll(): Did[] {
-    return Array.from(this.#dids.values());
   }
 
   public saveDid(did: Did, password: string): void {

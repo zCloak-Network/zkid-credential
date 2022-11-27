@@ -8,13 +8,11 @@ import { Button } from '@mui/material';
 import React, { useCallback, useContext } from 'react';
 
 import { useCType } from '@credential/app-store';
-import { DidsContext } from '@credential/react-dids';
 
 import { CTypeContext } from './CTypeProvider';
 
 const CTypeName: React.FC<{ cTypeHash?: HexString | null }> = ({ cTypeHash }) => {
-  const { did } = useContext(DidsContext);
-  const ctype = useCType(cTypeHash, did?.id);
+  const ctype = useCType(cTypeHash);
   const { importCType } = useContext(CTypeContext);
 
   const handleClick = useCallback(

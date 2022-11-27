@@ -19,7 +19,7 @@ export function useDecryptedMessage<T extends MessageType>(
   const [decrypted, setDecrypted] = useState<DecryptedMessageWithMeta<T> | null>(null);
 
   useEffect(() => {
-    if (message && !isLocked && did && isSameUri(message.receiver, did.id)) {
+    if (message && !isLocked && isSameUri(message.receiver, did.id)) {
       decryptMessage(message, did, resolver).then((decrypted) =>
         setDecrypted({
           ...decrypted,

@@ -10,8 +10,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 
 import { calcRoothash } from '@zcloak/vc';
 
-import { DB } from './db';
-import { useDB } from './useDB';
+import { db } from './db';
 
 export type CredentialStatus = 'pending' | 'approved' | 'rejected';
 
@@ -28,29 +27,21 @@ export interface PendingCredential {
 }
 
 export function usePendingCredentials(
-  status?: CredentialStatus[],
-  name?: string
+  status?: CredentialStatus[]
 ): PendingCredential[] | undefined {
-  const db = useDB(name);
-
   return useLiveQuery(() => {
-    if (db) {
-      return db?.pendingCredential
-        .orderBy('submitDate')
-        .reverse()
-        .filter((c) => (status ? status.includes(c.status) : true))
-        .toArray();
-    } else {
-      return [];
-    }
-  }, [db]);
+    return db.pendingCredential
+      .orderBy('submitDate')
+      .reverse()
+      .filter((c) => (status ? status.includes(c.status) : true))
+      .toArray();
+  }, []);
 }
 
 export async function addPendingCredential(
   rawCredential: RawCredential,
   issuer: DidUrl,
-  boundMessageId: string,
-  db: DB
+  boundMessageId: string
 ): Promise<void> {
   if (isHex(rawCredential.credentialSubject)) return;
 
@@ -81,8 +72,7 @@ export async function addPendingCredential(
 
 export async function updatePendingCredential(
   boundMessageId: string,
-  status: CredentialStatus,
-  db: DB
+  status: CredentialStatus
 ): Promise<void> {
   await db.pendingCredential
     .filter((c) => c.boundMessageId === boundMessageId)

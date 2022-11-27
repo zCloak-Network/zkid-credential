@@ -12,7 +12,6 @@ import { Message } from '@zcloak/message/types';
 import { Raw } from '@zcloak/vc';
 
 import { addPendingCredential } from '@credential/app-store/pending-credential';
-import { useDB } from '@credential/app-store/useDB';
 import { NotificationContext, Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal } from '@credential/react-dids';
 import { encryptMessageStep, sendMessage, Steps } from '@credential/react-dids/steps';
@@ -26,15 +25,12 @@ const SubmitClaim: React.FC<{
 }> = ({ attester, contents, ctype, onDone }) => {
   const { did: sender, unlock } = useContext(DidsContext);
   const { notifyError } = useContext(NotificationContext);
-  const db = useDB(sender?.id);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] = useState<Message<'Request_Attestation'>>();
   const [recaptchaToken, setRecaptchaToken] = useState<string>();
   const [rawCredential, setRawCredential] = useState<RawCredential | null>(null);
 
   const _toggleOpen = useCallback(async () => {
-    if (!sender) return;
-
     try {
       const raw = new Raw({
         contents,
@@ -55,12 +51,12 @@ const SubmitClaim: React.FC<{
   }, [contents, ctype, notifyError, sender, toggleOpen, unlock]);
 
   const _onDone = useCallback(() => {
-    if (rawCredential && encryptedMessage && db && attester) {
-      addPendingCredential(rawCredential, attester.id, encryptedMessage.id, db);
+    if (rawCredential && encryptedMessage && attester) {
+      addPendingCredential(rawCredential, attester.id, encryptedMessage.id);
     }
 
     onDone?.();
-  }, [attester, db, encryptedMessage, onDone, rawCredential]);
+  }, [attester, encryptedMessage, onDone, rawCredential]);
 
   return (
     <>

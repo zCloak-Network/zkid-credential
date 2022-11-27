@@ -7,24 +7,20 @@ import { useLiveQuery } from 'dexie-react-hooks';
 
 import { HexString } from '@zcloak/crypto/types';
 
-import { useDB } from './useDB';
+import { db } from './db';
 
 export type CType = CTypeInterface;
 
-export function useCTypes(name?: string | null): CType[] | undefined {
-  const db = useDB(name);
-
-  return useLiveQuery(() => db?.ctype.toArray() ?? [], [db]);
+export function useCTypes(): CType[] | undefined {
+  return useLiveQuery(() => db.ctype.toArray() ?? [], []);
 }
 
-export function useCType(id?: HexString | null, name?: string | null): CType | undefined {
-  const db = useDB(name);
-
+export function useCType(id?: HexString | null): CType | undefined {
   return useLiveQuery(() => {
     if (id) {
-      return db?.ctype.get(id);
+      return db.ctype.get(id);
     }
 
     return undefined;
-  }, [db]);
+  }, []);
 }

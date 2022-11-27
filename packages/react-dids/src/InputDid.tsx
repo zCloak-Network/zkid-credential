@@ -11,11 +11,12 @@ import {
   InputLabel,
   OutlinedInput
 } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { Did, helpers } from '@zcloak/did';
 
 import { resolver } from './instance';
+import { useKnownDids } from './useKnownDids';
 
 const filter = createFilterOptions<DidValue>();
 
@@ -35,7 +36,12 @@ function InputDid({ defaultValue, disabled = false, label, onChange }: Props) {
   const [value, setValue] = useState<DidValue | null>(
     defaultValue ? { title: defaultValue } : null
   );
-  const options = useRef<DidValue[]>(defaultValue ? [{ title: defaultValue }] : []);
+  const knownDids = useKnownDids();
+  const options = useMemo(() => {
+    const _options = knownDids.map((did) => ({ title: did }));
+
+    return _options;
+  }, [knownDids]);
   const [did, setDid] = useState<Did | null>(null);
   const [fetching, setFetching] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -106,7 +112,7 @@ function InputDid({ defaultValue, disabled = false, label, onChange }: Props) {
           setValue(newValue);
         }
       }}
-      options={options.current}
+      options={options}
       renderInput={(params) => {
         return (
           <FormControl

@@ -13,9 +13,7 @@ import { decryptMessage } from '@zcloak/message';
 
 import { MESSAGE_WS } from '@credential/app-config/endpoints';
 import { addVC } from '@credential/app-store';
-import { DB } from '@credential/app-store/db';
 import { updatePendingCredential } from '@credential/app-store/pending-credential';
-import { useDB } from '@credential/app-store/useDB';
 import { DidsContext } from '@credential/react-dids';
 import { resolver } from '@credential/react-dids/instance';
 
@@ -51,9 +49,9 @@ function transformMessage<T extends MessageType>(data: ServerMessage<T>[]): Mess
   );
 }
 
-function saveIssuedVC(db: DB, did: Did, message: MessageWithMeta<'Response_Approve_Attestation'>) {
+function saveIssuedVC(did: Did, message: MessageWithMeta<'Response_Approve_Attestation'>) {
   return decryptMessage(message, did, resolver).then((decryptedMessage) =>
-    addVC(decryptedMessage.data, db)
+    addVC(decryptedMessage.data)
   );
 }
 
@@ -62,11 +60,10 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { did, isLocked } = useContext(DidsContext);
   const [messages, setMessages] = useState<MessageWithMeta<MessageType>[]>([]);
   const [sentMessages, setSentMessages] = useState<MessageWithMeta<MessageType>[]>([]);
-  const db = useDB(did?.id);
 
   const didUrl = useMemo(() => {
     try {
-      return did?.getKeyUrl('keyAgreement');
+      return did.getKeyUrl('keyAgreement');
     } catch {}
 
     return null;
@@ -99,20 +96,18 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   }, [didUrl]);
 
   useEffect(() => {
-    if (!db || !did) return;
-
     messages.forEach((message) => {
       if (message.msgType === 'Response_Approve_Attestation') {
         if (!isLocked) {
-          saveIssuedVC(db, did, message as MessageWithMeta<'Response_Approve_Attestation'>);
+          saveIssuedVC(did, message as MessageWithMeta<'Response_Approve_Attestation'>);
         }
 
-        if (message.reply) updatePendingCredential(message.reply, 'approved', db);
+        if (message.reply) updatePendingCredential(message.reply, 'approved');
       } else if (message.msgType === 'Response_Reject_Attestation') {
-        if (message.reply) updatePendingCredential(message.reply, 'rejected', db);
+        if (message.reply) updatePendingCredential(message.reply, 'rejected');
       }
     });
-  }, [db, did, isLocked, messages]);
+  }, [did, isLocked, messages]);
 
   const readMessage = useCallback(async (id: string) => {
     setMessages((messages) =>
