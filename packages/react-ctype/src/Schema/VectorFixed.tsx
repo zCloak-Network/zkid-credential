@@ -1,16 +1,30 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { CTypeSchemaVectorFixedProps } from '../types';
+import type { CTypeSchemaProps, CTypeSchemaVectorFixedProps } from '../types';
 
-import { alpha, Stack } from '@mui/material';
-import { isArray } from '@polkadot/util';
+import { alpha, FormControl, InputLabel, Stack } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import SchemaBase from './Base';
+import { isOrDefault } from './utils';
 
-function isVectorFixed(value: unknown, length: number): value is Array<unknown> {
-  return isArray(value) && value.length === length;
+function Item({
+  index,
+  onChangeWithIndex,
+  ...props
+}: CTypeSchemaProps & {
+  index: number;
+  onChangeWithIndex: (index: number, value: unknown) => void;
+}) {
+  const onChange = useCallback(
+    (value: unknown) => {
+      onChangeWithIndex(index, value);
+    },
+    [index, onChangeWithIndex]
+  );
+
+  return <SchemaBase {...props} onChange={onChange} />;
 }
 
 function SchemaVectorFixed({
@@ -21,10 +35,7 @@ function SchemaVectorFixed({
   onChange
 }: CTypeSchemaVectorFixedProps) {
   const _defaultValue = useMemo(
-    () =>
-      isVectorFixed(defaultValue, items.length)
-        ? defaultValue
-        : Array.from({ length: items.length }),
+    () => isOrDefault('array', defaultValue, { length: items.length }) as unknown[],
     [defaultValue, items.length]
   );
   const [value, setValue] = useState<unknown[]>(_defaultValue);
@@ -42,25 +53,30 @@ function SchemaVectorFixed({
   }, [onChange, value]);
 
   return (
-    <Stack
-      spacing={1}
-      sx={({ palette }) => ({
-        borderLeft: '8px',
-        borderLeftColor: palette.primary.main,
-        background: alpha(palette.primary.main, 0.1)
-      })}
-    >
-      {items.map((item, index) => (
-        <SchemaBase
-          defaultValue={_defaultValue?.[index]}
-          disabled={disabled}
-          key={index}
-          name={`${name}#${index}`}
-          onChange={(value) => _onChange(index, value)}
-          schema={item}
-        />
-      ))}
-    </Stack>
+    <FormControl>
+      {name && <InputLabel shrink>{name}</InputLabel>}
+      <Stack
+        spacing={1}
+        sx={({ palette }) => ({
+          padding: 2,
+          borderLeft: '8px solid',
+          borderLeftColor: palette.primary.main,
+          background: alpha(palette.primary.main, 0.1)
+        })}
+      >
+        {items.map((item, index) => (
+          <Item
+            defaultValue={_defaultValue?.[index]}
+            disabled={disabled}
+            index={index}
+            key={index}
+            name={`${name}#${index}`}
+            onChangeWithIndex={_onChange}
+            schema={item}
+          />
+        ))}
+      </Stack>
+    </FormControl>
   );
 }
 

@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 
 import { InputString } from '@credential/react-components';
 
-function SchemaNull({ name, onChange }: CTypeSchemaProps) {
+function SchemaNull({ name, onChange }: CTypeSchemaProps<null>) {
   useEffect(() => {
     onChange?.(null);
   }, [onChange]);

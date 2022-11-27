@@ -3,20 +3,21 @@
 
 import type { CTypeSchemaProps } from '../types';
 
-import { isBoolean } from '@polkadot/util';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { InputBool } from '@credential/react-components';
 
-function SchemaBool({ defaultValue, disabled, name, onChange }: CTypeSchemaProps) {
+import { isOrDefault } from './utils';
+
+function SchemaBool({ defaultValue, disabled, name, onChange }: CTypeSchemaProps<boolean>) {
   const _defaultValue = useMemo(
-    () => (isBoolean(defaultValue) ? defaultValue : false),
+    () => isOrDefault('boolean', defaultValue) as boolean,
     [defaultValue]
   );
   const [value, setValue] = useState<boolean | undefined>(_defaultValue);
 
   useEffect(() => {
-    onChange?.(value ?? false);
+    onChange?.(value);
   }, [onChange, value]);
 
   return (

@@ -5,10 +5,10 @@ import type { CTypeSchemaProps } from '../types';
 
 import React, { useMemo } from 'react';
 
-import { findItem } from '../findItem';
+import { findComponent } from './findComponent';
 
 function SchemaBase({ defaultValue, disabled, name, onChange, schema }: CTypeSchemaProps) {
-  const Component = useMemo(() => findItem(schema), [schema]);
+  const Component = useMemo(() => findComponent(schema), [schema]);
 
   return (
     <Component

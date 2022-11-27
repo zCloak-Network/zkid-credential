@@ -1,23 +1,37 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { CTypeSchemaVectorProps } from '../types';
+import type { CTypeSchemaProps, CTypeSchemaVectorProps } from '../types';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import { alpha, Button, Stack } from '@mui/material';
-import { isArray } from '@polkadot/util';
+import { alpha, Button, FormControl, InputLabel, Stack } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import SchemaBase from './Base';
+import { isOrDefault } from './utils';
 
-function isVector(value: unknown): value is Array<unknown> {
-  return isArray(value);
+function Item({
+  index,
+  onChangeWithIndex,
+  ...props
+}: CTypeSchemaProps & {
+  index: number;
+  onChangeWithIndex: (index: number, value: unknown) => void;
+}) {
+  const onChange = useCallback(
+    (value: unknown) => {
+      onChangeWithIndex(index, value);
+    },
+    [index, onChangeWithIndex]
+  );
+
+  return <SchemaBase {...props} onChange={onChange} />;
 }
 
 function SchemaVector({ defaultValue, disabled, items, name, onChange }: CTypeSchemaVectorProps) {
   const _defaultValue = useMemo(
-    () => (isVector(defaultValue) ? defaultValue : Array.from({ length: 1 })),
+    () => isOrDefault('array', defaultValue) as unknown[],
     [defaultValue]
   );
   const [values, setValues] = useState<unknown[]>(_defaultValue);
@@ -39,9 +53,13 @@ function SchemaVector({ defaultValue, disabled, items, name, onChange }: CTypeSc
         return values;
       }
 
+      if (values.length < count) {
+        values.push(isOrDefault(items.type ?? 'string', undefined));
+      }
+
       return values.slice(0, count);
     });
-  }, [count]);
+  }, [count, items.type]);
 
   useEffect(() => {
     onChange?.(values);
@@ -51,40 +69,45 @@ function SchemaVector({ defaultValue, disabled, items, name, onChange }: CTypeSc
   const _rowRemove = useCallback((): void => setCount((count) => count - 1), []);
 
   return (
-    <Stack
-      spacing={1}
-      sx={({ palette }) => ({
-        borderLeft: '8px',
-        borderLeftColor: palette.primary.main,
-        background: alpha(palette.primary.main, 0.1)
-      })}
-    >
-      {!disabled && (
-        <Stack direction="row" spacing={2}>
-          <Button onClick={_rowAdd} startIcon={<AddCircleOutlineIcon />} variant="outlined">
-            Add item
-          </Button>
-          <Button
-            disabled={values.length === 0}
-            onClick={_rowRemove}
-            startIcon={<RemoveCircleOutlineIcon />}
-            variant="contained"
-          >
-            Remove item
-          </Button>
-        </Stack>
-      )}
-      {values.map((_, index) => (
-        <SchemaBase
-          defaultValue={_defaultValue?.[index]}
-          disabled={disabled}
-          key={index}
-          name={`${name}#${index}`}
-          onChange={(value) => _onChange(index, value)}
-          schema={items}
-        />
-      ))}
-    </Stack>
+    <FormControl>
+      {name && <InputLabel shrink>{name}</InputLabel>}
+      <Stack
+        spacing={1}
+        sx={({ palette }) => ({
+          padding: 2,
+          borderLeft: '8px solid',
+          borderLeftColor: palette.primary.main,
+          background: alpha(palette.primary.main, 0.1)
+        })}
+      >
+        {!disabled && (
+          <Stack direction="row" spacing={2}>
+            <Button onClick={_rowAdd} startIcon={<AddCircleOutlineIcon />} variant="outlined">
+              Add item
+            </Button>
+            <Button
+              disabled={values.length === 0}
+              onClick={_rowRemove}
+              startIcon={<RemoveCircleOutlineIcon />}
+              variant="contained"
+            >
+              Remove item
+            </Button>
+          </Stack>
+        )}
+        {values.map((_, index) => (
+          <Item
+            defaultValue={_defaultValue?.[index]}
+            disabled={disabled}
+            index={index}
+            key={index}
+            name={`${name}#${index}`}
+            onChangeWithIndex={_onChange}
+            schema={items}
+          />
+        ))}
+      </Stack>
+    </FormControl>
   );
 }
 

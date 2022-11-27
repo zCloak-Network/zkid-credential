@@ -3,10 +3,11 @@
 
 import type { CTypeSchemaProps } from '../types';
 
-import { isNumber } from '@polkadot/util';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { InputNumber } from '@credential/react-components';
+
+import { isOrDefault } from './utils';
 
 function SchemaNumber({
   defaultValue,
@@ -15,8 +16,11 @@ function SchemaNumber({
   name,
   onChange,
   schema
-}: CTypeSchemaProps) {
-  const _defaultValue = useMemo(() => (isNumber(defaultValue) ? defaultValue : 0), [defaultValue]);
+}: CTypeSchemaProps<number>) {
+  const _defaultValue = useMemo(
+    () => isOrDefault('number', defaultValue) as number,
+    [defaultValue]
+  );
   const [value, setValue] = useState<number | undefined>(_defaultValue);
   const [error, setError] = useState<Error | null>(null);
 
@@ -35,8 +39,10 @@ function SchemaNumber({
       setError(new Error(`The exclusive maximum of value is ${schema.exclusiveMaximum}`));
     } else if (schema.exclusiveMinimum && _value <= schema.exclusiveMinimum) {
       setError(new Error(`The exclusive maximum of value is ${schema.exclusiveMinimum}`));
-    } else if (schema.multipleOf && _value % schema.multipleOf === 0) {
+    } else if (schema.multipleOf && _value % schema.multipleOf !== 0) {
       setError(new Error(`The value should be a multiple of ${schema.multipleOf}`));
+    } else {
+      setError(null);
     }
   }, [schema, value]);
 

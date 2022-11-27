@@ -3,22 +3,27 @@
 
 import type { CTypeSchemaProps } from '../types';
 
-import { isNumber } from '@polkadot/util';
 import React, { useEffect, useMemo, useState } from 'react';
 
+import { isInteger, isOrDefault } from './utils';
 import { SchemaNumber } from '.';
 
-function isInteger(value: unknown): value is number {
-  return isNumber(value) && Number.isInteger(value);
-}
-
-function SchemaInteger({ defaultValue, disabled, name, onChange, schema }: CTypeSchemaProps) {
-  const _defaultValue = useMemo(() => (isInteger(defaultValue) ? defaultValue : 0), [defaultValue]);
+function SchemaInteger({
+  defaultValue,
+  disabled,
+  name,
+  onChange,
+  schema
+}: CTypeSchemaProps<number>) {
+  const _defaultValue = useMemo(
+    () => isOrDefault('integer', defaultValue) as number,
+    [defaultValue]
+  );
   const [value, setValue] = useState<number | undefined>(_defaultValue);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    onChange?.(value ?? '');
+    onChange?.(value);
   }, [onChange, value]);
 
   useEffect(() => {
@@ -26,6 +31,8 @@ function SchemaInteger({ defaultValue, disabled, name, onChange, schema }: CType
 
     if (!isInteger(_value)) {
       setError(new Error('The value should be an integer'));
+    } else {
+      setError(null);
     }
   }, [value]);
 
@@ -35,7 +42,7 @@ function SchemaInteger({ defaultValue, disabled, name, onChange, schema }: CType
       disabled={disabled}
       error={error}
       name={name}
-      onChange={setValue as (value: unknown) => void}
+      onChange={setValue}
       schema={schema}
     />
   );

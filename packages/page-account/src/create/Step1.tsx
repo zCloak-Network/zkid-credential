@@ -7,11 +7,11 @@ import React, { useCallback, useState } from 'react';
 import { InputPassword } from '@credential/react-components';
 
 const Step1: React.FC<{ onConfirm: (password: string) => void }> = ({ onConfirm }) => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState<string>();
+  const [confirmPassword, setConfirmPassword] = useState<string>();
 
   const toggleConfirm = useCallback(() => {
-    onConfirm(password);
+    password && onConfirm(password);
   }, [onConfirm, password]);
 
   return (

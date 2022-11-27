@@ -7,16 +7,20 @@ import { Alert } from '@mui/material';
 import { isArray } from '@polkadot/util';
 import React, { useEffect, useMemo, useState } from 'react';
 
+import { isOrDefault } from './utils';
 import SchemaVector from './Vector';
 import SchemaVectorFixed from './VectorFixed';
 
 function SchemaArray({ defaultValue, disabled, name, onChange, schema }: CTypeSchemaProps) {
-  const _defaultValue = useMemo(() => (isArray(defaultValue) ? defaultValue : []), [defaultValue]);
+  const _defaultValue = useMemo(
+    () => isOrDefault('array', defaultValue) as unknown[],
+    [defaultValue]
+  );
   const [value, setValue] = useState<unknown[] | undefined>(_defaultValue);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    onChange?.(value ?? []);
+    onChange?.(value);
   }, [onChange, value]);
 
   useEffect(() => {
@@ -28,6 +32,8 @@ function SchemaArray({ defaultValue, disabled, name, onChange, schema }: CTypeSc
       setError(new Error(`The minimum items of value is ${schema.maxItems}`));
     } else if (schema.uniqueItems && new Set(_value).size < _value.length) {
       setError(new Error('Each items value should be unique'));
+    } else {
+      setError(null);
     }
   }, [schema.maxItems, schema.minItems, schema.uniqueItems, value]);
 

@@ -3,6 +3,7 @@
 
 export { default as SchemaBase } from './Base';
 export { default as SchemaBool } from './Bool';
+export { default as SchemaEnum } from './Enum';
 export { default as SchemaInteger } from './Integer';
 export { default as SchemaNull } from './Null';
 export { default as SchemaNumber } from './Number';

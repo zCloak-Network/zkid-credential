@@ -7,12 +7,19 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import { InputString } from '@credential/react-components';
 
-function isString(value: unknown): value is string {
-  return typeof value === 'string' || value instanceof String;
-}
+import { isOrDefault } from './utils';
 
-function SchemaString({ defaultValue, disabled, name, onChange, schema }: CTypeSchemaProps) {
-  const _defaultValue = useMemo(() => (isString(defaultValue) ? defaultValue : ''), [defaultValue]);
+function SchemaString({
+  defaultValue,
+  disabled,
+  name,
+  onChange,
+  schema
+}: CTypeSchemaProps<string>) {
+  const _defaultValue = useMemo(
+    () => isOrDefault('string', defaultValue) as string,
+    [defaultValue]
+  );
   const [value, setValue] = useState<string | undefined>(_defaultValue);
   const [error, setError] = useState<Error | null>(null);
 
@@ -27,12 +34,10 @@ function SchemaString({ defaultValue, disabled, name, onChange, schema }: CTypeS
       setError(new Error(`The maximum length of value is ${schema.maxLength}`));
     } else if (schema.minLength && _value.length < schema.minLength) {
       setError(new Error(`The minimum length of value is ${schema.minLength}`));
-    } else if (schema.pattern) {
-      const regexp = new RegExp(schema.pattern);
-
-      if (!regexp.test(_value)) {
-        setError(new Error(`Did not match the parttern "${schema.pattern}"`));
-      }
+    } else if (schema.pattern && !new RegExp(schema.pattern).test(_value)) {
+      setError(new Error(`Did not match the parttern "${schema.pattern}"`));
+    } else {
+      setError(null);
     }
   }, [schema, value]);
 
