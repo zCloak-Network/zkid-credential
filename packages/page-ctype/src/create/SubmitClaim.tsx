@@ -3,38 +3,37 @@
 
 import type { CType } from '@zcloak/ctype/types';
 import type { Did } from '@zcloak/did';
-import type { AnyJson } from '@zcloak/vc/types';
+import type { AnyJson, RawCredential } from '@zcloak/vc/types';
 
 import { Button } from '@mui/material';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 
 import { Message } from '@zcloak/message/types';
 import { Raw } from '@zcloak/vc';
 
 import { addPendingCredential } from '@credential/app-store/pending-credential';
 import { useDB } from '@credential/app-store/useDB';
-import { Recaptcha } from '@credential/react-components';
+import { NotificationContext, Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal } from '@credential/react-dids';
 import { encryptMessageStep, sendMessage, Steps } from '@credential/react-dids/steps';
 import { useToggle } from '@credential/react-hooks';
 
 const SubmitClaim: React.FC<{
-  hasError?: boolean;
   contents: AnyJson;
   attester: Did | null;
-  ctype?: CType;
+  ctype: CType;
   onDone?: () => void;
-}> = ({ attester, contents, ctype, hasError, onDone }) => {
+}> = ({ attester, contents, ctype, onDone }) => {
   const { did: sender, unlock } = useContext(DidsContext);
+  const { notifyError } = useContext(NotificationContext);
   const db = useDB(sender?.id);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] = useState<Message<'Request_Attestation'>>();
   const [recaptchaToken, setRecaptchaToken] = useState<string>();
+  const [rawCredential, setRawCredential] = useState<RawCredential | null>(null);
 
-  const rawCredential = useMemo(() => {
-    if (!contents || !sender || !ctype) {
-      return null;
-    }
+  const _toggleOpen = useCallback(async () => {
+    if (!sender) return;
 
     try {
       const raw = new Raw({
@@ -46,15 +45,14 @@ const SubmitClaim: React.FC<{
 
       raw.calcRootHash();
 
-      return raw.toRawCredential();
-    } catch {}
+      setRawCredential(raw.toRawCredential());
 
-    return null;
-  }, [contents, ctype, sender]);
-
-  const _toggleOpen = useCallback(() => {
-    unlock().then(toggleOpen);
-  }, [toggleOpen, unlock]);
+      await unlock();
+      toggleOpen();
+    } catch (error) {
+      notifyError(error);
+    }
+  }, [contents, ctype, notifyError, sender, toggleOpen, unlock]);
 
   const _onDone = useCallback(() => {
     if (rawCredential && encryptedMessage && db && attester) {
@@ -66,11 +64,7 @@ const SubmitClaim: React.FC<{
 
   return (
     <>
-      <Button
-        disabled={!attester || !ctype || !contents || hasError}
-        onClick={_toggleOpen}
-        variant="contained"
-      >
+      <Button disabled={!attester || !ctype || !contents} onClick={_toggleOpen} variant="contained">
         Submit
       </Button>
       {open && (

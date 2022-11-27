@@ -1,18 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import LockIcon from '@mui/icons-material/Lock';
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  FormControl,
-  FormHelperText,
-  InputAdornment,
-  InputLabel,
-  lighten,
-  Stack
-} from '@mui/material';
+import { Button, Dialog, DialogContent, Stack } from '@mui/material';
 import React, { useCallback, useContext, useState } from 'react';
 
 import { DialogHeader, InputPassword } from '@credential/react-components';
@@ -60,29 +49,17 @@ function UnlockModal({
           }}
           spacing={4}
         >
-          <FormControl error={!!error} fullWidth variant="outlined">
-            <InputLabel shrink>
-              Input&nbsp; (<DidName value={did?.id} />) &nbsp;password
-            </InputLabel>
-            <InputPassword
-              autoFocus
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Please input password"
-              startAdornment={
-                <InputAdornment position="start">
-                  <LockIcon color="primary" />
-                </InputAdornment>
-              }
-              sx={({ palette }) => ({
-                '.MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'transparent'
-                },
-                border: 'none',
-                background: lighten(palette.primary.main, 0.94)
-              })}
-            />
-            {error ? <FormHelperText>{error.message}</FormHelperText> : null}
-          </FormControl>
+          <InputPassword
+            autoFocus
+            error={error}
+            label={
+              <>
+                Input&nbsp; (<DidName value={did?.id} />) &nbsp;password
+              </>
+            }
+            onChange={setPassword}
+            placeholder="Please input password"
+          />
           <Button fullWidth type="submit" variant="contained">
             Unlock
           </Button>

@@ -16,7 +16,8 @@ import {
   FullScreenDialogContent,
   FullScreenDialogHeader
 } from '@credential/react-components';
-import { CTypeForm } from '@credential/react-ctype';
+import { CreateSubject } from '@credential/react-ctype';
+import { InputDid } from '@credential/react-dids';
 import { resolver } from '@credential/react-dids/instance';
 import { useToggle } from '@credential/react-hooks';
 
@@ -26,7 +27,6 @@ function CreateClaim({ ctype }: { ctype: CType }) {
   const [open, toggleOpen] = useToggle();
   const [attester, setAttester] = useState<Did | null>(null);
   const [contents, setContents] = useState<AnyJson>({});
-  const [contentsError, setContentsError] = useState<Record<string, Error | null | undefined>>({});
   const navigate = useNavigate();
 
   const defaultAttester = useMemo(() => {
@@ -41,14 +41,6 @@ function CreateClaim({ ctype }: { ctype: CType }) {
     toggleOpen();
     navigate('/claimer/claims');
   }, [navigate, toggleOpen]);
-
-  const hasError = useMemo(() => {
-    const values = Object.values(contentsError);
-
-    if (values.length === 0) return false;
-
-    return values.reduce((l, r) => l || r);
-  }, [contentsError]);
 
   return (
     <>
@@ -66,21 +58,12 @@ function CreateClaim({ ctype }: { ctype: CType }) {
           <Typography mb={4} textAlign="center" variant="h2">
             Create Claim
           </Typography>
-          <CTypeForm
-            cType={ctype}
-            defaultAttester={defaultAttester}
-            handleAttester={setAttester}
-            onChange={setContents}
-            onError={setContentsError}
-          />
+          <InputDid defaultValue={defaultAttester} label="Attester" onChange={setAttester} />
+          <Box mt={2}>
+            <CreateSubject onChange={setContents as any} schema={ctype} />
+          </Box>
           <Box mt={4} textAlign="center">
-            <SubmitClaim
-              attester={attester}
-              contents={contents}
-              ctype={ctype}
-              hasError={!!hasError}
-              onDone={onDone}
-            />
+            <SubmitClaim attester={attester} contents={contents} ctype={ctype} onDone={onDone} />
           </Box>
         </FullScreenDialogContent>
       </FullScreenDialog>

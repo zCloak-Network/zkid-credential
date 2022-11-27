@@ -45,13 +45,12 @@ const RestoreMnemonic: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ on
         />
       </FormControl>
       <Divider sx={() => ({ marginTop: 3, marginBottom: 3 })} variant="fullWidth" />
-      <FormControl fullWidth variant="outlined">
-        <InputLabel shrink>Enter password</InputLabel>
-        <InputPassword
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-        />
-      </FormControl>
+      <InputPassword
+        label="Enter password"
+        onChange={setPassword}
+        placeholder="Enter your password"
+        withBorder
+      />
       <Button
         disabled={!isMnemonic || !mnemonic || !password}
         fullWidth
