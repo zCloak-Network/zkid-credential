@@ -21,17 +21,11 @@ function MessageTypeDisplay({ message }: { message: MessageWithMeta<MessageType>
     }
 
     if (['Send_VP', 'Send_issuedVC'].includes(message.msgType)) {
-      return palette.primary.main;
+      return palette.success.main;
     }
 
     return palette.warning.main;
-  }, [
-    message.msgType,
-    palette.error.main,
-    palette.primary.main,
-    palette.success.main,
-    palette.warning.main
-  ]);
+  }, [message.msgType, palette.error.main, palette.success.main, palette.warning.main]);
 
   const text = useMemo(() => {
     switch (message.msgType) {

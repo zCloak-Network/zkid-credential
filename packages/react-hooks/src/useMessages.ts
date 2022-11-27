@@ -9,14 +9,22 @@ import { AppContext } from '@credential/react-components';
 
 import { MessageWithMeta } from './types';
 
+function getMessages(messages: MessageWithMeta<MessageType>[]): MessageWithMeta<MessageType>[] {
+  const map = new Map<string, MessageWithMeta<MessageType>>();
+
+  messages.forEach((message) => map.set(message.id, message));
+
+  return Array.from(map.values()).sort((l, r) => l.createTime - r.createTime);
+}
+
 export function useMessages(type: 'all' | 'sent' | 'received'): MessageWithMeta<MessageType>[] {
   const { messages, sentMessages } = useContext(AppContext);
 
   return useMemo(() => {
     return type === 'all'
-      ? [...messages, ...sentMessages].sort((l, r) => l.createTime - r.createTime)
+      ? getMessages([...messages, ...sentMessages])
       : type === 'sent'
-      ? [...sentMessages]
-      : [...messages];
+      ? getMessages(sentMessages)
+      : getMessages(messages);
   }, [messages, sentMessages, type]);
 }

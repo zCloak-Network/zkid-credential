@@ -49,7 +49,10 @@ function transformMessage<T extends MessageType>(data: ServerMessage<T>[]): Mess
   );
 }
 
-function saveIssuedVC(did: Did, message: MessageWithMeta<'Response_Approve_Attestation'>) {
+function saveIssuedVC(
+  did: Did,
+  message: MessageWithMeta<'Response_Approve_Attestation'> | MessageWithMeta<'Send_issuedVC'>
+) {
   return decryptMessage(message, did, resolver).then((decryptedMessage) =>
     addVC(decryptedMessage.data)
   );
@@ -105,6 +108,10 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
         if (message.reply) updatePendingCredential(message.reply, 'approved');
       } else if (message.msgType === 'Response_Reject_Attestation') {
         if (message.reply) updatePendingCredential(message.reply, 'rejected');
+      } else if (message.msgType === 'Send_issuedVC') {
+        if (!isLocked) {
+          saveIssuedVC(did, message as MessageWithMeta<'Send_issuedVC'>);
+        }
       }
     });
   }, [did, isLocked, messages]);

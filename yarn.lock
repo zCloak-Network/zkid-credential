@@ -1606,6 +1606,7 @@ __metadata:
     "@zcloak/ctype": 0.2.1-0
     "@zcloak/did": 0.2.1-0
     "@zcloak/did-resolver": 0.2.1-0
+    "@zcloak/vc": 0.2.1-0
   languageName: unknown
   linkType: soft
 

@@ -60,24 +60,24 @@ function MessageRow({ message }: { message: MessageWithMeta<MessageType> }) {
         <MessageCardItem
           content={
             <>
-              {upMd && <span>Claimer: </span>}
+              {upMd && <span>Sender: </span>}
               <Link>
                 <DidName value={message.sender} />
               </Link>
             </>
           }
-          label="Claimer"
+          label="Sender"
         />
         <MessageCardItem
           content={
             <>
-              {upMd && <span>Attester: </span>}
+              {upMd && <span>Receiver: </span>}
               <Link>
                 <DidName value={message.receiver} />
               </Link>
             </>
           }
-          label="Attester"
+          label="Receiver"
         />
         <MessageCardItem content={message.id} label="Message id" />
         <MessageCardItem

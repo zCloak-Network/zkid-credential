@@ -27,7 +27,6 @@ const Issue: React.FC = () => {
         <Box sx={{ textAlign: 'right', mb: 3 }}>
           <ImportCType />
         </Box>
-
         <CTypeList list={ctypes} />
       </Box>
     </Stack>
