@@ -16,7 +16,7 @@ export class DB extends Dexie {
 
   constructor(name: string) {
     super(`zkid:credential:${name}`);
-    this.version(1).stores({
+    this.version(2).stores({
       pendingCredential:
         'rootHash, ctype, issuer, holder, submitDate, status, *hasher, *rawCredential',
       credential:

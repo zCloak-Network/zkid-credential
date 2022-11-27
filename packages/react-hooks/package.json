@@ -26,10 +26,10 @@
     "@zcloak/message": "0.2.1-0",
     "@zcloak/vc": "0.2.1-0",
     "@zcloak/verify": "0.2.1-0",
-    "copy-to-clipboard": "^3.3.2",
+    "copy-to-clipboard": "^3.3.3",
     "react-router-dom": "^6.4.3",
     "search-query-parser": "^1.6.0",
-    "ua-parser-js": "^1.0.2"
+    "ua-parser-js": "^1.0.32"
   },
   "devDependencies": {
     "@zcloak/crypto": "0.2.1-0"

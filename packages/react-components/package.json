@@ -19,13 +19,13 @@
     "@credential/react-hooks": "0.0.1",
     "@date-io/date-fns": "^2.14.0",
     "@date-io/moment": "^2.14.0",
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@metamask/jazzicon": "^2.0.0",
-    "@mui/icons-material": "^5.10.3",
-    "@mui/lab": "^5.0.0-alpha.99",
-    "@mui/material": "^5.10.5",
-    "@mui/x-date-pickers": "^5.0.1",
+    "@mui/icons-material": "^5.10.15",
+    "@mui/lab": "^5.0.0-alpha.109",
+    "@mui/material": "^5.10.15",
+    "@mui/x-date-pickers": "^5.0.9",
     "@zcloak/ctype": "0.2.1-0",
     "@zcloak/did": "0.2.1-0",
     "@zcloak/did-resolver": "0.2.1-0",
@@ -34,9 +34,9 @@
     "@zcloak/message": "0.2.1-0",
     "@zcloak/vc": "0.2.1-0",
     "@zcloak/verify": "0.2.1-0",
-    "qr-scanner": "^1.4.1",
+    "qr-scanner": "^1.4.2",
     "qrcode-generator": "^1.4.4",
-    "react-dropzone": "^14.2.2",
-    "socket.io-client": "^4.5.3"
+    "react-dropzone": "^14.2.3",
+    "socket.io-client": "^4.5.4"
   }
 }
