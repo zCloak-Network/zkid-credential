@@ -1599,6 +1599,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@credential/page-issue@workspace:packages/page-issue":
+  version: 0.0.0-use.local
+  resolution: "@credential/page-issue@workspace:packages/page-issue"
+  dependencies:
+    "@zcloak/ctype": 0.2.1-0
+    "@zcloak/did": 0.2.1-0
+    "@zcloak/did-resolver": 0.2.1-0
+  languageName: unknown
+  linkType: soft
+
 "@credential/page-message@workspace:packages/page-message":
   version: 0.0.0-use.local
   resolution: "@credential/page-message@workspace:packages/page-message"

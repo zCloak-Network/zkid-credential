@@ -15,6 +15,7 @@ import PageCType from '@credential/page-ctype';
 import PageCreateCType from '@credential/page-ctype/create';
 import PageOwnerCType from '@credential/page-ctype/OwnerCType';
 import PageDidProfile from '@credential/page-did/DidProfile';
+import Issue from '@credential/page-issue';
 import PageMessage from '@credential/page-message';
 import PageAttesterMessage from '@credential/page-message/attester';
 import PageTasks from '@credential/page-tasks';
@@ -180,6 +181,16 @@ const createAttesterApp = () => (
           </Container>
         }
         path=":id"
+      />
+    </Route>
+    <Route path="issue">
+      <Route
+        element={
+          <Container hasPaddingTop>
+            <Issue />
+          </Container>
+        }
+        index
       />
     </Route>
     <Route

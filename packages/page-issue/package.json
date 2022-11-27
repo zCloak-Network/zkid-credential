@@ -1,0 +1,23 @@
+{
+  "author": "zCloak",
+  "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
+  "contributors": [],
+  "description": "credential page-issue",
+  "homepage": "https://github.com/zCloak-Network/zkid-credential/tree/master/packages/page-issue#readme",
+  "license": "Apache-2.0",
+  "maintainers": [],
+  "name": "@credential/page-issue",
+  "repository": {
+    "directory": "packages/page-issue",
+    "type": "git",
+    "url": "https://github.com/zCloak-Network/zkid-credential.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.0.1",
+  "dependencies": {
+    "@zcloak/ctype": "0.2.1-0",
+    "@zcloak/did": "0.2.1-0",
+    "@zcloak/did-resolver": "0.2.1-0"
+  }
+}

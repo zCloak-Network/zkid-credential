@@ -18,6 +18,8 @@
       "@credential/page-ctype/*": ["page-ctype/src/*"],
       "@credential/page-did": ["page-did/src"],
       "@credential/page-did/*": ["page-did/src/*"],
+      "@credential/page-issue": ["page-issue/src"],
+      "@credential/page-issue/*": ["page-issue/src/*"],
       "@credential/page-message": ["page-message/src"],
       "@credential/page-message/*": ["page-message/src/*"],
       "@credential/page-tasks": ["page-tasks/src"],
