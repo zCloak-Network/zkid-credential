@@ -19,17 +19,14 @@ let unlockPromiseReject: (error: Error) => void;
 // eslint-disable-next-line @typescript-eslint/ban-types
 const DidsProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [unlockOpen, toggleUnlock] = useToggle();
-  const [all, setAll] = useState<Did[]>(didManager.getAll());
-  const [did, setDid] = useState<Did | null>(all.length > 0 ? all[0] : null);
+  const [all, setAll] = useState<Did[]>(didManager.all());
+  const [did, setDid] = useState<Did>(didManager.current());
   const [isLocked, setIsLocked] = useState<boolean>(true);
 
   useEffect(() => {
     const didChange = () => {
-      const all = didManager.getAll();
-      const did = all.length > 0 ? all[0] : null;
-
-      setAll(didManager.getAll());
-      setDid(did);
+      setAll(didManager.all());
+      setDid(didManager.current());
     };
 
     didManager.on('add', didChange);

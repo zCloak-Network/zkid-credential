@@ -3,7 +3,7 @@
 
 import type { CType } from '@zcloak/ctype/types';
 import type { Did } from '@zcloak/did';
-import type { AnyJson, RawCredential } from '@zcloak/vc/types';
+import type { AnyJson, RawCredential, VerifiableCredential } from '@zcloak/vc/types';
 
 import { Button } from '@mui/material';
 import React, { useCallback, useContext, useState } from 'react';
@@ -12,24 +12,31 @@ import { Message } from '@zcloak/message/types';
 import { Raw } from '@zcloak/vc';
 
 import { DEFAULT_ROOT_HASH_TYPE } from '@credential/app-config/vc';
-import { addPendingCredential } from '@credential/app-store/pending-credential';
 import { NotificationContext, Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal } from '@credential/react-dids';
-import { encryptMessageStep, sendMessage, Steps } from '@credential/react-dids/steps';
+import {
+  encryptMessageStep,
+  sendMessage,
+  signAndBuildVC,
+  Steps
+} from '@credential/react-dids/steps';
 import { useToggle } from '@credential/react-hooks';
 
-const SubmitClaim: React.FC<{
+interface Props {
   contents: AnyJson;
-  attester: Did | null;
+  holder: Did | null;
   ctype: CType;
   onDone?: () => void;
-}> = ({ attester, contents, ctype, onDone }) => {
+}
+
+function SubmitVC({ contents, ctype, holder, onDone }: Props) {
   const { did: sender, unlock } = useContext(DidsContext);
   const { notifyError } = useContext(NotificationContext);
   const [open, toggleOpen] = useToggle();
-  const [encryptedMessage, setEncryptedMessage] = useState<Message<'Request_Attestation'>>();
+  const [encryptedMessage, setEncryptedMessage] = useState<Message<'Send_issuedVC'>>();
   const [recaptchaToken, setRecaptchaToken] = useState<string>();
   const [rawCredential, setRawCredential] = useState<RawCredential | null>(null);
+  const [vc, setVC] = useState<VerifiableCredential | null>(null);
 
   const _toggleOpen = useCallback(async () => {
     try {
@@ -52,19 +59,15 @@ const SubmitClaim: React.FC<{
   }, [contents, ctype, notifyError, sender, toggleOpen, unlock]);
 
   const _onDone = useCallback(() => {
-    if (rawCredential && encryptedMessage && attester) {
-      addPendingCredential(rawCredential, attester.id, encryptedMessage.id);
-    }
-
     onDone?.();
-  }, [attester, encryptedMessage, onDone, rawCredential]);
+  }, [onDone]);
 
   return (
     <>
-      <Button disabled={!attester || !ctype || !contents} onClick={_toggleOpen} variant="contained">
+      <Button disabled={!holder || !ctype || !contents} onClick={_toggleOpen} variant="contained">
         Submit
       </Button>
-      {open && (
+      {open && rawCredential && (
         <DidsModal
           onClose={toggleOpen}
           open={open}
@@ -73,14 +76,16 @@ const SubmitClaim: React.FC<{
               onDone={_onDone}
               steps={[
                 {
+                  label: 'Sign proof and build VC',
+                  paused: true,
+                  exec: () => signAndBuildVC(rawCredential, sender).then(setVC)
+                },
+                {
                   label: 'Encrypt message',
                   exec: () =>
-                    encryptMessageStep<'Request_Attestation'>(
-                      'Request_Attestation',
-                      rawCredential,
-                      sender,
-                      attester
-                    ).then(setEncryptedMessage)
+                    encryptMessageStep<'Send_issuedVC'>('Send_issuedVC', vc, sender, holder).then(
+                      setEncryptedMessage
+                    )
                 },
                 {
                   label: 'Send message',
@@ -89,14 +94,14 @@ const SubmitClaim: React.FC<{
                   exec: () => sendMessage(encryptedMessage, recaptchaToken)
                 }
               ]}
-              submitText="Submit claim"
+              submitText="Submit"
             />
           }
-          title="Submit claim"
+          title="Submit Verifiable Credential"
         />
       )}
     </>
   );
-};
+}
 
-export default React.memo(SubmitClaim);
+export default React.memo(SubmitVC);

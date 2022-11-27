@@ -2,13 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Box, Stack, Tab, Tabs } from '@mui/material';
-import { assert } from '@polkadot/util';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { CType } from '@zcloak/ctype/types';
 import { isSameUri } from '@zcloak/did/utils';
 
-import { useDB } from '@credential/app-store/useDB';
+import { db } from '@credential/app-store/db';
 import { DidsContext } from '@credential/react-dids';
 import { resolver } from '@credential/react-dids/instance';
 
@@ -17,29 +16,23 @@ import CTypes from './CTypes';
 const OwnerCType: React.FC = () => {
   const { did } = useContext(DidsContext);
   const [ownCTypes, setOwnCTypes] = useState<CType[]>([]);
-  const db = useDB(did?.id);
 
   useEffect(() => {
-    if (did) {
-      // TODO fetch ownCTYpes
-      assert(db, 'index db not init');
+    resolver.getAttesterCtypes().then((_ctypes) => {
+      const ctypes = _ctypes
+        .filter((item) => {
+          try {
+            return isSameUri(item.rawData.publisher, did.id);
+          } catch {}
 
-      resolver.getAttesterCtypes().then((_ctypes) => {
-        const ctypes = _ctypes
-          .filter((item) => {
-            try {
-              return isSameUri(item.rawData.publisher, did.id);
-            } catch {}
+          return false;
+        })
+        .map((item) => item.rawData);
 
-            return false;
-          })
-          .map((item) => item.rawData);
-
-        setOwnCTypes(ctypes);
-        db.ctype.bulkPut(ctypes);
-      });
-    }
-  }, [did, db]);
+      setOwnCTypes(ctypes);
+      db.ctype.bulkPut(ctypes);
+    });
+  }, [did]);
 
   return (
     <Stack spacing={3}>

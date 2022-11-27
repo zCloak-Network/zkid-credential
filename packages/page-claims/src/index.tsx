@@ -3,20 +3,18 @@
 
 import { Box, Stack, Tab, Tabs, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { useCredentials } from '@credential/app-store';
 import { usePendingCredentials } from '@credential/app-store/pending-credential';
-import { DidsContext } from '@credential/react-dids';
 
 import CredentialCell, { CredentialProps } from './CredentialCell';
 import ImportCredential from './ImportCredential';
 
 const Claims: React.FC = () => {
-  const { did } = useContext(DidsContext);
   const [type, setType] = useState(0);
-  const credentials = useCredentials(did?.id);
-  const pendingCredentials = usePendingCredentials(['pending', 'rejected'], did?.id);
+  const credentials = useCredentials();
+  const pendingCredentials = usePendingCredentials(['pending', 'rejected']);
 
   const list = useMemo((): CredentialProps[] => {
     const _credentials = credentials ?? [];

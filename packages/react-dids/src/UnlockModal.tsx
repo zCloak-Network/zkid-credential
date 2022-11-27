@@ -25,7 +25,7 @@ function UnlockModal({
 
   const _onUnlock = useCallback(() => {
     try {
-      if (!password || !did) return;
+      if (!password) return;
 
       Array.from(did.keyRelationship.values()).forEach(({ publicKey }) =>
         keyring.getPair(publicKey).unlock(password)
@@ -54,7 +54,7 @@ function UnlockModal({
             error={error}
             label={
               <>
-                Input&nbsp; (<DidName value={did?.id} />) &nbsp;password
+                Input&nbsp; (<DidName value={did.id} />) &nbsp;password
               </>
             }
             onChange={setPassword}

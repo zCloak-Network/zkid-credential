@@ -7,13 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import React from 'react';
 import { HashRouter } from 'react-router-dom';
 
-import {
-  AppProvider,
-  CTypeProvider,
-  NotificationProvider,
-  ThemeProvider,
-  ZkidExtensionProvider
-} from '@credential/react-components';
+import { NotificationProvider, ThemeProvider } from '@credential/react-components';
 import { DidsProvider } from '@credential/react-dids';
 
 import App from './App';
@@ -24,16 +18,10 @@ const Root: React.FC = () => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <CssBaseline />
             <NotificationProvider>
               <DidsProvider>
-                <AppProvider>
-                  <ZkidExtensionProvider>
-                    <CTypeProvider>
-                      <CssBaseline />
-                      <App />
-                    </CTypeProvider>
-                  </ZkidExtensionProvider>
-                </AppProvider>
+                <App />
               </DidsProvider>
             </NotificationProvider>
           </LocalizationProvider>

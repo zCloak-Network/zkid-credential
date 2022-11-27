@@ -7,7 +7,7 @@ import { assert } from '@polkadot/util';
 import React, { createContext, useCallback, useContext, useMemo } from 'react';
 
 import { CType, useCTypes } from '@credential/app-store';
-import { useDB } from '@credential/app-store/useDB';
+import { db } from '@credential/app-store/db';
 import { DidsContext } from '@credential/react-dids';
 import { resolver } from '@credential/react-dids/instance';
 
@@ -22,33 +22,25 @@ export const CTypeContext = createContext<State>({} as State);
 // eslint-disable-next-line @typescript-eslint/ban-types
 const CTypeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { did } = useContext(DidsContext);
-  const ctypes = useCTypes(did?.id);
-  const db = useDB(did?.id);
+  const ctypes = useCTypes();
 
   const importCType = useCallback(
     async (hash: HexString) => {
-      // TODO import claimer ctype
-
-      assert(did?.id, 'did not found');
-      assert(db, 'index db not init');
-
       const ctype = await resolver.submitClaimerImportCtype(did.id, hash);
 
       await db.ctype.put(ctype);
     },
-    [did, db]
+    [did]
   );
 
-  // TODO delete claimer ctype
   const deleteCType = useCallback(
     async (hash: HexString) => {
-      assert(did?.id, 'did not found');
-      assert(db, 'index db not init');
+      assert(did.id, 'did not found');
 
       await resolver.deleteClaimerImportCtype(did.id, hash);
       await db.ctype.delete(hash);
     },
-    [did, db]
+    [did]
   );
 
   const value = useMemo(() => {

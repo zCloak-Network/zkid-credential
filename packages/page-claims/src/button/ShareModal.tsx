@@ -33,7 +33,7 @@ const ShareModal: React.FC<{
       onClose={onClose}
       open={open}
       steps={
-        sender && receiver && presentation ? (
+        receiver && presentation ? (
           <Steps
             onDone={onClose}
             steps={[
@@ -91,16 +91,14 @@ const ShareModal: React.FC<{
           ))}
         </Paper>
         <Button
-          disabled={!sender || !receiver}
+          disabled={!receiver}
           fullWidth
           onClick={() => {
-            if (sender) {
-              const builder = new VerifiablePresentationBuilder(sender);
+            const builder = new VerifiablePresentationBuilder(sender);
 
-              setPresentation(
-                builder.addVC(credential, 'VP_SelectiveDisclosure', selectedAttributes).build()
-              );
-            }
+            setPresentation(
+              builder.addVC(credential, 'VP_SelectiveDisclosure', selectedAttributes).build()
+            );
           }}
           variant="contained"
         >

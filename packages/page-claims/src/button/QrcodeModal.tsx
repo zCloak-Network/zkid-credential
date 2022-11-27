@@ -86,16 +86,13 @@ const QrcodeModal: React.FC<{
             ))}
           </Paper>
           <Button
-            disabled={!did}
             fullWidth
             onClick={() => {
-              if (did) {
-                const builder = new VerifiablePresentationBuilder(did);
+              const builder = new VerifiablePresentationBuilder(did);
 
-                setPresentation(
-                  builder.addVC(credential, 'VP_SelectiveDisclosure', selectedAttributes).build()
-                );
-              }
+              setPresentation(
+                builder.addVC(credential, 'VP_SelectiveDisclosure', selectedAttributes).build()
+              );
             }}
             variant="contained"
           >

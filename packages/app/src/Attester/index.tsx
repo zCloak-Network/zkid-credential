@@ -56,6 +56,12 @@ const Attester: React.FC = () => {
         extra: unreads.taskUnread ? <Badge value={unreads.taskUnread} /> : undefined
       },
       {
+        to: '/attester/issue',
+        active: pathname.startsWith('/attester/issue'),
+        svgIcon: <IconTask />,
+        text: 'Issue'
+      },
+      {
         to: '/attester/message',
         active: pathname.startsWith('/attester/message'),
         svgIcon: <IconMessage />,

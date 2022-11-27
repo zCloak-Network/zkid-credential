@@ -5,6 +5,8 @@ import { createRoot } from 'react-dom/client';
 
 import { initCrypto } from '@zcloak/crypto';
 
+import { initInstance } from '@credential/react-dids/instance';
+
 import Root from './Root';
 
 const rootId = 'root';
@@ -16,4 +18,7 @@ if (!rootElement) {
 
 const root = createRoot(rootElement);
 
-initCrypto().then(() => root.render(<Root />));
+initCrypto().then(() => {
+  initInstance();
+  root.render(<Root />);
+});

@@ -56,55 +56,53 @@ const DidProfile: React.FC = () => {
 
   const authenticationKey = useMemo(() => {
     try {
-      const didUrl = did?.getKeyUrl('authentication');
+      const didUrl = did.getKeyUrl('authentication');
 
-      if (!didUrl) return null;
-
-      return did?.get(didUrl).publicKey;
+      return did.get(didUrl).publicKey;
     } catch {
       return null;
     }
   }, [did]);
   const assertionMethodKey = useMemo(() => {
     try {
-      const didUrl = did?.getKeyUrl('assertionMethod');
+      const didUrl = did.getKeyUrl('assertionMethod');
 
       if (!didUrl) return null;
 
-      return did?.get(didUrl).publicKey;
+      return did.get(didUrl).publicKey;
     } catch {
       return null;
     }
   }, [did]);
   const keyAgreementKey = useMemo(() => {
     try {
-      const didUrl = did?.getKeyUrl('keyAgreement');
+      const didUrl = did.getKeyUrl('keyAgreement');
 
       if (!didUrl) return null;
 
-      return did?.get(didUrl).publicKey;
+      return did.get(didUrl).publicKey;
     } catch {
       return null;
     }
   }, [did]);
   const capabilityDelegationKey = useMemo(() => {
     try {
-      const didUrl = did?.getKeyUrl('capabilityDelegation');
+      const didUrl = did.getKeyUrl('capabilityDelegation');
 
       if (!didUrl) return null;
 
-      return did?.get(didUrl).publicKey;
+      return did.get(didUrl).publicKey;
     } catch {
       return null;
     }
   }, [did]);
   const capabilityInvocationKey = useMemo(() => {
     try {
-      const didUrl = did?.getKeyUrl('capabilityInvocation');
+      const didUrl = did.getKeyUrl('capabilityInvocation');
 
       if (!didUrl) return null;
 
-      return did?.get(didUrl).publicKey;
+      return did.get(didUrl).publicKey;
     } catch {
       return null;
     }
@@ -134,7 +132,7 @@ const DidProfile: React.FC = () => {
         }}
       >
         <Box sx={{ width: 168, height: 168, borderRadius: '84px', border: '4px solid #fff' }}>
-          <IdentityIcon diameter={160} value={did?.id} />
+          <IdentityIcon diameter={160} value={did.id} />
         </Box>
         <Box marginLeft={{ md: 3, xs: 0 }} maxWidth="80%" width={400}>
           <Typography
@@ -147,7 +145,7 @@ const DidProfile: React.FC = () => {
             {'web3name'}
           </Typography>
           <Box marginTop={3}>
-            <DidCell copyable value={did?.id} />
+            <DidCell copyable value={did.id} />
           </Box>
         </Box>
       </Stack>

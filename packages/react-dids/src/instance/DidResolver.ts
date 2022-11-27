@@ -9,21 +9,42 @@ import type { ServerCtypes, ServerMessage } from '../types';
 
 import { ArweaveDidResolver } from '@zcloak/did-resolver';
 
+import { putDid, queryDid } from '@credential/app-store/cache-did';
+
 import { get, post } from '../utils/request';
 
 export class CredentialDidResolver extends ArweaveDidResolver {
-  #cache: Record<string, Promise<DidDocument>> = {};
+  #cache: Record<DidUrl, Promise<DidDocument>> = {};
 
   constructor(server?: string) {
     super({ server });
   }
 
+  public get knownDids(): DidUrl[] {
+    const set = new Set<DidUrl>(Object.keys(this.#cache) as DidUrl[]);
+
+    return Array.from(set);
+  }
+
   public override resolve(didUrl: string): Promise<DidDocument> {
-    if (!this.#cache[didUrl]) {
-      this.#cache[didUrl] = super.resolve(didUrl);
+    const { did } = this.parseDid(didUrl);
+
+    if (!this.#cache[did]) {
+      this.#cache[did] = this.queryDid(did);
     }
 
-    return this.#cache[didUrl];
+    return this.#cache[did];
+  }
+
+  private async queryDid(didUrl: string): Promise<DidDocument> {
+    let document = await queryDid(didUrl);
+
+    if (!document) {
+      document = await super.resolve(didUrl);
+      putDid(document);
+    }
+
+    return document;
   }
 
   async submitDid(did: DidDocumentWithProof) {

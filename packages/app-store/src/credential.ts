@@ -10,8 +10,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 
 import { calcRoothash } from '@zcloak/vc';
 
-import { DB } from './db';
-import { useDB } from './useDB';
+import { db } from './db';
 
 export interface Credential {
   digest: HexString;
@@ -25,21 +24,14 @@ export interface Credential {
   vc: VerifiableCredential;
 }
 
-export function useCredentials(name?: string): Credential[] | undefined {
-  const db = useDB(name);
-
+export function useCredentials(): Credential[] | undefined {
   return useLiveQuery(() => {
-    if (db) {
-      return db?.credential.toArray();
-    } else {
-      return [];
-    }
-  }, [db]);
+    return db.credential.toArray();
+  }, []);
 }
 
 export async function addVC(
-  vc: VerifiableCredential | null | undefined,
-  db: DB
+  vc: VerifiableCredential | null | undefined
 ): Promise<Credential | null> {
   if (!vc) return null;
 
