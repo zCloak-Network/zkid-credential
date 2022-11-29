@@ -1,6 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { CTypeMeta } from '@credential/app-config/ctypes/type';
 import type { CType } from '@credential/app-store';
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -11,11 +12,11 @@ import { IconLogoCircle } from '@credential/app-config/icons';
 import { Copy, CTypeContext } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
-import { useCTypeMeta } from '@credential/react-hooks';
 import { isMobile } from '@credential/react-hooks/utils/userAgent';
 
 interface Props {
   ctype: CType;
+  meta?: CTypeMeta;
   actions?: React.ReactNode;
 }
 
@@ -97,10 +98,8 @@ const Wrapper = styled(Paper)(({ theme }) => ({
   }
 }));
 
-function CTypeCard({ actions, ctype }: Props) {
+function CTypeCard({ actions, ctype, meta }: Props) {
   const { deleteCType } = useContext(CTypeContext);
-
-  const meta = useCTypeMeta(ctype.$id);
 
   const handleDelete = useCallback(() => {
     deleteCType(ctype.$id);

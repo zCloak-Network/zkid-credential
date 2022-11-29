@@ -14,7 +14,7 @@ function getMessages(messages: MessageWithMeta<MessageType>[]): MessageWithMeta<
 
   messages.forEach((message) => map.set(message.id, message));
 
-  return Array.from(map.values()).sort((l, r) => l.createTime - r.createTime);
+  return Array.from(map.values()).sort((l, r) => r.createTime - l.createTime);
 }
 
 export function useMessages(type: 'all' | 'sent' | 'received'): MessageWithMeta<MessageType>[] {

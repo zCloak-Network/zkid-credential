@@ -19,7 +19,7 @@ import {
 import { CreateSubject } from '@credential/react-ctype';
 import { InputDid } from '@credential/react-dids';
 import { resolver } from '@credential/react-dids/instance';
-import { useCTypeMeta, useToggle } from '@credential/react-hooks';
+import { useCTypeMetaForAttest, useToggle } from '@credential/react-hooks';
 
 import SubmitClaim from './SubmitClaim';
 
@@ -29,7 +29,7 @@ function CreateClaim({ ctype }: { ctype: CType }) {
   const [contents, setContents] = useState<AnyJson>({});
   const navigate = useNavigate();
 
-  const ctypeMeta = useCTypeMeta(ctype.$id);
+  const ctypeMeta = useCTypeMetaForAttest(ctype.$id);
 
   const defaultAttester = useMemo(() => {
     try {

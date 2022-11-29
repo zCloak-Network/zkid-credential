@@ -13,6 +13,7 @@ import {
   IconButton,
   Link,
   Stack,
+  Tooltip,
   useMediaQuery,
   useTheme
 } from '@mui/material';
@@ -105,21 +106,17 @@ function Header({
           )}
           <Logo />
           {upSm && (
-            <>
-              {
-                <Chip
-                  color="primary"
-                  label={
-                    <Stack alignItems="center" direction="row" spacing={0.5}>
-                      {isAttester ? <IconAttester /> : <IconClaimer />}
-                      <Box>{isAttester ? 'Attester' : 'Claimer'}</Box>
-                    </Stack>
-                  }
-                  onClick={handleRole}
-                  variant="outlined"
-                />
+            <Chip
+              color="primary"
+              label={
+                <Stack alignItems="center" direction="row" spacing={0.5}>
+                  {isAttester ? <IconAttester /> : <IconClaimer />}
+                  <Box>{isAttester ? 'Attester' : 'Claimer'}</Box>
+                </Stack>
               }
-            </>
+              onClick={handleRole}
+              variant="outlined"
+            />
           )}
           {upSm && <Chip color="warning" label="Beta" variant="outlined" />}
         </Stack>

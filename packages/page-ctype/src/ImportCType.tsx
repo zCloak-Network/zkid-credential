@@ -8,7 +8,7 @@ import React from 'react';
 import { ImportCTypeModal } from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
-const ImportCType: React.FC = () => {
+function ImportCType({ variant }: { variant?: 'text' | 'outlined' | 'contained' }) {
   const [open, toggleOpen] = useToggle();
   const theme = useTheme();
   const downSm = useMediaQuery(theme.breakpoints.down('sm'));
@@ -31,17 +31,23 @@ const ImportCType: React.FC = () => {
         <Button
           onClick={toggleOpen}
           startIcon={<FileUploadOutlinedIcon />}
-          sx={({ palette }) => ({
-            borderRadius: 6,
-            color: palette.primary.main,
-            boxShadow: 'none',
-            background: alpha(palette.primary.main, 0.2),
-            ':hover': {
-              boxShadow: 'none',
-              background: alpha(palette.primary.main, 0.35)
-            }
-          })}
-          variant="contained"
+          sx={({ palette }) =>
+            variant === 'contained'
+              ? {
+                  borderRadius: 6,
+                  color: palette.primary.main,
+                  boxShadow: 'none',
+                  background: alpha(palette.primary.main, 0.2),
+                  ':hover': {
+                    boxShadow: 'none',
+                    background: alpha(palette.primary.main, 0.35)
+                  }
+                }
+              : {
+                  borderRadius: 6
+                }
+          }
+          variant={variant}
         >
           Import
         </Button>
@@ -49,6 +55,6 @@ const ImportCType: React.FC = () => {
       <ImportCTypeModal onClose={toggleOpen} open={open} />
     </>
   );
-};
+}
 
 export default React.memo(ImportCType);

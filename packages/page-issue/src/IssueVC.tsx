@@ -17,7 +17,7 @@ import {
 } from '@credential/react-components';
 import { CreateSubject } from '@credential/react-ctype';
 import { InputDid } from '@credential/react-dids';
-import { useCTypeMeta, useToggle } from '@credential/react-hooks';
+import { useCTypeMetaForIssue, useToggle } from '@credential/react-hooks';
 
 import SubmitVC from './SubmitVC';
 
@@ -26,7 +26,7 @@ function IssueVC({ ctype }: { ctype: CType }) {
   const [holder, setHolder] = useState<Did | null>(null);
   const [contents, setContents] = useState<AnyJson>({});
 
-  const ctypeMeta = useCTypeMeta(ctype.$id);
+  const ctypeMeta = useCTypeMetaForIssue(ctype.$id);
 
   const onDone = useCallback(() => {
     toggleOpen();
@@ -35,7 +35,7 @@ function IssueVC({ ctype }: { ctype: CType }) {
   return (
     <>
       <Button onClick={toggleOpen} variant="contained">
-        Issue VC
+        Issue
       </Button>
       {open && (
         <FullScreenDialog open={open}>

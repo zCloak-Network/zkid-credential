@@ -6,7 +6,6 @@ import type { HexString } from '@zcloak/crypto/types';
 import { assert } from '@polkadot/util';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-import { TOP_CTYPES } from '@credential/app-config/ctypes';
 import { CType, useCTypes } from '@credential/app-store';
 import { db } from '@credential/app-store/db';
 import { DidsContext } from '@credential/react-dids';
@@ -25,21 +24,7 @@ export const CTypeContext = createContext<State>({} as State);
 const CTypeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { did } = useContext(DidsContext);
   const [serverCTypes, setServerCTypes] = useState<CType[]>([]);
-  const _ctypes = useCTypes();
-
-  const ctypes = useMemo((): CType[] => {
-    const topCTypes: CType[] = [];
-
-    TOP_CTYPES.forEach((hash) => {
-      const finded = serverCTypes.find((ctype) => ctype.$id === hash);
-
-      if (finded) {
-        topCTypes.push(finded);
-      }
-    });
-
-    return [...topCTypes, ...(_ctypes || []).filter((ctype) => !TOP_CTYPES.includes(ctype.$id))];
-  }, [_ctypes, serverCTypes]);
+  const ctypes = useCTypes();
 
   useEffect(() => {
     resolver.getClaimerCtypes(did.id).then((ctypes) => {

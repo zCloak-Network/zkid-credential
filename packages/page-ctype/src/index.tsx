@@ -2,15 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Box, Typography } from '@mui/material';
-import React, { useContext } from 'react';
-
-import { CTypeContext } from '@credential/react-components';
+import React from 'react';
 
 import CTypeList from './CTypeList';
 import ImportCType from './ImportCType';
+import { useAttestCTypes } from './useAttestCTypes';
 
 const CType: React.FC = () => {
-  const { ctypes } = useContext(CTypeContext);
+  const ctypes = useAttestCTypes();
 
   return (
     <Box>
@@ -23,7 +22,7 @@ const CType: React.FC = () => {
         }}
       >
         <Typography variant="h2">Credential type</Typography>
-        <ImportCType />
+        <ImportCType variant="contained" />
       </Box>
       <CTypeList list={ctypes} />
     </Box>
