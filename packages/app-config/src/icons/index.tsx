@@ -4,6 +4,7 @@
 export { default as IconAddress } from './IconAddress';
 export { default as IconApprove } from './IconApprove';
 export { default as IconAttester } from './IconAttester';
+export { default as IconClaimer } from './IconClaimer';
 export { default as IconCorwn } from './IconCorwn';
 export { default as IconCreate } from './IconCreate';
 export { default as IconDetails } from './IconDetails';

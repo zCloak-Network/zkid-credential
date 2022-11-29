@@ -129,9 +129,11 @@ function createWebpack(context, mode = 'production') {
           ...mapChunks('credential', [
             /* 00 */ /packages\/(app|app-config|app-store)/,
             /* 01 */ /packages\/(react-components|react-hooks|react-ctype|react-dids)/,
-            /* 01 */ /packages\/(page-account|page-claims|page-ctype|page-did|page-message|page-tasks)/
+            /* 01 */ /packages\/(page-account|page-claims|page-ctype|page-did|page-issue|page-message|page-tasks)/
           ]),
-          ...mapChunks('zcloak', [/packages\/(service|extension-core)/]),
+          ...mapChunks('zcloak', [
+            /packages\/(service|extension-core|crypto|ctype|did|did-resolver|keyring|message|vc|verify|wasm)/
+          ]),
           ...mapChunks('other', [
             /* 00 */ /node_modules\/(@babel|ansi-styles|asn1|browserify|buffer|history|html-parse|inherit|lodash|object|path-|parse-asn1|pbkdf2|process|public-encrypt|query-string|readable-stream|regenerator-runtime|repeat|rtcpeerconnection-shim|safe-buffer|stream-browserify|store|tslib|unified|unist-util|util|vfile|vm-browserify|webrtc-adapter|whatwg-fetch)/,
             /* 01 */ /node_modules\/(attr|brorand|camelcase|core|chalk|color|create|cuint|decode-uri|deep-equal|define-properties|detect-browser|es|event|evp|ext|function-bind|has-symbols|ieee754|ip|is|lru|markdown|minimalistic-|moment|next-tick|node-libs-browser|random|regexp|resolve|rxjs|scheduler|sdp|setimmediate|timers-browserify|trough)/,

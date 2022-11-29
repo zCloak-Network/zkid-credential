@@ -17,8 +17,10 @@ import {
   useTheme
 } from '@mui/material';
 import React, { useCallback, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { IconAttester, IconLogoBlack } from '@credential/app-config/icons';
+import IconClaimer from '@credential/app-config/icons/IconClaimer';
 import { DidsContext } from '@credential/react-dids';
 import { useToggle } from '@credential/react-hooks';
 
@@ -63,6 +65,7 @@ function Header({
   toggleOpen: () => void;
 }) {
   const { did, isLocked, lock, unlock } = useContext(DidsContext);
+  const navigate = useNavigate();
   const [notiOpen, toggleNotiOpen] = useToggle();
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
@@ -71,6 +74,10 @@ function Header({
   const handleNotification = useCallback(() => {
     toggleNotiOpen();
   }, [toggleNotiOpen]);
+
+  const handleRole = useCallback(() => {
+    isAttester ? navigate('/claimer') : navigate('/attester');
+  }, [isAttester, navigate]);
 
   return (
     <>
@@ -97,17 +104,22 @@ function Header({
             </IconButton>
           )}
           <Logo />
-          {upSm && isAttester && (
-            <Chip
-              color="primary"
-              label={
-                <Stack alignItems="center" direction="row" spacing={0.5}>
-                  <IconAttester />
-                  <Box>Attester</Box>
-                </Stack>
+          {upSm && (
+            <>
+              {
+                <Chip
+                  color="primary"
+                  label={
+                    <Stack alignItems="center" direction="row" spacing={0.5}>
+                      {isAttester ? <IconAttester /> : <IconClaimer />}
+                      <Box>{isAttester ? 'Attester' : 'Claimer'}</Box>
+                    </Stack>
+                  }
+                  onClick={handleRole}
+                  variant="outlined"
+                />
               }
-              variant="outlined"
-            />
+            </>
           )}
           {upSm && <Chip color="warning" label="Beta" variant="outlined" />}
         </Stack>
