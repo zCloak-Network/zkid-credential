@@ -41,7 +41,7 @@ function FullScreenDialog({ children, open }: Props) {
         </Box>
       ) : (
         <Container
-          maxWidth="lg"
+          maxWidth="xl"
           sx={({ spacing }) => ({
             position: 'absolute',
             bottom: 0,

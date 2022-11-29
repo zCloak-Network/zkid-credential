@@ -63,7 +63,7 @@ export class CredentialDidResolver extends ArweaveDidResolver {
     }
   }
 
-  async getAttesterCtypes(): Promise<ServerCtypes[]> {
+  async getAllCtypes(): Promise<ServerCtypes[]> {
     const res = await get(`${this.server}/ctype`);
 
     if (res?.code !== 200) {
@@ -97,7 +97,7 @@ export class CredentialDidResolver extends ArweaveDidResolver {
     if (res?.code !== 200) {
       throw new Error(res?.message);
     } else {
-      return res.data.rawData;
+      return res.data?.rawData || [];
     }
   }
 

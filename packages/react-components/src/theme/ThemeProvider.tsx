@@ -26,7 +26,16 @@ function createTheme(mode: PaletteMode): Theme {
   return createMuiTheme({
     palette: createPalette(mode),
     components: createComponents(mode),
-    typography: createTypography()
+    typography: createTypography(),
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 900,
+        lg: 1280,
+        xl: 1536
+      }
+    }
   });
 }
 

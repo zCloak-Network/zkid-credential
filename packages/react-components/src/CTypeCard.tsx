@@ -11,6 +11,7 @@ import { IconLogoCircle } from '@credential/app-config/icons';
 import { Copy, CTypeContext } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
+import { useCTypeMeta } from '@credential/react-hooks';
 import { isMobile } from '@credential/react-hooks/utils/userAgent';
 
 interface Props {
@@ -47,7 +48,7 @@ const Wrapper = styled(Paper)(({ theme }) => ({
     height: 60,
     border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
     borderRadius: 30,
-    padding: theme.spacing(0.6),
+    padding: theme.spacing(0.5),
     transformOrigin: 'top left',
     transform: isMobile ? 'scale(0.8)' : null,
 
@@ -99,12 +100,24 @@ const Wrapper = styled(Paper)(({ theme }) => ({
 function CTypeCard({ actions, ctype }: Props) {
   const { deleteCType } = useContext(CTypeContext);
 
+  const meta = useCTypeMeta(ctype.$id);
+
   const handleDelete = useCallback(() => {
     deleteCType(ctype.$id);
   }, [ctype.$id, deleteCType]);
 
   return (
-    <Wrapper>
+    <Wrapper
+      sx={
+        meta?.card
+          ? {
+              background: `url(${meta.card}) no-repeat, #fff`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }
+          : {}
+      }
+    >
       <IconButton
         onClick={handleDelete}
         size="small"
@@ -114,7 +127,11 @@ function CTypeCard({ actions, ctype }: Props) {
       </IconButton>
       <Stack spacing={1.5}>
         <Box className="CTypeCard_logo">
-          <IconLogoCircle />
+          {meta?.icon ? (
+            <Box component="img" src={meta.icon} sx={{ width: 50, height: 50 }} />
+          ) : (
+            <IconLogoCircle />
+          )}
         </Box>
         <Tooltip title={ctype.title}>
           <Typography className="CTypeCard_title" variant="h3">

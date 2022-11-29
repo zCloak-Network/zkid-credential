@@ -1485,6 +1485,9 @@ __metadata:
 "@credential/app-config@workspace:packages/app-config":
   version: 0.0.0-use.local
   resolution: "@credential/app-config@workspace:packages/app-config"
+  dependencies:
+    "@zcloak/crypto": 0.2.1
+    "@zcloak/ctype": 0.2.1
   languageName: unknown
   linkType: soft
 

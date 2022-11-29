@@ -6,6 +6,8 @@ import type { CTypeSchemaProps } from '../types';
 import { Autocomplete, FormControl, InputLabel, OutlinedInput } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 
+import { withBorderInput } from '@credential/react-components/utils';
+
 function isString(value: unknown): value is string {
   return typeof value === 'string' || value instanceof String;
 }
@@ -49,6 +51,7 @@ function SchemaEnum({
               {...params.InputProps}
               disabled={params.disabled}
               inputProps={params.inputProps}
+              sx={(theme) => withBorderInput(theme, false)}
             />
           </FormControl>
         );

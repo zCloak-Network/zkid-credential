@@ -2,37 +2,30 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Box, Stack, Tab, Tabs } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
 
-import { CType } from '@zcloak/ctype/types';
 import { isSameUri } from '@zcloak/did/utils';
 
-import { db } from '@credential/app-store/db';
+import { CTypeContext } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
-import { resolver } from '@credential/react-dids/instance';
 
 import CTypes from './CTypes';
 
 const OwnerCType: React.FC = () => {
   const { did } = useContext(DidsContext);
-  const [ownCTypes, setOwnCTypes] = useState<CType[]>([]);
+  const { serverCTypes } = useContext(CTypeContext);
 
-  useEffect(() => {
-    resolver.getAttesterCtypes().then((_ctypes) => {
-      const ctypes = _ctypes
-        .filter((item) => {
-          try {
-            return isSameUri(item.rawData.publisher, did.id);
-          } catch {}
+  const ownCTypes = useMemo(
+    () =>
+      serverCTypes.filter((item) => {
+        try {
+          return isSameUri(item.publisher, did.id);
+        } catch {}
 
-          return false;
-        })
-        .map((item) => item.rawData);
-
-      setOwnCTypes(ctypes);
-      db.ctype.bulkPut(ctypes);
-    });
-  }, [did]);
+        return false;
+      }),
+    [did.id, serverCTypes]
+  );
 
   return (
     <Stack spacing={3}>

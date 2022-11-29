@@ -4,7 +4,7 @@
 const isRelease = location.hostname.includes('zkid.app');
 
 export const MESSAGE_WS = isRelease
-  ? 'wss.did-service.zkid.app'
+  ? 'wss://wss.did-service.zkid.app'
   : 'wss://wss.did-service.starks.network';
 
 export const DID_SERVICE = isRelease

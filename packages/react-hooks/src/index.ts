@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export * from './useCopyClipboard';
+export * from './useCTypeMeta';
 export * from './useDebounce';
 export * from './useInterval';
 export * from './useLocalStorage';
