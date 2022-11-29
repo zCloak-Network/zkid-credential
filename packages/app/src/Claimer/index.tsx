@@ -1,7 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
@@ -57,29 +57,46 @@ const Claimer: React.FC = () => {
   );
 
   return (
-    <Box bgcolor="#F5F6FA" minHeight="100vh">
+    <Box bgcolor="#F5F6FA" overflow="hidden" paddingTop="70px">
       <Header toggleOpen={toggleOpen} unreads={unreads} />
-      <Sidebar accountType="claimer" items={items} open={open} toggleOpen={toggleOpen} />
       <Box
-        minHeight="100vh"
-        pl={upMd ? (open ? '220px' : '93px') : 0}
-        pt={'70px'}
         sx={{
-          position: 'relative',
-          boxSizing: 'border-box',
-
-          transition: open
-            ? transitions.create('padding', {
-                easing: transitions.easing.sharp,
-                duration: transitions.duration.enteringScreen
-              })
-            : transitions.create('padding', {
-                easing: transitions.easing.sharp,
-                duration: transitions.duration.leavingScreen
-              })
+          height: '150px',
+          background: 'url(./world-cup-games/banner.webp)',
+          backgroundSize: 'auto 150px',
+          backgroundPosition: 'center',
+          textAlign: 'center',
+          color: 'white',
+          paddingTop: '25px'
         }}
       >
-        <Outlet />
+        <Typography variant="h2">
+          zCloak-Network: World’s First zk-Guessing for World Cup Games
+        </Typography>
+      </Box>
+      <Box overflow="hidden" position="relative">
+        <Sidebar accountType="claimer" items={items} open={open} toggleOpen={toggleOpen} />
+        <Box
+          height="calc(100vh - 220px)"
+          overflow="scroll"
+          pl={upMd ? (open ? '220px' : '93px') : 0}
+          sx={{
+            position: 'relative',
+            boxSizing: 'border-box',
+
+            transition: open
+              ? transitions.create('padding', {
+                  easing: transitions.easing.sharp,
+                  duration: transitions.duration.enteringScreen
+                })
+              : transitions.create('padding', {
+                  easing: transitions.easing.sharp,
+                  duration: transitions.duration.leavingScreen
+                })
+          }}
+        >
+          <Outlet />
+        </Box>
       </Box>
     </Box>
   );

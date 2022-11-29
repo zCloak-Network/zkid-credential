@@ -72,15 +72,21 @@ const DrawerMd = styled(MuiDrawer, {
 })<{
   accountType: ACCOUNT_TYPE;
 }>(({ accountType, open, theme }) => ({
+  position: 'absolute',
+  top: 0,
+  bottom: 0,
   width: drawerWidth,
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
   '& .MuiDrawer-paper': {
+    position: 'absolute',
+    bottom: 0,
+    top: 0,
     background:
       accountType === 'attester' ? theme.palette.common.black : theme.palette.common.white,
     zIndex: 99,
-    padding: '100px 16px 0',
+    padding: '30px 16px 0',
     borderRight: 'none',
     ...(open ? openedMixin(theme) : closedMixin(theme))
   },

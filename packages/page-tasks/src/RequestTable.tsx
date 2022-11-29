@@ -93,7 +93,7 @@ const RequestTable: React.FC = () => {
           <TableHead>
             <TableRow>
               <TableCell>Sender</TableCell>
-              <TableCell>Claim hash</TableCell>
+              <TableCell>Message id</TableCell>
               <TableCell>Credential type</TableCell>
               <TableCell>Approval initiation time</TableCell>
               <TableCell>Status</TableCell>

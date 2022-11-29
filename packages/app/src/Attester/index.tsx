@@ -74,28 +74,30 @@ const Attester: React.FC = () => {
 
   return (
     <>
-      <Box bgcolor="#fff" minHeight="100vh">
+      <Box bgcolor="#fff" overflow="hidden" paddingTop="70px">
         <Header isAttester toggleOpen={toggleOpen} unreads={unreads} />
-        <Sidebar accountType="attester" items={items} open={open} toggleOpen={toggleOpen} />
-        <Box
-          minHeight="100vh"
-          pl={upMd ? (open ? '220px' : '93px') : 0}
-          pt={'70px'}
-          sx={{
-            boxSizing: 'border-box',
-
-            transition: open
-              ? transitions.create('padding', {
-                  easing: transitions.easing.sharp,
-                  duration: transitions.duration.enteringScreen
-                })
-              : transitions.create('padding', {
-                  easing: transitions.easing.sharp,
-                  duration: transitions.duration.leavingScreen
-                })
-          }}
-        >
-          <Outlet />
+        <Box></Box>
+        <Box overflow="hidden" position="relative">
+          <Sidebar accountType="attester" items={items} open={open} toggleOpen={toggleOpen} />
+          <Box
+            height="calc(100vh - 70px)"
+            overflow="scroll"
+            pl={upMd ? (open ? '220px' : '93px') : 0}
+            sx={{
+              boxSizing: 'border-box',
+              transition: open
+                ? transitions.create('padding', {
+                    easing: transitions.easing.sharp,
+                    duration: transitions.duration.enteringScreen
+                  })
+                : transitions.create('padding', {
+                    easing: transitions.easing.sharp,
+                    duration: transitions.duration.leavingScreen
+                  })
+            }}
+          >
+            <Outlet />
+          </Box>
         </Box>
       </Box>
     </>
