@@ -3,6 +3,7 @@
 
 import {
   Autocomplete,
+  Button,
   CircularProgress,
   createFilterOptions,
   FormControl,
@@ -11,10 +12,11 @@ import {
   InputLabel,
   OutlinedInput
 } from '@mui/material';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 
 import { Did, helpers } from '@zcloak/did';
 
+import { DidsContext } from './DidsProvider';
 import { resolver } from './instance';
 import { useKnownDids } from './useKnownDids';
 
@@ -22,6 +24,7 @@ const filter = createFilterOptions<DidValue>();
 
 interface Props {
   defaultValue?: string;
+  withSelftButton?: string;
   label?: React.ReactNode;
   disabled?: boolean;
   onChange?: (value: Did | null) => void;
@@ -32,7 +35,8 @@ type DidValue = {
   inputValue?: string;
 };
 
-function InputDid({ defaultValue, disabled = false, label, onChange }: Props) {
+function InputDid({ defaultValue, disabled = false, label, onChange, withSelftButton }: Props) {
+  const { did: self } = useContext(DidsContext);
   const [value, setValue] = useState<DidValue | null>(
     defaultValue ? { title: defaultValue } : null
   );
@@ -129,13 +133,17 @@ function InputDid({ defaultValue, disabled = false, label, onChange }: Props) {
               {...params.InputProps}
               disabled={params.disabled}
               endAdornment={
-                fetching ? (
-                  <InputAdornment position="end">
-                    <CircularProgress size={16} />
-                  </InputAdornment>
-                ) : (
-                  params.InputProps.endAdornment
-                )
+                <>
+                  {fetching && (
+                    <InputAdornment position="end">
+                      <CircularProgress size={16} />
+                    </InputAdornment>
+                  )}
+                  {withSelftButton && (
+                    <Button onClick={() => setValue({ title: self.id })}>{withSelftButton}</Button>
+                  )}
+                  {params.InputProps.endAdornment}
+                </>
               }
               inputProps={params.inputProps}
             />

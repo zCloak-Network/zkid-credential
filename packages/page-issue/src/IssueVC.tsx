@@ -49,7 +49,7 @@ function IssueVC({ ctype }: { ctype: CType }) {
             <Typography mb={4} textAlign="center" variant="h2">
               Create Claim
             </Typography>
-            <InputDid label="Holder" onChange={setHolder} />
+            <InputDid label="Holder" onChange={setHolder} withSelftButton="Issue for myself" />
             <Box mt={2}>
               <CreateSubject onChange={setContents as any} schema={ctype} />
             </Box>
