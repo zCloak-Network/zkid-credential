@@ -13,7 +13,6 @@ import {
   IconButton,
   Link,
   Stack,
-  Tooltip,
   useMediaQuery,
   useTheme
 } from '@mui/material';
