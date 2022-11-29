@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { Did } from '@zcloak/did';
-import type { Message, MessageType } from '@zcloak/message/types';
+import type { MessageType } from '@zcloak/message/types';
 
 import type { ServerMessage } from '@credential/react-dids/types';
 import type { MessageWithMeta } from '@credential/react-hooks/types';
