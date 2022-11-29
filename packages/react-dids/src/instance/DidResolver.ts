@@ -31,6 +31,9 @@ export class CredentialDidResolver extends ArweaveDidResolver {
 
     if (!this.#cache[did]) {
       this.#cache[did] = this.queryDid(did);
+      this.#cache[did].finally(() => {
+        delete this.#cache[did];
+      });
     }
 
     return this.#cache[did];
