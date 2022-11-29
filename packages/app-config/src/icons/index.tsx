@@ -13,6 +13,7 @@ export { default as IconExport } from './IconExport';
 export { default as IconForward } from './IconForward';
 export { default as IconImport } from './IconImport';
 export { default as IconImportDid } from './IconImportDid';
+export { default as IconIssue } from './IconIssue';
 export { default as IconLogo } from './IconLogo';
 export { default as IconLogoBlack } from './IconLogoBlack';
 export { default as IconLogoCircle } from './IconLogoCircle';

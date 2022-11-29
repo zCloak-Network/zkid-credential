@@ -5,7 +5,7 @@ import { Box, useMediaQuery, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { IconMessage, IconMyctype, IconTask } from '@credential/app-config/icons';
+import { IconIssue, IconMessage, IconMyctype, IconTask } from '@credential/app-config/icons';
 import { useToggle } from '@credential/react-hooks';
 
 import Header from '../Header';
@@ -58,7 +58,7 @@ const Attester: React.FC = () => {
       {
         to: '/attester/issue',
         active: pathname.startsWith('/attester/issue'),
-        svgIcon: <IconTask />,
+        svgIcon: <IconIssue />,
         text: 'Issue'
       },
       {
