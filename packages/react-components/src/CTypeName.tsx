@@ -3,7 +3,7 @@
 
 import type { HexString } from '@zcloak/crypto/types';
 
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useMemo } from 'react';
 
 import { useCType } from '@credential/app-store';
 
@@ -11,19 +11,13 @@ import { CTypeContext } from './CTypeProvider';
 
 const CTypeName: React.FC<{ cTypeHash?: HexString | null }> = ({ cTypeHash }) => {
   const ctype = useCType(cTypeHash);
-  const { importCType } = useContext(CTypeContext);
+  const { serverCTypes } = useContext(CTypeContext);
 
-  useEffect(() => {
-    if (!ctype && cTypeHash) {
-      importCType(cTypeHash);
-    }
-  }, [cTypeHash, ctype, importCType]);
+  const title = useMemo(() => {
+    return (ctype || serverCTypes.find((ctype) => ctype.$id === cTypeHash))?.title;
+  }, [cTypeHash, ctype, serverCTypes]);
 
-  if (ctype) {
-    return <>{ctype.title}</>;
-  }
-
-  return null;
+  return <>{title}</>;
 };
 
 export default React.memo(CTypeName);

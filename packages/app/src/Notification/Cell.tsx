@@ -98,7 +98,15 @@ function getDesc(
       return 'You are have received a verifiable credential, Please check in time!';
 
     case 'Extends_World_Cup':
-      return `⚽️ ${decrypted?.data?.reason}`;
+      return (
+        <>
+          ⚽️{' '}
+          <Link>
+            <DidName value={sender} />
+          </Link>{' '}
+          {decrypted?.data?.reason || 'Send a message to you'}
+        </>
+      );
 
     default:
       return (
@@ -130,7 +138,7 @@ function Cell({
 
   const [open, toggleOpen] = useToggle();
 
-  const desc = useMemo(() => getDesc(message), [message]);
+  const desc = useMemo(() => getDesc(message, decrypted), [decrypted, message]);
 
   const handleClick = useCallback(() => {
     onRead();

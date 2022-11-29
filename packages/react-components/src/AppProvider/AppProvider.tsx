@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { Did } from '@zcloak/did';
-import type { MessageType } from '@zcloak/message/types';
+import type { Message, MessageType } from '@zcloak/message/types';
 
 import type { ServerMessage } from '@credential/react-dids/types';
 import type { MessageWithMeta } from '@credential/react-hooks/types';
@@ -32,21 +32,19 @@ function sortMessages<T extends MessageType>(messages: MessageWithMeta<T>[]): Me
 }
 
 function transformMessage<T extends MessageType>(data: ServerMessage<T>[]): MessageWithMeta<T>[] {
-  return sortMessages(
-    data.map((d) => ({
-      ...d.rawData,
-      meta: {
-        isRead: d.isRead,
-        isPush: d.isPush,
-        taskStatus:
-          d.replyStatus === 'approved'
-            ? 'approved'
-            : d.replyStatus === 'reject'
-            ? 'rejected'
-            : 'pending'
-      }
-    }))
-  );
+  return data.map((d) => ({
+    ...d.rawData,
+    meta: {
+      isRead: d.isRead,
+      isPush: d.isPush,
+      taskStatus:
+        d.replyStatus === 'approved'
+          ? 'approved'
+          : d.replyStatus === 'reject'
+          ? 'rejected'
+          : 'pending'
+    }
+  }));
 }
 
 function saveIssuedVC(
@@ -56,6 +54,16 @@ function saveIssuedVC(
   return decryptMessage(message, did, resolver).then((decryptedMessage) =>
     addVC(decryptedMessage.data)
   );
+}
+
+function duplicateMessages(
+  messages: MessageWithMeta<MessageType>[]
+): MessageWithMeta<MessageType>[] {
+  const messagesMap: Map<string, MessageWithMeta<MessageType>> = new Map();
+
+  messages.forEach((message) => messagesMap.set(message.id, message));
+
+  return sortMessages(Array.from(messages.values()));
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -82,12 +90,13 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     resolver
       .getMessages({ receiver: didUrl })
       .then(transformMessage)
+      .then(duplicateMessages)
       .then((messages) => {
         setMessages(messages);
 
         syncProvider.isReady.then((provider) => {
           provider.subscribe(didUrl, messages[0]?.createTime || 0, (messages) => {
-            setMessages((m) => [...transformMessage(messages), ...m]);
+            setMessages((m) => duplicateMessages([...transformMessage(messages), ...m]));
           });
         });
       });
