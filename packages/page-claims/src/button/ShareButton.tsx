@@ -4,10 +4,9 @@
 import type { VerifiableCredential } from '@zcloak/vc/types';
 
 import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 
 import { IconForward } from '@credential/app-config/icons';
-import { DidsContext } from '@credential/react-dids';
 import { useToggle } from '@credential/react-hooks';
 
 import ShareModal from './ShareModal';
@@ -16,14 +15,13 @@ const ShareButton: React.FC<{ credential: VerifiableCredential; withText?: boole
   credential,
   withText = false
 }) => {
-  const { unlock } = useContext(DidsContext);
   const [open, toggleOpen] = useToggle();
   const _toggleOpen: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       e.stopPropagation();
-      unlock().then(toggleOpen);
+      toggleOpen();
     },
-    [toggleOpen, unlock]
+    [toggleOpen]
   );
 
   return (

@@ -24,7 +24,7 @@ const Approve: React.FC<{
   type?: 'button' | 'menu';
   task: DecryptedTask;
 }> = ({ task, type = 'button' }) => {
-  const { did: attester, unlock } = useContext(DidsContext);
+  const { did: attester } = useContext(DidsContext);
   const { serverCTypes } = useContext(CTypeContext);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] =
@@ -36,8 +36,8 @@ const Approve: React.FC<{
 
   const _toggleOpen = useStopPropagation(
     useCallback(() => {
-      unlock().then(toggleOpen);
-    }, [toggleOpen, unlock])
+      toggleOpen();
+    }, [toggleOpen])
   );
 
   return (

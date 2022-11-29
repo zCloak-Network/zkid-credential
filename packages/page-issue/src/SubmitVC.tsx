@@ -30,7 +30,7 @@ interface Props {
 }
 
 function SubmitVC({ contents, ctype, holder, onDone }: Props) {
-  const { did: sender, unlock } = useContext(DidsContext);
+  const { did: sender } = useContext(DidsContext);
   const { serverCTypes } = useContext(CTypeContext);
   const { notifyError } = useContext(NotificationContext);
   const [open, toggleOpen] = useToggle();
@@ -39,7 +39,7 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
   const [rawCredential, setRawCredential] = useState<RawCredential | null>(null);
   const [vc, setVC] = useState<VerifiableCredential | null>(null);
 
-  const _toggleOpen = useCallback(async () => {
+  const _toggleOpen = useCallback(() => {
     try {
       const raw = new Raw({
         contents,
@@ -52,12 +52,11 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
 
       setRawCredential(raw.toRawCredential());
 
-      await unlock();
       toggleOpen();
     } catch (error) {
       notifyError(error);
     }
-  }, [contents, ctype, notifyError, sender, toggleOpen, unlock]);
+  }, [contents, ctype, notifyError, sender, toggleOpen]);
 
   const _onDone = useCallback(() => {
     onDone?.();

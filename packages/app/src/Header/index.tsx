@@ -64,16 +64,12 @@ function Header({
   unreads: UseNotification;
   toggleOpen: () => void;
 }) {
-  const { did, isLocked, lock, unlock } = useContext(DidsContext);
+  const { did, isLocked, lock } = useContext(DidsContext);
   const navigate = useNavigate();
   const [notiOpen, toggleNotiOpen] = useToggle();
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
   const upSm = useMediaQuery(theme.breakpoints.up('sm'));
-
-  const handleNotification = useCallback(() => {
-    toggleNotiOpen();
-  }, [toggleNotiOpen]);
 
   const handleRole = useCallback(() => {
     isAttester ? navigate('/claimer') : navigate('/attester');
@@ -120,12 +116,12 @@ function Header({
           {upSm && <Chip color="warning" label="Beta" variant="outlined" />}
         </Stack>
         <Stack alignItems="center" direction="row" spacing={upMd ? 2 : 1}>
-          <IconButton onClick={handleNotification} size={upMd ? 'medium' : 'small'}>
+          <IconButton onClick={toggleNotiOpen} size={upMd ? 'medium' : 'small'}>
             <Badge badgeContent={unreads.allUnread} color="warning" max={99}>
               <NotificationsNoneOutlinedIcon />
             </Badge>
           </IconButton>
-          <IconButton onClick={isLocked ? unlock : lock} size={upMd ? 'medium' : 'small'}>
+          <IconButton onClick={!isLocked ? lock : undefined} size={upMd ? 'medium' : 'small'}>
             {isLocked ? <Lock /> : <LockOpen />}
           </IconButton>
           <DidInfo did={did} />

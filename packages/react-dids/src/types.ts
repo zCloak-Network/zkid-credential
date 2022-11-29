@@ -15,7 +15,6 @@ export interface DidsState {
   did: Did;
   isLocked: boolean;
   lock: () => void;
-  unlock: () => Promise<void>;
 }
 
 type DidKeys$JsonVersion = '1';

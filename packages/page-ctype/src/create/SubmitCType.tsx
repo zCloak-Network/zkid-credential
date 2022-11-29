@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Button } from '@mui/material';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 
 import { BaseCType, CType } from '@zcloak/ctype/types';
 
@@ -16,7 +16,7 @@ const SubmitCType: React.FC<{
   onDone: () => void;
   description?: string;
 }> = ({ description, onDone, properties, title }) => {
-  const { did: publisher, unlock } = useContext(DidsContext);
+  const { did: publisher } = useContext(DidsContext);
   const [open, toggleOpen] = useToggle();
   const [ctype, setCType] = useState<CType>();
 
@@ -34,13 +34,9 @@ const SubmitCType: React.FC<{
     [description, properties, title]
   );
 
-  const _toggleOpen = useCallback(() => {
-    unlock().then(toggleOpen);
-  }, [toggleOpen, unlock]);
-
   return (
     <>
-      <Button onClick={_toggleOpen} variant="contained">
+      <Button onClick={toggleOpen} variant="contained">
         Submit
       </Button>
       <DidsModal

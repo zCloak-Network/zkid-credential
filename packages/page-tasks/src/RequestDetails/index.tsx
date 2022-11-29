@@ -3,13 +3,12 @@
 
 import type { DecryptedTask } from '@credential/react-hooks/types';
 
-import { Box, Button, Container, Dialog, DialogActions, DialogContent, Stack } from '@mui/material';
+import { Box, Container, Dialog, DialogActions, DialogContent, Stack } from '@mui/material';
 import React, { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { AppContext, DialogHeader } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
-import { DidsContext } from '@credential/react-dids';
 import { useDecryptedMessage, useTask } from '@credential/react-hooks';
 
 import Approve from './Approve';
@@ -18,7 +17,6 @@ import Details from './Details';
 import Reject from './Reject';
 
 const RequestDetails: React.FC = () => {
-  const { isLocked, unlock } = useContext(DidsContext);
   const { readMessage } = useContext(AppContext);
   const { id } = useParams<{ id: string }>();
 
@@ -27,15 +25,11 @@ const RequestDetails: React.FC = () => {
   const decrypted: DecryptedTask | null = useDecryptedMessage(task);
 
   useEffect(() => {
-    id && !isLocked && readMessage(id);
-  }, [id, readMessage, isLocked]);
+    id && readMessage(id);
+  }, [id, readMessage]);
 
   if (!decrypted) {
-    return (
-      <Dialog fullScreen open>
-        <Button onClick={unlock}>Unlock</Button>
-      </Dialog>
-    );
+    return null;
   }
 
   return (

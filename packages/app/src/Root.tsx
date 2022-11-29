@@ -8,7 +8,6 @@ import React from 'react';
 import { HashRouter } from 'react-router-dom';
 
 import { NotificationProvider, ThemeProvider } from '@credential/react-components';
-import { DidsProvider } from '@credential/react-dids';
 
 import App from './App';
 
@@ -20,9 +19,7 @@ const Root: React.FC = () => {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <CssBaseline />
             <NotificationProvider>
-              <DidsProvider>
-                <App />
-              </DidsProvider>
+              <App />
             </NotificationProvider>
           </LocalizationProvider>
         </ThemeProvider>

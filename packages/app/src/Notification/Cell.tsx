@@ -16,12 +16,12 @@ import {
   useTheme
 } from '@mui/material';
 import moment from 'moment';
-import React, { useCallback, useContext, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { IconNewMessage, IconNewTask } from '@credential/app-config/icons';
 import { CredentialModal, CTypeName } from '@credential/react-components';
-import { DidName, DidsContext } from '@credential/react-dids';
+import { DidName } from '@credential/react-dids';
 import { useDecryptedMessage, useToggle } from '@credential/react-hooks';
 import { MessageWithMeta } from '@credential/react-hooks/types';
 
@@ -44,7 +44,10 @@ function getCredential(message: DecryptedMessage<MessageType>): VerifiableCreden
   }
 }
 
-function getDesc({ ctype, msgType, sender }: Message<MessageType>): React.ReactNode {
+function getDesc(
+  { ctype, msgType, sender }: Message<MessageType>,
+  decrypted?: DecryptedMessage<MessageType> | null
+): React.ReactNode {
   switch (msgType) {
     case 'Request_Attestation':
       return (
@@ -94,8 +97,18 @@ function getDesc({ ctype, msgType, sender }: Message<MessageType>): React.ReactN
     case 'Send_issuedVC':
       return 'You are have received a verifiable credential, Please check in time!';
 
+    case 'Extends_World_Cup':
+      return `⚽️ ${decrypted?.data?.reason}`;
+
     default:
-      return `Reveive a [${msgType}] messsage`;
+      return (
+        <>
+          <Link>
+            <DidName value={sender} />
+          </Link>{' '}
+          send a [{msgType}] messsage to you.
+        </>
+      );
   }
 }
 
@@ -108,7 +121,6 @@ function Cell({
   message: MessageWithMeta<MessageType>;
   onRead: () => void;
 }) {
-  const { unlock } = useContext(DidsContext);
   const theme = useTheme();
   const upSm = useMediaQuery(theme.breakpoints.up('sm'));
   const navigate = useNavigate();
@@ -120,7 +132,7 @@ function Cell({
 
   const desc = useMemo(() => getDesc(message), [message]);
 
-  const handleClick = useCallback(async () => {
+  const handleClick = useCallback(() => {
     onRead();
 
     if (message.msgType === 'Request_Attestation') {
@@ -133,15 +145,13 @@ function Cell({
 
     if (!decrypted) return;
 
-    await unlock();
-
     const _credential = getCredential(decrypted);
 
     if (_credential) {
       credential.current = _credential;
       toggleOpen();
     }
-  }, [decrypted, message, navigate, onRead, toggleOpen, unlock]);
+  }, [decrypted, message.id, message.msgType, navigate, onRead, toggleOpen]);
 
   return (
     <>

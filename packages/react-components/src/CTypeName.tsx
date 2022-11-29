@@ -3,9 +3,7 @@
 
 import type { HexString } from '@zcloak/crypto/types';
 
-import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import { Button } from '@mui/material';
-import React, { useCallback, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { useCType } from '@credential/app-store';
 
@@ -15,30 +13,17 @@ const CTypeName: React.FC<{ cTypeHash?: HexString | null }> = ({ cTypeHash }) =>
   const ctype = useCType(cTypeHash);
   const { importCType } = useContext(CTypeContext);
 
-  const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.stopPropagation();
-
-      if (cTypeHash) {
-        importCType(cTypeHash);
-      }
-    },
-    [cTypeHash, importCType]
-  );
+  useEffect(() => {
+    if (!ctype && cTypeHash) {
+      importCType(cTypeHash);
+    }
+  }, [cTypeHash, ctype, importCType]);
 
   if (ctype) {
     return <>{ctype.title}</>;
   }
 
-  if (!cTypeHash) {
-    return null;
-  }
-
-  return (
-    <Button onClick={handleClick} startIcon={<FileUploadOutlinedIcon />} sx={{ padding: 0 }}>
-      Import ctype
-    </Button>
-  );
+  return null;
 };
 
 export default React.memo(CTypeName);

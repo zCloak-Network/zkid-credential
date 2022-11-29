@@ -24,14 +24,14 @@ const SubmitClaim: React.FC<{
   ctype: CType;
   onDone?: () => void;
 }> = ({ attester, contents, ctype, onDone }) => {
-  const { did: sender, unlock } = useContext(DidsContext);
+  const { did: sender } = useContext(DidsContext);
   const { notifyError } = useContext(NotificationContext);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] = useState<Message<'Request_Attestation'>>();
   const [recaptchaToken, setRecaptchaToken] = useState<string>();
   const [rawCredential, setRawCredential] = useState<RawCredential | null>(null);
 
-  const _toggleOpen = useCallback(async () => {
+  const _toggleOpen = useCallback(() => {
     try {
       const raw = new Raw({
         contents,
@@ -44,12 +44,11 @@ const SubmitClaim: React.FC<{
 
       setRawCredential(raw.toRawCredential());
 
-      await unlock();
       toggleOpen();
     } catch (error) {
       notifyError(error);
     }
-  }, [contents, ctype, notifyError, sender, toggleOpen, unlock]);
+  }, [contents, ctype, notifyError, sender, toggleOpen]);
 
   const _onDone = useCallback(() => {
     if (rawCredential && encryptedMessage && attester) {

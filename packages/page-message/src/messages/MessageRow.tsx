@@ -8,7 +8,7 @@ import type { MessageWithMeta } from '@credential/react-hooks/types';
 
 import { Link, useMediaQuery, useTheme } from '@mui/material';
 import moment from 'moment';
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { CredentialModal, CTypeName } from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
@@ -45,18 +45,13 @@ function MessageRow({ message }: { message: MessageWithMeta<MessageType> }) {
   const [open, toggleOpen] = useToggle();
   const [credential, setCredential] = useState<VerifiableCredential | null>(null);
 
-  const onClick = useCallback(() => {
-    let data: VerifiableCredential | null;
-
-    if (decrypted && (data = getCredential(decrypted))) {
-      setCredential(data);
-      toggleOpen();
-    }
-  }, [decrypted, toggleOpen]);
+  useEffect(() => {
+    decrypted && setCredential(getCredential(decrypted));
+  }, [decrypted]);
 
   return (
     <>
-      <MessageCard onClick={onClick}>
+      <MessageCard onClick={toggleOpen}>
         <MessageCardItem
           content={
             <>

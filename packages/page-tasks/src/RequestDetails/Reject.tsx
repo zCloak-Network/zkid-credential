@@ -18,7 +18,7 @@ const Reject: React.FC<{
   type?: 'button' | 'menu';
   task: DecryptedTask;
 }> = ({ task, type = 'button' }) => {
-  const { did: attester, unlock } = useContext(DidsContext);
+  const { did: attester } = useContext(DidsContext);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] =
     useState<Message<'Response_Reject_Attestation'>>();
@@ -28,8 +28,8 @@ const Reject: React.FC<{
 
   const _toggleOpen = useStopPropagation(
     useCallback(() => {
-      unlock().then(toggleOpen);
-    }, [toggleOpen, unlock])
+      toggleOpen();
+    }, [toggleOpen])
   );
 
   return (

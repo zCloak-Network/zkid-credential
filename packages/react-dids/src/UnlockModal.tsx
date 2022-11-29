@@ -2,13 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Button, Dialog, DialogContent, Stack } from '@mui/material';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+
+import { Did } from '@zcloak/did';
 
 import { DialogHeader, InputPassword } from '@credential/react-components';
 
 import DidName from './DidName';
-import { DidsContext } from './DidsProvider';
-import { keyring } from './instance';
+import { didManager, keyring } from './instance';
 
 function UnlockModal({
   onClose,
@@ -19,9 +20,10 @@ function UnlockModal({
   onClose?: () => void;
   onUnlock: () => void;
 }) {
-  const { did } = useContext(DidsContext);
   const [password, setPassword] = useState<string>();
   const [error, setError] = useState<Error | null>(null);
+
+  const did: Did | undefined = didManager.current();
 
   const _onUnlock = useCallback(() => {
     try {
