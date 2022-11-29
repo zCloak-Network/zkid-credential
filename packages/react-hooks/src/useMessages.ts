@@ -1,7 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { MessageType } from '@zcloak/message/types';
+import type { ExtendsMessageType, MessageType } from '@zcloak/message/types';
 
 import { useContext, useMemo } from 'react';
 
@@ -10,9 +10,13 @@ import { AppContext } from '@credential/react-components';
 import { MessageWithMeta } from './types';
 
 function getMessages(messages: MessageWithMeta<MessageType>[]): MessageWithMeta<MessageType>[] {
-  const map = new Map<string, MessageWithMeta<MessageType>>();
+  const map = new Map<string, MessageWithMeta<Exclude<MessageType, ExtendsMessageType>>>();
 
-  messages.forEach((message) => map.set(message.id, message));
+  messages.forEach((message) => {
+    if (!message.msgType.startsWith('Extends_')) {
+      map.set(message.id, message as MessageWithMeta<Exclude<MessageType, ExtendsMessageType>>);
+    }
+  });
 
   return Array.from(map.values()).sort((l, r) => r.createTime - l.createTime);
 }

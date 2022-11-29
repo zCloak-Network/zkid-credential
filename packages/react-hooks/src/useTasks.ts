@@ -12,10 +12,13 @@ function filterMessages(messages: MessageWithMeta<MessageType>[]): Task[] {
   return messages.filter((message) => message.msgType === 'Request_Attestation') as Task[];
 }
 
-function filterMessagesWithId(messages: MessageWithMeta<MessageType>[], id?: string): Task | null {
-  return messages.filter(
-    (message) => message.msgType === 'Request_Attestation' && message.id === id
-  )[0] as Task | null;
+function filterMessagesWithId(
+  messages: MessageWithMeta<MessageType>[],
+  id?: string
+): Task | undefined {
+  return messages.find<Task>(
+    (message): message is Task => message.msgType === 'Request_Attestation' && message.id === id
+  );
 }
 
 export function useTasks(): Task[] {
@@ -25,7 +28,7 @@ export function useTasks(): Task[] {
   return tasks;
 }
 
-export function useTask(id?: string): Task | null {
+export function useTask(id?: string): Task | undefined {
   const { messages } = useContext(AppContext);
 
   return useMemo(() => filterMessagesWithId(messages, id), [id, messages]);

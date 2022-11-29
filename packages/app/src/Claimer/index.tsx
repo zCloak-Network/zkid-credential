@@ -1,7 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, Button, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, Stack, useMediaQuery, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 

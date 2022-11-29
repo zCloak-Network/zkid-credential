@@ -5,9 +5,9 @@ import type { MessageType } from '@zcloak/message/types';
 
 import type { MessageWithMeta } from '@credential/react-hooks/types';
 
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 
-import { useMessages } from '@credential/react-hooks';
+import { AppContext } from '@credential/react-components';
 
 type All = MessageWithMeta<MessageType>;
 type Task = MessageWithMeta<'Request_Attestation'>;
@@ -61,7 +61,7 @@ function getNotification(messages: All[]): UseNotification {
 }
 
 export function useNotification(): UseNotification {
-  const messages = useMessages('received');
+  const { messages } = useContext(AppContext);
 
   return useMemo(() => getNotification(messages), [messages]);
 }

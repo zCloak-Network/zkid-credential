@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.2.0 Nov 29, 2022
+
+Changes:
+
+- World's First zk-Guessing for the World Cup Games.
+- add custom message type
+
 ## 0.1.0 Nov 27, 2022
 
 Changes:

@@ -14,13 +14,13 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "dependencies": {
-    "@zcloak/ctype": "^0.2.1",
-    "@zcloak/did-resolver": "^0.2.1",
-    "@zcloak/keyring": "^0.2.1",
-    "@zcloak/message": "^0.2.1",
-    "@zcloak/vc": "^0.2.1",
+    "@zcloak/ctype": "^0.2.2",
+    "@zcloak/did-resolver": "^0.2.2",
+    "@zcloak/keyring": "^0.2.2",
+    "@zcloak/message": "^0.2.2",
+    "@zcloak/vc": "^0.2.2",
     "dexie": "^3.2.2",
     "dexie-react-hooks": "^1.1.1"
   }

@@ -14,24 +14,24 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "dependencies": {
-    "@credential/react-dids": "0.1.0",
+    "@credential/react-dids": "0.2.0",
     "@polkadot/util": "^10.1.12",
-    "@zcloak/crypto": "^0.2.1",
-    "@zcloak/ctype": "^0.2.1",
-    "@zcloak/did": "^0.2.1",
-    "@zcloak/did-resolver": "^0.2.1",
-    "@zcloak/keyring": "^0.2.1",
-    "@zcloak/message": "^0.2.1",
-    "@zcloak/vc": "^0.2.1",
-    "@zcloak/verify": "^0.2.1",
+    "@zcloak/crypto": "^0.2.2",
+    "@zcloak/ctype": "^0.2.2",
+    "@zcloak/did": "^0.2.2",
+    "@zcloak/did-resolver": "^0.2.2",
+    "@zcloak/keyring": "^0.2.2",
+    "@zcloak/message": "^0.2.2",
+    "@zcloak/vc": "^0.2.2",
+    "@zcloak/verify": "^0.2.2",
     "copy-to-clipboard": "^3.3.3",
     "react-router-dom": "^6.4.3",
     "search-query-parser": "^1.6.0",
     "ua-parser-js": "^1.0.32"
   },
   "devDependencies": {
-    "@zcloak/crypto": "^0.2.1"
+    "@zcloak/crypto": "^0.2.2"
   }
 }
