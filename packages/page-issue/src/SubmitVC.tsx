@@ -12,7 +12,7 @@ import { Message } from '@zcloak/message/types';
 import { Raw } from '@zcloak/vc';
 
 import { DEFAULT_ROOT_HASH_TYPE } from '@credential/app-config/vc';
-import { NotificationContext, Recaptcha } from '@credential/react-components';
+import { CTypeContext, NotificationContext, Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal } from '@credential/react-dids';
 import {
   encryptMessageStep,
@@ -31,6 +31,7 @@ interface Props {
 
 function SubmitVC({ contents, ctype, holder, onDone }: Props) {
   const { did: sender, unlock } = useContext(DidsContext);
+  const { serverCTypes } = useContext(CTypeContext);
   const { notifyError } = useContext(NotificationContext);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] = useState<Message<'Send_issuedVC'>>();
@@ -78,7 +79,7 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
                 {
                   label: 'Sign proof and build VC',
                   paused: true,
-                  exec: () => signAndBuildVC(rawCredential, sender).then(setVC)
+                  exec: () => signAndBuildVC(rawCredential, serverCTypes, sender).then(setVC)
                 },
                 {
                   label: 'Encrypt message',

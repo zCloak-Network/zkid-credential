@@ -10,7 +10,7 @@ import { alpha, Button, ListItemIcon, ListItemText, MenuItem } from '@mui/materi
 import React, { useCallback, useContext, useState } from 'react';
 
 import { IconApprove } from '@credential/app-config/icons';
-import { Recaptcha } from '@credential/react-components';
+import { CTypeContext, Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal, useDid } from '@credential/react-dids';
 import {
   encryptMessageStep,
@@ -25,6 +25,7 @@ const Approve: React.FC<{
   task: DecryptedTask;
 }> = ({ task, type = 'button' }) => {
   const { did: attester, unlock } = useContext(DidsContext);
+  const { serverCTypes } = useContext(CTypeContext);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] =
     useState<Message<'Response_Approve_Attestation'>>();
@@ -76,7 +77,7 @@ const Approve: React.FC<{
                 {
                   label: 'Sign proof and build VC',
                   paused: true,
-                  exec: () => signAndBuildVC(task.data, attester).then(setVC)
+                  exec: () => signAndBuildVC(task.data, serverCTypes, attester).then(setVC)
                 },
                 {
                   label: 'Encrypt message',

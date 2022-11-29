@@ -10,16 +10,14 @@ import { assert } from '@polkadot/util';
 import { getPublish } from '@zcloak/ctype';
 import { VerifiableCredentialBuilder } from '@zcloak/vc';
 
-import { getDB } from '@credential/app-store';
-
 export async function signAndBuildVC(
   rawCredential: RawCredential,
+  serverCTypes: CType[],
   sender?: Did | null
 ): Promise<VerifiableCredential> {
   assert(sender, 'No sender did provided');
 
-  // TODO fetch ctype
-  const ctype = await getDB(sender.id).ctype.get(rawCredential.ctype);
+  const ctype = serverCTypes.find((ctype) => ctype.$id === rawCredential.ctype);
 
   assert(ctype, 'ctype not found');
 
