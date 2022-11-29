@@ -1,9 +1,9 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { useToggle } from '@credential/react-hooks';
 
@@ -14,6 +14,7 @@ import Sidebar from '../Sidebar';
 
 const Claimer: React.FC = () => {
   const { breakpoints, palette, transitions } = useTheme();
+  const navigate = useNavigate();
   const upMd = useMediaQuery(breakpoints.up('md'));
 
   const [open, toggleOpen] = useToggle(!!upMd);
@@ -62,17 +63,40 @@ const Claimer: React.FC = () => {
       <Box
         sx={{
           height: '150px',
-          background: 'url(./world-cup-games/banner.webp)',
+          background: 'url(./world-cup-games/banner.webp) no-repeat',
           backgroundSize: 'auto 150px',
           backgroundPosition: 'center',
-          textAlign: 'center',
-          color: 'white',
-          paddingTop: '25px'
+          backgroundColor: '#0C6724'
         }}
       >
-        <Typography variant="h2">
-          zCloak-Network: World’s First zk-Guessing for World Cup Games
-        </Typography>
+        <Stack
+          alignItems="center"
+          direction="row"
+          sx={{
+            justifyContent: 'space-around',
+            maxWidth: '1440px',
+            margin: '0 auto',
+            paddingTop: '84px'
+          }}
+        >
+          <Button
+            onClick={() => navigate('/attester/issue')}
+            sx={{
+              width: '190px',
+              height: '43px',
+              background: 'url(./world-cup-games/btn_startguessing.webp) no-repeat',
+              backgroundSize: 'cover'
+            }}
+          />
+          <Button
+            sx={{
+              width: '190px',
+              height: '43px',
+              background: 'url(./world-cup-games/btn_eventguide.webp) no-repeat',
+              backgroundSize: 'cover'
+            }}
+          />
+        </Stack>
       </Box>
       <Box overflow="hidden" position="relative">
         <Sidebar accountType="claimer" items={items} open={open} toggleOpen={toggleOpen} />

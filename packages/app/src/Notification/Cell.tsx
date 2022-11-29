@@ -125,17 +125,21 @@ function Cell({
 
     if (message.msgType === 'Request_Attestation') {
       navigate(`/attester/tasks/${message.id}`);
-    } else {
-      if (!decrypted) return;
+    }
 
-      await unlock();
+    if (message.msgType === 'Send_issuedVC') {
+      navigate('/claimer/claims');
+    }
 
-      const _credential = getCredential(decrypted);
+    if (!decrypted) return;
 
-      if (_credential) {
-        credential.current = _credential;
-        toggleOpen();
-      }
+    await unlock();
+
+    const _credential = getCredential(decrypted);
+
+    if (_credential) {
+      credential.current = _credential;
+      toggleOpen();
     }
   }, [decrypted, message, navigate, onRead, toggleOpen, unlock]);
 

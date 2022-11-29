@@ -54,7 +54,7 @@ function Messages({ messages }: { messages?: MessageWithMeta<MessageType>[] }) {
             >
               <TableCell>Sender</TableCell>
               <TableCell>Receiver</TableCell>
-              <TableCell>Claim hash</TableCell>
+              <TableCell>Message id</TableCell>
               <TableCell>Credential type</TableCell>
               <TableCell>Type</TableCell>
               <TableCell>Time</TableCell>

@@ -47,9 +47,9 @@ function IssueVC({ ctype }: { ctype: CType }) {
           />
           <FullScreenDialogContent bg={ctypeMeta?.bg}>
             <Typography mb={4} textAlign="center" variant="h2">
-              Create Claim
+              Issue Credential
             </Typography>
-            <InputDid label="Holder" onChange={setHolder} withSelftButton="Issue for myself" />
+            <InputDid label="Holder" onChange={setHolder} withSelftButton="Issue to myself" />
             <Box mt={2}>
               <CreateSubject onChange={setContents as any} schema={ctype} />
             </Box>

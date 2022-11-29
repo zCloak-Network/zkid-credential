@@ -77,7 +77,7 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
               onDone={_onDone}
               steps={[
                 {
-                  label: 'Sign proof and build VC',
+                  label: 'Sign verifiable Credential',
                   paused: true,
                   exec: () => signAndBuildVC(rawCredential, serverCTypes, sender).then(setVC)
                 },
@@ -98,7 +98,7 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
               submitText="Submit"
             />
           }
-          title="Submit Verifiable Credential"
+          title="Issue Verifiable Credential"
         />
       )}
     </>
