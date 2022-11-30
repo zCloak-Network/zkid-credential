@@ -1639,11 +1639,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@credential/react-components@0.2.0, @credential/react-components@workspace:packages/react-components":
+"@credential/react-components@0.3.0, @credential/react-components@workspace:packages/react-components":
   version: 0.0.0-use.local
   resolution: "@credential/react-components@workspace:packages/react-components"
   dependencies:
-    "@credential/react-hooks": 0.2.0
+    "@credential/react-hooks": 0.3.0
     "@date-io/date-fns": ^2.14.0
     "@date-io/moment": ^2.14.0
     "@emotion/react": ^11.10.5
@@ -1672,15 +1672,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/react-ctype@workspace:packages/react-ctype"
   dependencies:
-    "@credential/react-components": 0.2.0
-    "@credential/react-dids": 0.2.0
+    "@credential/react-components": 0.3.0
+    "@credential/react-dids": 0.3.0
     "@mui/lab": ^5.0.0-alpha.109
     "@mui/material": ^5.10.15
     "@zcloak/ctype": ^0.3.0
   languageName: unknown
   linkType: soft
 
-"@credential/react-dids@0.2.0, @credential/react-dids@workspace:packages/react-dids":
+"@credential/react-dids@0.3.0, @credential/react-dids@workspace:packages/react-dids":
   version: 0.0.0-use.local
   resolution: "@credential/react-dids@workspace:packages/react-dids"
   dependencies:
@@ -1698,11 +1698,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@credential/react-hooks@0.2.0, @credential/react-hooks@workspace:packages/react-hooks":
+"@credential/react-hooks@0.3.0, @credential/react-hooks@workspace:packages/react-hooks":
   version: 0.0.0-use.local
   resolution: "@credential/react-hooks@workspace:packages/react-hooks"
   dependencies:
-    "@credential/react-dids": 0.2.0
+    "@credential/react-dids": 0.3.0
     "@polkadot/util": ^10.1.12
     "@zcloak/crypto": ^0.3.0
     "@zcloak/ctype": ^0.3.0

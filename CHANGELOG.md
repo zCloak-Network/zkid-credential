@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.3.0 Nov 30, 2022
+
+Changes:
+
+fix bugs.
+
 ## 0.2.0 Nov 29, 2022
 
 Changes:
