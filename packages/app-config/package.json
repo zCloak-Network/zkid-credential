@@ -16,7 +16,7 @@
   "type": "module",
   "version": "0.2.0",
   "dependencies": {
-    "@zcloak/crypto": "^0.2.2",
-    "@zcloak/ctype": "^0.2.2"
+    "@zcloak/crypto": "^0.3.0",
+    "@zcloak/ctype": "^0.3.0"
   }
 }
