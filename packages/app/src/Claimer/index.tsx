@@ -89,6 +89,11 @@ const Claimer: React.FC = () => {
             }}
           />
           <Button
+            onClick={() =>
+              window.open(
+                'https://zcloaknetwork.medium.com/worlds-first-zk-guessing-for-the-world-cup-games-dc2d22fa5a83'
+              )
+            }
             sx={{
               width: '190px',
               height: '43px',
