@@ -164,10 +164,12 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
             </Box>
             <Box width="50%">
               <Typography sx={({ palette }) => ({ color: palette.grey[500] })} variant="inherit">
-                Claim hash
+                {vc ? 'Digest' : 'Claim hash'}
               </Typography>
-              <Tooltip placement="top" title={rootHash}>
-                <Typography sx={{ fontWeight: 500, ...ellipsisMixin() }}>{rootHash}</Typography>
+              <Tooltip placement="top" title={vc ? vc.digest : rootHash}>
+                <Typography sx={{ fontWeight: 500, ...ellipsisMixin() }}>
+                  {vc ? vc.digest : rootHash}
+                </Typography>
               </Tooltip>
             </Box>
           </Stack>
