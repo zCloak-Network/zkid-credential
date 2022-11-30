@@ -9,7 +9,6 @@ import React, { useCallback } from 'react';
 import { IconTwitter } from '@credential/app-config/icons';
 
 const RetweetButton: React.FC<{ credential: VerifiableCredential; withText?: boolean }> = ({
-  credential,
   withText = false
 }) => {
   const retweet = useCallback(() => {
@@ -17,16 +16,14 @@ const RetweetButton: React.FC<{ credential: VerifiableCredential; withText?: boo
 
     search.append(
       'text',
-      `I have claimed my @zCloakNetwork Membership Credential.
+      `I have participated in the World’s First zk-Guessing for the World Cup Games powered by @zCloakNetwork.
 
-Credential type hash: ${credential.ctype}
+Come join me to see how zero-knowledge proof plays with football games and get your reward.
 
-Attester: ${credential.issuer}
-
-Come get yours at: https://zkid.app`
+Tutorial: https://zcloaknetwork.medium.com/worlds-first-zk-guessing-for-the-world-cup-games-dc2d22fa5a83`
     );
     window.open(`https://twitter.com/intent/tweet?${search}`);
-  }, [credential.ctype, credential.issuer]);
+  }, []);
 
   return (
     <Tooltip title="Retweet">
