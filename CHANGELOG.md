@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [0.5.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.4.0...v0.5.0) (2022-12-01)
+
+
+### Features
+
+* **tasks:** refresh task status ([cdfa5fb](https://github.com/zCloak-Network/zkid-credential/commit/cdfa5fb6b40be66c19790be8fce95ed3a7099154))
+
 ## [0.4.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.1.0...v0.4.0) (2022-12-01)
 
 
