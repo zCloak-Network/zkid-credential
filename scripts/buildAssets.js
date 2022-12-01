@@ -1,8 +1,11 @@
-const fs = require('fs-extra');
-const path = require('path');
-const humps = require('humps');
-const { parse } = require('node-html-parser');
-const { execSync } = require('child_process');
+// Copyright 2021-2022 zcloak authors & contributors
+// SPDX-License-Identifier: Apache-2.0
+
+import fs from 'fs-extra';
+import path from 'path';
+import humps from 'humps';
+import { parse } from 'node-html-parser';
+import { execSync } from 'child_process';
 
 function main() {
   const assets = fs.readdirSync('packages/app-config/src/assets');

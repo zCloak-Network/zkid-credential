@@ -16,10 +16,10 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import moment from 'moment';
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import { Link as LinkRouter, useNavigate } from 'react-router-dom';
 
-import { AppContext, CTypeName, TaskStatusDisplay } from '@credential/react-components';
+import { CTypeName, TaskStatusDisplay } from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
 import { useDecryptedMessage, useTasks } from '@credential/react-hooks';
 
@@ -29,7 +29,6 @@ import ActionButton from './ActionButton';
 import { TaskCard, TaskCardItem } from './TaskCard';
 
 const Row: React.FC<{ task: Task }> = ({ task }) => {
-  const { readMessage } = useContext(AppContext);
   const navigate = useNavigate();
 
   const theme = useTheme();
@@ -38,10 +37,8 @@ const Row: React.FC<{ task: Task }> = ({ task }) => {
   const decrypted = useDecryptedMessage(task);
 
   const handleClick = useCallback(() => {
-    readMessage(task.id);
-
     if (!upMd) navigate(`/attester/tasks/${task.id}`);
-  }, [navigate, readMessage, task.id, upMd]);
+  }, [navigate, task.id, upMd]);
 
   return (
     <TaskCard

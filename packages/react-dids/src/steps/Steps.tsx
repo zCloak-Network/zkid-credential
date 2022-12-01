@@ -14,6 +14,8 @@ import {
 } from '@mui/material';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import { useStopPropagation } from '@credential/react-hooks';
+
 const DidsModal: React.FC<{
   submitText?: string;
   onDone?: () => void;
@@ -74,22 +76,24 @@ const DidsModal: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeStep, execing]);
 
-  const handleExec = useCallback(() => {
-    setError(null);
-    setStatus({ loading: true });
-    setLoading(true);
-    stepsRef.current[activeStep]
-      .exec(report)
-      .then(() => {
-        nextStep();
-      })
-      .catch(report)
-      .finally(() => {
-        setLoading(false);
-        setStatus({ loading: false });
-        setExecing(true);
-      });
-  }, [activeStep, nextStep, report]);
+  const handleExec = useStopPropagation(
+    useCallback(() => {
+      setError(null);
+      setStatus({ loading: true });
+      setLoading(true);
+      stepsRef.current[activeStep]
+        .exec(report)
+        .then(() => {
+          nextStep();
+        })
+        .catch(report)
+        .finally(() => {
+          setLoading(false);
+          setStatus({ loading: false });
+          setExecing(true);
+        });
+    }, [activeStep, nextStep, report])
+  );
 
   useEffect(() => {
     setExecing(true);
