@@ -5,19 +5,18 @@ import type { VerifiableCredential } from '@zcloak/vc/types';
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
-import { Button, Dialog, DialogContent, Stack, Typography } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { isVC } from '@zcloak/vc/utils';
 import { vcVerify } from '@zcloak/verify';
 
 import { addVC } from '@credential/app-store';
-import { DialogHeader } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
 import { resolver } from '@credential/react-dids/instance';
 
 import FileUpload from './FileUpload';
 import { NotificationContext } from './Notification';
+import { Button, Dialog, DialogContent, DialogHeader, Stack, Typography } from '.';
 
 const ImportCredentialModal: React.FC<{ open: boolean; onClose?: () => void }> = ({
   onClose,

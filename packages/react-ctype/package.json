@@ -18,8 +18,6 @@
   "dependencies": {
     "@credential/react-components": "0.4.0",
     "@credential/react-dids": "0.4.0",
-    "@mui/lab": "^5.0.0-alpha.109",
-    "@mui/material": "^5.10.15",
     "@zcloak/ctype": "^0.4.0"
   }
 }

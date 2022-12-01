@@ -5,9 +5,9 @@ import type { DidUrl } from '@zcloak/did-resolver/types';
 
 import Check from '@mui/icons-material/Check';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { Box, Typography } from '@mui/material';
 import React, { useMemo } from 'react';
 
+import { Box, Typography } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { useCopyClipboard } from '@credential/react-hooks';
 

@@ -21,7 +21,6 @@
     "@babel/runtime": "^7.20.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@mui/material": "^5.10.15",
     "@svgr/webpack": "^6.5.1",
     "@zcloak/crypto": "^0.4.0",
     "@zcloak/ctype": "^0.4.0",

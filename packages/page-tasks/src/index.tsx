@@ -1,8 +1,9 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, Stack, Tab, Tabs } from '@mui/material';
 import React from 'react';
+
+import { Box, Stack, Tab, Tabs } from '@credential/react-components';
 
 import RequestTable from './RequestTable';
 

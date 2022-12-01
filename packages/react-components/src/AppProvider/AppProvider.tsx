@@ -5,7 +5,7 @@ import type { Did } from '@zcloak/did';
 import type { MessageType } from '@zcloak/message/types';
 
 import type { ServerMessage } from '@credential/react-dids/types';
-import type { MessageWithMeta } from '@credential/react-hooks/types';
+import type { MessageWithMeta, TaskStatus } from '@credential/react-hooks/types';
 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
@@ -23,6 +23,7 @@ interface State {
   messages: MessageWithMeta<MessageType>[];
   sentMessages: MessageWithMeta<MessageType>[];
   readMessage: (id: string) => Promise<void>;
+  setMessageStatus: (id: string, status: TaskStatus) => void;
 }
 
 export const AppContext = createContext({} as State);
@@ -139,9 +140,25 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     await resolver.readMessage(id);
   }, []);
 
+  const setMessageStatus = useCallback((id: string, status: TaskStatus) => {
+    setMessages((_messages) =>
+      _messages.map((_message) =>
+        _message.id === id
+          ? {
+              ..._message,
+              meta: {
+                ..._message.meta,
+                taskStatus: status
+              }
+            }
+          : _message
+      )
+    );
+  }, []);
+
   const value = useMemo(
-    () => ({ messages, sentMessages, readMessage }),
-    [messages, readMessage, sentMessages]
+    () => ({ messages, sentMessages, readMessage, setMessageStatus }),
+    [messages, readMessage, sentMessages, setMessageStatus]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

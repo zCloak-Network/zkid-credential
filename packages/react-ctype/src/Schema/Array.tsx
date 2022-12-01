@@ -3,9 +3,10 @@
 
 import type { CTypeSchemaProps } from '../types';
 
-import { Alert } from '@mui/material';
 import { isArray } from '@polkadot/util';
 import React, { useEffect, useMemo, useState } from 'react';
+
+import { Alert } from '@credential/react-components';
 
 import { isOrDefault } from './utils';
 import SchemaVector from './Vector';

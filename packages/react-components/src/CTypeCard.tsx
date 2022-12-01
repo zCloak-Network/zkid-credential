@@ -9,10 +9,12 @@ import { alpha, Box, IconButton, Paper, Stack, styled, Tooltip, Typography } fro
 import React, { useCallback, useContext } from 'react';
 
 import { IconLogoCircle } from '@credential/app-config/icons';
-import { Copy, CTypeContext } from '@credential/react-components';
-import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
 import { isMobile } from '@credential/react-hooks/utils/userAgent';
+
+import Copy from './Copy';
+import { CTypeContext } from './CTypeProvider';
+import { ellipsisMixin } from './utils';
 
 interface Props {
   ctype: CType;

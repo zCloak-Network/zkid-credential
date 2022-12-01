@@ -2,10 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import { alpha, Button, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 
-import { ImportCTypeModal } from '@credential/react-components';
+import {
+  alpha,
+  Button,
+  IconButton,
+  ImportCTypeModal,
+  useMediaQuery,
+  useTheme
+} from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
 function ImportCType({ variant }: { variant?: 'text' | 'outlined' | 'contained' }) {

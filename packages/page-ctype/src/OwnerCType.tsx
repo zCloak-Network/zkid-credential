@@ -1,12 +1,11 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, Stack, Tab, Tabs } from '@mui/material';
 import React, { useContext, useMemo } from 'react';
 
 import { isSameUri } from '@zcloak/did/utils';
 
-import { CTypeContext } from '@credential/react-components';
+import { Box, CTypeContext, Stack, Tab, Tabs } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
 
 import CTypes from './CTypes';

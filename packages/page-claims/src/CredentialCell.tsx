@@ -4,7 +4,6 @@
 import type { DidUrl } from '@zcloak/did-resolver/types';
 import type { RawCredential } from '@zcloak/vc/types';
 
-import { Box, Paper, Stack, styled, Tooltip, Typography } from '@mui/material';
 import moment from 'moment';
 import React, { useMemo } from 'react';
 
@@ -12,7 +11,17 @@ import { HexString } from '@zcloak/crypto/types';
 import { isVC } from '@zcloak/vc/utils';
 
 import { CredentialStatus } from '@credential/app-store/pending-credential';
-import { CredentialModal, CredentialStatusDisplay, CTypeName } from '@credential/react-components';
+import {
+  Box,
+  CredentialModal,
+  CredentialStatusDisplay,
+  CTypeName,
+  Paper,
+  Stack,
+  styled,
+  Tooltip,
+  Typography
+} from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
 import { useToggle } from '@credential/react-hooks';

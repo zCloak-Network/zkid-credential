@@ -3,12 +3,20 @@
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
 
-import { Button, Divider, FormControl, InputLabel, OutlinedInput, Stack } from '@mui/material';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 
 import { validateMnemonic } from '@zcloak/crypto';
 
-import { InputPassword, NotificationContext } from '@credential/react-components';
+import {
+  Button,
+  Divider,
+  FormControl,
+  InputLabel,
+  InputPassword,
+  NotificationContext,
+  OutlinedInput,
+  Stack
+} from '@credential/react-components';
 import { didManager } from '@credential/react-dids/instance';
 
 const RestoreMnemonic: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess }) => {

@@ -5,14 +5,14 @@ import type { VerifiableCredential } from '@zcloak/vc/types';
 
 import React, { useMemo } from 'react';
 
+import { DidName } from '@credential/react-dids';
+
 import {
   FullScreenDialog,
   FullScreenDialogContent,
   FullScreenDialogHeader,
   IdentityIcon
-} from '@credential/react-components';
-import { DidName } from '@credential/react-dids';
-
+} from '..';
 import CredentialContents from './CredentialContents';
 
 interface Props {

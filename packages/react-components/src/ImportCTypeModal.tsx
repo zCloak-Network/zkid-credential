@@ -3,17 +3,18 @@
 
 import type { HexString } from '@zcloak/crypto/types';
 
+import React, { useCallback, useContext, useState } from 'react';
+
 import {
   Button,
+  CTypeContext,
   Dialog,
   DialogContent,
+  DialogHeader,
   FormControl,
   InputLabel,
   OutlinedInput
-} from '@mui/material';
-import React, { useCallback, useContext, useState } from 'react';
-
-import { CTypeContext, DialogHeader } from '@credential/react-components';
+} from '.';
 
 const ImportCTypeModal: React.FC<{ open: boolean; onClose?: () => void }> = ({ onClose, open }) => {
   const { importCType } = useContext(CTypeContext);

@@ -34,7 +34,7 @@ function main() {
     fs.writeFileSync(
       `packages/app-config/src/icons/${fileName}.tsx`,
       `// generate by buildAssets.js
-import { SvgIcon } from '@mui/material';
+import { SvgIcon } from '@credential/react-components';
 import React from 'react';
 
 import ${svgName} from '${`../assets/${asset}`}';

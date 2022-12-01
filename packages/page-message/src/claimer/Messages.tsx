@@ -5,6 +5,8 @@ import type { MessageType } from '@zcloak/message/types';
 
 import type { MessageWithMeta } from '@credential/react-hooks/types';
 
+import React from 'react';
+
 import {
   alpha,
   Table,
@@ -13,11 +15,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Unstable_Grid2 as Grid,
   useMediaQuery,
   useTheme
-} from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import React from 'react';
+} from '@credential/react-components';
 
 import MessageRow from '../messages/MessageRow';
 

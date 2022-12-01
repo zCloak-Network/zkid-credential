@@ -1,11 +1,11 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, Stack, styled } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { IconLogo } from '@credential/app-config/icons';
+import { Box, Stack, styled } from '@credential/react-components';
 
 const Wrapper = styled(Box)(() => ({
   minHeight: '100vh',

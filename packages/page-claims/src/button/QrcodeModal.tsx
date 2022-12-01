@@ -3,12 +3,20 @@
 
 import type { VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/types';
 
-import { Box, Button, Checkbox, FormControlLabel, Paper, Stack, Typography } from '@mui/material';
 import React, { useContext, useMemo, useState } from 'react';
 
 import { VerifiablePresentationBuilder } from '@zcloak/vc';
 
-import { CredentialQrcode } from '@credential/react-components';
+import {
+  Box,
+  Button,
+  Checkbox,
+  CredentialQrcode,
+  FormControlLabel,
+  Paper,
+  Stack,
+  Typography
+} from '@credential/react-components';
 import { DidsContext, DidsModal } from '@credential/react-dids';
 
 const QrcodeModal: React.FC<{
