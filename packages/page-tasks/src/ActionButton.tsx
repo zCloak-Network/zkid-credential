@@ -9,6 +9,7 @@ import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import { IconDetails } from '@credential/app-config/icons';
+import { useStopPropagation } from '@credential/react-hooks';
 
 import Approve from './RequestDetails/Approve';
 import Reject from './RequestDetails/Reject';
@@ -18,9 +19,11 @@ const ActionButton: React.FC<{
 }> = ({ task }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  }, []);
+  const handleClick = useStopPropagation(
+    useCallback((event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget);
+    }, [])
+  );
 
   const handleClose = useCallback(() => {
     setAnchorEl(null);

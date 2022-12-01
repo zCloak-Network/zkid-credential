@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const babel = require('@zcloak/dev/config/babel-config-webpack.cjs');
 
-const findPackages = require('../../scripts/findPackages');
+const findPackages = require('../../scripts/findPackages.cjs');
 
 function mapChunks(name, regs, inc) {
   return regs.reduce(
