@@ -1,19 +1,19 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import React, { useCallback, useState } from 'react';
+
 import {
   Autocomplete,
   Button,
   Dialog,
   DialogContent,
+  DialogHeader,
   FormControl,
   InputLabel,
   OutlinedInput,
   Stack
-} from '@mui/material';
-import React, { useCallback, useState } from 'react';
-
-import { DialogHeader } from '@credential/react-components';
+} from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
 const CreateProperty: React.FC<{ onCreate: (value: Record<string, unknown>) => void }> = ({

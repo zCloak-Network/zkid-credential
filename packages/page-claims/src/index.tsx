@@ -1,12 +1,18 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, Stack, Tab, Tabs, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
 import React, { useMemo, useState } from 'react';
 
 import { useCredentials } from '@credential/app-store';
 import { usePendingCredentials } from '@credential/app-store/pending-credential';
+import {
+  Box,
+  Stack,
+  Tab,
+  Tabs,
+  Typography,
+  Unstable_Grid2 as Grid
+} from '@credential/react-components';
 
 import CredentialCell, { CredentialProps } from './CredentialCell';
 import ImportCredential from './ImportCredential';

@@ -4,10 +4,12 @@
 export * from './theme';
 export * from './CTypeProvider';
 export * from './AppProvider';
+export * from './hooks';
+export * from './utils';
+
 export { default as NotificationProvider, NotificationContext } from './Notification';
 export { default as ZkidExtensionProvider, ZkidExtensionContext } from './ZkidExtension';
 export { default as Address } from './Address';
-export { default as ButtonWithError } from './ButtonWithError';
 export { default as ClaimDisplay } from './ClaimDisplay';
 export { default as Copy } from './Copy';
 export { default as CredentialModal } from './CredentialModal';
@@ -32,3 +34,63 @@ export { default as QrScanner } from './QrScanner';
 export { default as Recaptcha } from './Recaptcha';
 export { default as StepIcon } from './StepIcon';
 export { default as TaskStatusDisplay } from './TaskStatusDisplay';
+
+// export @mui/material
+export {
+  Alert,
+  Autocomplete,
+  Badge,
+  Box,
+  Button,
+  Checkbox,
+  Chip,
+  CircularProgress,
+  createFilterOptions,
+  Container,
+  CssBaseline,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  Grid,
+  // eslint-disable-next-line camelcase
+  Unstable_Grid2,
+  InputAdornment,
+  InputLabel,
+  IconButton,
+  Drawer,
+  Tabs,
+  Tab,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Tooltip,
+  type CSSObject,
+  Fab,
+  Link,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Paper,
+  Stack,
+  Step,
+  StepContent,
+  StepConnector,
+  StepLabel,
+  Stepper,
+  StyledEngineProvider,
+  SvgIcon,
+  type Theme,
+  Typography,
+  OutlinedInput //
+} from '@mui/material';

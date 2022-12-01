@@ -1,13 +1,15 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { CssBaseline, StyledEngineProvider } from '@mui/material';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import React from 'react';
 import { HashRouter } from 'react-router-dom';
 
-import { NotificationProvider, ThemeProvider } from '@credential/react-components';
+import {
+  CssBaseline,
+  NotificationProvider,
+  StyledEngineProvider,
+  ThemeProvider
+} from '@credential/react-components';
 
 import App from './App';
 
@@ -16,12 +18,10 @@ const Root: React.FC = () => {
     <HashRouter>
       <StyledEngineProvider injectFirst>
         <ThemeProvider>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <CssBaseline />
-            <NotificationProvider>
-              <App />
-            </NotificationProvider>
-          </LocalizationProvider>
+          <CssBaseline />
+          <NotificationProvider>
+            <App />
+          </NotificationProvider>
         </ThemeProvider>
       </StyledEngineProvider>
     </HashRouter>

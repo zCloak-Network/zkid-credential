@@ -3,8 +3,9 @@
 
 import type { CTypeSchemaProps, CTypeSchemaVectorFixedProps } from '../types';
 
-import { alpha, FormControl, InputLabel, Stack } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { alpha, FormControl, InputLabel, Stack } from '@credential/react-components';
 
 import SchemaBase from './Base';
 import { isOrDefault } from './utils';

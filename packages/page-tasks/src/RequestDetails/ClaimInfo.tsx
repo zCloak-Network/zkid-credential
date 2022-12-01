@@ -3,12 +3,18 @@
 
 import type { DecryptedTask } from '@credential/react-hooks/types';
 
-import { Box, Stack, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
 import moment from 'moment';
 import React from 'react';
 
-import { CTypeName, IdentityIcon, TaskStatusDisplay } from '@credential/react-components';
+import {
+  Box,
+  CTypeName,
+  IdentityIcon,
+  Stack,
+  TaskStatusDisplay,
+  Typography,
+  Unstable_Grid2 as Grid
+} from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
 import { useRootHash } from '@credential/react-hooks';

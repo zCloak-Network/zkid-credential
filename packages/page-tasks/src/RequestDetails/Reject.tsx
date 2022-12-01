@@ -3,13 +3,19 @@
 
 import type { DecryptedTask } from '@credential/react-hooks/types';
 
-import { alpha, Button, ListItemIcon, ListItemText, MenuItem } from '@mui/material';
 import React, { useCallback, useContext, useState } from 'react';
 
 import { Message } from '@zcloak/message/types';
 
 import { IconReject } from '@credential/app-config/icons';
-import { Recaptcha } from '@credential/react-components';
+import {
+  alpha,
+  Button,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  Recaptcha
+} from '@credential/react-components';
 import { DidsContext, DidsModal, useDid } from '@credential/react-dids';
 import { encryptMessageStep, sendMessage, Steps } from '@credential/react-dids/steps';
 import { useStopPropagation, useToggle } from '@credential/react-hooks';

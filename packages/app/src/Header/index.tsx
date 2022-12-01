@@ -5,6 +5,11 @@ import Lock from '@mui/icons-material/Lock';
 import LockOpen from '@mui/icons-material/LockOpen';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import React, { useCallback, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { IconAttester, IconLogoBlack } from '@credential/app-config/icons';
+import IconClaimer from '@credential/app-config/icons/IconClaimer';
 import {
   alpha,
   Badge,
@@ -15,12 +20,7 @@ import {
   Stack,
   useMediaQuery,
   useTheme
-} from '@mui/material';
-import React, { useCallback, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { IconAttester, IconLogoBlack } from '@credential/app-config/icons';
-import IconClaimer from '@credential/app-config/icons/IconClaimer';
+} from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
 import { useToggle } from '@credential/react-hooks';
 

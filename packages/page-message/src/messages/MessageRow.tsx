@@ -6,11 +6,16 @@ import type { VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/ty
 
 import type { MessageWithMeta } from '@credential/react-hooks/types';
 
-import { Link, useMediaQuery, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 
-import { CredentialModal, CTypeName } from '@credential/react-components';
+import {
+  CredentialModal,
+  CTypeName,
+  Link,
+  useMediaQuery,
+  useTheme
+} from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
 import { useDecryptedMessage, useToggle } from '@credential/react-hooks';
 

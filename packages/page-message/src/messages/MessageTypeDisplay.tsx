@@ -5,8 +5,9 @@ import type { MessageType } from '@zcloak/message/types';
 
 import type { MessageWithMeta } from '@credential/react-hooks/types';
 
-import { alpha, Box, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
+
+import { alpha, Box, useTheme } from '@credential/react-components';
 
 function MessageTypeDisplay({ message }: { message: MessageWithMeta<MessageType> }) {
   const { palette } = useTheme();

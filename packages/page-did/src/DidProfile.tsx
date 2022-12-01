@@ -1,11 +1,19 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, Container, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { u8aToHex } from '@polkadot/util';
 import React, { useContext, useMemo } from 'react';
 
-import { Copy, IdentityIcon } from '@credential/react-components';
+import {
+  Box,
+  Container,
+  Copy,
+  IdentityIcon,
+  Stack,
+  Tab,
+  Tabs,
+  Typography
+} from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidCell, DidsContext } from '@credential/react-dids';
 

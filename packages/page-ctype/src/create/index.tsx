@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import IndeterminateCheckBoxOutlinedIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined';
+import React, { useCallback, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import {
   Box,
   Button,
@@ -9,6 +12,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  DialogHeader,
   FormControl,
   IconButton,
   InputLabel,
@@ -20,11 +24,7 @@ import {
   TableContainer,
   TableHead,
   TableRow
-} from '@mui/material';
-import React, { useCallback, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { DialogHeader } from '@credential/react-components';
+} from '@credential/react-components';
 import { useLocalStorage } from '@credential/react-hooks';
 
 import CreateProperty from './CreateProperty';

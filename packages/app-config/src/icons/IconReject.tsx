@@ -1,8 +1,9 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { SvgIcon } from '@mui/material';
 import React from 'react';
+
+import { SvgIcon } from '@credential/react-components';
 
 import IconRejectSvg from '../assets/icon_reject.svg';
 

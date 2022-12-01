@@ -3,10 +3,10 @@
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
 
-import { alpha, Box, Button, Container, Typography } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { alpha, Box, Button, Container, Typography } from '@credential/react-components';
 import { useQueryParam } from '@credential/react-hooks';
 
 import RestoreKeys from './restore/RestoreKeys';

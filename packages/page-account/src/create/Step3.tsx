@@ -4,10 +4,17 @@
 import type { DidUrl } from '@zcloak/did-resolver/types';
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Box, Button, FormControl, Grid, InputLabel, OutlinedInput } from '@mui/material';
 import FileSaver from 'file-saver';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  OutlinedInput
+} from '@credential/react-components';
 import { didManager } from '@credential/react-dids/instance';
 
 function random(min = 0, max = 11): number {

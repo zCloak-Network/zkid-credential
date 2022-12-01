@@ -6,11 +6,18 @@ import type { VerifiableCredential } from '@zcloak/vc/types';
 
 import type { DecryptedTask } from '@credential/react-hooks/types';
 
-import { alpha, Button, ListItemIcon, ListItemText, MenuItem } from '@mui/material';
 import React, { useCallback, useContext, useState } from 'react';
 
 import { IconApprove } from '@credential/app-config/icons';
-import { CTypeContext, Recaptcha } from '@credential/react-components';
+import {
+  alpha,
+  Button,
+  CTypeContext,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  Recaptcha
+} from '@credential/react-components';
 import { DidsContext, DidsModal, useDid } from '@credential/react-dids';
 import {
   encryptMessageStep,

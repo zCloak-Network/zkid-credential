@@ -1,8 +1,9 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, Typography } from '@mui/material';
 import React from 'react';
+
+import { Box, Typography } from '@credential/react-components';
 
 import CTypeList from './CTypeList';
 import ImportCType from './ImportCType';

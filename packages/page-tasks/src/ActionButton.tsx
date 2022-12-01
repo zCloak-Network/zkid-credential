@@ -4,11 +4,17 @@
 import type { DecryptedTask } from '@credential/react-hooks/types';
 
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import { IconDetails } from '@credential/app-config/icons';
+import {
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem
+} from '@credential/react-components';
 import { useStopPropagation } from '@credential/react-hooks';
 
 import Approve from './RequestDetails/Approve';

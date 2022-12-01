@@ -1,12 +1,18 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button, Dialog, DialogContent, Stack } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 
 import { Did } from '@zcloak/did';
 
-import { DialogHeader, InputPassword } from '@credential/react-components';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  InputPassword,
+  Stack
+} from '@credential/react-components';
 
 import DidName from './DidName';
 import { didManager, keyring } from './instance';

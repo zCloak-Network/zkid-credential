@@ -2,10 +2,18 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import CloseIcon from '@mui/icons-material/Close';
-import { Badge, Box, Drawer, IconButton, Tab, Tabs, Typography } from '@mui/material';
 import React, { useContext, useMemo, useState } from 'react';
 
-import { AppContext } from '@credential/react-components';
+import {
+  AppContext,
+  Badge,
+  Box,
+  Drawer,
+  IconButton,
+  Tab,
+  Tabs,
+  Typography
+} from '@credential/react-components';
 
 import Cell from './Cell';
 import { UseNotification } from './useNotification';

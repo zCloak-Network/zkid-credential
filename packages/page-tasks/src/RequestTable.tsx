@@ -3,7 +3,12 @@
 
 import type { Task } from '@credential/react-hooks/types';
 
+import moment from 'moment';
+import React, { useCallback } from 'react';
+import { Link as LinkRouter, useNavigate } from 'react-router-dom';
+
 import {
+  CTypeName,
   Link,
   Table,
   TableBody,
@@ -11,15 +16,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TaskStatusDisplay,
+  Unstable_Grid2 as Grid,
   useMediaQuery,
   useTheme
-} from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import moment from 'moment';
-import React, { useCallback } from 'react';
-import { Link as LinkRouter, useNavigate } from 'react-router-dom';
-
-import { CTypeName, TaskStatusDisplay } from '@credential/react-components';
+} from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
 import { useDecryptedMessage, useTasks } from '@credential/react-hooks';
 

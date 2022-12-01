@@ -5,7 +5,6 @@ import type { CType } from '@zcloak/ctype/types';
 import type { Did } from '@zcloak/did';
 import type { AnyJson, RawCredential } from '@zcloak/vc/types';
 
-import { Button } from '@mui/material';
 import React, { useCallback, useContext, useState } from 'react';
 
 import { Message } from '@zcloak/message/types';
@@ -13,7 +12,7 @@ import { Raw } from '@zcloak/vc';
 
 import { DEFAULT_ROOT_HASH_TYPE } from '@credential/app-config/vc';
 import { addPendingCredential } from '@credential/app-store/pending-credential';
-import { NotificationContext, Recaptcha } from '@credential/react-components';
+import { Button, NotificationContext, Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal } from '@credential/react-dids';
 import { encryptMessageStep, sendMessage, Steps } from '@credential/react-dids/steps';
 import { useToggle } from '@credential/react-hooks';
