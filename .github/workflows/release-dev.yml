@@ -6,7 +6,7 @@ on:
 
 jobs:
   prerelease-web:
-    if: "! startsWith(github.event.head_commit.message, '[CI Skip]') && startsWith(github.event.head_commit.message, 'chore(master): release')"
+    if: "! startsWith(github.event.head_commit.message, '[CI Skip]')"
     name: ${{ matrix.step }}
     runs-on: ubuntu-latest
     environment: dev
