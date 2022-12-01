@@ -1,10 +1,18 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, Button, Container, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import {
+  Box,
+  Button,
+  Container,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from '@credential/react-components';
 import { useQueryParam } from '@credential/react-hooks';
 
 const Account: React.FC = () => {

@@ -1,11 +1,11 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, useMediaQuery, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { IconIssue, IconMessage, IconMyctype, IconTask } from '@credential/app-config/icons';
+import { Box, useMediaQuery, useTheme } from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
 import Header from '../Header';

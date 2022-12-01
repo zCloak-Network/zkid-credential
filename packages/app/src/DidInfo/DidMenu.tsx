@@ -3,22 +3,23 @@
 
 import type { IDidDetails } from '@zcloak/did/types';
 
+import React, { useCallback } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { IconExport, IconLogout, IconScan, IconStar } from '@credential/app-config/icons';
 import {
   alpha,
   Box,
+  Copy,
   Divider,
+  IdentityIcon,
   ListItem,
   ListItemIcon,
   ListItemText,
   Menu,
   MenuItem,
   Typography
-} from '@mui/material';
-import React, { useCallback } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-
-import { IconExport, IconLogout, IconScan, IconStar } from '@credential/app-config/icons';
-import { Copy, IdentityIcon } from '@credential/react-components';
+} from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
 import { didManager } from '@credential/react-dids/instance';
 import { useToggle } from '@credential/react-hooks';

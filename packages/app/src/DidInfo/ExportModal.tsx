@@ -3,11 +3,16 @@
 
 import type { IDidDetails } from '@zcloak/did/types';
 
-import { Button, Dialog, DialogContent } from '@mui/material';
 import FileSaver from 'file-saver';
 import React, { useCallback, useState } from 'react';
 
-import { DialogHeader, InputPassword } from '@credential/react-components';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  InputPassword
+} from '@credential/react-components';
 import { didManager } from '@credential/react-dids/instance';
 
 interface Props {

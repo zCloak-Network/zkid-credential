@@ -4,9 +4,9 @@
 import type { VerifiableCredential } from '@zcloak/vc/types';
 
 import IconQrcode from '@mui/icons-material/QrCode';
-import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import React, { useCallback } from 'react';
 
+import { IconButton, Stack, Tooltip, Typography } from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
 import QrcodeModal from './QrcodeModal';

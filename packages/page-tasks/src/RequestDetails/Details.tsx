@@ -1,12 +1,11 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, Button, Container, Stack } from '@mui/material';
 import React, { useState } from 'react';
 
 import { CredentialSubject } from '@zcloak/vc/types';
 
-import { ClaimDisplay } from '@credential/react-components';
+import { Box, Button, ClaimDisplay, Container, Stack } from '@credential/react-components';
 
 interface Props {
   contents: CredentialSubject;

@@ -1,6 +1,10 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import React, { useContext, useEffect, useMemo, useState } from 'react';
+
+import { Did, helpers } from '@zcloak/did';
+
 import {
   Autocomplete,
   Button,
@@ -11,10 +15,7 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput
-} from '@mui/material';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
-
-import { Did, helpers } from '@zcloak/did';
+} from '@credential/react-components';
 
 import { DidsContext } from './DidsProvider';
 import { resolver } from './instance';

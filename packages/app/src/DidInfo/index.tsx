@@ -3,10 +3,9 @@
 
 import type { IDidDetails } from '@zcloak/did/types';
 
-import { alpha, Button, useMediaQuery, useTheme } from '@mui/material';
 import React, { useRef } from 'react';
 
-import { IdentityIcon } from '@credential/react-components';
+import { alpha, Button, IdentityIcon, useMediaQuery, useTheme } from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
 import { useToggle } from '@credential/react-hooks';
 

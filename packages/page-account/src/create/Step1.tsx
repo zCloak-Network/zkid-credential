@@ -1,10 +1,9 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, Button, Stack } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 
-import { InputPassword } from '@credential/react-components';
+import { Box, Button, InputPassword, Stack } from '@credential/react-components';
 
 const Step1: React.FC<{ onConfirm: (password: string) => void }> = ({ onConfirm }) => {
   const [password, setPassword] = useState<string>();

@@ -1,9 +1,16 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Box, Stack, TableCell, TableRow, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 
+import {
+  Box,
+  Stack,
+  TableCell,
+  TableRow,
+  useMediaQuery,
+  useTheme
+} from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 
 export const MessageCard = React.memo(function MessageCard({

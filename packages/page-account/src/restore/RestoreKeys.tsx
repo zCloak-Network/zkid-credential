@@ -3,18 +3,19 @@
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
 
+import React, { useCallback, useContext, useState } from 'react';
+
 import {
   Button,
   Divider,
   FormControl,
   InputAdornment,
   InputLabel,
+  InputPassword,
+  NotificationContext,
   OutlinedInput,
   Stack
-} from '@mui/material';
-import React, { useCallback, useContext, useState } from 'react';
-
-import { InputPassword, NotificationContext } from '@credential/react-components';
+} from '@credential/react-components';
 import { didManager } from '@credential/react-dids/instance';
 
 const Restore: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess }) => {

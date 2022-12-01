@@ -3,6 +3,8 @@
 
 import type { DidsStepProps } from './types';
 
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+
 import {
   Button,
   CircularProgress,
@@ -11,9 +13,7 @@ import {
   StepContent,
   StepLabel,
   Stepper
-} from '@mui/material';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-
+} from '@credential/react-components';
 import { useStopPropagation } from '@credential/react-hooks';
 
 const DidsModal: React.FC<{

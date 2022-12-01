@@ -3,12 +3,10 @@
 
 import type { CType } from '@credential/app-store';
 
-import { Box } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
 import React from 'react';
 
 import { getCTypeMetaForIssue } from '@credential/app-config/ctypes';
-import { CTypeCard } from '@credential/react-components';
+import { Box, CTypeCard, Unstable_Grid2 as Grid } from '@credential/react-components';
 
 import IssueVC from './IssueVC';
 

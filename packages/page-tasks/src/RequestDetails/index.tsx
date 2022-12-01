@@ -3,11 +3,19 @@
 
 import type { DecryptedTask } from '@credential/react-hooks/types';
 
-import { Box, Container, Dialog, DialogActions, DialogContent, Stack } from '@mui/material';
 import React, { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { AppContext, DialogHeader } from '@credential/react-components';
+import {
+  AppContext,
+  Box,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+  Stack
+} from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { useDecryptedMessage, useTask } from '@credential/react-hooks';
 

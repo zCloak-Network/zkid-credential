@@ -3,9 +3,9 @@
 
 import type { CTypeSchemaProps } from '../types';
 
-import { Autocomplete, FormControl, InputLabel, OutlinedInput } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 
+import { Autocomplete, FormControl, InputLabel, OutlinedInput } from '@credential/react-components';
 import { withBorderInput } from '@credential/react-components/utils';
 
 function isString(value: unknown): value is string {

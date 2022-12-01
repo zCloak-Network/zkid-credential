@@ -4,12 +4,11 @@
 import type { CType } from '@zcloak/ctype/types';
 
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { IconLogoCircle } from '@credential/app-config/icons';
-import { Copy } from '@credential/react-components';
+import { Box, Button, Copy, Paper, Stack, Typography } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
 

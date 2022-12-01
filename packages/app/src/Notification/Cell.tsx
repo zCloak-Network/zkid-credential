@@ -5,22 +5,23 @@ import type { DecryptedMessage, Message, MessageType } from '@zcloak/message/typ
 import type { VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/types';
 
 import Circle from '@mui/icons-material/Circle';
-import {
-  alpha,
-  Box,
-  Button,
-  Link,
-  Stack,
-  Typography,
-  useMediaQuery,
-  useTheme
-} from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { IconNewMessage, IconNewTask } from '@credential/app-config/icons';
-import { CredentialModal, CTypeName } from '@credential/react-components';
+import {
+  alpha,
+  Box,
+  Button,
+  CredentialModal,
+  CTypeName,
+  Link,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
 import { useDecryptedMessage, useToggle } from '@credential/react-hooks';
 import { MessageWithMeta } from '@credential/react-hooks/types';
@@ -210,10 +211,7 @@ function Cell({
           </Stack>
           {!isRead && (
             <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                onRead();
-              }}
+              onClick={onRead}
               sx={{
                 fontSize: 12
               }}

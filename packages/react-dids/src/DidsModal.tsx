@@ -1,10 +1,9 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Dialog, DialogContent, Stack } from '@mui/material';
 import React, { useContext } from 'react';
 
-import { DialogHeader } from '@credential/react-components';
+import { Dialog, DialogContent, DialogHeader, Stack } from '@credential/react-components';
 
 import { DidsContext } from './DidsProvider';
 

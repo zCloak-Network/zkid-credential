@@ -3,11 +3,17 @@
 
 import type { VerifiableCredential } from '@zcloak/vc/types';
 
-import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import React, { useCallback, useContext } from 'react';
 
 import { IconImport } from '@credential/app-config/icons';
-import { NotificationContext, ZkidExtensionContext } from '@credential/react-components';
+import {
+  IconButton,
+  NotificationContext,
+  Stack,
+  Tooltip,
+  Typography,
+  ZkidExtensionContext
+} from '@credential/react-components';
 
 const ImportButton: React.FC<{ withText?: boolean; credential: VerifiableCredential }> = ({
   credential,

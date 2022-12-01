@@ -4,6 +4,9 @@
 import CloseIcon from '@mui/icons-material/Close';
 import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded';
 import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
+import React, { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import {
   alpha,
   CSSObject,
@@ -21,10 +24,7 @@ import {
   Theme,
   useMediaQuery,
   useTheme
-} from '@mui/material';
-import React, { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+} from '@credential/react-components';
 import { isMobile } from '@credential/react-hooks/utils/userAgent';
 
 interface Item {

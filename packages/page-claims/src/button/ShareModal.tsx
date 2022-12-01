@@ -3,14 +3,21 @@
 
 import type { VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/types';
 
-import { Box, Button, Checkbox, FormControlLabel, Paper, Stack } from '@mui/material';
 import React, { useContext, useMemo, useState } from 'react';
 
 import { Did } from '@zcloak/did';
 import { Message } from '@zcloak/message/types';
 import { VerifiablePresentationBuilder } from '@zcloak/vc';
 
-import { Recaptcha } from '@credential/react-components';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Paper,
+  Recaptcha,
+  Stack
+} from '@credential/react-components';
 import { DidsContext, DidsModal, InputDid } from '@credential/react-dids';
 import { encryptMessageStep, sendMessage, Steps } from '@credential/react-dids/steps';
 

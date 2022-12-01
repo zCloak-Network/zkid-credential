@@ -4,7 +4,6 @@
 import type { CType } from '@zcloak/ctype/types';
 import type { AnyJson } from '@zcloak/vc/types';
 
-import { Box, Button, Typography } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,9 +11,12 @@ import { Did } from '@zcloak/did';
 
 import { IconLogoCircle } from '@credential/app-config/icons';
 import {
+  Box,
+  Button,
   FullScreenDialog,
   FullScreenDialogContent,
-  FullScreenDialogHeader
+  FullScreenDialogHeader,
+  Typography
 } from '@credential/react-components';
 import { CreateSubject } from '@credential/react-ctype';
 import { InputDid } from '@credential/react-dids';

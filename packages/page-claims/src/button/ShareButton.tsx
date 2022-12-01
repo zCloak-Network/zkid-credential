@@ -3,10 +3,10 @@
 
 import type { VerifiableCredential } from '@zcloak/vc/types';
 
-import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import React, { useCallback } from 'react';
 
 import { IconForward } from '@credential/app-config/icons';
+import { IconButton, Stack, Tooltip, Typography } from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
 import ShareModal from './ShareModal';

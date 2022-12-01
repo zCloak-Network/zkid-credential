@@ -3,7 +3,6 @@
 
 import type { DidRole } from '@credential/react-dids/types';
 
-import { Box, useMediaQuery, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
@@ -20,7 +19,14 @@ import PageMessage from '@credential/page-message';
 import PageAttesterMessage from '@credential/page-message/attester';
 import PageTasks from '@credential/page-tasks';
 import PageRequestDetails from '@credential/page-tasks/RequestDetails';
-import { AppProvider, CTypeProvider, ZkidExtensionProvider } from '@credential/react-components';
+import {
+  AppProvider,
+  Box,
+  CTypeProvider,
+  useMediaQuery,
+  useTheme,
+  ZkidExtensionProvider
+} from '@credential/react-components';
 
 import AccountAuth from './Account/AccountAuth';
 import Account from './Account';

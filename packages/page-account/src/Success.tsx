@@ -3,8 +3,9 @@
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
 
-import { Box, Button, Stack, Typography } from '@mui/material';
 import React from 'react';
+
+import { Box, Button, Stack, Typography } from '@credential/react-components';
 
 const Success: React.FC<{
   didUrl: DidUrl;

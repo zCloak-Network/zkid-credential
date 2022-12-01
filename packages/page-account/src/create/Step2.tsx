@@ -2,10 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Box, Button } from '@mui/material';
 import React from 'react';
 
-import { MnemonicCell } from '@credential/react-components';
+import { Box, Button, MnemonicCell } from '@credential/react-components';
 
 const Step2: React.FC<{
   prevStep: () => void;

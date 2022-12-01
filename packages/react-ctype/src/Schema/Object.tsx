@@ -3,8 +3,9 @@
 
 import type { CTypeSchemaProps } from '../types';
 
-import { Stack } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { Stack } from '@credential/react-components';
 
 import CTypeSchema from './Base';
 import { isOrDefault } from './utils';

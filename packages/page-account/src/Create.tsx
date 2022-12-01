@@ -3,21 +3,21 @@
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
 
-import {
-  Container,
-  Stack,
-  Step,
-  StepConnector,
-  StepLabel,
-  Stepper,
-  Typography
-} from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { generateMnemonic } from '@zcloak/crypto';
 
-import { StepIcon } from '@credential/react-components';
+import {
+  Container,
+  Stack,
+  Step,
+  StepConnector,
+  StepIcon,
+  StepLabel,
+  Stepper,
+  Typography
+} from '@credential/react-components';
 import { useQueryParam } from '@credential/react-hooks';
 
 import Step1 from './create/Step1';

@@ -5,8 +5,9 @@ import type { CTypeSchemaProps, CTypeSchemaVectorProps } from '../types';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import { alpha, Button, FormControl, InputLabel, Stack } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { alpha, Button, FormControl, InputLabel, Stack } from '@credential/react-components';
 
 import SchemaBase from './Base';
 import { isOrDefault } from './utils';
