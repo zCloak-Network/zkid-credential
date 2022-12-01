@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [0.4.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.1.0...v0.4.0) (2022-12-01)
+
+
+### Features
+
+* release ci ([#6](https://github.com/zCloak-Network/zkid-credential/issues/6)) ([bd99696](https://github.com/zCloak-Network/zkid-credential/commit/bd996963941c70a2ae79473f211825ee3b6a0f1c))
+
 ## 0.3.0 Nov 30, 2022
 
 Changes:
