@@ -11,6 +11,7 @@ import React, { useCallback, useContext, useState } from 'react';
 import { IconApprove } from '@credential/app-config/icons';
 import {
   alpha,
+  AppContext,
   Button,
   CTypeContext,
   ListItemIcon,
@@ -33,6 +34,7 @@ const Approve: React.FC<{
 }> = ({ task, type = 'button' }) => {
   const { did: attester } = useContext(DidsContext);
   const { serverCTypes } = useContext(CTypeContext);
+  const { setMessageStatus } = useContext(AppContext);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] =
     useState<Message<'Response_Approve_Attestation'>>();
@@ -101,7 +103,10 @@ const Approve: React.FC<{
                   label: 'Send message',
                   paused: true,
                   content: <Recaptcha onCallback={setRecaptchaToken} />,
-                  exec: () => sendMessage(encryptedMessage, recaptchaToken)
+                  exec: () =>
+                    sendMessage(encryptedMessage, recaptchaToken).then(() =>
+                      setMessageStatus(task.id, 'approved')
+                    )
                 }
               ]}
             />

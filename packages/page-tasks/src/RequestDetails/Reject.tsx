@@ -10,6 +10,7 @@ import { Message } from '@zcloak/message/types';
 import { IconReject } from '@credential/app-config/icons';
 import {
   alpha,
+  AppContext,
   Button,
   ListItemIcon,
   ListItemText,
@@ -25,6 +26,7 @@ const Reject: React.FC<{
   task: DecryptedTask;
 }> = ({ task, type = 'button' }) => {
   const { did: attester } = useContext(DidsContext);
+  const { setMessageStatus } = useContext(AppContext);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] =
     useState<Message<'Response_Reject_Attestation'>>();
@@ -91,7 +93,10 @@ const Reject: React.FC<{
                   label: 'Send message',
                   paused: true,
                   content: <Recaptcha onCallback={setRecaptchaToken} />,
-                  exec: () => sendMessage(encryptedMessage, recaptchaToken)
+                  exec: () =>
+                    sendMessage(encryptedMessage, recaptchaToken).then(() =>
+                      setMessageStatus(task.id, 'rejected')
+                    )
                 }
               ]}
               submitText="Reject"
