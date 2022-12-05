@@ -188,6 +188,9 @@ function createWebpack(context, mode = 'production') {
         stream: require.resolve('stream-browserify'),
         url: require.resolve('url/')
       }
+    },
+    externals: {
+      '@zcloak/wasm-asm': 'var null'
     }
   };
 }

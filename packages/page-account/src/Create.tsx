@@ -6,7 +6,7 @@ import type { DidUrl } from '@zcloak/did-resolver/types';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { generateMnemonic } from '@zcloak/crypto';
+import { mnemonicGenerate } from '@zcloak/crypto';
 
 import {
   Container,
@@ -28,7 +28,7 @@ import Success from './Success';
 const Create: React.FC = () => {
   const [step, setStep] = useState(0);
   const [password, setPassword] = useState<string>();
-  const mnemonic = useMemo(() => generateMnemonic(12), []);
+  const mnemonic = useMemo(() => mnemonicGenerate(12), []);
   const navigate = useNavigate();
   const [redirect] = useQueryParam<string>('redirect');
   const [didUrl, setDidUrl] = useState<DidUrl>();

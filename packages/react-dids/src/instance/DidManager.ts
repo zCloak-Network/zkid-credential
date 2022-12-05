@@ -7,11 +7,8 @@ import type { KeyringPair } from '@zcloak/keyring/types';
 import type { DidKeys$Json } from '../types';
 import type { Keyring } from './Keyring';
 
-import { assert } from '@polkadot/util';
-
 import { ethereumEncode } from '@zcloak/crypto';
-import { Did, helpers } from '@zcloak/did';
-import { KeyRelationship } from '@zcloak/did/types';
+import { Did, helpers, keys } from '@zcloak/did';
 
 import { Events } from './Events';
 
@@ -110,40 +107,7 @@ export class DidManager extends Events {
   }
 
   public restore(json: DidKeys$Json, password: string): Did {
-    const keyRelationship = new Map<DidUrl, KeyRelationship>();
-
-    json.keys.forEach((key, index) => {
-      const pair = this.#keyring.addFromJson(key);
-
-      pair.unlock(password);
-
-      const id: DidUrl = `${json.didUrl}#key-${index}`;
-      const controller: DidUrl[] = [`${json.didUrl}`];
-      const publicKey = pair.publicKey;
-
-      keyRelationship.set(id, {
-        id,
-        controller,
-        publicKey
-      });
-    });
-    const pair = this.#keyring.addFromJson(json.identifierKey);
-
-    pair.unlock(password);
-
-    const did = new Did({
-      id: json.didUrl,
-      controller: new Set([json.didUrl]),
-      keyRelationship,
-      authentication: new Set(json.authentication),
-      assertionMethod: new Set(json.assertionMethod),
-      keyAgreement: new Set(json.keyAgreement),
-      capabilityInvocation: new Set(json.capabilityInvocation),
-      capabilityDelegation: new Set(json.capabilityDelegation),
-      service: new Map()
-    });
-
-    did.init(this.#keyring);
+    const did = keys.restore(this.#keyring, json, password);
 
     this.saveDid(did, password);
     this.addDid(did);
@@ -153,25 +117,8 @@ export class DidManager extends Events {
 
   public backup(didUrl: DidUrl, password: string): DidKeys$Json {
     const did = this.getDid(didUrl);
-    const identifierPair = this.getIdentifierPair(didUrl);
 
-    assert(identifierPair, 'no identifier pair found');
-
-    return {
-      didUrl: did.id,
-      version: '1',
-      identifierKey: identifierPair.toJson(password),
-      keys: Array.from(did.keyRelationship.values()).map(({ publicKey }) => {
-        const pair = did.getPair(publicKey);
-
-        return pair.toJson(password);
-      }),
-      authentication: Array.from(did.authentication ?? []),
-      assertionMethod: Array.from(did.assertionMethod ?? []),
-      keyAgreement: Array.from(did.keyAgreement ?? []),
-      capabilityInvocation: Array.from(did.capabilityInvocation ?? []),
-      capabilityDelegation: Array.from(did.capabilityDelegation ?? [])
-    };
+    return keys.backup(this.#keyring, did, password);
   }
 
   public remove(didUrl: DidUrl): void {

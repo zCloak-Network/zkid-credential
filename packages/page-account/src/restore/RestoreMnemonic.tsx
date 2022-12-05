@@ -5,7 +5,7 @@ import type { DidUrl } from '@zcloak/did-resolver/types';
 
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 
-import { validateMnemonic } from '@zcloak/crypto';
+import { mnemonicValidate } from '@zcloak/crypto';
 
 import {
   Button,
@@ -24,7 +24,7 @@ const RestoreMnemonic: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ on
   const { notifyError } = useContext(NotificationContext);
   const [mnemonic, setMnemonic] = useState<string>();
 
-  const isMnemonic = useMemo(() => mnemonic && validateMnemonic(mnemonic), [mnemonic]);
+  const isMnemonic = useMemo(() => mnemonic && mnemonicValidate(mnemonic), [mnemonic]);
 
   const restore = useCallback(() => {
     if (!password) return;

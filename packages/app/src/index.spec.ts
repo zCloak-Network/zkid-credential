@@ -1,7 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { generateMnemonic, initCrypto, secp256k1Verify } from '@zcloak/crypto';
+import { initCrypto, mnemonicGenerate, secp256k1Verify } from '@zcloak/crypto';
 import { Keyring } from '@zcloak/keyring';
 
 describe('sign and verify', (): void => {
@@ -12,7 +12,7 @@ describe('sign and verify', (): void => {
   it('sign and verify', () => {
     // generate account
     const keyring = new Keyring();
-    const mnemonic = generateMnemonic();
+    const mnemonic = mnemonicGenerate();
     const { publicKey } = keyring.addFromMnemonic(mnemonic);
 
     // sign message
