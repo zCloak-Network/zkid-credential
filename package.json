@@ -23,6 +23,7 @@
     "build-assets": "./scripts/buildAssets.js"
   },
   "scripts": {
+    "analyze": "yarn clean && BUILD_ANALYZE=1 yarn run build:code && yarn source-map-explorer packages/app/build/main.*.js",
     "build": "yarn build-assets && yarn build:code",
     "build:code": "NODE_ENV=production yarn zcloak-dev-build-ts",
     "build:release": "zcloak-ci-ghact-build",

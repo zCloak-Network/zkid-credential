@@ -118,13 +118,11 @@ function createWebpack(context, mode = 'production') {
       splitChunks: {
         cacheGroups: {
           ...mapChunks('react', [
-            /* 00 */ /node_modules\/(@fortawesome)/,
-            /* 01 */ /node_modules\/(@mui|@emotion|@stardust|classnames|chart\.js|codeflask|copy-to-clipboard|file-selector|file-saver|hoist-non-react|i18next|jdenticon|keyboard-key|mini-create-react|popper\.js|prop-types|qrcode-generator|react|remark-parse)/
+            /* 00 */ /node_modules\/(@mui|@emotion|@stardust|classnames|codeflask|copy-to-clipboard|file-selector|file-saver|hoist-non-react|i18next|jdenticon|keyboard-key|mini-create-react|prop-types|react|react|remark-parse)/,
+            /* 01 */ /node_modules\/(dexie|dexie-react-hooks|cross-fetch|qrcode-generator|qr-scanner|ua-parser-js)/
           ]),
-          ...mapChunks('polkadot', [
-            /* 00 */ /node_modules\/@polkadot\/(wasm)/,
-            /* 01 */ /node_modules\/(@polkadot\/(api|metadata|rpc|types))/,
-            /* 02 */ /node_modules\/(@polkadot\/(extension|keyring|networks|react|ui|util|vanitygen|x-)|@acala-network|@edgeware|@laminar|@ledgerhq|@open-web3|@sora-substrate|@subsocial|@zondax|edgeware)/
+          ...mapChunks('utils', [
+            /node_modules\/(@polkadot\/(util|x-)|jsonschema|url|socket.io-client|engine.io-client)/
           ]),
           ...mapChunks('credential', [
             /* 00 */ /packages\/(app|app-config|app-store)/,
@@ -132,7 +130,10 @@ function createWebpack(context, mode = 'production') {
             /* 01 */ /packages\/(page-account|page-claims|page-ctype|page-did|page-issue|page-message|page-tasks)/
           ]),
           ...mapChunks('zcloak', [
-            /packages\/(service|extension-core|crypto|ctype|did|did-resolver|keyring|message|vc|verify|wasm)/
+            /node_modules\/@zcloak\/(extension-core|crypto|ctype|did|did-resolver|keyring|message|vc|verify|wasm|wasm-asm|wasm-bridge)/
+          ]),
+          ...mapChunks('crypto', [
+            /node_modules\/(@noble\/hashes|@noble\/secp256k1|@scure\/base|bip39|canonicalize|ed2curve|tweetnacl|merkletreejs)/
           ]),
           ...mapChunks('other', [
             /* 00 */ /node_modules\/(@babel|ansi-styles|asn1|browserify|buffer|history|html-parse|inherit|lodash|object|path-|parse-asn1|pbkdf2|process|public-encrypt|query-string|readable-stream|regenerator-runtime|repeat|rtcpeerconnection-shim|safe-buffer|stream-browserify|store|tslib|unified|unist-util|util|vfile|vm-browserify|webrtc-adapter|whatwg-fetch)/,
