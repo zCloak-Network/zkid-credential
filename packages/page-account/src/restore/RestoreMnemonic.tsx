@@ -32,9 +32,9 @@ const RestoreMnemonic: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ on
     if (!isMnemonic) return;
 
     try {
-      const did = didManager.create(mnemonic, password);
+      const didUrl = didManager.addDidFromMnemonic(mnemonic, password);
 
-      onSuccess(did.id);
+      onSuccess(didUrl);
     } catch (error) {
       notifyError(error);
     }

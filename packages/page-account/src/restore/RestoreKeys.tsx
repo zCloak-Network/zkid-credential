@@ -30,9 +30,9 @@ const Restore: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess 
     file
       .text()
       .then((text) => {
-        const did = didManager.restore(JSON.parse(text), password);
+        const didUri = didManager.addDidFromJson(JSON.parse(text), password, password);
 
-        return did.id;
+        return didUri;
       })
       .then(onSuccess)
       .catch((error) => {

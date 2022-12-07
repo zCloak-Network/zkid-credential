@@ -57,15 +57,15 @@ const Step3: React.FC<{
   const toggleContinue = useCallback(() => {
     if (!password) return;
 
-    const did = didManager.create(mnemonic, password);
-    const json = didManager.backup(did.id, password);
+    const didUrl = didManager.addDidFromMnemonic(mnemonic, password);
+    const json = didManager.backupDid(didUrl, password);
     const blobSiningJson = new Blob([JSON.stringify(json)], {
       type: 'text/plain;charset=utf-8'
     });
 
     FileSaver.saveAs(blobSiningJson, `${json.didUrl}.json`);
 
-    setDidUrl(did.id);
+    setDidUrl(didUrl);
     nextStep();
   }, [mnemonic, nextStep, password, setDidUrl]);
 

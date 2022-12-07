@@ -28,7 +28,7 @@ const ExportModal: React.FC<Props> = ({ did, onClose }) => {
     if (!password) return;
 
     try {
-      const json = didManager.backup(did.id, password);
+      const json = didManager.backupDid(did.id, password);
 
       if (!json) return;
       const blobSiningJson = new Blob([JSON.stringify(json)], {

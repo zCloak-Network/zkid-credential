@@ -27,7 +27,7 @@ const ImportButton: React.FC<{ withText?: boolean; credential: VerifiableCredent
       e.stopPropagation();
 
       if (isInstall) {
-        zkidExtension.importCredential(credential);
+        zkidExtension.importCredential(credential as any);
       } else {
         notifyError(new Error('zkID Wallet extension not install'));
       }

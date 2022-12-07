@@ -23,6 +23,8 @@
     "@zcloak/did-resolver": "^0.6.0",
     "@zcloak/keyring": "^0.6.0",
     "@zcloak/message": "^0.6.0",
+    "@zcloak/ui-did-keyring": "^0.5.1",
+    "@zcloak/ui-store": "^0.5.1",
     "@zcloak/vc": "^0.6.0",
     "@zcloak/verify": "^0.6.0",
     "eventemitter3": "^4.0.7"
