@@ -39,6 +39,10 @@ const ZkidExtensionProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
         throw new Error('zkID Wallet not install');
       }
 
+      if (!(await provider.isAuth())) {
+        await provider.requestAuth();
+      }
+
       await provider.importCredential(stringToHex(JSON.stringify(credential)));
     },
     [provider]
