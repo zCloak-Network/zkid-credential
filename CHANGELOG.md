@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.6.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.6.0...v0.6.1) (2022-12-11)
+
+
+### Bug Fixes
+
+* throw error when import to zkID Wallet ([c242027](https://github.com/zCloak-Network/zkid-credential/commit/c24202715c1923e9779d23017ef2e416c2e15789))
+
+
 ## [0.6.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.5.0...v0.6.0) (2022-12-11)
 
 
