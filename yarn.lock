@@ -1654,8 +1654,8 @@ __metadata:
     "@zcloak/ctype": ^0.6.0
     "@zcloak/did": ^0.6.0
     "@zcloak/did-resolver": ^0.6.0
-    "@zcloak/extension-core": ^0.5.1
     "@zcloak/keyring": ^0.6.0
+    "@zcloak/login-providers": ^0.3.1
     "@zcloak/message": ^0.6.0
     "@zcloak/vc": ^0.6.0
     "@zcloak/verify": ^0.6.0
@@ -4680,15 +4680,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/extension-core@npm:^0.5.1":
-  version: 0.5.1
-  resolution: "@zcloak/extension-core@npm:0.5.1"
-  dependencies:
-    eventemitter3: ^4.0.7
-  checksum: 005e209c1b0908e49f0946378cd903866e0fc139ce6d95c1da93b24970fcc0cf6e49548d713f91d8a2a89d2362eb52cf67c9326dd1c3d62d1c87618f8de4cf6f
-  languageName: node
-  linkType: hard
-
 "@zcloak/keyring@npm:^0.6.0":
   version: 0.6.0
   resolution: "@zcloak/keyring@npm:0.6.0"
@@ -4708,6 +4699,24 @@ __metadata:
     parse-imports-ts: ^1.0.2
     throat: ^6.0.1
   checksum: 1159b9d7fcc6185bbc272e31a25c463ecb438abf00ea8e4b48c8f47f54a0ee603a38cc8797ff004b6625d56e16e83e8b51ff298b1c365b14a648bf2ac64833c5
+  languageName: node
+  linkType: hard
+
+"@zcloak/login-providers@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "@zcloak/login-providers@npm:0.3.1"
+  dependencies:
+    "@polkadot/util": ^10.1.12
+    "@zcloak/login-rpc": 0.3.1
+    eventemitter3: ^4.0.7
+  checksum: d6736331a38dc46e4a0785bffd96bea172faeb6b0cc70f3bd296dff510fc722434ec283a343c39306bdc0cb37a0c27535cb93767838017463ac83220a7381402
+  languageName: node
+  linkType: hard
+
+"@zcloak/login-rpc@npm:0.3.1":
+  version: 0.3.1
+  resolution: "@zcloak/login-rpc@npm:0.3.1"
+  checksum: 7e1405554d890644b7617f0bdf5bf03c0361094e126edbeba522106152b5655bba1907cc7846ee9b415a864f8b85d59f2093094ca02deea8280ddf39ba0a06cd
   languageName: node
   linkType: hard
 

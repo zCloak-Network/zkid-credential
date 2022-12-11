@@ -20,19 +20,14 @@ const ImportButton: React.FC<{ withText?: boolean; credential: VerifiableCredent
   withText = false
 }) => {
   const { notifyError } = useContext(NotificationContext);
-  const { isInstall, zkidExtension } = useContext(ZkidExtensionContext);
+  const { importCredential } = useContext(ZkidExtensionContext);
 
   const importToExtension: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       e.stopPropagation();
-
-      if (isInstall) {
-        zkidExtension.importCredential(credential as any);
-      } else {
-        notifyError(new Error('zkID Wallet extension not install'));
-      }
+      importCredential(credential).catch(notifyError);
     },
-    [credential, isInstall, notifyError, zkidExtension]
+    [credential, importCredential, notifyError]
   );
 
   return (

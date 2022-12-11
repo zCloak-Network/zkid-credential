@@ -1,60 +1,52 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { createContext, useEffect, useState } from 'react';
+import type { VerifiableCredential } from '@zcloak/vc/types';
 
-import { ZkidExtension } from '@zcloak/extension-core';
+import { stringToHex } from '@polkadot/util';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
+
+import { ZkidWalletProvider } from '@zcloak/login-providers';
 
 interface ZkidExtensionState {
-  isReady: boolean;
-  isInstall: boolean;
-  hasPassword: boolean;
-  isImport: boolean;
-  zkidExtension: ZkidExtension;
+  provider?: ZkidWalletProvider;
+  importCredential(credential: VerifiableCredential): Promise<void>;
 }
 
 export const ZkidExtensionContext = createContext<ZkidExtensionState>({} as ZkidExtensionState);
 
-const zkidExtension = new ZkidExtension();
+const readyPromise = new Promise<void>((resolve) => {
+  if (document.readyState === 'complete') {
+    resolve();
+  } else {
+    window.addEventListener('load', () => resolve());
+  }
+});
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 const ZkidExtensionProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const [isReady, setIsReady] = useState(false);
-  const [hasPassword, setHasPassword] = useState(false);
-  const [isImport, setIsImport] = useState(false);
-  const [isInstall, setIsInstall] = useState(false);
+  const [provider, setProvider] = useState<ZkidWalletProvider>();
 
   useEffect(() => {
-    zkidExtension.isReady.then(async () => {
-      await zkidExtension.isInstall.then(setIsInstall);
-      await zkidExtension.hasPassword.then(setHasPassword);
-      setIsReady(true);
+    readyPromise.then(() => {
+      setProvider(new ZkidWalletProvider());
     });
   }, []);
 
-  useEffect(() => {
-    const handlePasswordEvent = () => {
-      setHasPassword(true);
-    };
+  const importCredential = useCallback(
+    async (credential: VerifiableCredential) => {
+      if (!provider) {
+        throw new Error('zkID Wallet not install');
+      }
 
-    const handleImportEvent = () => {
-      setIsImport(true);
-    };
-
-    zkidExtension.on('SEND_CREATE_PASSWORD_SUCCESS_TO_WEB', handlePasswordEvent);
-    zkidExtension.on('SEND_IMPORT_CREDENTIAL_SUCCESS', handleImportEvent);
-
-    return () => {
-      zkidExtension.off('SEND_CREATE_PASSWORD_SUCCESS_TO_WEB', handlePasswordEvent);
-      zkidExtension.off('SEND_IMPORT_CREDENTIAL_SUCCESS', handleImportEvent);
-    };
-  }, []);
+      await provider.importCredential(stringToHex(JSON.stringify(credential)));
+    },
+    [provider]
+  );
 
   return (
-    <ZkidExtensionContext.Provider
-      value={{ isReady, isImport, hasPassword, isInstall, zkidExtension }}
-    >
-      {isReady && children}
+    <ZkidExtensionContext.Provider value={{ importCredential, provider }}>
+      {children}
     </ZkidExtensionContext.Provider>
   );
 };
