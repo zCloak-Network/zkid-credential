@@ -15,10 +15,8 @@ import { ellipsisMixin } from '@credential/react-components/utils';
 
 export const TaskCard = React.memo(function TaskCard({
   children,
-  onClick,
   operate
 }: {
-  onClick?: () => void;
   children: React.ReactNode;
   operate: React.ReactNode;
 }) {
@@ -27,7 +25,7 @@ export const TaskCard = React.memo(function TaskCard({
 
   if (upMd) {
     return (
-      <TableRow hover onClick={onClick}>
+      <TableRow hover>
         {children}
         <TaskCardItem content={operate} label="Operate" />
       </TableRow>
@@ -37,7 +35,6 @@ export const TaskCard = React.memo(function TaskCard({
   return (
     <Box
       className="TaskCard"
-      onClick={onClick}
       sx={({ palette, typography }) => ({
         padding: 2.5,
         border: '1px solid',

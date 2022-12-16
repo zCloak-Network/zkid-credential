@@ -7,9 +7,10 @@ import type { VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/ty
 import type { MessageWithMeta } from '@credential/react-hooks/types';
 
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {
+  Button,
   CredentialModal,
   CTypeName,
   Link,
@@ -46,9 +47,17 @@ function getCredential(
 function MessageRow({ message }: { message: MessageWithMeta<MessageType> }) {
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
-  const decrypted = useDecryptedMessage(message);
+  const [decrypted, decrypt] = useDecryptedMessage(message);
   const [open, toggleOpen] = useToggle();
   const [credential, setCredential] = useState<VerifiableCredential | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleView = useCallback(() => {
+    setLoading(true);
+    decrypt()
+      .then(toggleOpen)
+      .finally(() => setLoading(false));
+  }, [decrypt, toggleOpen]);
 
   useEffect(() => {
     decrypted && setCredential(getCredential(decrypted));
@@ -88,6 +97,14 @@ function MessageRow({ message }: { message: MessageWithMeta<MessageType> }) {
         <MessageCardItem
           content={moment(message.createTime).format('YYYY-MM-DD HH:mm:ss')}
           label="Time"
+        />
+        <MessageCardItem
+          content={
+            <Button disabled={loading} onClick={handleView}>
+              View
+            </Button>
+          }
+          label="Operation"
         />
       </MessageCard>
       {open && credential && <CredentialModal credential={credential} onClose={toggleOpen} />}

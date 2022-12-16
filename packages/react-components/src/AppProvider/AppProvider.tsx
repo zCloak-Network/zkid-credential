@@ -1,11 +1,14 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Did } from '@zcloak/did';
 import type { MessageType } from '@zcloak/message/types';
 
 import type { ServerMessage } from '@credential/react-dids/types';
-import type { MessageWithMeta, TaskStatus } from '@credential/react-hooks/types';
+import type {
+  DecryptedMessageWithMeta,
+  MessageWithMeta,
+  TaskStatus
+} from '@credential/react-hooks/types';
 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
@@ -24,6 +27,9 @@ interface State {
   sentMessages: MessageWithMeta<MessageType>[];
   readMessage: (id: string) => Promise<void>;
   setMessageStatus: (id: string, status: TaskStatus) => void;
+  decrypt: <T extends MessageType>(
+    message: MessageWithMeta<T>
+  ) => Promise<DecryptedMessageWithMeta<T>>;
 }
 
 export const AppContext = createContext({} as State);
@@ -48,15 +54,6 @@ function transformMessage<T extends MessageType>(data: ServerMessage<T>[]): Mess
   }));
 }
 
-function saveIssuedVC(
-  did: Did,
-  message: MessageWithMeta<'Response_Approve_Attestation'> | MessageWithMeta<'Send_issuedVC'>
-) {
-  return decryptMessage(message, did, resolver).then((decryptedMessage) =>
-    addVC(decryptedMessage.data)
-  );
-}
-
 function duplicateMessages(
   messages: MessageWithMeta<MessageType>[]
 ): MessageWithMeta<MessageType>[] {
@@ -67,9 +64,15 @@ function duplicateMessages(
   return sortMessages(Array.from(messages.values()));
 }
 
+export const decryptedCache: Map<string, DecryptedMessageWithMeta<MessageType>> = new Map();
+export const decryptedCachePromise: Map<
+  string,
+  Promise<DecryptedMessageWithMeta<MessageType>>
+> = new Map();
+
 // eslint-disable-next-line @typescript-eslint/ban-types
-const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const { did, isLocked } = useContext(DidsContext);
+function AppProvider({ children }: { children: React.ReactNode }) {
+  const { did } = useContext(DidsContext);
   const [messages, setMessages] = useState<MessageWithMeta<MessageType>[]>([]);
   const [sentMessages, setSentMessages] = useState<MessageWithMeta<MessageType>[]>([]);
 
@@ -80,6 +83,47 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
     return null;
   }, [did]);
+
+  const decrypt = useCallback(
+    async <T extends MessageType>(
+      message: MessageWithMeta<T>
+    ): Promise<DecryptedMessageWithMeta<T>> => {
+      const cache = decryptedCache.get(message.id);
+
+      if (cache) return cache as DecryptedMessageWithMeta<T>;
+
+      const cachePromise = decryptedCachePromise.get(message.id);
+
+      if (cachePromise) return cachePromise as Promise<DecryptedMessageWithMeta<T>>;
+
+      const promise: Promise<DecryptedMessageWithMeta<T>> = decryptMessage(
+        message,
+        did,
+        resolver
+      ).then((decrypted) => {
+        if (decrypted.msgType === 'Response_Approve_Attestation') {
+          addVC(decrypted.data);
+        } else if (decrypted.msgType === 'Send_issuedVC') {
+          addVC(decrypted.data);
+        }
+
+        // set cache when success
+        decryptedCache.set(message.id, { ...decrypted, meta: message.meta });
+        // delete cache promise when success
+        decryptedCachePromise.delete(message.id);
+
+        return {
+          ...decrypted,
+          meta: message.meta
+        };
+      });
+
+      decryptedCachePromise.set(message.id, promise);
+
+      return promise;
+    },
+    [did]
+  );
 
   useEffect(() => {
     if (!didUrl) {
@@ -111,20 +155,12 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   useEffect(() => {
     messages.forEach((message) => {
       if (message.msgType === 'Response_Approve_Attestation') {
-        if (!isLocked) {
-          // saveIssuedVC(did, message as MessageWithMeta<'Response_Approve_Attestation'>);
-        }
-
         if (message.reply) updatePendingCredential(message.reply, 'approved');
       } else if (message.msgType === 'Response_Reject_Attestation') {
         if (message.reply) updatePendingCredential(message.reply, 'rejected');
-      } else if (message.msgType === 'Send_issuedVC') {
-        if (!isLocked) {
-          // saveIssuedVC(did, message as MessageWithMeta<'Send_issuedVC'>);
-        }
       }
     });
-  }, [did, isLocked, messages]);
+  }, [messages]);
 
   const readMessage = useCallback(async (id: string) => {
     setMessages((messages) =>
@@ -157,11 +193,11 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   }, []);
 
   const value = useMemo(
-    () => ({ messages, sentMessages, readMessage, setMessageStatus }),
-    [messages, readMessage, sentMessages, setMessageStatus]
+    () => ({ messages, sentMessages, readMessage, setMessageStatus, decrypt }),
+    [decrypt, messages, readMessage, sentMessages, setMessageStatus]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
-};
+}
 
 export default AppProvider;

@@ -8,6 +8,8 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import React, { useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { LoginDid } from '@zcloak/login-did';
+
 import { IconAttester, IconLogoBlack } from '@credential/app-config/icons';
 import IconClaimer from '@credential/app-config/icons/IconClaimer';
 import {
@@ -121,9 +123,11 @@ function Header({
               <NotificationsNoneOutlinedIcon />
             </Badge>
           </IconButton>
-          <IconButton onClick={!isLocked ? lock : undefined} size={upMd ? 'medium' : 'small'}>
-            {isLocked ? <Lock /> : <LockOpen />}
-          </IconButton>
+          {!(did instanceof LoginDid) && (
+            <IconButton onClick={!isLocked ? lock : undefined} size={upMd ? 'medium' : 'small'}>
+              {isLocked ? <Lock /> : <LockOpen />}
+            </IconButton>
+          )}
           <DidInfo did={did} />
         </Stack>
       </Stack>

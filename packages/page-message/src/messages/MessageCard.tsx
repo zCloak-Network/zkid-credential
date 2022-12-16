@@ -14,8 +14,7 @@ import {
 import { ellipsisMixin } from '@credential/react-components/utils';
 
 export const MessageCard = React.memo(function MessageCard({
-  children,
-  onClick
+  children
 }: {
   onClick?: () => void;
   children: React.ReactNode;
@@ -24,17 +23,12 @@ export const MessageCard = React.memo(function MessageCard({
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
 
   if (upMd) {
-    return (
-      <TableRow hover onClick={onClick}>
-        {children}
-      </TableRow>
-    );
+    return <TableRow hover>{children}</TableRow>;
   }
 
   return (
     <Box
       className="MessageCard"
-      onClick={onClick}
       sx={({ palette, typography }) => ({
         padding: 2.5,
         background: palette.common.white,

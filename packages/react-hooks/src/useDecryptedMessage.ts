@@ -4,33 +4,43 @@
 import type { MessageType } from '@zcloak/message/types';
 import type { DecryptedMessageWithMeta, MessageWithMeta } from './types';
 
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
-import { isSameUri } from '@zcloak/did/utils';
-import { decryptMessage } from '@zcloak/message';
-
-import { DidsContext } from '@credential/react-dids';
-import { resolver } from '@credential/react-dids/instance';
+import {
+  AppContext,
+  decryptedCache,
+  decryptedCachePromise
+} from '@credential/react-components/AppProvider/AppProvider';
 
 export function useDecryptedMessage<T extends MessageType>(
   message?: MessageWithMeta<T> | null
-): DecryptedMessageWithMeta<T> | null {
-  const { did, isLocked } = useContext(DidsContext);
+): [DecryptedMessageWithMeta<T> | null, () => Promise<DecryptedMessageWithMeta<T>>] {
+  const { decrypt } = useContext(AppContext);
   const [decrypted, setDecrypted] = useState<DecryptedMessageWithMeta<T> | null>(null);
 
   useEffect(() => {
-    if (message && !isLocked && isSameUri(message.receiver, did.id)) {
-      // decryptMessage(message, did, resolver).then((decrypted) =>
-      //   setDecrypted({
-      //     ...decrypted,
-      //     meta: message.meta
-      //   })
-      // );
-      setDecrypted(null);
-    } else {
-      setDecrypted(null);
-    }
-  }, [did, isLocked, message]);
+    if (message) {
+      const cache = decryptedCache.get(message.id) as DecryptedMessageWithMeta<T>;
 
-  return decrypted;
+      if (cache) {
+        setDecrypted(cache);
+      } else {
+        decryptedCachePromise
+          .get(message.id)
+          ?.then((decrypted) => setDecrypted(decrypted as DecryptedMessageWithMeta<T>));
+      }
+    }
+  }, [message]);
+
+  const decryptFn = useCallback(() => {
+    if (!message) throw new Error('No message provided');
+
+    return decrypt<T>(message).then((decrypted) => {
+      setDecrypted(decrypted);
+
+      return decrypted;
+    });
+  }, [decrypt, message]);
+
+  return [decrypted, decryptFn];
 }

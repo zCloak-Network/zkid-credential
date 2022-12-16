@@ -9,6 +9,7 @@ export * from './utils';
 
 export { default as NotificationProvider, NotificationContext } from './Notification';
 export { default as Address } from './Address';
+export { default as Button } from './Button';
 export { default as ClaimDisplay } from './ClaimDisplay';
 export { default as Copy } from './Copy';
 export { default as CredentialModal } from './CredentialModal';
@@ -40,7 +41,6 @@ export {
   Autocomplete,
   Badge,
   Box,
-  Button,
   Checkbox,
   Chip,
   CircularProgress,

@@ -133,7 +133,7 @@ function Cell({
   const theme = useTheme();
   const upSm = useMediaQuery(theme.breakpoints.up('sm'));
   const navigate = useNavigate();
-  const decrypted = useDecryptedMessage(message);
+  const [decrypted, decrypt] = useDecryptedMessage(message);
 
   const credential = useRef<VerifiableCredential | null>(null);
 
@@ -141,7 +141,7 @@ function Cell({
 
   const desc = useMemo(() => getDesc(message, decrypted), [decrypted, message]);
 
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback(async () => {
     onRead();
 
     if (message.msgType === 'Request_Attestation') {
@@ -152,15 +152,17 @@ function Cell({
       navigate('/claimer/claims');
     }
 
-    if (!decrypted) return;
+    const _decrypted = decrypted || (await decrypt());
 
-    const _credential = getCredential(decrypted);
+    if (!_decrypted) return;
+
+    const _credential = getCredential(_decrypted);
 
     if (_credential) {
       credential.current = _credential;
       toggleOpen();
     }
-  }, [decrypted, message.id, message.msgType, navigate, onRead, toggleOpen]);
+  }, [decrypt, decrypted, message.id, message.msgType, navigate, onRead, toggleOpen]);
 
   return (
     <>
@@ -168,7 +170,6 @@ function Cell({
         alignItems="flex-start"
         direction={upSm ? 'row' : 'column'}
         justifyContent="space-between"
-        onClick={handleClick}
         paddingX={2}
         paddingY={1.5}
         spacing={upSm ? 2.5 : 1.5}
@@ -194,14 +195,17 @@ function Cell({
           sx={{
             width: upSm ? 'calc(100% - 24px) * 0.59' : '100%',
             textAlign: 'right',
-            whiteSpace: 'nowrap'
+            whiteSpace: 'nowrap',
+            fontSize: 12,
+            '.MuiButton-root': {
+              fontSize: 12
+            }
           }}
         >
           <Stack alignItems="center" direction="row" spacing={1.5}>
             <Typography
               sx={({ palette }) => ({
-                color: palette.grey[500],
-                fontSize: 12
+                color: palette.grey[500]
               })}
               variant="inherit"
             >
@@ -210,15 +214,13 @@ function Cell({
             <Circle color={isRead ? 'disabled' : 'warning'} sx={{ width: 8, height: 8 }} />
           </Stack>
           {!isRead && (
-            <Button
-              onClick={onRead}
-              sx={{
-                fontSize: 12
-              }}
-            >
+            <Button onClick={onRead} size="small">
               Mask as read
             </Button>
           )}
+          <Button onClick={handleClick} size="small">
+            View
+          </Button>
         </Box>
       </Stack>
       {open && credential.current && (
