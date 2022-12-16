@@ -3,6 +3,7 @@
 
 import type { VerifiableCredential } from '@zcloak/vc/types';
 
+import { stringToHex } from '@polkadot/util';
 import React, { useCallback, useContext } from 'react';
 
 import { IconImport } from '@credential/app-config/icons';
@@ -11,23 +12,23 @@ import {
   NotificationContext,
   Stack,
   Tooltip,
-  Typography,
-  ZkidExtensionContext
+  Typography
 } from '@credential/react-components';
+import { DidsContext } from '@credential/react-dids';
 
 const ImportButton: React.FC<{ withText?: boolean; credential: VerifiableCredential }> = ({
   credential,
   withText = false
 }) => {
+  const { provider } = useContext(DidsContext);
   const { notifyError } = useContext(NotificationContext);
-  const { importCredential } = useContext(ZkidExtensionContext);
 
   const importToExtension: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       e.stopPropagation();
-      importCredential(credential).catch(notifyError);
+      provider?.importCredential(stringToHex(JSON.stringify(credential))).catch(notifyError);
     },
-    [credential, importCredential, notifyError]
+    [credential, notifyError, provider]
   );
 
   return (

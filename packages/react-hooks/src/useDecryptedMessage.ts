@@ -20,12 +20,13 @@ export function useDecryptedMessage<T extends MessageType>(
 
   useEffect(() => {
     if (message && !isLocked && isSameUri(message.receiver, did.id)) {
-      decryptMessage(message, did, resolver).then((decrypted) =>
-        setDecrypted({
-          ...decrypted,
-          meta: message.meta
-        })
-      );
+      // decryptMessage(message, did, resolver).then((decrypted) =>
+      //   setDecrypted({
+      //     ...decrypted,
+      //     meta: message.meta
+      //   })
+      // );
+      setDecrypted(null);
     } else {
       setDecrypted(null);
     }

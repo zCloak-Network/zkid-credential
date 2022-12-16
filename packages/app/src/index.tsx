@@ -18,7 +18,6 @@ if (!rootElement) {
 
 const root = createRoot(rootElement);
 
-initCrypto().then(() => {
-  initInstance();
-  root.render(<Root />);
-});
+initCrypto()
+  .then(() => initInstance())
+  .then(() => root.render(<Root />));

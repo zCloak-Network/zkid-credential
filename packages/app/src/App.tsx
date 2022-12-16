@@ -24,11 +24,10 @@ import {
   Box,
   CTypeProvider,
   useMediaQuery,
-  useTheme,
-  ZkidExtensionProvider
+  useTheme
 } from '@credential/react-components';
+import { DidsProvider } from '@credential/react-dids';
 
-import AccountAuth from './Account/AccountAuth';
 import Account from './Account';
 import Attester from './Attester';
 import Claimer from './Claimer';
@@ -76,13 +75,11 @@ function Container({
 
 function BaseProvider({ children, role }: { children: any; role: DidRole }) {
   return (
-    <AccountAuth didRole={role}>
+    <DidsProvider didRole={role}>
       <AppProvider>
-        <ZkidExtensionProvider>
-          <CTypeProvider>{children}</CTypeProvider>
-        </ZkidExtensionProvider>
+        <CTypeProvider>{children}</CTypeProvider>
       </AppProvider>
-    </AccountAuth>
+    </DidsProvider>
   );
 }
 

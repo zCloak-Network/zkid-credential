@@ -112,7 +112,7 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     messages.forEach((message) => {
       if (message.msgType === 'Response_Approve_Attestation') {
         if (!isLocked) {
-          saveIssuedVC(did, message as MessageWithMeta<'Response_Approve_Attestation'>);
+          // saveIssuedVC(did, message as MessageWithMeta<'Response_Approve_Attestation'>);
         }
 
         if (message.reply) updatePendingCredential(message.reply, 'approved');
@@ -120,7 +120,7 @@ const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
         if (message.reply) updatePendingCredential(message.reply, 'rejected');
       } else if (message.msgType === 'Send_issuedVC') {
         if (!isLocked) {
-          saveIssuedVC(did, message as MessageWithMeta<'Send_issuedVC'>);
+          // saveIssuedVC(did, message as MessageWithMeta<'Send_issuedVC'>);
         }
       }
     });

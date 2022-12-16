@@ -8,7 +8,6 @@ export * from './hooks';
 export * from './utils';
 
 export { default as NotificationProvider, NotificationContext } from './Notification';
-export { default as ZkidExtensionProvider, ZkidExtensionContext } from './ZkidExtension';
 export { default as Address } from './Address';
 export { default as ClaimDisplay } from './ClaimDisplay';
 export { default as Copy } from './Copy';

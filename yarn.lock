@@ -1655,7 +1655,6 @@ __metadata:
     "@zcloak/did": ^0.6.1
     "@zcloak/did-resolver": ^0.6.1
     "@zcloak/keyring": ^0.6.1
-    "@zcloak/login-providers": ^0.3.1
     "@zcloak/message": ^0.6.1
     "@zcloak/vc": ^0.6.1
     "@zcloak/verify": ^0.6.1
@@ -1686,6 +1685,8 @@ __metadata:
     "@zcloak/did": ^0.6.1
     "@zcloak/did-resolver": ^0.6.1
     "@zcloak/keyring": ^0.6.1
+    "@zcloak/login-did": ^0.3.1
+    "@zcloak/login-providers": ^0.3.1
     "@zcloak/message": ^0.6.1
     "@zcloak/ui-did-keyring": ^0.5.1
     "@zcloak/ui-store": ^0.5.1
@@ -4757,9 +4758,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/did-keyring@npm:^0.5.2-0":
-  version: 0.5.2-0
-  resolution: "@zcloak/did-keyring@npm:0.5.2-0"
+"@zcloak/did-keyring@npm:^0.5.2-1":
+  version: 0.5.2-1
+  resolution: "@zcloak/did-keyring@npm:0.5.2-1"
   dependencies:
     "@kiltprotocol/did": ^0.28.2
     "@kiltprotocol/types": ^0.28.2
@@ -4770,7 +4771,7 @@ __metadata:
     "@zcloak/did-resolver": ^0.6.2-1
     "@zcloak/keyring": ^0.6.2-1
     eventemitter3: ^4.0.7
-  checksum: 25f2c74e9e1e6dc7376a55872f444b59dd854a0603e5e73fe4c1c1cde5f9bb04682e2b19ceb17163b07baeedfd12437275c43e35314d6aeba360b24ae6170480
+  checksum: 39751bba2e90ebd5d08671d8de6127f2675e3a95bab58061244a96aa1219132e99ededa41d253446631f6c2053bcbee5760d29e9ceda76228673179d119cfdfe
   languageName: node
   linkType: hard
 
@@ -4817,31 +4818,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/login-providers@npm:^0.3.2-2":
-  version: 0.3.2-2
-  resolution: "@zcloak/login-providers@npm:0.3.2-2"
+"@zcloak/login-did@npm:^0.3.2-3":
+  version: 0.3.2-3
+  resolution: "@zcloak/login-did@npm:0.3.2-3"
   dependencies:
     "@polkadot/util": ^10.2.1
-    "@zcloak/login-rpc": 0.3.2-2
-    "@zcloak/login-rpc-defines": 0.3.2-2
-    eventemitter3: ^5.0.0
-  checksum: 48312dd0116f08288a36415b32480ba0c83a98f09094d820eac18140153254dd0ce004fb3f5d69dfeffda7b7f2a6ebdbf7ef928a700a97420b9af1d5f79fd503
+    "@zcloak/did": ^0.6.2-1
+    "@zcloak/did-resolver": ^0.6.2-1
+    "@zcloak/login-providers": ^0.3.2-3
+  checksum: 7a040c95b1ef179f2f50ef327c600014622d680ebf5ea687eb8bf89eb38e3e0275eee2657c1db776ff58aa22b08b4ab76556ed9fab4908a1a21b409324b78275
   languageName: node
   linkType: hard
 
-"@zcloak/login-rpc-defines@npm:0.3.2-2":
-  version: 0.3.2-2
-  resolution: "@zcloak/login-rpc-defines@npm:0.3.2-2"
+"@zcloak/login-providers@npm:^0.3.2-3":
+  version: 0.3.2-3
+  resolution: "@zcloak/login-providers@npm:0.3.2-3"
   dependencies:
-    "@zcloak/login-rpc": ^0.3.2-2
-  checksum: 3241890d1a6168cbfd551d4ef29f051e90670e6fc83cc5fd9e406afc3f64a6a82be78829d76da94f7e694ab804a6745b88b013299edbe317220af5efe0468c86
+    "@polkadot/util": ^10.2.1
+    "@zcloak/login-rpc": 0.3.2-3
+    "@zcloak/login-rpc-defines": 0.3.2-3
+    eventemitter3: ^5.0.0
+  checksum: ca2c6a10dea06ba4550203da4edbd6ca12c09e1448286086453019aebb2a07d4dd38654a9de9354afdf4a347169fae085803362fc909b6792bae6512abc70c24
   languageName: node
   linkType: hard
 
-"@zcloak/login-rpc@npm:^0.3.2-2":
-  version: 0.3.2-2
-  resolution: "@zcloak/login-rpc@npm:0.3.2-2"
-  checksum: 8a14d385368349f45e3069de7c5f0f1343d3ea50ab6816caa1e02ee52a65466a8223975357e9ebe71458d7f95758f62ff3e8da6bca20434d4e25308478e697f3
+"@zcloak/login-rpc-defines@npm:0.3.2-3":
+  version: 0.3.2-3
+  resolution: "@zcloak/login-rpc-defines@npm:0.3.2-3"
+  dependencies:
+    "@zcloak/login-rpc": ^0.3.2-3
+  checksum: 07425352b4f722793ba236bb1d71799d85f105250b5cb34887bde9ff394f4531ca56cbe0d671b8d661f5d5deca5ccdf32d1c91248f6bf0d25868e9dbbc188634
+  languageName: node
+  linkType: hard
+
+"@zcloak/login-rpc@npm:^0.3.2-3":
+  version: 0.3.2-3
+  resolution: "@zcloak/login-rpc@npm:0.3.2-3"
+  checksum: ab8eb15c21749afd2eeec1c58a54cda2cc6aaaef65cc57e8ea8bb91456e6890b2ccf96c555ed62f2e08d25a38cc0cb7ab2156c200159c5f27942bcaf89e91ef5
   languageName: node
   linkType: hard
 
@@ -4859,27 +4872,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/ui-did-keyring@npm:^0.5.2-0":
-  version: 0.5.2-0
-  resolution: "@zcloak/ui-did-keyring@npm:0.5.2-0"
+"@zcloak/ui-did-keyring@npm:^0.5.2-1":
+  version: 0.5.2-1
+  resolution: "@zcloak/ui-did-keyring@npm:0.5.2-1"
   dependencies:
     "@polkadot/keyring": ^10.1.12
     "@polkadot/util": ^10.2.1
     "@zcloak/did": ^0.6.2-1
-    "@zcloak/did-keyring": ^0.5.2-0
+    "@zcloak/did-keyring": ^0.5.2-1
     "@zcloak/did-resolver": ^0.6.2-1
     "@zcloak/keyring": ^0.6.2-1
-    "@zcloak/ui-store": ^0.5.2-0
-  checksum: dbd1a789973efd9ad3a707bfd21eba1df9bf1eb20da6730d81c41297f4ba06630a384fd88bdcc5d307698aade50a982619932a2d044d78ee72c0beedec898d78
+    "@zcloak/ui-store": ^0.5.2-1
+  checksum: a91eba16d535516ce47da22fe1c86084b4c32d7ebdcca30bf719f155912c28b7bfe71c88aa146d1794c36e9f99fd7dcde44bf6bc31c25253a9343bb5ec46e8cc
   languageName: node
   linkType: hard
 
-"@zcloak/ui-store@npm:^0.5.2-0":
-  version: 0.5.2-0
-  resolution: "@zcloak/ui-store@npm:0.5.2-0"
+"@zcloak/ui-store@npm:^0.5.2-1":
+  version: 0.5.2-1
+  resolution: "@zcloak/ui-store@npm:0.5.2-1"
   dependencies:
     store: ^2.0.12
-  checksum: 4dc98128c2fac980c08a86f619214ef08097be252b4f3c6a67f182e037da9c92a40a348cb8bd152ffa01a263f5b98fd6341b6d335aaad00c70d3ef20055f1661
+  checksum: b89f48e496fdc6f3eaaad967f9350eb9c557536fde5b6cd27bb3fbb2cc406e67430e543f36530466d6a0bbdefce5588f59a2f48f6180b7c223b5a5f4cf575a67
   languageName: node
   linkType: hard
 
