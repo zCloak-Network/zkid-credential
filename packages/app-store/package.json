@@ -16,11 +16,11 @@
   "type": "module",
   "version": "0.6.1",
   "dependencies": {
-    "@zcloak/ctype": "^0.6.0",
-    "@zcloak/did-resolver": "^0.6.0",
-    "@zcloak/keyring": "^0.6.0",
-    "@zcloak/message": "^0.6.0",
-    "@zcloak/vc": "^0.6.0",
+    "@zcloak/ctype": "^0.6.1",
+    "@zcloak/did-resolver": "^0.6.1",
+    "@zcloak/keyring": "^0.6.1",
+    "@zcloak/message": "^0.6.1",
+    "@zcloak/vc": "^0.6.1",
     "dexie": "^3.2.2",
     "dexie-react-hooks": "^1.1.1"
   }

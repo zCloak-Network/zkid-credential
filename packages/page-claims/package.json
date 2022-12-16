@@ -16,8 +16,8 @@
   "type": "module",
   "version": "0.6.1",
   "dependencies": {
-    "@zcloak/did": "^0.6.0",
-    "@zcloak/did-resolver": "^0.6.0",
-    "@zcloak/vc": "^0.6.0"
+    "@zcloak/did": "^0.6.1",
+    "@zcloak/did-resolver": "^0.6.1",
+    "@zcloak/vc": "^0.6.1"
   }
 }

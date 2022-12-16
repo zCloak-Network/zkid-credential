@@ -20,8 +20,8 @@ const DidsProvider: React.FC<React.PropsWithChildren<DidsState & { unUnlock: () 
 }) => {
   useEffect(() => {
     if (did && !isLocked) {
-      resolver.resolve(did.id).catch(() => {
-        const publishDocument = did.getPublish();
+      resolver.resolve(did.id).catch(async () => {
+        const publishDocument = await did.getPublish();
 
         return resolver.submitDid(publishDocument);
       });
