@@ -27,9 +27,3 @@ export class DB extends Dexie {
     });
   }
 }
-
-export let db: DB;
-
-export function setDB(_db: DB) {
-  db = _db;
-}

@@ -28,7 +28,7 @@ const ShareButton: React.FC<{ credential: VerifiableCredential; withText?: boole
     <>
       <Tooltip title="Share to other">
         <Stack alignItems="center">
-          <IconButton onClick={_toggleOpen}>
+          <IconButton onClick={_toggleOpen} size="small">
             <IconForward />
           </IconButton>
           {withText && (

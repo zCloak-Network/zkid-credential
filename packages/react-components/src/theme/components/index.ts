@@ -271,7 +271,7 @@ const createComponents: Func = () => ({
       },
       sizeSmall: {
         padding: '4px 8px',
-        fontSize: '0.875rem'
+        fontSize: '0.75rem'
       },
       sizeMedium: {
         padding: '8px 12px',
@@ -280,6 +280,32 @@ const createComponents: Func = () => ({
       sizeLarge: {
         padding: '12px 16px',
         fontSize: '1rem'
+      }
+    }
+  },
+
+  MuiIconButton: {
+    styleOverrides: {
+      colorPrimary: ({ theme }) => ({
+        background: lighten(theme.palette.primary.main, 0.9),
+        ':hover': {
+          background: lighten(theme.palette.primary.main, 0.8)
+        }
+      }),
+      sizeSmall: {
+        width: 36,
+        height: 36,
+        fontSize: '0.875rem'
+      },
+      sizeMedium: {
+        width: 44,
+        height: 44,
+        fontSize: '1rem'
+      },
+      sizeLarge: {
+        width: 52,
+        height: 52,
+        fontSize: '1.25rem'
       }
     }
   },

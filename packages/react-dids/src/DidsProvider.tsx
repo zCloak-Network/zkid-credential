@@ -1,21 +1,22 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { DidUrl } from '@zcloak/did-resolver/types';
-
 import React, { createContext, useCallback, useEffect, useState } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
 
 import { Did } from '@zcloak/did';
-import { LoginDid } from '@zcloak/login-did';
-import { ZkidWalletProvider } from '@zcloak/login-providers';
 
-import { DB, setDB } from '@credential/app-store/db';
 import UnlockModal from '@credential/react-dids/UnlockModal';
 
 import { didManager, keyring, resolver } from './instance';
+import { isLoginDid } from './is';
 import { DidRole, DidsState } from './types';
 
 function getIsLocked(did: Did) {
+  if (isLoginDid(did)) {
+    return false;
+  }
+
   try {
     return Array.from(did.keyRelationship.values())
       .map(({ publicKey }) => keyring.getPair(publicKey).isLocked)
@@ -27,67 +28,13 @@ function getIsLocked(did: Did) {
 
 export const DidsContext = createContext({} as DidsState);
 
-const STORAGE_KEY = 'current_did';
-
-async function initDid() {
-  didManager.loadAll();
-
-  let provider: ZkidWalletProvider | null = null;
-
-  await ZkidWalletProvider.isReady();
-
-  if (await ZkidWalletProvider.isInstalled()) {
-    provider = new ZkidWalletProvider();
-
-    await didManager.loadLoginDid(provider);
-  }
-
-  const didStore = localStorage.getItem(STORAGE_KEY);
-  let did: Did | null = null;
-
-  if (didStore) {
-    did = didManager.getDid(didStore as DidUrl);
-  } else if (provider) {
-    did = didManager.all()[0] || null;
-  }
-
-  let isLocked = true;
-
-  if (did) {
-    isLocked = did instanceof LoginDid ? false : getIsLocked(did);
-  }
-
-  return { provider, did, isLocked };
-}
-
-function DidsProvider({ children }: { didRole: DidRole; children: React.ReactNode }) {
-  const [ready, setReady] = useState(false);
+function DidsProvider({ children, didRole }: { didRole: DidRole; children: React.ReactNode }) {
+  const location = useLocation();
   const [all, setAll] = useState<Did[]>(didManager.all());
-  const [did, setDid] = useState<Did | null>();
-  const [provider, setProvider] = useState<ZkidWalletProvider | null>();
-  const [isLocked, setIsLocked] = useState<boolean>(true);
-
-  useEffect(() => {
-    initDid()
-      .then(({ did, isLocked, provider }) => {
-        setIsLocked(isLocked);
-        setDid(did);
-        setProvider(provider);
-
-        if (did) {
-          setDB(new DB(did.id));
-        }
-      })
-      .finally(() => {
-        setReady(true);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (did) {
-      setDB(new DB(did.id));
-    }
-  }, [did]);
+  const [did, setDid] = useState<Did | null>(didManager.current);
+  const [isLocked, setIsLocked] = useState<boolean>(
+    didManager.current ? getIsLocked(didManager.current) : true
+  );
 
   useEffect(() => {
     const didChange = () => {
@@ -117,7 +64,7 @@ function DidsProvider({ children }: { didRole: DidRole; children: React.ReactNod
   }, []);
 
   useEffect(() => {
-    if (did && !isLocked) {
+    if (did && !isLocked && !isLoginDid(did)) {
       resolver.resolve(did.id).catch(async () => {
         const publishDocument = await did.getPublish();
 
@@ -126,25 +73,26 @@ function DidsProvider({ children }: { didRole: DidRole; children: React.ReactNod
     }
   }, [did, isLocked]);
 
-  return ready ? (
-    did ? (
-      <DidsContext.Provider
-        value={{
-          ready,
-          all,
-          did,
-          provider,
-          isLocked,
-          lock
-        }}
-      >
-        {isLocked ? <UnlockModal did={did} onUnlock={unUnlock} open /> : children}
-      </DidsContext.Provider>
-    ) : (
-      <></>
-    )
+  const switchDid = useCallback((did: Did) => {
+    didManager.setCurrent(did);
+    setDid(did);
+  }, []);
+
+  return did ? (
+    <DidsContext.Provider
+      value={{
+        didRole,
+        all,
+        did,
+        isLocked,
+        lock,
+        switchDid
+      }}
+    >
+      {isLocked ? <UnlockModal did={did} onUnlock={unUnlock} open /> : children}
+    </DidsContext.Provider>
   ) : (
-    <>loading</>
+    <Navigate to={{ pathname: '/account', search: `?redirect=${location.pathname}` }} />
   );
 }
 

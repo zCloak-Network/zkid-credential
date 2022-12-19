@@ -27,6 +27,7 @@
     "@zcloak/did": "^0.6.1",
     "@zcloak/did-resolver": "^0.6.1",
     "@zcloak/keyring": "^0.6.1",
+    "@zcloak/login-did": "^0.3.2-2",
     "@zcloak/message": "^0.6.1",
     "@zcloak/vc": "^0.6.1",
     "@zcloak/verify": "^0.6.1",

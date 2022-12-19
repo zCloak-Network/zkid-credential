@@ -9,10 +9,12 @@ import React from 'react';
 
 import { SvgIcon } from '@credential/react-components';
 
-import IconApproveSvg from '../assets/icon_approve.svg';
+import IconDeleteSvg from '../assets/icon_delete.svg';
 
-function IconApprove(props: SvgIconProps) {
-  return <SvgIcon component={IconApproveSvg} fontSize="inherit" viewBox="0 0 12 12" {...props} />;
+function IconDelete(props: SvgIconProps) {
+  return (
+    <SvgIcon component={IconDeleteSvg} fontSize="inherit" viewBox="0 0 13.621 14.668" {...props} />
+  );
 }
 
-export default React.memo(IconApprove);
+export default React.memo(IconDelete);

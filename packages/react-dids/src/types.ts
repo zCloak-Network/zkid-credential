@@ -4,7 +4,6 @@
 import type { Did } from '@zcloak/did';
 import type { DidUrl } from '@zcloak/did-resolver/types';
 import type { KeyringPair$Json } from '@zcloak/keyring/types';
-import type { ZkidWalletProvider } from '@zcloak/login-providers';
 import type { Message, MessageType } from '@zcloak/message/types';
 
 import type { CType } from '@credential/app-store';
@@ -12,12 +11,12 @@ import type { CType } from '@credential/app-store';
 export type DidRole = 'attester' | 'claimer';
 
 export interface DidsState {
-  ready: boolean;
   all: Did[];
   did: Did;
-  provider?: ZkidWalletProvider | null;
+  didRole: DidRole;
   isLocked: boolean;
   lock: () => void;
+  switchDid: (did: Did) => void;
 }
 
 type DidKeys$JsonVersion = '1';

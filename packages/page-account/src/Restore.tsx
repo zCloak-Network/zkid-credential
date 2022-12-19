@@ -32,7 +32,7 @@ const Restore: React.FC = () => {
           desc="Remember to keep your secret recovery phrase safe, it’s your responsibility."
           didUrl={didUrl}
           title="Your account has been restored account!"
-          toggleStart={() => navigate(`/${redirect ?? 'claimer'}`)}
+          toggleStart={() => navigate(redirect ?? '/claimer')}
         />
       ) : (
         <Box

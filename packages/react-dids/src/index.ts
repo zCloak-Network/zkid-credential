@@ -9,3 +9,4 @@ export { default as InputDid } from './InputDid';
 
 export * from './useKnownDids';
 export * from './useDid';
+export * from './is';

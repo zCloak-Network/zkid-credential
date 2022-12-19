@@ -14,13 +14,12 @@ import {
   Tooltip,
   Typography
 } from '@credential/react-components';
-import { DidsContext } from '@credential/react-dids';
+import { provider } from '@credential/react-dids/instance';
 
 const ImportButton: React.FC<{ withText?: boolean; credential: VerifiableCredential }> = ({
   credential,
   withText = false
 }) => {
-  const { provider } = useContext(DidsContext);
   const { notifyError } = useContext(NotificationContext);
 
   const importToExtension: React.MouseEventHandler<HTMLButtonElement> = useCallback(
@@ -28,13 +27,13 @@ const ImportButton: React.FC<{ withText?: boolean; credential: VerifiableCredent
       e.stopPropagation();
       provider?.importCredential(stringToHex(JSON.stringify(credential))).catch(notifyError);
     },
-    [credential, notifyError, provider]
+    [credential, notifyError]
   );
 
   return (
     <Tooltip title="Import to zCloak ID Wallet">
       <Stack alignItems="center">
-        <IconButton onClick={importToExtension}>
+        <IconButton onClick={importToExtension} size="small">
           <IconImport />
         </IconButton>
         {withText && (
