@@ -39,6 +39,7 @@ const Messages: React.FC<{
               <TableCell>Credential type</TableCell>
               <TableCell>Type</TableCell>
               <TableCell>Time</TableCell>
+              <TableCell>Operation</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

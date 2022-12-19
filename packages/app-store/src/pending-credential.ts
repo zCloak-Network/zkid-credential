@@ -6,11 +6,10 @@ import type { DidUrl } from '@zcloak/did-resolver/types';
 import type { HashType, RawCredential } from '@zcloak/vc/types';
 
 import { isHex } from '@polkadot/util';
-import { useLiveQuery } from 'dexie-react-hooks';
 
 import { calcRoothash } from '@zcloak/vc';
 
-import { db } from './db';
+import { didManager } from '@credential/react-dids/instance';
 
 export type CredentialStatus = 'pending' | 'approved' | 'rejected';
 
@@ -26,16 +25,12 @@ export interface PendingCredential {
   rawCredential: RawCredential;
 }
 
-export function usePendingCredentials(
-  status?: CredentialStatus[]
-): PendingCredential[] | undefined {
-  return useLiveQuery(() => {
-    return db.pendingCredential
-      .orderBy('submitDate')
-      .reverse()
-      .filter((c) => (status ? status.includes(c.status) : true))
-      .toArray();
-  }, []);
+export function getPendingCredentials(status?: CredentialStatus[]): Promise<PendingCredential[]> {
+  return didManager.db.pendingCredential
+    .orderBy('submitDate')
+    .reverse()
+    .filter((c) => (status ? status.includes(c.status) : true))
+    .toArray();
 }
 
 export async function addPendingCredential(
@@ -51,12 +46,12 @@ export async function addPendingCredential(
     rawCredential.credentialSubjectNonceMap
   ).rootHash;
 
-  const exists = await db.pendingCredential
+  const exists = await didManager.db.pendingCredential
     .filter((c) => c.issuer === issuer && c.rootHash === rootHash)
     .toArray();
 
   if (exists.length === 0) {
-    await db.pendingCredential.add({
+    await didManager.db.pendingCredential.add({
       rootHash,
       ctype: rawCredential.ctype,
       issuer,
@@ -74,7 +69,7 @@ export async function updatePendingCredential(
   boundMessageId: string,
   status: CredentialStatus
 ): Promise<void> {
-  await db.pendingCredential
+  await didManager.db.pendingCredential
     .filter((c) => c.boundMessageId === boundMessageId)
     .modify({
       status

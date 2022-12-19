@@ -12,7 +12,11 @@ const Copy: React.FC<{ value: string }> = ({ value }) => {
   const [isCopied, copy] = useCopyClipboard();
 
   return (
-    <IconButton onClick={() => copy(value)} size="small" sx={{ padding: 0 }}>
+    <IconButton
+      onClick={() => copy(value)}
+      size="small"
+      sx={{ padding: 0, height: 'auto', width: 'auto' }}
+    >
       {!isCopied ? (
         <ContentCopyIcon sx={{ width: 16, height: 16 }} />
       ) : (

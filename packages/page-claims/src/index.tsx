@@ -3,8 +3,7 @@
 
 import React, { useMemo, useState } from 'react';
 
-import { useCredentials } from '@credential/app-store';
-import { usePendingCredentials } from '@credential/app-store/pending-credential';
+import { getCredentials, getPendingCredentials } from '@credential/app-store';
 import {
   Box,
   Stack,
@@ -13,14 +12,15 @@ import {
   Typography,
   Unstable_Grid2 as Grid
 } from '@credential/react-components';
+import { useLiveQuery } from '@credential/react-hooks';
 
 import CredentialCell, { CredentialProps } from './CredentialCell';
 import ImportCredential from './ImportCredential';
 
 const Claims: React.FC = () => {
   const [type, setType] = useState(0);
-  const credentials = useCredentials();
-  const pendingCredentials = usePendingCredentials(['pending', 'rejected']);
+  const credentials = useLiveQuery(getCredentials, []);
+  const pendingCredentials = useLiveQuery(getPendingCredentials, [['pending', 'rejected']]);
 
   const list = useMemo((): CredentialProps[] => {
     const _credentials = credentials ?? [];

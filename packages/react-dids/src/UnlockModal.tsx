@@ -15,21 +15,21 @@ import {
 } from '@credential/react-components';
 
 import DidName from './DidName';
-import { didManager, keyring } from './instance';
+import { keyring } from './instance';
 
 function UnlockModal({
+  did,
   onClose,
   onUnlock,
   open
 }: {
+  did: Did;
   open: boolean;
   onClose?: () => void;
   onUnlock: () => void;
 }) {
   const [password, setPassword] = useState<string>();
   const [error, setError] = useState<Error | null>(null);
-
-  const did: Did | undefined = didManager.current();
 
   const _onUnlock = useCallback(() => {
     try {

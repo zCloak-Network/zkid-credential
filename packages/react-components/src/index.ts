@@ -8,8 +8,8 @@ export * from './hooks';
 export * from './utils';
 
 export { default as NotificationProvider, NotificationContext } from './Notification';
-export { default as ZkidExtensionProvider, ZkidExtensionContext } from './ZkidExtension';
 export { default as Address } from './Address';
+export { default as Button } from './Button';
 export { default as ClaimDisplay } from './ClaimDisplay';
 export { default as Copy } from './Copy';
 export { default as CredentialModal } from './CredentialModal';
@@ -22,6 +22,7 @@ export { default as FileUpload } from './FileUpload';
 export { default as FullScreenDialog } from './FullScreenDialog';
 export { default as FullScreenDialogContent } from './FullScreenDialogContent';
 export { default as FullScreenDialogHeader } from './FullScreenDialogHeader';
+export { default as IconButton } from './IconButton';
 export { default as IdentityIcon } from './IdentityIcon';
 export { default as ImportCredentialModal } from './ImportCredentialModal';
 export { default as ImportCTypeModal } from './ImportCTypeModal';
@@ -41,7 +42,6 @@ export {
   Autocomplete,
   Badge,
   Box,
-  Button,
   Checkbox,
   Chip,
   CircularProgress,
@@ -60,7 +60,6 @@ export {
   Unstable_Grid2,
   InputAdornment,
   InputLabel,
-  IconButton,
   Drawer,
   Tabs,
   Tab,

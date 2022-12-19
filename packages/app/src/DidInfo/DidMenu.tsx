@@ -6,10 +6,11 @@ import type { IDidDetails } from '@zcloak/did/types';
 import React, { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { IconExport, IconLogout, IconScan, IconStar } from '@credential/app-config/icons';
+import { IconExport, IconScan, IconStar } from '@credential/app-config/icons';
 import {
   alpha,
   Box,
+  Button,
   Copy,
   Divider,
   IdentityIcon,
@@ -20,12 +21,12 @@ import {
   MenuItem,
   Typography
 } from '@credential/react-components';
-import { DidName } from '@credential/react-dids';
-import { didManager } from '@credential/react-dids/instance';
+import { DidName, isLoginDid } from '@credential/react-dids';
 import { useToggle } from '@credential/react-hooks';
 
 import CredentialScanner from './CredentialScanner';
 import ExportModal from './ExportModal';
+import MultiDids from './MultiDids';
 
 interface Props {
   did: IDidDetails;
@@ -37,6 +38,8 @@ interface Props {
 const DidMenu: React.FC<Props> = ({ anchorEl, did, onClose, open }) => {
   const [exportOpen, toggleExportOpen] = useToggle();
   const [scannerOpen, toggleScannerOpen] = useToggle();
+  const [multiDidOpen, toggleMultiDid] = useToggle();
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -55,10 +58,10 @@ const DidMenu: React.FC<Props> = ({ anchorEl, did, onClose, open }) => {
     onClose();
   }, [navigate, onClose, pathname]);
 
-  const handleLogout = useCallback(() => {
-    if (!did) return;
-    didManager.remove(did.id);
-  }, [did]);
+  const handleChange = useCallback(() => {
+    toggleMultiDid();
+    onClose();
+  }, [onClose, toggleMultiDid]);
 
   return (
     <>
@@ -83,6 +86,9 @@ const DidMenu: React.FC<Props> = ({ anchorEl, did, onClose, open }) => {
           <Typography fontWeight={500} variant="h6">
             Did
           </Typography>
+          <Button onClick={handleChange} size="small">
+            Change
+          </Button>
         </Box>
         <ListItem
           sx={({ palette }) => ({
@@ -106,33 +112,29 @@ const DidMenu: React.FC<Props> = ({ anchorEl, did, onClose, open }) => {
         <Divider sx={{ marginTop: 3, marginBottom: 1 }} />
         <MenuItem onClick={handleScanner}>
           <ListItemIcon>
-            <IconScan />
+            <IconScan sx={{ fontSize: '0.875rem' }} />
           </ListItemIcon>
           <ListItemText>Scan QR code</ListItemText>
         </MenuItem>
         <Divider sx={{ marginY: 1 }} />
         <MenuItem onClick={handleProfile}>
           <ListItemIcon>
-            <IconStar color="error" />
+            <IconStar color="error" sx={{ fontSize: '0.875rem' }} />
           </ListItemIcon>
           <ListItemText>DID Profile</ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleExport}>
-          <ListItemIcon>
-            <IconExport />
-          </ListItemIcon>
-          <ListItemText>Export DID-Key</ListItemText>
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleLogout}>
-          <ListItemIcon>
-            <IconLogout />
-          </ListItemIcon>
-          <ListItemText>Logout</ListItemText>
-        </MenuItem>
+        {!isLoginDid(did) && (
+          <MenuItem onClick={handleExport}>
+            <ListItemIcon>
+              <IconExport sx={{ fontSize: '0.875rem' }} />
+            </ListItemIcon>
+            <ListItemText>Export DID-Key</ListItemText>
+          </MenuItem>
+        )}
       </Menu>
       {exportOpen && <ExportModal did={did} onClose={toggleExportOpen} />}
       {scannerOpen && <CredentialScanner onClose={toggleScannerOpen} />}
+      {multiDidOpen && <MultiDids onClose={toggleMultiDid} />}
     </>
   );
 };

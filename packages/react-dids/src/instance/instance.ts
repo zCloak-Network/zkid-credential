@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Keyring } from '@zcloak/keyring';
+import { ZkidWalletProvider } from '@zcloak/login-providers';
 
 import { DID_SERVICE } from '@credential/app-config/endpoints';
-import { DB, setDB } from '@credential/app-store/db';
 
 import { DidManager } from './DidManager';
 import { CredentialDidResolver } from './DidResolver';
@@ -15,20 +15,22 @@ export let keyring: Keyring;
 
 export let didManager: DidManager;
 
-export function initInstance() {
+export let provider: ZkidWalletProvider | undefined;
+
+export async function initInstance(): Promise<void> {
   keyring = new Keyring();
   resolver = new CredentialDidResolver(DID_SERVICE);
   didManager = new DidManager(keyring, resolver);
 
   didManager.loadAll();
 
-  const updateDB = () => {
-    if (didManager.getAll().length > 0) {
-      setDB(new DB(didManager.current().id));
-    }
-  };
+  await ZkidWalletProvider.isReady();
 
-  didManager.on('add', updateDB);
-  didManager.on('remove', updateDB);
-  updateDB();
+  if (await ZkidWalletProvider.isInstalled()) {
+    provider = new ZkidWalletProvider();
+
+    await didManager.loadLoginDid(provider);
+  }
+
+  didManager.loadCurrent();
 }

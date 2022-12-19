@@ -4,10 +4,11 @@
 import type { Task } from '@credential/react-hooks/types';
 
 import moment from 'moment';
-import React, { useCallback } from 'react';
-import { Link as LinkRouter, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link as LinkRouter } from 'react-router-dom';
 
 import {
+  Button,
   CTypeName,
   Link,
   Table,
@@ -30,30 +31,26 @@ import ActionButton from './ActionButton';
 import { TaskCard, TaskCardItem } from './TaskCard';
 
 const Row: React.FC<{ task: Task }> = ({ task }) => {
-  const navigate = useNavigate();
-
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
 
-  const decrypted = useDecryptedMessage(task);
-
-  const handleClick = useCallback(() => {
-    if (!upMd) navigate(`/attester/tasks/${task.id}`);
-  }, [navigate, task.id, upMd]);
+  const [decrypted, decrypt] = useDecryptedMessage(task);
 
   return (
     <TaskCard
-      onClick={handleClick}
       operate={
-        decrypted &&
-        (upMd ? (
-          <ActionButton task={decrypted} />
+        decrypted ? (
+          upMd ? (
+            <ActionButton task={decrypted} />
+          ) : (
+            <>
+              {task.meta.taskStatus === 'pending' && <Approve task={decrypted} type="button" />}
+              {task.meta.taskStatus === 'pending' && <Reject task={decrypted} type="button" />}
+            </>
+          )
         ) : (
-          <>
-            {task.meta.taskStatus === 'pending' && <Approve task={decrypted} type="button" />}
-            {task.meta.taskStatus === 'pending' && <Reject task={decrypted} type="button" />}
-          </>
-        ))
+          <Button onClick={decrypt}>Decrypt</Button>
+        )
       }
     >
       <TaskCardItem content={<DidName value={task.sender} />} label="Sender" />

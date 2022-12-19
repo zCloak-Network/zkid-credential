@@ -118,25 +118,23 @@ function createWebpack(context, mode = 'production') {
       splitChunks: {
         cacheGroups: {
           ...mapChunks('react', [
-            /* 00 */ /node_modules\/(@mui|@emotion|@stardust|classnames|codeflask|copy-to-clipboard|file-selector|file-saver|hoist-non-react|i18next|jdenticon|keyboard-key|mini-create-react|prop-types|react|react|remark-parse)/,
-            /* 01 */ /node_modules\/(dexie|dexie-react-hooks|cross-fetch|qrcode-generator|qr-scanner|ua-parser-js)/
+            /node_modules\/(@mui|@emotion|@stardust|classnames|codeflask|copy-to-clipboard|file-selector|file-saver|hoist-non-react|i18next|jdenticon|keyboard-key|mini-create-react|prop-types|react|react|remark-parse)/,
+            /* 01 */ /node_modules\/(dexie|cross-fetch|qrcode-generator|qr-scanner|ua-parser-js)/
           ]),
           ...mapChunks('utils', [
             /node_modules\/(@polkadot|jsonschema|url|socket.io-client|engine.io-client)/
           ]),
           ...mapChunks('credential', [
-            /* 00 */ /packages\/(app|app-config|app-store)/,
+            /packages\/(app|app-config|app-store)/,
             /* 01 */ /packages\/(react-components|react-hooks|react-ctype|react-dids)/,
             /* 01 */ /packages\/(page-account|page-claims|page-ctype|page-did|page-issue|page-message|page-tasks)/
           ]),
-          ...mapChunks('zcloak', [
-            /node_modules\/@zcloak\/(extension-core|crypto|ctype|did|did-resolver|keyring|message|vc|verify|wasm|wasm-asm|wasm-bridge)/
-          ]),
+          ...mapChunks('zcloak', [/node_modules\/@zcloak/]),
           ...mapChunks('crypto', [
             /node_modules\/(@noble\/hashes|@noble\/secp256k1|@scure\/base|bip39|canonicalize|ed2curve|tweetnacl|merkletreejs)/
           ]),
           ...mapChunks('other', [
-            /* 00 */ /node_modules\/(@babel|moment|core-js|crypto-js|bn.js|readable-stream|buffer)/,
+            /node_modules\/(@babel|moment|core-js|crypto-js|bn.js|readable-stream|buffer)/,
             /* 01 */ /node_modules\/(@popperjs|color-convert|sha.js|store|@remix-run|color)/
           ])
         }

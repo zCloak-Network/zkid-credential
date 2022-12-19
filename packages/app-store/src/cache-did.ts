@@ -3,7 +3,7 @@
 
 import type { DidDocument, DidUrl } from '@zcloak/did-resolver/types';
 
-import { db } from './db';
+import { didManager } from '@credential/react-dids/instance';
 
 export interface CacheDid {
   did: DidUrl;
@@ -11,17 +11,17 @@ export interface CacheDid {
 }
 
 export async function allDidDocuments(): Promise<DidDocument[]> {
-  return (await db.cacheDid.toArray()).map((data) => data.document);
+  return (await didManager.db.cacheDid.toArray()).map((data) => data.document);
 }
 
 export async function allDids(): Promise<DidUrl[]> {
-  return (await db.cacheDid.toArray()).map((data) => data.did);
+  return (await didManager.db.cacheDid.toArray()).map((data) => data.did);
 }
 
 export function queryDid(did: string): Promise<DidDocument | null | undefined> {
-  return db.cacheDid.get({ did }).then((data) => data?.document);
+  return didManager.db.cacheDid.get({ did }).then((data) => data?.document);
 }
 
 export async function putDid(document: DidDocument): Promise<void> {
-  await db.cacheDid.put({ did: document.id, document });
+  await didManager.db.cacheDid.put({ did: document.id, document });
 }

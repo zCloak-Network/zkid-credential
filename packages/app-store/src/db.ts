@@ -8,11 +8,21 @@ import type { PendingCredential } from './pending-credential';
 
 import Dexie, { Table } from 'dexie';
 
-export class DB extends Dexie {
+class CacheDB extends Dexie {
+  public cacheDid!: Table<CacheDid>;
+
+  constructor() {
+    super('zkid:credential:cache');
+    this.version(1).stores({
+      cacheDid: '&did, *document'
+    });
+  }
+}
+
+class DidDB extends Dexie {
   public ctype!: Table<CType>;
   public credential!: Table<Credential>;
   public pendingCredential!: Table<PendingCredential>;
-  public cacheDid!: Table<CacheDid>;
 
   constructor(name: string) {
     super(`zkid:credential:${name}`);
@@ -21,15 +31,33 @@ export class DB extends Dexie {
         'rootHash, ctype, issuer, holder, submitDate, status, *hasher, *rawCredential',
       credential:
         'digest, rootHash, ctype, issuer, holder, issuanceDate, expirationDate, *hasher, *vc',
-      ctype:
-        '&$id, $schema, publisher, signature, title, description, type, *properties, *required',
-      cacheDid: '&did, *document'
+      ctype: '&$id, $schema, publisher, signature, title, description, type, *properties, *required'
     });
   }
 }
 
-export let db: DB;
+export class DB {
+  public cacheDB: CacheDB;
+  public didDB: DidDB;
 
-export function setDB(_db: DB) {
-  db = _db;
+  constructor(name: string) {
+    this.cacheDB = new CacheDB();
+    this.didDB = new DidDB(name);
+  }
+
+  public get cacheDid(): Table<CacheDid> {
+    return this.cacheDB.cacheDid;
+  }
+
+  public get ctype(): Table<CType> {
+    return this.didDB.ctype;
+  }
+
+  public get credential(): Table<Credential> {
+    return this.didDB.credential;
+  }
+
+  public get pendingCredential(): Table<PendingCredential> {
+    return this.didDB.pendingCredential;
+  }
 }

@@ -5,6 +5,7 @@ export * from './useCopyClipboard';
 export * from './useCTypeMeta';
 export * from './useDebounce';
 export * from './useInterval';
+export * from './useLiveQuery';
 export * from './useLocalStorage';
 export * from './useToggle';
 export * from './useQueryParams';

@@ -4,11 +4,10 @@
 import type { CTypeMeta } from '@credential/app-config/ctypes/type';
 import type { CType } from '@credential/app-store';
 
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { alpha, Box, IconButton, Paper, Stack, styled, Tooltip, Typography } from '@mui/material';
 import React, { useCallback, useContext } from 'react';
 
-import { IconLogoCircle } from '@credential/app-config/icons';
+import { IconDelete, IconLogoCircle } from '@credential/app-config/icons';
 import { DidName } from '@credential/react-dids';
 import { isMobile } from '@credential/react-hooks/utils/userAgent';
 
@@ -124,7 +123,7 @@ function CTypeCard({ actions, ctype, meta }: Props) {
         size="small"
         sx={{ position: 'absolute', right: 10, top: 10 }}
       >
-        <DeleteOutlineOutlinedIcon />
+        <IconDelete />
       </IconButton>
       <Stack spacing={1.5}>
         <Box className="CTypeCard_logo">

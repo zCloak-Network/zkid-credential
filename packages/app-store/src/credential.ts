@@ -6,11 +6,10 @@ import type { DidUrl } from '@zcloak/did-resolver/types';
 import type { HashType, VerifiableCredential } from '@zcloak/vc/types';
 
 import { isHex } from '@polkadot/util';
-import { useLiveQuery } from 'dexie-react-hooks';
 
 import { calcRoothash } from '@zcloak/vc';
 
-import { db } from './db';
+import { didManager } from '@credential/react-dids/instance';
 
 export interface Credential {
   digest: HexString;
@@ -24,10 +23,8 @@ export interface Credential {
   vc: VerifiableCredential;
 }
 
-export function useCredentials(): Credential[] | undefined {
-  return useLiveQuery(() => {
-    return db.credential.toArray();
-  }, []);
+export function getCredentials(): Promise<Credential[]> {
+  return didManager.db.credential.toArray();
 }
 
 export async function addVC(
@@ -45,7 +42,7 @@ export async function addVC(
     vc.credentialSubjectNonceMap
   ).rootHash;
 
-  const exists = await db.credential
+  const exists = await didManager.db.credential
     .filter((credential) => credential.digest === vc.digest && credential.issuer === vc.issuer)
     .first();
 
@@ -65,7 +62,7 @@ export async function addVC(
     vc
   };
 
-  await db.credential.add(credential);
+  await didManager.db.credential.add(credential);
 
   return credential;
 }

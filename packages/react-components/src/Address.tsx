@@ -13,7 +13,7 @@ const Address: React.FC<{ value?: string | null; shorten?: boolean }> = ({
 
   return shorten ? (
     <>
-      {value.slice(0, 6)}...{value.slice(-6)}
+      {value.slice(0, 4)}...{value.slice(-4)}
     </>
   ) : (
     <>{value}</>

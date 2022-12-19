@@ -22,15 +22,7 @@ function ImportCType({ variant }: { variant?: 'text' | 'outlined' | 'contained' 
   return (
     <>
       {downSm ? (
-        <IconButton
-          onClick={toggleOpen}
-          sx={({ palette }) => ({
-            backgroundColor: alpha(palette.primary.main, 0.2),
-            ':hover': {
-              backgroundColor: alpha(palette.primary.main, 0.35)
-            }
-          })}
-        >
+        <IconButton color="primary" onClick={toggleOpen}>
           <FileUploadOutlinedIcon />
         </IconButton>
       ) : (

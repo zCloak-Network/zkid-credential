@@ -6,10 +6,10 @@ import type { HexString } from '@zcloak/crypto/types';
 import { assert } from '@polkadot/util';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-import { CType, useCTypes } from '@credential/app-store';
-import { db } from '@credential/app-store/db';
+import { allCTypes, CType, deleteCType as deleteCTypeDB, putCType } from '@credential/app-store';
 import { DidsContext } from '@credential/react-dids';
 import { resolver } from '@credential/react-dids/instance';
+import { useLiveQuery } from '@credential/react-hooks';
 
 interface State {
   serverCTypes: CType[];
@@ -24,11 +24,11 @@ export const CTypeContext = createContext<State>({} as State);
 const CTypeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { did } = useContext(DidsContext);
   const [serverCTypes, setServerCTypes] = useState<CType[]>([]);
-  const ctypes = useCTypes();
+  const ctypes = useLiveQuery(allCTypes);
 
   useEffect(() => {
     resolver.getClaimerCtypes(did.id).then((ctypes) => {
-      ctypes.forEach((ctype) => db.ctype.put(ctype));
+      ctypes.forEach((ctype) => putCType(ctype));
     });
   }, [did.id]);
 
@@ -42,9 +42,9 @@ const CTypeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     async (hash: HexString) => {
       const ctype = await resolver.submitClaimerImportCtype(did.id, hash);
 
-      db.ctype.put(ctype);
+      putCType(ctype);
     },
-    [did]
+    [did.id]
   );
 
   const deleteCType = useCallback(
@@ -52,7 +52,7 @@ const CTypeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       assert(did.id, 'did not found');
 
       resolver.deleteClaimerImportCtype(did.id, hash);
-      db.ctype.delete(hash);
+      deleteCTypeDB(hash);
     },
     [did]
   );

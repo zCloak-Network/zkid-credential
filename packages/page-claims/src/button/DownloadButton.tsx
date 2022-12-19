@@ -29,7 +29,7 @@ const ImportButton: React.FC<{ credential: VerifiableCredential; withText?: bool
   return (
     <Tooltip title="Download">
       <Stack alignItems="center">
-        <IconButton onClick={download}>
+        <IconButton onClick={download} size="small">
           <IconDownload />
         </IconButton>
         {withText && (

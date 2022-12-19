@@ -33,14 +33,21 @@ function main() {
     console.log(`write ${fileName}.tsx`);
     fs.writeFileSync(
       `packages/app-config/src/icons/${fileName}.tsx`,
-      `// generate by buildAssets.js
-import { SvgIcon } from '@credential/react-components';
+      `// Copyright 2021-2022 zcloak authors & contributors
+// SPDX-License-Identifier: Apache-2.0
+
+// generate by buildAssets.js
+
+import type { SvgIconProps } from '@mui/material';
+
 import React from 'react';
+
+import { SvgIcon } from '@credential/react-components';
 
 import ${svgName} from '${`../assets/${asset}`}';
 
-function ${fileName}(props: any) {
-  return <SvgIcon component={${svgName}} viewBox="${viewBox}" {...props} sx={{ width: ${width}, height: ${height}, ...props?.sx }} />;
+function ${fileName}(props: SvgIconProps) {
+  return <SvgIcon component={${svgName}} fontSize="inherit" viewBox="${viewBox}" {...props} />;
 }
 
 export default React.memo(${fileName});
