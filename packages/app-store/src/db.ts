@@ -12,7 +12,7 @@ class CacheDB extends Dexie {
   public cacheDid!: Table<CacheDid>;
 
   constructor() {
-    super(`zkid:credential:cache`);
+    super('zkid:credential:cache');
     this.version(1).stores({
       cacheDid: '&did, *document'
     });
