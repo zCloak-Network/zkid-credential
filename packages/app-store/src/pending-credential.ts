@@ -6,11 +6,11 @@ import type { DidUrl } from '@zcloak/did-resolver/types';
 import type { HashType, RawCredential } from '@zcloak/vc/types';
 
 import { isHex } from '@polkadot/util';
-import { useLiveQuery } from 'dexie-react-hooks';
 
 import { calcRoothash } from '@zcloak/vc';
 
-import { db } from './db';
+import { DB } from './db';
+import { getDB } from './MultiDB';
 
 export type CredentialStatus = 'pending' | 'approved' | 'rejected';
 
@@ -26,23 +26,27 @@ export interface PendingCredential {
   rawCredential: RawCredential;
 }
 
-export function usePendingCredentials(
+export function getPendingCredentials(
+  nameOrDB: string | DB,
   status?: CredentialStatus[]
-): PendingCredential[] | undefined {
-  return useLiveQuery(() => {
-    return db.pendingCredential
-      .orderBy('submitDate')
-      .reverse()
-      .filter((c) => (status ? status.includes(c.status) : true))
-      .toArray();
-  }, []);
+): Promise<PendingCredential[]> {
+  const db = getDB(nameOrDB);
+
+  return db.pendingCredential
+    .orderBy('submitDate')
+    .reverse()
+    .filter((c) => (status ? status.includes(c.status) : true))
+    .toArray();
 }
 
 export async function addPendingCredential(
+  nameOrDB: string | DB,
   rawCredential: RawCredential,
   issuer: DidUrl,
   boundMessageId: string
 ): Promise<void> {
+  const db = getDB(nameOrDB);
+
   if (isHex(rawCredential.credentialSubject)) return;
 
   const rootHash = calcRoothash(
@@ -71,9 +75,12 @@ export async function addPendingCredential(
 }
 
 export async function updatePendingCredential(
+  nameOrDB: string | DB,
   boundMessageId: string,
   status: CredentialStatus
 ): Promise<void> {
+  const db = getDB(nameOrDB);
+
   await db.pendingCredential
     .filter((c) => c.boundMessageId === boundMessageId)
     .modify({

@@ -53,7 +53,7 @@ const SubmitCType: React.FC<{
               },
               {
                 label: 'Upload ctype',
-                exec: () => addCtype(ctype)
+                exec: () => addCtype(publisher.id, ctype)
               }
             ]}
             submitText="Submit ctype"

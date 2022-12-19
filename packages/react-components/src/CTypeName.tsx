@@ -5,12 +5,13 @@ import type { HexString } from '@zcloak/crypto/types';
 
 import React, { useContext, useMemo } from 'react';
 
-import { useCType } from '@credential/app-store';
+import { getCType } from '@credential/app-store';
+import { useLiveQuery } from '@credential/react-hooks';
 
 import { CTypeContext } from './CTypeProvider';
 
 const CTypeName: React.FC<{ cTypeHash?: HexString | null }> = ({ cTypeHash }) => {
-  const ctype = useCType(cTypeHash);
+  const ctype = useLiveQuery(getCType, [cTypeHash]);
   const { serverCTypes } = useContext(CTypeContext);
 
   const title = useMemo(() => {

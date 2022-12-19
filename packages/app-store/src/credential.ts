@@ -6,11 +6,11 @@ import type { DidUrl } from '@zcloak/did-resolver/types';
 import type { HashType, VerifiableCredential } from '@zcloak/vc/types';
 
 import { isHex } from '@polkadot/util';
-import { useLiveQuery } from 'dexie-react-hooks';
 
 import { calcRoothash } from '@zcloak/vc';
 
-import { db } from './db';
+import { DB } from './db';
+import { getDB } from './MultiDB';
 
 export interface Credential {
   digest: HexString;
@@ -24,15 +24,18 @@ export interface Credential {
   vc: VerifiableCredential;
 }
 
-export function useCredentials(): Credential[] | undefined {
-  return useLiveQuery(() => {
-    return db.credential.toArray();
-  }, []);
+export function getCredentials(nameOrDB: string | DB): Promise<Credential[]> {
+  const db = getDB(nameOrDB);
+
+  return db.credential.toArray();
 }
 
 export async function addVC(
+  nameOrDB: string | DB,
   vc: VerifiableCredential | null | undefined
 ): Promise<Credential | null> {
+  const db = getDB(nameOrDB);
+
   if (!vc) return null;
 
   if (isHex(vc.credentialSubject)) {

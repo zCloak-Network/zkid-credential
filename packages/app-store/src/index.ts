@@ -4,3 +4,4 @@
 export * from './cache-did';
 export * from './credential';
 export * from './ctype';
+export * from './pending-credential';

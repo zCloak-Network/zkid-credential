@@ -1501,7 +1501,6 @@ __metadata:
     "@zcloak/message": ^0.6.1
     "@zcloak/vc": ^0.6.1
     dexie: ^3.2.2
-    dexie-react-hooks: ^1.1.1
   languageName: unknown
   linkType: soft
 
@@ -7749,17 +7748,6 @@ __metadata:
     highlight.js: ^9.3.0
     humanize-plus: ^1.8.1
   checksum: b18bdaaebb92d758a547793a4341be5ea56f36ad2ea925f0617fa9b582c511bda7573351644a397236d5fa607f9ccca97118837c766647cfa277b2ea2aec431d
-  languageName: node
-  linkType: hard
-
-"dexie-react-hooks@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "dexie-react-hooks@npm:1.1.1"
-  peerDependencies:
-    "@types/react": ">=16"
-    dexie: ">=3.1.0-alpha.1 <5.0.0"
-    react: ">=16"
-  checksum: 09e1b1d4ebc248d103eb13c8f77733f4c140478350d2b8f3989af2fedb45e0d4ae7a07df9281ade162a3264ff621db35899b47d6edf5bf532ba22d571f6f1496
   languageName: node
   linkType: hard
 

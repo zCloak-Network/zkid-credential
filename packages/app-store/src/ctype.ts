@@ -3,24 +3,37 @@
 
 import type { CType as CTypeInterface } from '@zcloak/ctype/types';
 
-import { useLiveQuery } from 'dexie-react-hooks';
-
 import { HexString } from '@zcloak/crypto/types';
 
-import { db } from './db';
+import { DB } from './db';
+import { getDB } from './MultiDB';
 
 export type CType = CTypeInterface;
 
-export function useCTypes(): CType[] | undefined {
-  return useLiveQuery(() => db.ctype.toArray() ?? [], []);
+export function allCTypes(nameOrDB: string | DB): Promise<CType[]> {
+  const db = getDB(nameOrDB);
+
+  return db.ctype.toArray();
 }
 
-export function useCType(id?: HexString | null): CType | undefined {
-  return useLiveQuery(() => {
-    if (id) {
-      return db.ctype.get(id);
-    }
+export function getCType(nameOrDB: string | DB, id?: HexString | null): Promise<CType | undefined> {
+  const db = getDB(nameOrDB);
 
-    return undefined;
-  }, []);
+  if (id) {
+    return db.ctype.get(id);
+  }
+
+  return Promise.resolve(undefined);
+}
+
+export async function putCType(nameOrDB: string | DB, ctype: CType): Promise<void> {
+  const db = getDB(nameOrDB);
+
+  await db.ctype.put(ctype);
+}
+
+export async function deleteCType(nameOrDB: string | DB, id: HexString): Promise<void> {
+  const db = getDB(nameOrDB);
+
+  await db.ctype.delete(id);
 }
