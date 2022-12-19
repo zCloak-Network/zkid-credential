@@ -9,9 +9,9 @@ import { putCType } from '@credential/app-store';
 
 import { resolver } from '../instance';
 
-export async function addCtype(name: string, ctype?: CType | null): Promise<void> {
+export async function addCtype(ctype?: CType | null): Promise<void> {
   assert(ctype, 'No ctype found');
 
   await resolver.submitAttesterCtype(ctype);
-  await putCType(name, ctype);
+  await putCType(ctype);
 }

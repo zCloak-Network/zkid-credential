@@ -28,7 +28,7 @@ const CTypeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
   useEffect(() => {
     resolver.getClaimerCtypes(did.id).then((ctypes) => {
-      ctypes.forEach((ctype) => putCType(did.id, ctype));
+      ctypes.forEach((ctype) => putCType(ctype));
     });
   }, [did.id]);
 
@@ -42,7 +42,7 @@ const CTypeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     async (hash: HexString) => {
       const ctype = await resolver.submitClaimerImportCtype(did.id, hash);
 
-      putCType(did.id, ctype);
+      putCType(ctype);
     },
     [did.id]
   );

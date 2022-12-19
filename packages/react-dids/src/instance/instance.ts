@@ -5,7 +5,6 @@ import { Keyring } from '@zcloak/keyring';
 import { ZkidWalletProvider } from '@zcloak/login-providers';
 
 import { DID_SERVICE } from '@credential/app-config/endpoints';
-import { initMultiDB } from '@credential/app-store/MultiDB';
 
 import { DidManager } from './DidManager';
 import { CredentialDidResolver } from './DidResolver';
@@ -34,6 +33,4 @@ export async function initInstance(): Promise<void> {
   }
 
   didManager.loadCurrent();
-
-  initMultiDB(didManager.all().map((did) => did.id));
 }

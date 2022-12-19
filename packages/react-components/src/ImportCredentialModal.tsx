@@ -90,7 +90,7 @@ const ImportCredentialModal: React.FC<{ open: boolean; onClose?: () => void }> =
                 <Button
                   onClick={() => {
                     if (result.vc) {
-                      addVC(did.id, result.vc)
+                      addVC(result.vc)
                         .then(() => onClose?.())
                         .catch(notifyError);
                     }

@@ -51,11 +51,11 @@ const SubmitClaim: React.FC<{
 
   const _onDone = useCallback(() => {
     if (rawCredential && encryptedMessage && attester) {
-      addPendingCredential(sender.id, rawCredential, attester.id, encryptedMessage.id);
+      addPendingCredential(rawCredential, attester.id, encryptedMessage.id);
     }
 
     onDone?.();
-  }, [attester, encryptedMessage, onDone, rawCredential, sender.id]);
+  }, [attester, encryptedMessage, onDone, rawCredential]);
 
   return (
     <>

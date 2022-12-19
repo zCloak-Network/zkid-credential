@@ -38,7 +38,9 @@ function DidsProvider({ children, didRole }: { didRole: DidRole; children: React
 
   useEffect(() => {
     const didChange = () => {
-      setAll(didManager.all());
+      const all = didManager.all();
+
+      setAll(all);
     };
 
     didManager.on('add', didChange);

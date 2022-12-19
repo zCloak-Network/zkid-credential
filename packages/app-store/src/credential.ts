@@ -9,8 +9,7 @@ import { isHex } from '@polkadot/util';
 
 import { calcRoothash } from '@zcloak/vc';
 
-import { DB } from './db';
-import { getDB } from './MultiDB';
+import { didManager } from '@credential/react-dids/instance';
 
 export interface Credential {
   digest: HexString;
@@ -24,18 +23,13 @@ export interface Credential {
   vc: VerifiableCredential;
 }
 
-export function getCredentials(nameOrDB: string | DB): Promise<Credential[]> {
-  const db = getDB(nameOrDB);
-
-  return db.credential.toArray();
+export function getCredentials(): Promise<Credential[]> {
+  return didManager.db.credential.toArray();
 }
 
 export async function addVC(
-  nameOrDB: string | DB,
   vc: VerifiableCredential | null | undefined
 ): Promise<Credential | null> {
-  const db = getDB(nameOrDB);
-
   if (!vc) return null;
 
   if (isHex(vc.credentialSubject)) {
@@ -48,7 +42,7 @@ export async function addVC(
     vc.credentialSubjectNonceMap
   ).rootHash;
 
-  const exists = await db.credential
+  const exists = await didManager.db.credential
     .filter((credential) => credential.digest === vc.digest && credential.issuer === vc.issuer)
     .first();
 
@@ -68,7 +62,7 @@ export async function addVC(
     vc
   };
 
-  await db.credential.add(credential);
+  await didManager.db.credential.add(credential);
 
   return credential;
 }

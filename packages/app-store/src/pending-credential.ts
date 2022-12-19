@@ -9,8 +9,7 @@ import { isHex } from '@polkadot/util';
 
 import { calcRoothash } from '@zcloak/vc';
 
-import { DB } from './db';
-import { getDB } from './MultiDB';
+import { didManager } from '@credential/react-dids/instance';
 
 export type CredentialStatus = 'pending' | 'approved' | 'rejected';
 
@@ -26,13 +25,8 @@ export interface PendingCredential {
   rawCredential: RawCredential;
 }
 
-export function getPendingCredentials(
-  nameOrDB: string | DB,
-  status?: CredentialStatus[]
-): Promise<PendingCredential[]> {
-  const db = getDB(nameOrDB);
-
-  return db.pendingCredential
+export function getPendingCredentials(status?: CredentialStatus[]): Promise<PendingCredential[]> {
+  return didManager.db.pendingCredential
     .orderBy('submitDate')
     .reverse()
     .filter((c) => (status ? status.includes(c.status) : true))
@@ -40,13 +34,10 @@ export function getPendingCredentials(
 }
 
 export async function addPendingCredential(
-  nameOrDB: string | DB,
   rawCredential: RawCredential,
   issuer: DidUrl,
   boundMessageId: string
 ): Promise<void> {
-  const db = getDB(nameOrDB);
-
   if (isHex(rawCredential.credentialSubject)) return;
 
   const rootHash = calcRoothash(
@@ -55,12 +46,12 @@ export async function addPendingCredential(
     rawCredential.credentialSubjectNonceMap
   ).rootHash;
 
-  const exists = await db.pendingCredential
+  const exists = await didManager.db.pendingCredential
     .filter((c) => c.issuer === issuer && c.rootHash === rootHash)
     .toArray();
 
   if (exists.length === 0) {
-    await db.pendingCredential.add({
+    await didManager.db.pendingCredential.add({
       rootHash,
       ctype: rawCredential.ctype,
       issuer,
@@ -75,13 +66,10 @@ export async function addPendingCredential(
 }
 
 export async function updatePendingCredential(
-  nameOrDB: string | DB,
   boundMessageId: string,
   status: CredentialStatus
 ): Promise<void> {
-  const db = getDB(nameOrDB);
-
-  await db.pendingCredential
+  await didManager.db.pendingCredential
     .filter((c) => c.boundMessageId === boundMessageId)
     .modify({
       status

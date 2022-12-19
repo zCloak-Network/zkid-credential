@@ -58,6 +58,11 @@ const DidMenu: React.FC<Props> = ({ anchorEl, did, onClose, open }) => {
     onClose();
   }, [navigate, onClose, pathname]);
 
+  const handleChange = useCallback(() => {
+    toggleMultiDid();
+    onClose();
+  }, [onClose, toggleMultiDid]);
+
   return (
     <>
       <Menu
@@ -81,7 +86,7 @@ const DidMenu: React.FC<Props> = ({ anchorEl, did, onClose, open }) => {
           <Typography fontWeight={500} variant="h6">
             Did
           </Typography>
-          <Button onClick={toggleMultiDid} size="small">
+          <Button onClick={handleChange} size="small">
             Change
           </Button>
         </Box>

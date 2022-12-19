@@ -8,7 +8,7 @@ import type { PendingCredential } from './pending-credential';
 
 import Dexie, { Table } from 'dexie';
 
-export class CacheDB extends Dexie {
+class CacheDB extends Dexie {
   public cacheDid!: Table<CacheDid>;
 
   constructor() {
@@ -19,7 +19,7 @@ export class CacheDB extends Dexie {
   }
 }
 
-export class DidDB extends Dexie {
+class DidDB extends Dexie {
   public ctype!: Table<CType>;
   public credential!: Table<Credential>;
   public pendingCredential!: Table<PendingCredential>;
@@ -40,9 +40,9 @@ export class DB {
   public cacheDB: CacheDB;
   public didDB: DidDB;
 
-  constructor(cacheDB: CacheDB, didDB: DidDB) {
-    this.cacheDB = cacheDB;
-    this.didDB = didDB;
+  constructor(name: string) {
+    this.cacheDB = new CacheDB();
+    this.didDB = new DidDB(name);
   }
 
   public get cacheDid(): Table<CacheDid> {

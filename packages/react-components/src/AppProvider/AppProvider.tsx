@@ -102,9 +102,9 @@ function AppProvider({ children }: { children: React.ReactNode }) {
         resolver
       ).then((decrypted) => {
         if (decrypted.msgType === 'Response_Approve_Attestation') {
-          addVC(did.id, decrypted.data);
+          addVC(decrypted.data);
         } else if (decrypted.msgType === 'Send_issuedVC') {
-          addVC(did.id, decrypted.data);
+          addVC(decrypted.data);
         }
 
         // set cache when success
@@ -155,12 +155,12 @@ function AppProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     messages.forEach((message) => {
       if (message.msgType === 'Response_Approve_Attestation') {
-        if (message.reply) updatePendingCredential(did.id, message.reply, 'approved');
+        if (message.reply) updatePendingCredential(message.reply, 'approved');
       } else if (message.msgType === 'Response_Reject_Attestation') {
-        if (message.reply) updatePendingCredential(did.id, message.reply, 'rejected');
+        if (message.reply) updatePendingCredential(message.reply, 'rejected');
       }
     });
-  }, [did.id, messages]);
+  }, [messages]);
 
   const readMessage = useCallback(async (id: string) => {
     setMessages((messages) =>

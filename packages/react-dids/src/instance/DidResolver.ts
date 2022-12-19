@@ -9,7 +9,7 @@ import type { ServerCtypes, ServerMessage } from '../types';
 
 import { ArweaveDidResolver } from '@zcloak/did-resolver';
 
-import { cacheDB } from '@credential/app-store/MultiDB';
+import { putDid, queryDid } from '@credential/app-store/cache-did';
 
 import { get, post } from '../utils/request';
 
@@ -40,11 +40,11 @@ export class CredentialDidResolver extends ArweaveDidResolver {
   }
 
   private async queryDid(didUrl: string): Promise<DidDocument> {
-    let document = await cacheDB.cacheDid.get({ did: didUrl }).then((data) => data?.document);
+    let document = await queryDid(didUrl);
 
     if (!document) {
       document = await super.resolve(didUrl);
-      await cacheDB.cacheDid.put({ did: document.id, document });
+      putDid(document);
     }
 
     return document;
