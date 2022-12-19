@@ -12,7 +12,9 @@ import { SvgIcon } from '@credential/react-components';
 import IconNewTaskSvg from '../assets/icon_new_task.svg';
 
 function IconNewTask(props: SvgIconProps) {
-  return <SvgIcon component={IconNewTaskSvg} fontSize="inherit" viewBox="0 0 16.448 19" {...props} />;
+  return (
+    <SvgIcon component={IconNewTaskSvg} fontSize="inherit" viewBox="0 0 16.448 19" {...props} />
+  );
 }
 
 export default React.memo(IconNewTask);

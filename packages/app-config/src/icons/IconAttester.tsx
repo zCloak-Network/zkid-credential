@@ -12,7 +12,14 @@ import { SvgIcon } from '@credential/react-components';
 import IconAttesterSvg from '../assets/icon_attester.svg';
 
 function IconAttester(props: SvgIconProps) {
-  return <SvgIcon component={IconAttesterSvg} fontSize="inherit" viewBox="0 0 12.757 13.676" {...props} />;
+  return (
+    <SvgIcon
+      component={IconAttesterSvg}
+      fontSize="inherit"
+      viewBox="0 0 12.757 13.676"
+      {...props}
+    />
+  );
 }
 
 export default React.memo(IconAttester);

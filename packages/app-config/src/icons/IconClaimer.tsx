@@ -12,7 +12,9 @@ import { SvgIcon } from '@credential/react-components';
 import IconClaimerSvg from '../assets/icon_claimer.svg';
 
 function IconClaimer(props: SvgIconProps) {
-  return <SvgIcon component={IconClaimerSvg} fontSize="inherit" viewBox="0 0 15.192 11.655" {...props} />;
+  return (
+    <SvgIcon component={IconClaimerSvg} fontSize="inherit" viewBox="0 0 15.192 11.655" {...props} />
+  );
 }
 
 export default React.memo(IconClaimer);

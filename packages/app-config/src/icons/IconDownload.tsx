@@ -12,7 +12,14 @@ import { SvgIcon } from '@credential/react-components';
 import IconDownloadSvg from '../assets/icon_download.svg';
 
 function IconDownload(props: SvgIconProps) {
-  return <SvgIcon component={IconDownloadSvg} fontSize="inherit" viewBox="0 0 13.327 14.135" {...props} />;
+  return (
+    <SvgIcon
+      component={IconDownloadSvg}
+      fontSize="inherit"
+      viewBox="0 0 13.327 14.135"
+      {...props}
+    />
+  );
 }
 
 export default React.memo(IconDownload);

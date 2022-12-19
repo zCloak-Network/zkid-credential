@@ -12,7 +12,9 @@ import { SvgIcon } from '@credential/react-components';
 import IconLogoCircleSvg from '../assets/icon_logo_circle.svg';
 
 function IconLogoCircle(props: SvgIconProps) {
-  return <SvgIcon component={IconLogoCircleSvg} fontSize="inherit" viewBox="0 0 60 60" {...props} />;
+  return (
+    <SvgIcon component={IconLogoCircleSvg} fontSize="inherit" viewBox="0 0 60 60" {...props} />
+  );
 }
 
 export default React.memo(IconLogoCircle);

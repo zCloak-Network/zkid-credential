@@ -12,7 +12,14 @@ import { SvgIcon } from '@credential/react-components';
 import IconNewMessageSvg from '../assets/icon_new_message.svg';
 
 function IconNewMessage(props: SvgIconProps) {
-  return <SvgIcon component={IconNewMessageSvg} fontSize="inherit" viewBox="0 0 18.999 18.999" {...props} />;
+  return (
+    <SvgIcon
+      component={IconNewMessageSvg}
+      fontSize="inherit"
+      viewBox="0 0 18.999 18.999"
+      {...props}
+    />
+  );
 }
 
 export default React.memo(IconNewMessage);
