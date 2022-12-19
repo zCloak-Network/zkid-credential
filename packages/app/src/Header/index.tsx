@@ -95,7 +95,7 @@ function Header({
       >
         <Stack alignItems="center" direction="row" spacing={upMd ? 2 : 1}>
           {!upMd && (
-            <IconButton onClick={toggleOpen} size="small">
+            <IconButton onClick={toggleOpen} sx={{ padding: 0.5 }}>
               <MenuIcon />
             </IconButton>
           )}
@@ -116,13 +116,13 @@ function Header({
           {upSm && <Chip color="warning" label="Beta" variant="outlined" />}
         </Stack>
         <Stack alignItems="center" direction="row" spacing={upMd ? 2 : 1}>
-          <IconButton onClick={toggleNotiOpen} size={upMd ? 'medium' : 'small'}>
+          <IconButton onClick={toggleNotiOpen}>
             <Badge badgeContent={unreads.allUnread} color="warning" max={99}>
               <NotificationsNoneOutlinedIcon />
             </Badge>
           </IconButton>
           {!isLoginDid(did) && (
-            <IconButton onClick={!isLocked ? lock : undefined} size={upMd ? 'medium' : 'small'}>
+            <IconButton onClick={!isLocked ? lock : undefined}>
               {isLocked ? <Lock /> : <LockOpen />}
             </IconButton>
           )}

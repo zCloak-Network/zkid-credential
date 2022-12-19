@@ -271,11 +271,11 @@ const createComponents: Func = () => ({
       },
       sizeSmall: {
         padding: '4px 8px',
-        fontSize: '0.75rem'
+        fontSize: '0.875rem'
       },
       sizeMedium: {
         padding: '8px 12px',
-        fontSize: '1rem'
+        fontSize: 'inherit'
       },
       sizeLarge: {
         padding: '12px 16px',
@@ -293,19 +293,22 @@ const createComponents: Func = () => ({
         }
       }),
       sizeSmall: {
-        width: 36,
-        height: 36,
+        padding: 0,
+        width: 28,
+        height: 28,
         fontSize: '0.875rem'
       },
       sizeMedium: {
-        width: 44,
-        height: 44,
-        fontSize: '1rem'
+        padding: 0,
+        width: 36,
+        height: 36,
+        fontSize: '1.25rem'
       },
       sizeLarge: {
-        width: 52,
-        height: 52,
-        fontSize: '1.25rem'
+        padding: 0,
+        width: 44,
+        height: 44,
+        fontSize: '1.75rem'
       }
     }
   },
@@ -427,6 +430,12 @@ const createComponents: Func = () => ({
       root: {
         textTransform: 'initial'
       }
+    }
+  },
+
+  MuiSvgIcon: {
+    defaultProps: {
+      fontSize: 'inherit'
     }
   }
 });

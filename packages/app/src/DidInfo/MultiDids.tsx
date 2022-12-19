@@ -3,18 +3,16 @@
 
 import type { Did } from '@zcloak/did';
 
-import React, { useCallback, useContext, useMemo } from 'react';
+import DoneIcon from '@mui/icons-material/Done';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import {
-  IconCopy,
-  IconCreate,
-  IconDelete,
-  IconExport,
-  IconImportDid
-} from '@credential/app-config/icons';
+import { LoginDid } from '@zcloak/login-did';
+
+import { IconCopy, IconCreate, IconDelete, IconImportDid } from '@credential/app-config/icons';
 import {
   alpha,
+  Button,
   Chip,
   Dialog,
   DialogContent,
@@ -26,13 +24,25 @@ import {
   Typography
 } from '@credential/react-components';
 import { DidName, DidsContext, isLoginDid } from '@credential/react-dids';
+import { didManager, provider } from '@credential/react-dids/instance';
+import { useCopyClipboard } from '@credential/react-hooks';
 
-function DidCell({ active, did }: { active?: boolean; did: Did }) {
+function DidCell({ active, did, onClose }: { active?: boolean; did: Did; onClose: () => void }) {
   const { switchDid } = useContext(DidsContext);
+  const [isCopy, copy] = useCopyClipboard();
 
   const handleClick = useCallback(() => {
     switchDid(did);
-  }, [did, switchDid]);
+    onClose();
+  }, [did, onClose, switchDid]);
+
+  const handleCopy = useCallback(() => {
+    copy(did.id);
+  }, [copy, did.id]);
+
+  const handleDelete = useCallback(() => {
+    didManager.remove(did.id);
+  }, [did.id]);
 
   const isLogin = useMemo(() => isLoginDid(did), [did]);
 
@@ -79,13 +89,10 @@ function DidCell({ active, did }: { active?: boolean; did: Did }) {
             }
           })}
         >
-          <IconButton size="small">
-            <IconExport />
+          <IconButton onClick={handleCopy} size="small">
+            {isCopy ? <DoneIcon /> : <IconCopy />}
           </IconButton>
-          <IconButton size="small">
-            <IconCopy />
-          </IconButton>
-          <IconButton size="small">
+          <IconButton onClick={handleDelete} size="small">
             <IconDelete />
           </IconButton>
         </Stack>
@@ -96,8 +103,28 @@ function DidCell({ active, did }: { active?: boolean; did: Did }) {
 
 function MultiDids({ onClose }: { onClose: () => void }) {
   const location = useLocation();
-  const { all, did } = useContext(DidsContext);
+  const { all, did, switchDid } = useContext(DidsContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const localDids = useMemo(() => all.filter((did) => !isLoginDid(did)), [all]);
+  const loginDid = useMemo(() => all.find(isLoginDid), [all]);
+
+  const loginWallet = useCallback(async () => {
+    if (!provider) return;
+
+    setLoading(true);
+
+    try {
+      await provider.requestAuth();
+      const did = await LoginDid.fromProvider(provider);
+
+      didManager.addDid(did);
+      switchDid(did);
+    } finally {
+      setLoading(false);
+    }
+  }, [switchDid]);
 
   return (
     <Dialog maxWidth="sm" onClose={onClose} open>
@@ -134,8 +161,15 @@ function MultiDids({ onClose }: { onClose: () => void }) {
           </Stack>
         </Stack>
         <Stack mt={4} spacing={1}>
-          {all.map((item) => (
-            <DidCell active={item === did} did={item} key={item.id} />
+          {loginDid ? (
+            <DidCell active={loginDid === did} did={loginDid} key={loginDid.id} onClose={onClose} />
+          ) : (
+            <Button disabled={loading} fullWidth onClick={loginWallet} variant="contained">
+              Login with zkID Wallet
+            </Button>
+          )}
+          {localDids.map((item) => (
+            <DidCell active={item === did} did={item} key={item.id} onClose={onClose} />
           ))}
         </Stack>
       </DialogContent>

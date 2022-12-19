@@ -78,6 +78,7 @@ function DidsProvider({ children, didRole }: { didRole: DidRole; children: React
   const switchDid = useCallback((did: Did) => {
     didManager.setCurrent(did);
     setDid(did);
+    setIsLocked(getIsLocked(did));
   }, []);
 
   return did ? (

@@ -6,7 +6,7 @@ import type { HexString } from '@zcloak/crypto/types';
 import { assert } from '@polkadot/util';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-import { allCTypes, CType, putCType } from '@credential/app-store';
+import { allCTypes, CType, deleteCType as deleteCTypeDB, putCType } from '@credential/app-store';
 import { DidsContext } from '@credential/react-dids';
 import { resolver } from '@credential/react-dids/instance';
 import { useLiveQuery } from '@credential/react-hooks';
@@ -52,7 +52,7 @@ const CTypeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       assert(did.id, 'did not found');
 
       resolver.deleteClaimerImportCtype(did.id, hash);
-      deleteCType(hash);
+      deleteCTypeDB(hash);
     },
     [did]
   );

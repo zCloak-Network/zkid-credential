@@ -22,6 +22,7 @@ export { default as FileUpload } from './FileUpload';
 export { default as FullScreenDialog } from './FullScreenDialog';
 export { default as FullScreenDialogContent } from './FullScreenDialogContent';
 export { default as FullScreenDialogHeader } from './FullScreenDialogHeader';
+export { default as IconButton } from './IconButton';
 export { default as IdentityIcon } from './IdentityIcon';
 export { default as ImportCredentialModal } from './ImportCredentialModal';
 export { default as ImportCTypeModal } from './ImportCTypeModal';
@@ -59,7 +60,6 @@ export {
   Unstable_Grid2,
   InputAdornment,
   InputLabel,
-  IconButton,
   Drawer,
   Tabs,
   Tab,

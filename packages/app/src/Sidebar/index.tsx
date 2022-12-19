@@ -217,11 +217,9 @@ const Sidebar: React.FC<Props> = ({ accountType, items, open, toggleOpen }) => {
             display: 'flex',
             position: 'absolute',
             marginTop: -3,
-            right: -15,
-            width: 30,
-            height: 30,
-            minHeight: 30,
-            background: lighten(palette.primary.main, 0.15)
+            right: -20,
+            background: lighten(palette.primary.main, 0.15),
+            fontSize: '1.5rem'
           })}
         >
           {open ? <KeyboardArrowLeftRoundedIcon /> : <KeyboardArrowRightRoundedIcon />}

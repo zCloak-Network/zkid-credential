@@ -3,7 +3,7 @@
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
 
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { mnemonicGenerate } from '@zcloak/crypto';
@@ -18,6 +18,7 @@ import {
   Stepper,
   Typography
 } from '@credential/react-components';
+import { didManager } from '@credential/react-dids/instance';
 import { useQueryParam } from '@credential/react-hooks';
 
 import Step1 from './create/Step1';
@@ -39,6 +40,16 @@ const Create: React.FC = () => {
   const prevStep = useCallback(() => {
     setStep((step) => step - 1);
   }, []);
+
+  useEffect(() => {
+    if (step === 3 && didUrl) {
+      const did = didManager.getDid(didUrl);
+
+      if (did) {
+        didManager.setCurrent(did);
+      }
+    }
+  }, [didUrl, step]);
 
   return (
     <Container maxWidth="sm" sx={{ mt: 4 }}>

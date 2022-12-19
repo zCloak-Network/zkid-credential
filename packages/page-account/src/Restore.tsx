@@ -7,6 +7,7 @@ import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { alpha, Box, Button, Container, Typography } from '@credential/react-components';
+import { didManager } from '@credential/react-dids/instance';
 import { useQueryParam } from '@credential/react-hooks';
 
 import RestoreKeys from './restore/RestoreKeys';
@@ -22,6 +23,12 @@ const Restore: React.FC = () => {
 
   const onSuccess = useCallback((didUrl: DidUrl) => {
     setDidUrl(didUrl);
+    const did = didManager.getDid(didUrl);
+
+    if (did) {
+      didManager.setCurrent(did);
+    }
+
     setSuccess(true);
   }, []);
 
