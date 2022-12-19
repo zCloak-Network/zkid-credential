@@ -12,14 +12,7 @@ import { SvgIcon } from '@credential/react-components';
 import IconLogoBlackSvg from '../assets/icon_logo_black.svg';
 
 function IconLogoBlack(props: SvgIconProps) {
-  return (
-    <SvgIcon
-      component={IconLogoBlackSvg}
-      fontSize="inherit"
-      viewBox="0 0 28.384 30.184"
-      {...props}
-    />
-  );
+  return <SvgIcon component={IconLogoBlackSvg} fontSize="inherit" viewBox="0 0 28.384 30.184" {...props} />;
 }
 
 export default React.memo(IconLogoBlack);

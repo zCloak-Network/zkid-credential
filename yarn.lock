@@ -1526,6 +1526,7 @@ __metadata:
     "@zcloak/vc": ^0.6.1
     "@zcloak/verify": ^0.6.1
     "@zcloak/wasm": ^0.6.1
+    "@zcloak/wasm-asm": ^0.6.1
     assert: ^2.0.0
     babel-loader: ^9.1.0
     buffer: ^6.0.3
@@ -4920,6 +4921,13 @@ __metadata:
     "@zcloak/did-resolver": 0.6.2-1
     "@zcloak/vc": 0.6.2-1
   checksum: df53412d9f486c450b57e5227deac326310d21559d413d446302850741ad28e4048734d186ea001077914a2c9ca686e92066eb6f974d2149d494f80e98db6f78
+  languageName: node
+  linkType: hard
+
+"@zcloak/wasm-asm@npm:^0.6.2-1":
+  version: 0.6.2-1
+  resolution: "@zcloak/wasm-asm@npm:0.6.2-1"
+  checksum: 08d3f7bedc38319b212b08c54fab10ebc7497c9fad598f9510f7c7913c4ed6c8a5af85f42408d9b84bd01612c068c8dd6e032c141c304935701e782731e508de
   languageName: node
   linkType: hard
 

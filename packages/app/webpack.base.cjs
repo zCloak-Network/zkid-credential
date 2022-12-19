@@ -129,9 +129,7 @@ function createWebpack(context, mode = 'production') {
             /* 01 */ /packages\/(react-components|react-hooks|react-ctype|react-dids)/,
             /* 01 */ /packages\/(page-account|page-claims|page-ctype|page-did|page-issue|page-message|page-tasks)/
           ]),
-          ...mapChunks('zcloak', [
-            /node_modules\/@zcloak\/(extension-core|crypto|ctype|did|did-resolver|keyring|message|vc|verify|wasm|wasm-asm|wasm-bridge)/
-          ]),
+          ...mapChunks('zcloak', [/node_modules\/@zcloak/]),
           ...mapChunks('crypto', [
             /node_modules\/(@noble\/hashes|@noble\/secp256k1|@scure\/base|bip39|canonicalize|ed2curve|tweetnacl|merkletreejs)/
           ]),

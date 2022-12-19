@@ -12,9 +12,7 @@ import { SvgIcon } from '@credential/react-components';
 import IconImportSvg from '../assets/icon_import.svg';
 
 function IconImport(props: SvgIconProps) {
-  return (
-    <SvgIcon component={IconImportSvg} fontSize="inherit" viewBox="0 0 12.907 12.907" {...props} />
-  );
+  return <SvgIcon component={IconImportSvg} fontSize="inherit" viewBox="0 0 12.907 12.907" {...props} />;
 }
 
 export default React.memo(IconImport);

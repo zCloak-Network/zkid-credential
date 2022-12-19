@@ -12,9 +12,7 @@ import { SvgIcon } from '@credential/react-components';
 import IconDeleteSvg from '../assets/icon_delete.svg';
 
 function IconDelete(props: SvgIconProps) {
-  return (
-    <SvgIcon component={IconDeleteSvg} fontSize="inherit" viewBox="0 0 13.621 14.668" {...props} />
-  );
+  return <SvgIcon component={IconDeleteSvg} fontSize="inherit" viewBox="0 0 13.621 14.668" {...props} />;
 }
 
 export default React.memo(IconDelete);
