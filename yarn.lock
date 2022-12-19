@@ -1640,11 +1640,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@credential/react-components@0.6.1, @credential/react-components@workspace:packages/react-components":
+"@credential/react-components@0.6.2-0, @credential/react-components@workspace:packages/react-components":
   version: 0.0.0-use.local
   resolution: "@credential/react-components@workspace:packages/react-components"
   dependencies:
-    "@credential/react-hooks": 0.6.1
+    "@credential/react-hooks": 0.6.2-0
     "@date-io/date-fns": ^2.16.0
     "@date-io/moment": ^2.16.1
     "@emotion/react": ^11.10.5
@@ -1670,13 +1670,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/react-ctype@workspace:packages/react-ctype"
   dependencies:
-    "@credential/react-components": 0.6.1
-    "@credential/react-dids": 0.6.1
+    "@credential/react-components": 0.6.2-0
+    "@credential/react-dids": 0.6.2-0
     "@zcloak/ctype": ^0.6.1
   languageName: unknown
   linkType: soft
 
-"@credential/react-dids@0.6.1, @credential/react-dids@workspace:packages/react-dids":
+"@credential/react-dids@0.6.2-0, @credential/react-dids@workspace:packages/react-dids":
   version: 0.0.0-use.local
   resolution: "@credential/react-dids@workspace:packages/react-dids"
   dependencies:
@@ -1697,11 +1697,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@credential/react-hooks@0.6.1, @credential/react-hooks@workspace:packages/react-hooks":
+"@credential/react-hooks@0.6.2-0, @credential/react-hooks@workspace:packages/react-hooks":
   version: 0.0.0-use.local
   resolution: "@credential/react-hooks@workspace:packages/react-hooks"
   dependencies:
-    "@credential/react-dids": 0.6.1
+    "@credential/react-dids": 0.6.2-0
     "@polkadot/util": ^10.2.1
     "@zcloak/crypto": ^0.6.1
     "@zcloak/ctype": ^0.6.1
