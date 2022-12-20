@@ -4,15 +4,13 @@
 import type { Did } from '@zcloak/did';
 
 import DoneIcon from '@mui/icons-material/Done';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
-import { LoginDid } from '@zcloak/login-did';
 
 import { IconCopy, IconCreate, IconDelete, IconImportDid } from '@credential/app-config/icons';
 import {
   alpha,
-  Button,
+  ButtonWallet,
   Chip,
   Dialog,
   DialogContent,
@@ -24,7 +22,7 @@ import {
   Typography
 } from '@credential/react-components';
 import { DidName, DidsContext, isLoginDid } from '@credential/react-dids';
-import { didManager, provider } from '@credential/react-dids/instance';
+import { didManager } from '@credential/react-dids/instance';
 import { useCopyClipboard } from '@credential/react-hooks';
 
 function DidCell({ active, did, onClose }: { active?: boolean; did: Did; onClose: () => void }) {
@@ -105,26 +103,9 @@ function MultiDids({ onClose }: { onClose: () => void }) {
   const location = useLocation();
   const { all, did, switchDid } = useContext(DidsContext);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
 
   const localDids = useMemo(() => all.filter((did) => !isLoginDid(did)), [all]);
   const loginDid = useMemo(() => all.find(isLoginDid), [all]);
-
-  const loginWallet = useCallback(async () => {
-    if (!provider) return;
-
-    setLoading(true);
-
-    try {
-      await provider.requestAuth();
-      const did = await LoginDid.fromProvider(provider);
-
-      didManager.addDid(did);
-      switchDid(did);
-    } finally {
-      setLoading(false);
-    }
-  }, [switchDid]);
 
   return (
     <Dialog maxWidth="sm" onClose={onClose} open>
@@ -164,9 +145,7 @@ function MultiDids({ onClose }: { onClose: () => void }) {
           {loginDid ? (
             <DidCell active={loginDid === did} did={loginDid} key={loginDid.id} onClose={onClose} />
           ) : (
-            <Button disabled={loading} fullWidth onClick={loginWallet} variant="contained">
-              Login with zkID Wallet
-            </Button>
+            <ButtonWallet fullWidth onDone={switchDid} variant="contained" />
           )}
           {localDids.map((item) => (
             <DidCell active={item === did} did={item} key={item.id} onClose={onClose} />

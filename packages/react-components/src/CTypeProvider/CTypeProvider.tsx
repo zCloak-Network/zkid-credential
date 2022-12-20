@@ -20,15 +20,14 @@ interface State {
 
 export const CTypeContext = createContext<State>({} as State);
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-const CTypeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+function CTypeProvider({ children }: { children: React.ReactNode }) {
   const { did } = useContext(DidsContext);
   const [serverCTypes, setServerCTypes] = useState<CType[]>([]);
   const ctypes = useLiveQuery(allCTypes);
 
   useEffect(() => {
     resolver.getClaimerCtypes(did.id).then((ctypes) => {
-      ctypes.forEach((ctype) => putCType(ctype));
+      ctypes.forEach((ctype) => putCType(ctype.rawData));
     });
   }, [did.id]);
 
@@ -67,6 +66,6 @@ const CTypeProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   }, [ctypes, deleteCType, importCType, serverCTypes]);
 
   return <CTypeContext.Provider value={value}>{children}</CTypeContext.Provider>;
-};
+}
 
 export default React.memo<typeof CTypeProvider>(CTypeProvider);

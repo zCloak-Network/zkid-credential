@@ -72,7 +72,7 @@ export class CredentialDidResolver extends ArweaveDidResolver {
     if (res?.code !== 200) {
       throw new Error(res?.message);
     } else {
-      return res.data;
+      return res.data || [];
     }
   }
 
@@ -94,13 +94,13 @@ export class CredentialDidResolver extends ArweaveDidResolver {
     }
   }
 
-  async getClaimerCtypes(claimerDidUrl: DidUrl): Promise<CType[]> {
+  async getClaimerCtypes(claimerDidUrl: DidUrl): Promise<ServerCtypes[]> {
     const res = await get(`${this.server}/claimer/${claimerDidUrl}/ctype`);
 
     if (res?.code !== 200) {
       throw new Error(res?.message);
     } else {
-      return res.data?.rawData || [];
+      return res.data || [];
     }
   }
 
