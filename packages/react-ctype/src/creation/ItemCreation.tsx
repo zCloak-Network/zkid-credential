@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import {
   Autocomplete,
   FormControl,
+  InputBool,
   InputLabel,
   OutlinedInput,
   Stack
@@ -36,6 +37,7 @@ function ItemCreation({
   const [type, setType] = useState<ItemType | null>(null);
   const [restrictions, setRestrictions] = useState<CTypeSchema>();
   const [enums, setEnums] = useState<(string | number)[]>();
+  const [required, setRequired] = useState(false);
 
   useEffect(() => {
     if (!name) return;
@@ -46,7 +48,7 @@ function ItemCreation({
   useEffect(() => {
     if (!type) return;
 
-    let schema: CTypeSchema = { type };
+    let schema: CTypeSchema = { type, required };
 
     if (restrictions) {
       schema = { ...schema, ...restrictions };
@@ -57,7 +59,7 @@ function ItemCreation({
     }
 
     onChange(schema);
-  }, [enums, onChange, restrictions, type]);
+  }, [enums, onChange, required, restrictions, type]);
 
   return (
     <Stack spacing={3}>
@@ -78,6 +80,7 @@ function ItemCreation({
           </FormControl>
         )}
       />
+      {type && <InputBool label="Required" onChange={setRequired} />}
       {(type === 'number' || type === 'integer') && (
         <NumberRestrictions onChange={setRestrictions} />
       )}

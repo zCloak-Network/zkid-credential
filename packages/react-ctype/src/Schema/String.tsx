@@ -30,7 +30,9 @@ function SchemaString({
   useEffect(() => {
     const _value = value ?? '';
 
-    if (schema.maxLength && _value.length > schema.maxLength) {
+    if (schema.required === true && !_value) {
+      setError(new Error('Required item, please input'));
+    } else if (schema.maxLength && _value.length > schema.maxLength) {
       setError(new Error(`The maximum length of value is ${schema.maxLength}`));
     } else if (schema.minLength && _value.length < schema.minLength) {
       setError(new Error(`The minimum length of value is ${schema.minLength}`));
