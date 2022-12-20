@@ -3,7 +3,7 @@
 
 import type { CTypeSchemaProps } from '../types';
 
-import { isArray } from '@polkadot/util';
+import { isArray, isUndefined } from '@polkadot/util';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { Alert } from '@credential/react-components';
@@ -30,7 +30,7 @@ function SchemaArray({ defaultValue, disabled, name, onChange, schema }: CTypeSc
     if (schema.maxItems && _value.length > schema.maxItems) {
       setError(new Error(`The maximum items of value is ${schema.maxItems}`));
     } else if (schema.minItems && _value.length < schema.minItems) {
-      setError(new Error(`The minimum items of value is ${schema.maxItems}`));
+      setError(new Error(`The minimum items of value is ${schema.minItems}`));
     } else if (schema.uniqueItems && new Set(_value).size < _value.length) {
       setError(new Error('Each items value should be unique'));
     } else {
@@ -40,11 +40,11 @@ function SchemaArray({ defaultValue, disabled, name, onChange, schema }: CTypeSc
 
   return (
     <>
-      {isArray(schema.items) ? (
+      {!isUndefined(schema.items) && isArray(schema.items) ? (
         <SchemaVectorFixed
           defaultValue={_defaultValue}
           disabled={disabled}
-          items={schema.items}
+          items={schema.items ?? []}
           name={name}
           onChange={setValue}
           schema={schema}

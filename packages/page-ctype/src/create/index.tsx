@@ -1,8 +1,10 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { CTypeSchema } from '@zcloak/ctype/types';
+
 import IndeterminateCheckBoxOutlinedIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -38,26 +40,8 @@ const CreateCType: React.FC = () => {
   const [cTypeContent, setCTypeContent, clear] = useLocalStorage<{
     title?: string;
     description?: string;
-    properties?: Record<string, string>;
+    properties?: Record<string, CTypeSchema>;
   }>(key);
-
-  const properties = useMemo(() => {
-    if (cTypeContent?.title && cTypeContent?.properties) {
-      if (Object.entries(cTypeContent.properties).length === 0) {
-        return undefined;
-      }
-
-      return Object.entries(cTypeContent.properties)
-        .map(([name, property]) => ({
-          [name]: {
-            type: property as any
-          }
-        }))
-        .reduce((l, r) => ({ ...l, ...r }));
-    } else {
-      return undefined;
-    }
-  }, [cTypeContent]);
 
   const onDone = useCallback(() => {
     clear();
@@ -104,7 +88,7 @@ const CreateCType: React.FC = () => {
                 onCreate={(property) => {
                   setCTypeContent((value) => ({
                     ...value,
-                    properties: Object.assign(value?.properties ?? {}, property)
+                    properties: { ...(value?.properties ?? {}), ...property }
                   }));
                 }}
               />
@@ -143,7 +127,7 @@ const CreateCType: React.FC = () => {
                           </IconButton>
                         </TableCell>
                         <TableCell>{name}</TableCell>
-                        <TableCell>{property}</TableCell>
+                        <TableCell>{property.type}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -158,7 +142,7 @@ const CreateCType: React.FC = () => {
         <SubmitCType
           description={cTypeContent?.description}
           onDone={onDone}
-          properties={properties}
+          properties={cTypeContent?.properties}
           title={cTypeContent?.title}
         />
       </DialogActions>

@@ -1,9 +1,9 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useContext, useMemo, useState } from 'react';
+import type { BaseCType, CType, CTypeSchema } from '@zcloak/ctype/types';
 
-import { BaseCType, CType } from '@zcloak/ctype/types';
+import React, { useContext, useMemo, useState } from 'react';
 
 import { Button } from '@credential/react-components';
 import { DidsContext, DidsModal } from '@credential/react-dids';
@@ -12,7 +12,7 @@ import { useToggle } from '@credential/react-hooks';
 
 const SubmitCType: React.FC<{
   title?: string;
-  properties?: Record<string, { type: any }>;
+  properties?: Record<string, CTypeSchema>;
   onDone: () => void;
   description?: string;
 }> = ({ description, onDone, properties, title }) => {

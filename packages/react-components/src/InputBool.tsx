@@ -6,7 +6,7 @@ import type { InputBoolProps } from './types';
 import { FormControl, FormHelperText, InputLabel, Switch } from '@mui/material';
 import React, { useCallback } from 'react';
 
-function InputBool({ defaultValue, disabled, error, label, onChange }: InputBoolProps) {
+function InputBool({ defaultValue, disabled, error, label, onChange, size }: InputBoolProps) {
   const _onChange = useCallback(
     (e: any) => {
       const _value: boolean = e.target.checked;
@@ -17,7 +17,7 @@ function InputBool({ defaultValue, disabled, error, label, onChange }: InputBool
   );
 
   return (
-    <FormControl error={!!error} fullWidth variant="outlined">
+    <FormControl error={!!error} fullWidth size={size} variant="outlined">
       {label && <InputLabel shrink>{label}</InputLabel>}
       <Switch defaultChecked={defaultValue || false} disabled={disabled} onChange={_onChange} />
       {error ? <FormHelperText>{error.message}</FormHelperText> : null}

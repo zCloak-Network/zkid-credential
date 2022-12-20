@@ -3,44 +3,18 @@
 
 import type { InputNumberProps } from './types';
 
-import { FormControl, FormHelperText, InputLabel, OutlinedInput } from '@mui/material';
-import React, { useCallback } from 'react';
+import React from 'react';
 
-import { withBorderInput } from './utils';
+import Input from './Input';
 
-function InputNumber({
-  autoFocus,
-  defaultValue,
-  disabled,
-  error,
-  label,
-  onChange,
-  placeholder,
-  withBorder
-}: InputNumberProps) {
-  const _onChange = useCallback(
-    (e: any) => {
-      const _value: string = e.target.value;
-
-      onChange?.(Number(_value));
-    },
-    [onChange]
-  );
-
+function InputNumber({ defaultValue, onChange, ...props }: InputNumberProps) {
   return (
-    <FormControl error={!!error} fullWidth variant="outlined">
-      {label && <InputLabel shrink>{label}</InputLabel>}
-      <OutlinedInput
-        autoFocus={autoFocus}
-        defaultValue={defaultValue}
-        disabled={disabled}
-        onChange={_onChange}
-        placeholder={placeholder}
-        sx={(theme) => withBorderInput(theme, withBorder)}
-        type="number"
-      />
-      {error ? <FormHelperText>{error.message}</FormHelperText> : null}
-    </FormControl>
+    <Input
+      defaultValue={defaultValue !== undefined ? String(defaultValue) : undefined}
+      onChange={(value) => onChange?.(Number(value) ?? 0)}
+      type="number"
+      {...props}
+    />
   );
 }
 

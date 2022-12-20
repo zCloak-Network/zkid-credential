@@ -19,7 +19,7 @@ function SchemaInteger({
     () => isOrDefault('integer', defaultValue) as number,
     [defaultValue]
   );
-  const [value, setValue] = useState<number | undefined>(_defaultValue);
+  const [value, setValue] = useState<number>(_defaultValue);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {

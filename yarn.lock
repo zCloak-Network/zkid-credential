@@ -4759,9 +4759,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/did-keyring@npm:^0.5.2-1":
-  version: 0.5.2-1
-  resolution: "@zcloak/did-keyring@npm:0.5.2-1"
+"@zcloak/did-keyring@npm:^0.5.2-2":
+  version: 0.5.2-2
+  resolution: "@zcloak/did-keyring@npm:0.5.2-2"
   dependencies:
     "@kiltprotocol/did": ^0.28.2
     "@kiltprotocol/types": ^0.28.2
@@ -4771,8 +4771,8 @@ __metadata:
     "@zcloak/did": ^0.6.2-1
     "@zcloak/did-resolver": ^0.6.2-1
     "@zcloak/keyring": ^0.6.2-1
-    eventemitter3: ^4.0.7
-  checksum: 39751bba2e90ebd5d08671d8de6127f2675e3a95bab58061244a96aa1219132e99ededa41d253446631f6c2053bcbee5760d29e9ceda76228673179d119cfdfe
+    eventemitter3: ^5.0.0
+  checksum: 6b2128272d3fdb0f17846d73f8c96364611c3c959386c9370833b97679564fb7f3c340921bb90b275141bc8e273f38856dddfec283cd7e96ca717e19fe0d5860
   languageName: node
   linkType: hard
 
@@ -4873,27 +4873,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/ui-did-keyring@npm:^0.5.2-1":
-  version: 0.5.2-1
-  resolution: "@zcloak/ui-did-keyring@npm:0.5.2-1"
+"@zcloak/ui-did-keyring@npm:^0.5.2-2":
+  version: 0.5.2-2
+  resolution: "@zcloak/ui-did-keyring@npm:0.5.2-2"
   dependencies:
     "@polkadot/keyring": ^10.1.12
     "@polkadot/util": ^10.2.1
     "@zcloak/did": ^0.6.2-1
-    "@zcloak/did-keyring": ^0.5.2-1
+    "@zcloak/did-keyring": ^0.5.2-2
     "@zcloak/did-resolver": ^0.6.2-1
     "@zcloak/keyring": ^0.6.2-1
-    "@zcloak/ui-store": ^0.5.2-1
-  checksum: a91eba16d535516ce47da22fe1c86084b4c32d7ebdcca30bf719f155912c28b7bfe71c88aa146d1794c36e9f99fd7dcde44bf6bc31c25253a9343bb5ec46e8cc
+    "@zcloak/ui-store": ^0.5.2-2
+  checksum: 7d93027b456f38b59e43dc2ce67b197eb99e48dcac1809e4713124d165e67b2e9a030757ee4e62306d1807e2bb6ae3cb2009b47380d04635de2762cb9bf8336c
   languageName: node
   linkType: hard
 
-"@zcloak/ui-store@npm:^0.5.2-1":
-  version: 0.5.2-1
-  resolution: "@zcloak/ui-store@npm:0.5.2-1"
+"@zcloak/ui-store@npm:^0.5.2-2":
+  version: 0.5.2-2
+  resolution: "@zcloak/ui-store@npm:0.5.2-2"
   dependencies:
     store: ^2.0.12
-  checksum: b89f48e496fdc6f3eaaad967f9350eb9c557536fde5b6cd27bb3fbb2cc406e67430e543f36530466d6a0bbdefce5588f59a2f48f6180b7c223b5a5f4cf575a67
+  checksum: 326a5b17e6701c37e142ee04460f45d96fbe0eac56f27c71d97db2096f8b3b93cc16ca276a0398cbaeb3269a34e09a7eec169bdd1aff0b2b328357aa270c85b0
   languageName: node
   linkType: hard
 
