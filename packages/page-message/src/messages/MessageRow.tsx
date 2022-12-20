@@ -11,14 +11,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useState } from 're
 
 import { isSameUri } from '@zcloak/did/utils';
 
-import {
-  Button,
-  CredentialModal,
-  CTypeName,
-  Link,
-  useMediaQuery,
-  useTheme
-} from '@credential/react-components';
+import { Button, CredentialModal, CTypeName, Link } from '@credential/react-components';
 import { DidName, DidsContext } from '@credential/react-dids';
 import { useDecryptedMessage, useToggle } from '@credential/react-hooks';
 
@@ -48,8 +41,6 @@ function getCredential(
 
 function MessageRow({ message }: { message: MessageWithMeta<MessageType> }) {
   const { did } = useContext(DidsContext);
-  const theme = useTheme();
-  const upMd = useMediaQuery(theme.breakpoints.up('md'));
   const [decrypted, decrypt] = useDecryptedMessage(message);
   const [open, toggleOpen] = useToggle();
   const [credential, setCredential] = useState<VerifiableCredential | null>(null);
@@ -73,23 +64,17 @@ function MessageRow({ message }: { message: MessageWithMeta<MessageType> }) {
       <MessageCard onClick={toggleOpen}>
         <MessageCardItem
           content={
-            <>
-              {upMd && <span>Sender: </span>}
-              <Link>
-                <DidName value={message.sender} />
-              </Link>
-            </>
+            <Link>
+              <DidName value={message.sender} />
+            </Link>
           }
           label="Sender"
         />
         <MessageCardItem
           content={
-            <>
-              {upMd && <span>Receiver: </span>}
-              <Link>
-                <DidName value={message.receiver} />
-              </Link>
-            </>
+            <Link>
+              <DidName value={message.receiver} />
+            </Link>
           }
           label="Receiver"
         />

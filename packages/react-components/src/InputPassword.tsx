@@ -13,7 +13,7 @@ import { useToggle } from '@credential/react-hooks';
 
 import Input from './Input';
 
-function InputPassword({ endAdornment, onChange, startAdornment }: InputPasswordProps) {
+function InputPassword({ endAdornment, onChange, startAdornment, ...props }: InputPasswordProps) {
   const [showPassword, toggle] = useToggle(false);
 
   return (
@@ -41,6 +41,7 @@ function InputPassword({ endAdornment, onChange, startAdornment }: InputPassword
         )
       }
       type={showPassword ? 'text' : 'password'}
+      {...props}
     />
   );
 }

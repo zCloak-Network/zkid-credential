@@ -26,31 +26,33 @@ const Claims: React.FC = () => {
     const _credentials = credentials ?? [];
     const _pendingCredentials = pendingCredentials ?? [];
 
-    return type === 0
-      ? (
-          _credentials.map((credential) => ({
-            credential: credential.vc,
-            rootHash: credential.rootHash,
-            time: credential.issuanceDate,
-            issuer: credential.issuer,
-            status: 'approved'
-          })) as CredentialProps[]
-        ).concat(
-          _pendingCredentials.map((credential) => ({
+    const _list: CredentialProps[] = _credentials
+      .map(
+        (credential): CredentialProps => ({
+          credential: credential.vc,
+          rootHash: credential.rootHash,
+          time: credential.issuanceDate,
+          issuer: credential.issuer,
+          status: 'approved'
+        })
+      )
+      .sort((l, r) => r.time - l.time);
+
+    if (type === 0) {
+      _list.unshift(
+        ..._pendingCredentials
+          .map((credential) => ({
             credential: credential.rawCredential,
             rootHash: credential.rootHash,
             time: credential.submitDate,
             issuer: credential.issuer,
             status: credential.status
           }))
-        )
-      : _credentials.map((credential) => ({
-          credential: credential.vc,
-          rootHash: credential.rootHash,
-          time: credential.issuanceDate,
-          issuer: credential.issuer,
-          status: 'approved'
-        }));
+          .sort((l, r) => r.time - l.time)
+      );
+    }
+
+    return _list;
   }, [credentials, pendingCredentials, type]);
 
   return (
