@@ -16,10 +16,10 @@
   "type": "module",
   "version": "0.6.2-2",
   "dependencies": {
-    "@zcloak/crypto": "^0.6.1",
-    "@zcloak/did": "^0.6.1",
-    "@zcloak/did-resolver": "^0.6.1",
-    "@zcloak/keyring": "^0.6.1",
+    "@zcloak/crypto": "^0.7.0",
+    "@zcloak/did": "^0.7.0",
+    "@zcloak/did-resolver": "^0.7.0",
+    "@zcloak/keyring": "^0.7.0",
     "file-saver": "^2.0.5"
   }
 }

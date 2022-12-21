@@ -14,19 +14,20 @@ const Issue: React.FC = () => {
 
   return (
     <Stack spacing={3}>
-      <Tabs
+      <Box
         sx={{
           position: 'relative',
           px: 2,
           boxShadow: '0px 3px 6px rgba(153, 155, 168, 0.1)'
         }}
-        value={0}
       >
-        <Tab label="Issue" />
-        <Box sx={{ position: 'absolute', right: 0, textAlign: 'right', mr: 3 }}>
+        <Tabs value={0}>
+          <Tab label="Issue" />
+        </Tabs>
+        <Box sx={{ position: 'absolute', right: 0, top: 0, textAlign: 'right', mr: 3 }}>
           <ImportCType />
         </Box>
-      </Tabs>
+      </Box>
       <Box px={{ md: 4, xs: 2 }}>
         <CTypeList list={ctypes} />
       </Box>
