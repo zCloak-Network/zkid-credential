@@ -14,7 +14,7 @@ function SchemaBool({ defaultValue, disabled, name, onChange }: CTypeSchemaProps
     () => isOrDefault('boolean', defaultValue) as boolean,
     [defaultValue]
   );
-  const [value, setValue] = useState<boolean | undefined>(_defaultValue);
+  const [value, setValue] = useState<boolean>(_defaultValue);
 
   useEffect(() => {
     onChange?.(value);

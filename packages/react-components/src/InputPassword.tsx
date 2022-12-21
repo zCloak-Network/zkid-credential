@@ -6,67 +6,43 @@ import type { InputPasswordProps } from './types';
 import LockIcon from '@mui/icons-material/Lock';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import {
-  FormControl,
-  FormHelperText,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput
-} from '@mui/material';
-import React, { useCallback } from 'react';
+import { IconButton, InputAdornment } from '@mui/material';
+import React from 'react';
 
 import { useToggle } from '@credential/react-hooks';
 
-import { withBorderInput } from './utils';
+import Input from './Input';
 
-function InputPassword({
-  autoFocus,
-  defaultValue,
-  disabled,
-  error,
-  label,
-  onChange,
-  placeholder,
-  withBorder
-}: InputPasswordProps) {
+function InputPassword({ endAdornment, onChange, startAdornment, ...props }: InputPasswordProps) {
   const [showPassword, toggle] = useToggle(false);
 
-  const _onChange = useCallback(
-    (e: any) => {
-      const _value: string = e.target.value;
-
-      onChange?.(_value);
-    },
-    [onChange]
-  );
-
   return (
-    <FormControl error={!!error} fullWidth variant="outlined">
-      {label && <InputLabel shrink>{label}</InputLabel>}
-      <OutlinedInput
-        autoFocus={autoFocus}
-        defaultValue={defaultValue}
-        disabled={disabled}
-        endAdornment={
+    <Input
+      autoFocus
+      endAdornment={
+        endAdornment ? (
+          <InputAdornment position="end">{endAdornment}</InputAdornment>
+        ) : (
           <InputAdornment position="end">
             <IconButton edge="end" onClick={toggle}>
               {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
-        }
-        onChange={_onChange}
-        placeholder={placeholder}
-        startAdornment={
+        )
+      }
+      onChange={onChange}
+      startAdornment={
+        startAdornment ? (
+          <InputAdornment position="start">{startAdornment}</InputAdornment>
+        ) : (
           <InputAdornment position="start">
             <LockIcon color="primary" />
           </InputAdornment>
-        }
-        sx={(theme) => withBorderInput(theme, withBorder)}
-        type={showPassword ? 'text' : 'password'}
-      />
-      {error ? <FormHelperText>{error.message}</FormHelperText> : null}
-    </FormControl>
+        )
+      }
+      type={showPassword ? 'text' : 'password'}
+      {...props}
+    />
   );
 }
 

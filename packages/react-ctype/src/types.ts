@@ -10,7 +10,7 @@ export interface CTypeSchemaProps<T = unknown> {
   disabled?: boolean;
   error?: Error | null;
   defaultValue?: T;
-  onChange?: (value?: T) => void;
+  onChange?: (value: T) => void;
 }
 
 export interface CTypeSchemaVectorFixedProps extends CTypeSchemaProps<unknown[]> {

@@ -28,6 +28,7 @@ export { default as IdentityIcon } from './IdentityIcon';
 export { default as ImportCredentialModal } from './ImportCredentialModal';
 export { default as ImportCTypeModal } from './ImportCTypeModal';
 export { default as MnemonicCell } from './MnemonicCell';
+export { default as Input } from './Input';
 export { default as InputBool } from './InputBool';
 export { default as InputNumber } from './InputNumber';
 export { default as InputPassword } from './InputPassword';

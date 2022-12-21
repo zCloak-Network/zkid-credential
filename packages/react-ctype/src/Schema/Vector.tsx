@@ -81,6 +81,17 @@ function SchemaVector({ defaultValue, disabled, items, name, onChange }: CTypeSc
           background: alpha(palette.primary.main, 0.1)
         })}
       >
+        {values.map((_, index) => (
+          <Item
+            defaultValue={_defaultValue?.[index]}
+            disabled={disabled}
+            index={index}
+            key={index}
+            name={`${name}#${index}`}
+            onChangeWithIndex={_onChange}
+            schema={items}
+          />
+        ))}
         {!disabled && (
           <Stack direction="row" spacing={2}>
             <Button onClick={_rowAdd} startIcon={<AddCircleOutlineIcon />} variant="outlined">
@@ -96,17 +107,6 @@ function SchemaVector({ defaultValue, disabled, items, name, onChange }: CTypeSc
             </Button>
           </Stack>
         )}
-        {values.map((_, index) => (
-          <Item
-            defaultValue={_defaultValue?.[index]}
-            disabled={disabled}
-            index={index}
-            key={index}
-            name={`${name}#${index}`}
-            onChangeWithIndex={_onChange}
-            schema={items}
-          />
-        ))}
       </Stack>
     </FormControl>
   );

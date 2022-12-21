@@ -2,3 +2,4 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export { default as CreateSubject } from './CreateSubject';
+export { default as ItemCreation } from './creation/ItemCreation';

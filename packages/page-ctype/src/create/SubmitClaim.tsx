@@ -30,6 +30,7 @@ const SubmitClaim: React.FC<{
   const [recaptchaToken, setRecaptchaToken] = useState<string>();
   const [rawCredential, setRawCredential] = useState<RawCredential | null>(null);
 
+  console.log(contents);
   const _toggleOpen = useCallback(() => {
     try {
       const raw = new Raw({

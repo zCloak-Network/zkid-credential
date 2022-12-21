@@ -5,7 +5,14 @@ import type { CTypeSchemaProps } from '../types';
 
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { Autocomplete, FormControl, InputLabel, OutlinedInput } from '@credential/react-components';
+import {
+  Alert,
+  Autocomplete,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  OutlinedInput
+} from '@credential/react-components';
 import { withBorderInput } from '@credential/react-components/utils';
 
 function isString(value: unknown): value is string {
@@ -18,30 +25,40 @@ function SchemaEnum({
   name,
   onChange,
   schema
-}: CTypeSchemaProps<string | number | Array<string | number>>) {
-  const multiple = useMemo(() => (schema.type === 'array' ? true : undefined), [schema.type]);
+}: CTypeSchemaProps<string | number>) {
   const _defaultValue = useMemo(() => (isString(defaultValue) ? defaultValue : ''), [defaultValue]);
-  const [value, setValue] = useState<string | number | Array<string | number> | null>(
-    _defaultValue
-  );
+  const [value, setValue] = useState<string | number>(_defaultValue);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    onChange?.(value ?? undefined);
+    if (!schema.enum?.includes(value)) {
+      setError(new Error('Please select a value'));
+    } else {
+      setError(null);
+    }
+  }, [schema.enum, schema.maxItems, schema.minItems, schema.uniqueItems, value]);
+
+  useEffect(() => {
+    onChange?.(value);
   }, [onChange, value]);
 
+  if (!schema.enum) {
+    return <Alert severity="error">Not enum property provide]</Alert>;
+  }
+
   return (
-    <Autocomplete<string | number, boolean>
+    <Autocomplete<string | number, undefined, boolean>
       defaultValue={defaultValue as any}
+      disableClearable
       disabled={disabled}
       getOptionLabel={(option) => String(option)}
-      multiple={multiple}
       onChange={(_, newValue) => {
-        setValue(newValue);
+        if (newValue !== null) setValue(newValue);
       }}
       options={schema.enum ?? []}
       renderInput={(params) => {
         return (
-          <FormControl fullWidth={params.fullWidth}>
+          <FormControl error={!!error} fullWidth={params.fullWidth}>
             {name && (
               <InputLabel {...params.InputLabelProps} shrink>
                 {name}
@@ -53,6 +70,7 @@ function SchemaEnum({
               inputProps={params.inputProps}
               sx={(theme) => withBorderInput(theme, false)}
             />
+            {error ? <FormHelperText>{error.message}</FormHelperText> : null}
           </FormControl>
         );
       }}
