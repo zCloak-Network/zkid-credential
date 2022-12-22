@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## [0.7.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.6.1...v0.7.0) (2022-12-22)
+
+
+### Features
+
+* **ctype:** add cache for server ctype. ([b4d01ab](https://github.com/zCloak-Network/zkid-credential/commit/b4d01abb2f515b0612f90479ba14a410de34b933))
+* login with zkID Wallet in account home page ([6bbf9e8](https://github.com/zCloak-Network/zkid-credential/commit/6bbf9e8959e3af1885d1f5f8ffacee21693cf1c7))
+* more schema option configuration when create ctype ([#11](https://github.com/zCloak-Network/zkid-credential/issues/11)) ([79bb2ae](https://github.com/zCloak-Network/zkid-credential/commit/79bb2ae6d6ec2cea1597b6e7b148d6dafd839520))
+* We add multi did support, and add login with zkID wallet support. ([af71471](https://github.com/zCloak-Network/zkid-credential/commit/af714716dee3b08b422bde02f66c874e536e1cee))
+
+
 ## [0.6.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.6.0...v0.6.1) (2022-12-11)
 
 
