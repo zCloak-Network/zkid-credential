@@ -1,6 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { CacheCType } from './cache-ctype';
 import type { CacheDid } from './cache-did';
 import type { Credential } from './credential';
 import type { CType } from './ctype';
@@ -8,18 +9,21 @@ import type { PendingCredential } from './pending-credential';
 
 import Dexie, { Table } from 'dexie';
 
-class CacheDB extends Dexie {
+export class CacheDB extends Dexie {
   public cacheDid!: Table<CacheDid>;
+  public cacheCType!: Table<CacheCType>;
 
   constructor() {
     super('zkid:credential:cache');
     this.version(1).stores({
-      cacheDid: '&did, *document'
+      cacheDid: '&did, *document',
+      cacheCType:
+        '&$id, $schema, publisher, signature, title, description, type, *properties, *required'
     });
   }
 }
 
-class DidDB extends Dexie {
+export class DidDB extends Dexie {
   public ctype!: Table<CType>;
   public credential!: Table<Credential>;
   public pendingCredential!: Table<PendingCredential>;
@@ -33,31 +37,5 @@ class DidDB extends Dexie {
         'digest, rootHash, ctype, issuer, holder, issuanceDate, expirationDate, *hasher, *vc',
       ctype: '&$id, $schema, publisher, signature, title, description, type, *properties, *required'
     });
-  }
-}
-
-export class DB {
-  public cacheDB: CacheDB;
-  public didDB: DidDB;
-
-  constructor(name: string) {
-    this.cacheDB = new CacheDB();
-    this.didDB = new DidDB(name);
-  }
-
-  public get cacheDid(): Table<CacheDid> {
-    return this.cacheDB.cacheDid;
-  }
-
-  public get ctype(): Table<CType> {
-    return this.didDB.ctype;
-  }
-
-  public get credential(): Table<Credential> {
-    return this.didDB.credential;
-  }
-
-  public get pendingCredential(): Table<PendingCredential> {
-    return this.didDB.pendingCredential;
   }
 }

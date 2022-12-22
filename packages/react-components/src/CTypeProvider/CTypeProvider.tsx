@@ -4,15 +4,23 @@
 import type { HexString } from '@zcloak/crypto/types';
 
 import { assert } from '@polkadot/util';
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo } from 'react';
 
-import { allCTypes, CType, deleteCType as deleteCTypeDB, putCType } from '@credential/app-store';
+import {
+  allCacheCTypes,
+  allCTypes,
+  CacheCType,
+  CType,
+  deleteCType as deleteCTypeDB,
+  putCacheCType,
+  putCType
+} from '@credential/app-store';
 import { DidsContext } from '@credential/react-dids';
 import { resolver } from '@credential/react-dids/instance';
 import { useLiveQuery } from '@credential/react-hooks';
 
 interface State {
-  serverCTypes: CType[];
+  serverCTypes: CacheCType[];
   ctypes: CType[];
   importCType: (hash: HexString) => void;
   deleteCType: (hash: HexString) => void;
@@ -22,8 +30,8 @@ export const CTypeContext = createContext<State>({} as State);
 
 function CTypeProvider({ children }: { children: React.ReactNode }) {
   const { did } = useContext(DidsContext);
-  const [serverCTypes, setServerCTypes] = useState<CType[]>([]);
   const ctypes = useLiveQuery(allCTypes);
+  const serverCTypes = useLiveQuery(allCacheCTypes);
 
   useEffect(() => {
     resolver.getClaimerCtypes(did.id).then((ctypes) => {
@@ -33,7 +41,7 @@ function CTypeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     resolver.getAllCtypes().then((data) => {
-      setServerCTypes(data.map((d) => d.rawData));
+      data.forEach((d) => putCacheCType(d.rawData));
     });
   }, []);
 
@@ -60,7 +68,7 @@ function CTypeProvider({ children }: { children: React.ReactNode }) {
     return {
       importCType,
       deleteCType,
-      serverCTypes,
+      serverCTypes: serverCTypes ?? [],
       ctypes: ctypes ?? []
     };
   }, [ctypes, deleteCType, importCType, serverCTypes]);

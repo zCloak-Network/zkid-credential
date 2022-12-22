@@ -11,17 +11,17 @@ export interface CacheDid {
 }
 
 export async function allDidDocuments(): Promise<DidDocument[]> {
-  return (await didManager.db.cacheDid.toArray()).map((data) => data.document);
+  return (await didManager.cacheDB.cacheDid.toArray()).map((data) => data.document);
 }
 
 export async function allDids(): Promise<DidUrl[]> {
-  return (await didManager.db.cacheDid.toArray()).map((data) => data.did);
+  return (await didManager.cacheDB.cacheDid.toArray()).map((data) => data.did);
 }
 
 export function queryDid(did: string): Promise<DidDocument | null | undefined> {
-  return didManager.db.cacheDid.get({ did }).then((data) => data?.document);
+  return didManager.cacheDB.cacheDid.get({ did }).then((data) => data?.document);
 }
 
 export async function putDid(document: DidDocument): Promise<void> {
-  await didManager.db.cacheDid.put({ did: document.id, document });
+  await didManager.cacheDB.cacheDid.put({ did: document.id, document });
 }

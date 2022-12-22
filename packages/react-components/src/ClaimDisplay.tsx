@@ -44,21 +44,23 @@ export const ClaimItem: React.FC<{
 
   return (
     <Stack
-      alignItems="center"
+      alignItems="baseline"
       direction="row"
-      height={24}
       justifyContent="space-between"
       paddingX={3}
+      spacing={3}
     >
-      <Typography sx={({ palette }) => ({ color: palette.grey[700] })}>{label}</Typography>
-      {el}
+      <Typography sx={({ palette }) => ({ flex: '0 0 30%', color: palette.grey[700] })}>
+        {label}
+      </Typography>
+      <Box>{el}</Box>
     </Stack>
   );
 };
 
 function ClaimDisplay({ contents }: { contents: CredentialSubject }) {
   return !isHex(contents) ? (
-    <Stack spacing={1}>
+    <Stack spacing={2}>
       {Object.entries(contents).map(([key, value]) => (
         <ClaimItem key={key} label={key} value={value} />
       ))}

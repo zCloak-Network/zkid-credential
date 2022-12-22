@@ -12,7 +12,7 @@ import { ZkidWalletProvider } from '@zcloak/login-providers';
 import { ZkDid } from '@zcloak/ui-did-keyring';
 import { BrowserStore } from '@zcloak/ui-store';
 
-import { DB } from '@credential/app-store/db';
+import { CacheDB, DidDB } from '@credential/app-store/db';
 
 import { isLoginDid } from '../is';
 
@@ -23,7 +23,9 @@ const STORAGE_KEY = 'current_did';
 export class DidManager extends ZkDid {
   #resolver: DidResolver;
   private _current: Did | null = null;
-  private _db: DB | null = null;
+  private _db: DidDB | null = null;
+
+  public cacheDB: CacheDB = new CacheDB();
 
   constructor(keyring: Keyring, resolver: DidResolver) {
     super(keyring, store);
@@ -34,7 +36,7 @@ export class DidManager extends ZkDid {
     return this._current;
   }
 
-  public get db(): DB {
+  public get db(): DidDB {
     if (!this._db) {
       throw new Error('No db init');
     }
@@ -45,7 +47,7 @@ export class DidManager extends ZkDid {
   public setCurrent(value: Did) {
     localStorage.setItem(STORAGE_KEY, value.id);
     this._current = value;
-    this._db = new DB(value.id);
+    this._db = new DidDB(value.id);
   }
 
   public loadCurrent(): void {

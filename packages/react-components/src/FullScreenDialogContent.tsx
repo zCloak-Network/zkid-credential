@@ -6,10 +6,11 @@ import React from 'react';
 
 interface Props {
   bg?: string;
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   children: React.ReactNode;
 }
 
-const FullScreenDialogContent: React.FC<Props> = ({ bg, children }) => {
+const FullScreenDialogContent: React.FC<Props> = ({ bg, children, maxWidth }) => {
   return (
     <Box
       component={Paper}
@@ -30,7 +31,7 @@ const FullScreenDialogContent: React.FC<Props> = ({ bg, children }) => {
           : {}
       }
     >
-      <Container maxWidth="sm">{children}</Container>
+      <Container maxWidth={maxWidth ?? 'sm'}>{children}</Container>
     </Box>
   );
 };

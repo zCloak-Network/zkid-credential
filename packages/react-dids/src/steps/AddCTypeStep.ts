@@ -5,7 +5,7 @@ import type { CType } from '@zcloak/ctype/types';
 
 import { assert } from '@polkadot/util';
 
-import { putCType } from '@credential/app-store';
+import { putCacheCType, putCType } from '@credential/app-store';
 
 import { resolver } from '../instance';
 
@@ -14,4 +14,5 @@ export async function addCtype(ctype?: CType | null): Promise<void> {
 
   await resolver.submitAttesterCtype(ctype);
   await putCType(ctype);
+  await putCacheCType(ctype);
 }
