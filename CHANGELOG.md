@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.8.2](https://github.com/zCloak-Network/zkid-credential/compare/v0.8.1...v0.8.2) (2022-12-23)
+
+
+### Bug Fixes
+
+* top attest ctype not found ([3534807](https://github.com/zCloak-Network/zkid-credential/commit/353480736d98b9338d568d75db54c175dfdbbd82))
+
+
 ## [0.8.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.8.0...v0.8.1) (2022-12-23)
 
 
