@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.9.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.8.2...v0.9.0) (2022-12-23)
+
+
+### Features
+
+* **claim:** remove default attester when create claim ([d6814c4](https://github.com/zCloak-Network/zkid-credential/commit/d6814c44212faba72aa3b2353bac2d60b0d98b38))
+
+
 ## [0.8.2](https://github.com/zCloak-Network/zkid-credential/compare/v0.8.1...v0.8.2) (2022-12-23)
 
 
