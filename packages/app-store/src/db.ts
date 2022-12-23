@@ -15,7 +15,7 @@ export class CacheDB extends Dexie {
 
   constructor() {
     super('zkid:credential:cache');
-    this.version(1).stores({
+    this.version(2).stores({
       cacheDid: '&did, *document',
       cacheCType:
         '&$id, $schema, publisher, signature, title, description, type, *properties, *required'

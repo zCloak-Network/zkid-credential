@@ -63,10 +63,10 @@ const Claimer: React.FC = () => {
       <Box
         sx={{
           height: '150px',
-          background: 'url(./world-cup-games/banner.webp) no-repeat',
-          backgroundSize: 'auto 150px',
+          background: 'url(./christmas2022/pic_bac.webp) no-repeat',
+          backgroundSize: 'auto 160px',
           backgroundPosition: 'center',
-          backgroundColor: '#0C6724'
+          backgroundColor: '#002A2A'
         }}
       >
         <Stack
@@ -74,30 +74,25 @@ const Claimer: React.FC = () => {
           direction="row"
           sx={{
             justifyContent: 'space-around',
-            maxWidth: '1440px',
+            maxWidth: '400px',
             margin: '0 auto',
             paddingTop: '84px'
           }}
         >
           <Button
-            onClick={() => navigate('/attester/issue')}
+            onClick={() => navigate('/claimer/ctype')}
             sx={{
-              width: '190px',
-              height: '43px',
-              background: 'url(./world-cup-games/btn_startguessing.webp) no-repeat',
+              width: '181px',
+              height: '39px',
+              background: 'url(./christmas2022/btn_start.webp) no-repeat',
               backgroundSize: 'cover'
             }}
           />
           <Button
-            onClick={() =>
-              window.open(
-                'https://zcloaknetwork.medium.com/worlds-first-zk-guessing-for-the-world-cup-games-dc2d22fa5a83'
-              )
-            }
             sx={{
-              width: '190px',
-              height: '43px',
-              background: 'url(./world-cup-games/btn_eventguide.webp) no-repeat',
+              width: '181px',
+              height: '39px',
+              background: 'url(./christmas2022/btn_event.webp) no-repeat',
               backgroundSize: 'cover'
             }}
           />
@@ -106,9 +101,9 @@ const Claimer: React.FC = () => {
       <Box overflow="hidden" position="relative">
         <Sidebar accountType="claimer" items={items} open={open} toggleOpen={toggleOpen} />
         <Box
-          height="calc(100vh - 220px)"
+          height="calc(100vh - 230px)"
           overflow="scroll"
-          pl={upMd ? (open ? '220px' : '93px') : 0}
+          pl={upMd ? (open ? '230px' : '93px') : 0}
           sx={{
             position: 'relative',
             boxSizing: 'border-box',
