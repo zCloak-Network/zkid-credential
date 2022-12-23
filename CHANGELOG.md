@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.8.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.7.0...v0.8.0) (2022-12-23)
+
+
+### Features
+
+* christmas2022 event ([d40cd72](https://github.com/zCloak-Network/zkid-credential/commit/d40cd72e47ed985c1616acffc9e25551004a6e03))
+
+
 ## [0.7.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.6.1...v0.7.0) (2022-12-22)
 
 
