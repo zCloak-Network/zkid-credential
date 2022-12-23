@@ -36,7 +36,9 @@ export const TOP_CTYPES_FOR_ISSUE: HexString[] = isRelease
       '0xddd55777a3be0f8b848b94ddd98c2c4716add21dc50787ac65534b37f1b5bba5'
     ];
 
-export const TOP_CTYPES_FOR_ATTEST: HexString[] = isRelease ? [] : [];
+export const TOP_CTYPES_FOR_ATTEST: HexString[] = isRelease
+  ? ['0x9884edce63d4de703c4b3ebf23063929705b7139ce2eeb3b6631c2fa25deb74f']
+  : [];
 
 export function getCTypeMetaForIssue(id: HexString): CTypeMeta | undefined {
   const meta: CTypeMeta | undefined = ctypeMeta[id];
