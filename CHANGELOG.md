@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.9.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.9.0...v0.9.1) (2022-12-24)
+
+
+### Bug Fixes
+
+* approve attestation change status but not re render ui. ([3c68475](https://github.com/zCloak-Network/zkid-credential/commit/3c684751c8e2c05149d9153a0055cbe64868f309))
+
+
 ## [0.9.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.8.2...v0.9.0) (2022-12-23)
 
 

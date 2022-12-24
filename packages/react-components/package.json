@@ -14,9 +14,9 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "dependencies": {
-    "@credential/react-hooks": "0.9.0",
+    "@credential/react-hooks": "0.9.1",
     "@date-io/date-fns": "^2.16.0",
     "@date-io/moment": "^2.16.1",
     "@emotion/react": "^11.10.5",
