@@ -89,6 +89,9 @@ const Claimer: React.FC = () => {
             }}
           />
           <Button
+            onClick={() =>
+              window.open('https://zcloaknetwork.medium.com/christmas-card-event-9fa41796f0e5')
+            }
             sx={{
               width: '181px',
               height: '39px',

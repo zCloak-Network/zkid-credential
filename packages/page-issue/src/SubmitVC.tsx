@@ -11,14 +11,15 @@ import { Message } from '@zcloak/message/types';
 import { Raw } from '@zcloak/vc';
 
 import { DEFAULT_ROOT_HASH_TYPE } from '@credential/app-config/vc';
-import { Button, CTypeContext, NotificationContext, Recaptcha } from '@credential/react-components';
-import { DidsContext, DidsModal } from '@credential/react-dids';
 import {
-  encryptMessageStep,
-  sendMessage,
-  signAndBuildVC,
-  Steps
-} from '@credential/react-dids/steps';
+  AppContext,
+  Button,
+  CTypeContext,
+  NotificationContext,
+  Recaptcha
+} from '@credential/react-components';
+import { DidsContext, DidsModal } from '@credential/react-dids';
+import { encryptMessageStep, signAndBuildVC, Steps } from '@credential/react-dids/steps';
 import { useToggle } from '@credential/react-hooks';
 
 interface Props {
@@ -32,6 +33,7 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
   const { did: sender } = useContext(DidsContext);
   const { serverCTypes } = useContext(CTypeContext);
   const { notifyError } = useContext(NotificationContext);
+  const { sendMessage } = useContext(AppContext);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] = useState<Message<'Send_issuedVC'>>();
   const [recaptchaToken, setRecaptchaToken] = useState<string>();

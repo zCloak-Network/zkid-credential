@@ -122,7 +122,10 @@ export class CredentialDidResolver extends ArweaveDidResolver {
     }
   }
 
-  async postMessage(message: Message<MessageType>, reCaptchaToken?: string): Promise<void> {
+  async postMessage<T extends MessageType>(
+    message: Message<MessageType>,
+    reCaptchaToken?: string
+  ): Promise<ServerMessage<T>> {
     const res = await post(`${this.server}/message`, { ...message, token: reCaptchaToken });
 
     if (res?.code !== 200) {

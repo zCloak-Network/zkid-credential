@@ -6,11 +6,12 @@ import type { DecryptedMessage, Message, MessageType } from '@zcloak/message/typ
 import type { ServerMessage } from '@credential/react-dids/types';
 import type { MessageWithMeta } from '@credential/react-hooks/types';
 
+import { assert } from '@polkadot/util';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { isSameUri } from '@zcloak/did/utils';
 import { DidUrl } from '@zcloak/did-resolver/types';
-import { decryptMessage } from '@zcloak/message';
+import { decryptMessage, verifyMessageEnvelope, verifyMessageSignature } from '@zcloak/message';
 
 import { MESSAGE_WS } from '@credential/app-config/endpoints';
 import { addVC } from '@credential/app-store';
@@ -24,7 +25,10 @@ interface State {
   messages: MessageWithMeta<MessageType>[];
   sentMessages: MessageWithMeta<MessageType>[];
   readMessage: (id: string) => Promise<void>;
-  setMessageStatus: (id: string, status: 'approved' | 'reject') => void;
+  sendMessage: <T extends MessageType>(
+    message?: Message<T>,
+    reCaptchaToken?: string | null
+  ) => Promise<void>;
   decrypt: <T extends MessageType>(message: Message<T>) => Promise<DecryptedMessage<T>>;
 }
 
@@ -153,7 +157,7 @@ function AppProvider({ children }: { children: React.ReactNode }) {
     resolver
       .getMessages({ receiver: didUrl })
       .then((data) => {
-        setServerMessages(data);
+        setServerMessages((serverMessages) => duplicateServerMessages(data.concat(serverMessages)));
 
         return data;
       })
@@ -161,13 +165,13 @@ function AppProvider({ children }: { children: React.ReactNode }) {
         syncProvider.isReady.then((provider) => {
           provider.subscribe(didUrl, messages?.[0]?.rawData.createTime || 0, (messages) => {
             setServerMessages((serverMessages) =>
-              duplicateServerMessages([...messages, ...serverMessages])
+              duplicateServerMessages(messages.concat(serverMessages))
             );
           });
         });
       });
     resolver.getMessages({ sender: didUrl }).then((data) => {
-      setServerMessages((serverMessages) => duplicateServerMessages([...data, ...serverMessages]));
+      setServerMessages((serverMessages) => duplicateServerMessages(data.concat(serverMessages)));
     });
 
     return () => {
@@ -200,22 +204,46 @@ function AppProvider({ children }: { children: React.ReactNode }) {
     await resolver.readMessage(id);
   }, []);
 
-  const setMessageStatus = useCallback((id: string, status: 'approved' | 'reject') => {
-    setServerMessages((serverMessages) =>
-      serverMessages.map((message) =>
-        id === message.id
-          ? {
-              ...message,
-              replyStatus: status
-            }
-          : message
-      )
-    );
-  }, []);
+  const sendMessage = useCallback(
+    async <T extends MessageType>(message?: Message<T> | null, reCaptchaToken?: string | null) => {
+      assert(message, 'Not encrypted message found');
+
+      verifyMessageEnvelope(message);
+      await verifyMessageSignature(message, resolver);
+
+      const serverMessage = await resolver.postMessage(message, reCaptchaToken ?? undefined);
+
+      setServerMessages((serverMessages) => {
+        let messages = [serverMessage].concat(serverMessages);
+
+        if (serverMessage.rawData.reply) {
+          messages = messages.map((message) =>
+            message.id === serverMessage.rawData.reply
+              ? {
+                  ...message,
+                  replyStatus: ['Response_Approve_Attestation', 'Response_Accept_VP'].includes(
+                    serverMessage.rawData.msgType
+                  )
+                    ? 'approved'
+                    : ['Response_Reject_Attestation', 'Response_Reject_VP'].includes(
+                        serverMessage.rawData.msgType
+                      )
+                    ? 'reject'
+                    : message.replyStatus
+                }
+              : message
+          );
+        }
+
+        return duplicateServerMessages(messages);
+      });
+    },
+    []
+  );
 
   const value = useMemo(
-    () => ({ messages, sentMessages, readMessage, setMessageStatus, decrypt }),
-    [decrypt, messages, readMessage, sentMessages, setMessageStatus]
+    () => ({ messages, sentMessages, readMessage, sendMessage, decrypt }),
+    [decrypt, messages, readMessage, sentMessages, sendMessage]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

@@ -20,12 +20,7 @@ import {
   Recaptcha
 } from '@credential/react-components';
 import { DidsContext, DidsModal, useDid } from '@credential/react-dids';
-import {
-  encryptMessageStep,
-  sendMessage,
-  signAndBuildVC,
-  Steps
-} from '@credential/react-dids/steps';
+import { encryptMessageStep, signAndBuildVC, Steps } from '@credential/react-dids/steps';
 import { useStopPropagation, useToggle } from '@credential/react-hooks';
 
 const Approve: React.FC<{
@@ -34,7 +29,7 @@ const Approve: React.FC<{
 }> = ({ task, type = 'button' }) => {
   const { did: attester } = useContext(DidsContext);
   const { serverCTypes } = useContext(CTypeContext);
-  const { setMessageStatus } = useContext(AppContext);
+  const { sendMessage } = useContext(AppContext);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] =
     useState<Message<'Response_Approve_Attestation'>>();
@@ -103,10 +98,7 @@ const Approve: React.FC<{
                   label: 'Send message',
                   paused: true,
                   content: <Recaptcha onCallback={setRecaptchaToken} />,
-                  exec: () =>
-                    sendMessage(encryptedMessage, recaptchaToken).then(() =>
-                      setMessageStatus(task.id, 'approved')
-                    )
+                  exec: () => sendMessage(encryptedMessage, recaptchaToken)
                 }
               ]}
             />

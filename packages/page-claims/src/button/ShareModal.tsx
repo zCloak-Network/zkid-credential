@@ -10,6 +10,7 @@ import { Message } from '@zcloak/message/types';
 import { VerifiablePresentationBuilder } from '@zcloak/vc';
 
 import {
+  AppContext,
   Box,
   Button,
   Checkbox,
@@ -19,7 +20,7 @@ import {
   Stack
 } from '@credential/react-components';
 import { DidsContext, DidsModal, InputDid } from '@credential/react-dids';
-import { encryptMessageStep, sendMessage, Steps } from '@credential/react-dids/steps';
+import { encryptMessageStep, Steps } from '@credential/react-dids/steps';
 
 const ShareModal: React.FC<{
   credential: VerifiableCredential;
@@ -27,6 +28,7 @@ const ShareModal: React.FC<{
   onClose?: () => void;
 }> = ({ credential, onClose, open }) => {
   const { did: sender } = useContext(DidsContext);
+  const { sendMessage } = useContext(AppContext);
   const [receiver, setReceiver] = useState<Did | null>(null);
   const [encryptedMessage, setEncryptedMessage] = useState<Message<'Send_VP'>>();
   const [recaptchaToken, setRecaptchaToken] = useState<string>();

@@ -4,6 +4,5 @@
 export * from './AddCTypeStep';
 export * from './EncryptMessageStep';
 export * from './SignStep';
-export * from './SendMessageStep';
 
 export { default as Steps } from './Steps';

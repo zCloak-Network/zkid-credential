@@ -12,9 +12,9 @@ import { Raw } from '@zcloak/vc';
 
 import { DEFAULT_ROOT_HASH_TYPE } from '@credential/app-config/vc';
 import { addPendingCredential } from '@credential/app-store/pending-credential';
-import { Button, NotificationContext, Recaptcha } from '@credential/react-components';
+import { AppContext, Button, NotificationContext, Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal } from '@credential/react-dids';
-import { encryptMessageStep, sendMessage, Steps } from '@credential/react-dids/steps';
+import { encryptMessageStep, Steps } from '@credential/react-dids/steps';
 import { useToggle } from '@credential/react-hooks';
 
 const SubmitClaim: React.FC<{
@@ -25,6 +25,7 @@ const SubmitClaim: React.FC<{
 }> = ({ attester, contents, ctype, onDone }) => {
   const { did: sender } = useContext(DidsContext);
   const { notifyError } = useContext(NotificationContext);
+  const { sendMessage } = useContext(AppContext);
   const [open, toggleOpen] = useToggle();
   const [encryptedMessage, setEncryptedMessage] = useState<Message<'Request_Attestation'>>();
   const [recaptchaToken, setRecaptchaToken] = useState<string>();
