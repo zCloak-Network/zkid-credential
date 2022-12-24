@@ -1,7 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import {
@@ -31,11 +31,16 @@ const RequestDetails: React.FC = () => {
   const navigate = useNavigate();
   const [decrypted, decrypt] = useDecryptedMessage(task);
 
+  const decryptedTask = useMemo(
+    () => decrypted && task && { ...decrypted, meta: task.meta },
+    [decrypted, task]
+  );
+
   useEffect(() => {
     id && readMessage(id);
   }, [id, readMessage]);
 
-  if (!decrypted) {
+  if (!decryptedTask) {
     return (
       <Dialog fullScreen open>
         <DialogHeader onClose={() => navigate('/attester/tasks', { replace: true })}>
@@ -67,8 +72,8 @@ const RequestDetails: React.FC = () => {
         maxWidth="lg"
         sx={{ background: 'transparent !important' }}
       >
-        <ClaimInfo showActions task={decrypted} />
-        <Details contents={decrypted.data.credentialSubject} />
+        <ClaimInfo showActions task={decryptedTask} />
+        <Details contents={decryptedTask.data.credentialSubject} />
       </Container>
       <DialogActions>
         <Stack
@@ -77,8 +82,8 @@ const RequestDetails: React.FC = () => {
           spacing={1.5}
           sx={{ display: { md: 'none', xs: 'flex' } }}
         >
-          {decrypted.meta.taskStatus === 'pending' && <Approve task={decrypted} />}
-          {decrypted.meta.taskStatus === 'pending' && <Reject task={decrypted} />}
+          {decryptedTask.meta.taskStatus === 'pending' && <Approve task={decryptedTask} />}
+          {decryptedTask.meta.taskStatus === 'pending' && <Reject task={decryptedTask} />}
         </Stack>
       </DialogActions>
     </Dialog>

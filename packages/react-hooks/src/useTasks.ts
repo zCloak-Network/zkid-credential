@@ -1,21 +1,18 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { MessageType } from '@zcloak/message/types';
-import type { MessageWithMeta, Task } from './types';
+import type { Message, MessageType } from '@zcloak/message/types';
+import type { Task } from './types';
 
 import { useContext, useMemo } from 'react';
 
 import { AppContext } from '@credential/react-components';
 
-function filterMessages(messages: MessageWithMeta<MessageType>[]): Task[] {
+function filterMessages(messages: Message<MessageType>[]): Task[] {
   return messages.filter((message) => message.msgType === 'Request_Attestation') as Task[];
 }
 
-function filterMessagesWithId(
-  messages: MessageWithMeta<MessageType>[],
-  id?: string
-): Task | undefined {
+function findMessagesWithId(messages: Message<MessageType>[], id?: string): Task | undefined {
   return messages.find<Task>(
     (message): message is Task => message.msgType === 'Request_Attestation' && message.id === id
   );
@@ -31,5 +28,5 @@ export function useTasks(): Task[] {
 export function useTask(id?: string): Task | undefined {
   const { messages } = useContext(AppContext);
 
-  return useMemo(() => filterMessagesWithId(messages, id), [id, messages]);
+  return useMemo(() => findMessagesWithId(messages, id), [id, messages]);
 }

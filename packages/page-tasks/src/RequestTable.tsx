@@ -4,7 +4,7 @@
 import type { Task } from '@credential/react-hooks/types';
 
 import moment from 'moment';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link as LinkRouter } from 'react-router-dom';
 
 import {
@@ -36,16 +36,21 @@ const Row: React.FC<{ task: Task }> = ({ task }) => {
 
   const [decrypted, decrypt] = useDecryptedMessage(task);
 
+  const decryptedTask = useMemo(
+    () => decrypted && { ...decrypted, meta: task.meta },
+    [decrypted, task.meta]
+  );
+
   return (
     <TaskCard
       operate={
-        decrypted ? (
+        decryptedTask ? (
           upMd ? (
-            <ActionButton task={decrypted} />
+            <ActionButton task={decryptedTask} />
           ) : (
             <>
-              {task.meta.taskStatus === 'pending' && <Approve task={decrypted} type="button" />}
-              {task.meta.taskStatus === 'pending' && <Reject task={decrypted} type="button" />}
+              {task.meta.taskStatus === 'pending' && <Approve task={decryptedTask} type="button" />}
+              {task.meta.taskStatus === 'pending' && <Reject task={decryptedTask} type="button" />}
             </>
           )
         ) : (

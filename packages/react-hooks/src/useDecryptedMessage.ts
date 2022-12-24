@@ -1,8 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { MessageType } from '@zcloak/message/types';
-import type { DecryptedMessageWithMeta, MessageWithMeta } from './types';
+import type { DecryptedMessage, Message, MessageType } from '@zcloak/message/types';
 
 import { useCallback, useContext, useEffect, useState } from 'react';
 
@@ -13,21 +12,21 @@ import {
 } from '@credential/react-components/AppProvider/AppProvider';
 
 export function useDecryptedMessage<T extends MessageType>(
-  message?: MessageWithMeta<T> | null
-): [DecryptedMessageWithMeta<T> | null, () => Promise<DecryptedMessageWithMeta<T>>] {
+  message?: Message<T> | null
+): [DecryptedMessage<T> | null, () => Promise<DecryptedMessage<T>>] {
   const { decrypt } = useContext(AppContext);
-  const [decrypted, setDecrypted] = useState<DecryptedMessageWithMeta<T> | null>(null);
+  const [decrypted, setDecrypted] = useState<DecryptedMessage<T> | null>(null);
 
   useEffect(() => {
     if (message) {
-      const cache = decryptedCache.get(message.id) as DecryptedMessageWithMeta<T>;
+      const cache = decryptedCache.get(message.id) as DecryptedMessage<T>;
 
       if (cache) {
         setDecrypted(cache);
       } else {
         decryptedCachePromise
           .get(message.id)
-          ?.then((decrypted) => setDecrypted(decrypted as DecryptedMessageWithMeta<T>));
+          ?.then((decrypted) => setDecrypted(decrypted as DecryptedMessage<T>));
       }
     }
   }, [message]);

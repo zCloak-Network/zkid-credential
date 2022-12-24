@@ -95,7 +95,7 @@ const Reject: React.FC<{
                   content: <Recaptcha onCallback={setRecaptchaToken} />,
                   exec: () =>
                     sendMessage(encryptedMessage, recaptchaToken).then(() =>
-                      setMessageStatus(task.id, 'rejected')
+                      setMessageStatus(task.id, 'reject')
                     )
                 }
               ]}

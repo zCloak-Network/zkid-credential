@@ -4,6 +4,8 @@
 import type { DecryptedMessage, Message, MessageType } from '@zcloak/message/types';
 import type { VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/types';
 
+import type { MessageWithMeta } from '@credential/react-hooks/types';
+
 import Circle from '@mui/icons-material/Circle';
 import moment from 'moment';
 import React, { useCallback, useMemo, useRef } from 'react';
@@ -24,7 +26,6 @@ import {
 } from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
 import { useDecryptedMessage, useToggle } from '@credential/react-hooks';
-import { MessageWithMeta } from '@credential/react-hooks/types';
 
 function getCredential(message: DecryptedMessage<MessageType>): VerifiableCredential | null {
   switch (message.msgType) {

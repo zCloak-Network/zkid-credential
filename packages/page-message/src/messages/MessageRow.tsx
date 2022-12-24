@@ -1,10 +1,8 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { DecryptedMessage, MessageType } from '@zcloak/message/types';
+import type { DecryptedMessage, Message, MessageType } from '@zcloak/message/types';
 import type { VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/types';
-
-import type { MessageWithMeta } from '@credential/react-hooks/types';
 
 import moment from 'moment';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
@@ -39,7 +37,7 @@ function getCredential(
   }
 }
 
-function MessageRow({ message }: { message: MessageWithMeta<MessageType> }) {
+function MessageRow({ message }: { message: Message<MessageType> }) {
   const { did } = useContext(DidsContext);
   const [decrypted, decrypt] = useDecryptedMessage(message);
   const [open, toggleOpen] = useToggle();

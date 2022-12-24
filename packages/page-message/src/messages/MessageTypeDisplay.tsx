@@ -1,15 +1,13 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { MessageType } from '@zcloak/message/types';
-
-import type { MessageWithMeta } from '@credential/react-hooks/types';
+import type { Message, MessageType } from '@zcloak/message/types';
 
 import React, { useMemo } from 'react';
 
 import { alpha, Box, useTheme } from '@credential/react-components';
 
-function MessageTypeDisplay({ message }: { message: MessageWithMeta<MessageType> }) {
+function MessageTypeDisplay({ message }: { message: Message<MessageType> }) {
   const { palette } = useTheme();
 
   const color = useMemo(() => {

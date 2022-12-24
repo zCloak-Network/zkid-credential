@@ -1,17 +1,15 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { MessageType } from '@zcloak/message/types';
+import type { DecryptedMessage, Message, MessageType } from '@zcloak/message/types';
 
 import type { ServerMessage } from '@credential/react-dids/types';
-import type {
-  DecryptedMessageWithMeta,
-  MessageWithMeta,
-  TaskStatus
-} from '@credential/react-hooks/types';
+import type { MessageWithMeta } from '@credential/react-hooks/types';
 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
+import { isSameUri } from '@zcloak/did/utils';
+import { DidUrl } from '@zcloak/did-resolver/types';
 import { decryptMessage } from '@zcloak/message';
 
 import { MESSAGE_WS } from '@credential/app-config/endpoints';
@@ -26,55 +24,77 @@ interface State {
   messages: MessageWithMeta<MessageType>[];
   sentMessages: MessageWithMeta<MessageType>[];
   readMessage: (id: string) => Promise<void>;
-  setMessageStatus: (id: string, status: TaskStatus) => void;
-  decrypt: <T extends MessageType>(
-    message: MessageWithMeta<T>
-  ) => Promise<DecryptedMessageWithMeta<T>>;
+  setMessageStatus: (id: string, status: 'approved' | 'reject') => void;
+  decrypt: <T extends MessageType>(message: Message<T>) => Promise<DecryptedMessage<T>>;
 }
 
 export const AppContext = createContext({} as State);
 
-function sortMessages<T extends MessageType>(messages: MessageWithMeta<T>[]): MessageWithMeta<T>[] {
-  return messages.sort((l, r) => r.createTime - l.createTime);
+function sortMessages<T extends MessageType>(messages: ServerMessage<T>[]): ServerMessage<T>[] {
+  return messages.sort((l, r) => r.rawData.createTime - l.rawData.createTime);
 }
 
-function transformMessage<T extends MessageType>(data: ServerMessage<T>[]): MessageWithMeta<T>[] {
-  return data.map((d) => ({
-    ...d.rawData,
-    meta: {
-      isRead: d.isRead,
-      isPush: d.isPush,
-      taskStatus:
-        d.replyStatus === 'approved'
-          ? 'approved'
-          : d.replyStatus === 'reject'
-          ? 'rejected'
-          : 'pending'
+function transformMessage(
+  data: ServerMessage<MessageType>[],
+  didUrl: DidUrl
+): [MessageWithMeta<MessageType>[], MessageWithMeta<MessageType>[]] {
+  const _messages: MessageWithMeta<MessageType>[] = [];
+  const _sentMessages: MessageWithMeta<MessageType>[] = [];
+
+  data.forEach((message) => {
+    if (isSameUri(message.rawData.receiver, didUrl)) {
+      _messages.push({
+        ...message.rawData,
+        meta: {
+          isRead: message.isRead,
+          isPush: message.isPush,
+          taskStatus:
+            message.replyStatus === 'approved'
+              ? 'approved'
+              : message.replyStatus === 'reject'
+              ? 'rejected'
+              : 'pending'
+        }
+      });
     }
-  }));
+
+    if (isSameUri(message.rawData.sender, didUrl)) {
+      _sentMessages.push({
+        ...message.rawData,
+        meta: {
+          isRead: message.isRead,
+          isPush: message.isPush,
+          taskStatus:
+            message.replyStatus === 'approved'
+              ? 'approved'
+              : message.replyStatus === 'reject'
+              ? 'rejected'
+              : 'pending'
+        }
+      });
+    }
+  });
+
+  return [_messages, _sentMessages];
 }
 
-function duplicateMessages(
-  messages: MessageWithMeta<MessageType>[]
-): MessageWithMeta<MessageType>[] {
-  const messagesMap: Map<string, MessageWithMeta<MessageType>> = new Map();
+function duplicateServerMessages(
+  messages: ServerMessage<MessageType>[]
+): ServerMessage<MessageType>[] {
+  const messagesMap: Map<string, ServerMessage<MessageType>> = new Map();
 
-  messages.forEach((message) => messagesMap.set(message.id, message));
+  messages.forEach((message) => messagesMap.set(message.rawData.id, message));
 
-  return sortMessages(Array.from(messages.values()));
+  return sortMessages(Array.from(messagesMap.values()));
 }
 
-export const decryptedCache: Map<string, DecryptedMessageWithMeta<MessageType>> = new Map();
-export const decryptedCachePromise: Map<
-  string,
-  Promise<DecryptedMessageWithMeta<MessageType>>
-> = new Map();
+export const decryptedCache: Map<string, DecryptedMessage<MessageType>> = new Map();
+export const decryptedCachePromise: Map<string, Promise<DecryptedMessage<MessageType>>> = new Map();
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 function AppProvider({ children }: { children: React.ReactNode }) {
   const { did } = useContext(DidsContext);
-  const [messages, setMessages] = useState<MessageWithMeta<MessageType>[]>([]);
-  const [sentMessages, setSentMessages] = useState<MessageWithMeta<MessageType>[]>([]);
+  const [serverMessages, setServerMessages] = useState<ServerMessage<MessageType>[]>([]);
 
   const didUrl = useMemo(() => {
     try {
@@ -84,39 +104,37 @@ function AppProvider({ children }: { children: React.ReactNode }) {
     return null;
   }, [did]);
 
+  const [messages, sentMessages] = useMemo(
+    () => transformMessage(serverMessages, did.id),
+    [did.id, serverMessages]
+  );
+
   const decrypt = useCallback(
-    async <T extends MessageType>(
-      message: MessageWithMeta<T>
-    ): Promise<DecryptedMessageWithMeta<T>> => {
+    async <T extends MessageType>(message: Message<T>): Promise<DecryptedMessage<T>> => {
       const cache = decryptedCache.get(message.id);
 
-      if (cache) return cache as DecryptedMessageWithMeta<T>;
+      if (cache) return cache as DecryptedMessage<T>;
 
       const cachePromise = decryptedCachePromise.get(message.id);
 
-      if (cachePromise) return cachePromise as Promise<DecryptedMessageWithMeta<T>>;
+      if (cachePromise) return cachePromise as Promise<DecryptedMessage<T>>;
 
-      const promise: Promise<DecryptedMessageWithMeta<T>> = decryptMessage(
-        message,
-        did,
-        resolver
-      ).then((decrypted) => {
-        if (decrypted.msgType === 'Response_Approve_Attestation') {
-          addVC(decrypted.data);
-        } else if (decrypted.msgType === 'Send_issuedVC') {
-          addVC(decrypted.data);
+      const promise: Promise<DecryptedMessage<T>> = decryptMessage(message, did, resolver).then(
+        (decrypted) => {
+          if (decrypted.msgType === 'Response_Approve_Attestation') {
+            addVC(decrypted.data);
+          } else if (decrypted.msgType === 'Send_issuedVC') {
+            addVC(decrypted.data);
+          }
+
+          // set cache when success
+          decryptedCache.set(message.id, decrypted);
+          // delete cache promise when success
+          decryptedCachePromise.delete(message.id);
+
+          return decrypted;
         }
-
-        // set cache when success
-        decryptedCache.set(message.id, { ...decrypted, meta: message.meta });
-        // delete cache promise when success
-        decryptedCachePromise.delete(message.id);
-
-        return {
-          ...decrypted,
-          meta: message.meta
-        };
-      });
+      );
 
       decryptedCachePromise.set(message.id, promise);
 
@@ -134,18 +152,23 @@ function AppProvider({ children }: { children: React.ReactNode }) {
 
     resolver
       .getMessages({ receiver: didUrl })
-      .then(transformMessage)
-      .then(duplicateMessages)
-      .then((messages) => {
-        setMessages(messages);
+      .then((data) => {
+        setServerMessages(data);
 
+        return data;
+      })
+      .then((messages) => {
         syncProvider.isReady.then((provider) => {
-          provider.subscribe(didUrl, messages[0]?.createTime || 0, (messages) => {
-            setMessages((m) => duplicateMessages([...transformMessage(messages), ...m]));
+          provider.subscribe(didUrl, messages?.[0]?.rawData.createTime || 0, (messages) => {
+            setServerMessages((serverMessages) =>
+              duplicateServerMessages([...messages, ...serverMessages])
+            );
           });
         });
       });
-    resolver.getMessages({ sender: didUrl }).then(transformMessage).then(setSentMessages);
+    resolver.getMessages({ sender: didUrl }).then((data) => {
+      setServerMessages((serverMessages) => duplicateServerMessages([...data, ...serverMessages]));
+    });
 
     return () => {
       syncProvider.close();
@@ -153,41 +176,39 @@ function AppProvider({ children }: { children: React.ReactNode }) {
   }, [didUrl]);
 
   useEffect(() => {
-    messages.forEach((message) => {
-      if (message.msgType === 'Response_Approve_Attestation') {
-        if (message.reply) updatePendingCredential(message.reply, 'approved');
-      } else if (message.msgType === 'Response_Reject_Attestation') {
-        if (message.reply) updatePendingCredential(message.reply, 'rejected');
+    serverMessages.forEach((message) => {
+      if (message.rawData.msgType === 'Response_Approve_Attestation') {
+        if (message.rawData.reply) updatePendingCredential(message.rawData.reply, 'approved');
+      } else if (message.rawData.msgType === 'Response_Reject_Attestation') {
+        if (message.rawData.reply) updatePendingCredential(message.rawData.reply, 'rejected');
       }
     });
-  }, [messages]);
+  }, [serverMessages]);
 
   const readMessage = useCallback(async (id: string) => {
-    setMessages((messages) =>
-      messages.map((message) => ({
-        ...message,
-        meta: {
-          ...message.meta,
-          isRead: id === message.id ? true : message.meta.isRead
-        }
-      }))
+    setServerMessages((serverMessages) =>
+      serverMessages.map((message) =>
+        id === message.id
+          ? {
+              ...message,
+              isRead: true
+            }
+          : message
+      )
     );
 
     await resolver.readMessage(id);
   }, []);
 
-  const setMessageStatus = useCallback((id: string, status: TaskStatus) => {
-    setMessages((_messages) =>
-      _messages.map((_message) =>
-        _message.id === id
+  const setMessageStatus = useCallback((id: string, status: 'approved' | 'reject') => {
+    setServerMessages((serverMessages) =>
+      serverMessages.map((message) =>
+        id === message.id
           ? {
-              ..._message,
-              meta: {
-                ..._message.meta,
-                taskStatus: status
-              }
+              ...message,
+              replyStatus: status
             }
-          : _message
+          : message
       )
     );
   }, []);
