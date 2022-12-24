@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.10.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.9.1...v0.10.0) (2022-12-24)
+
+
+### Features
+
+* change local message replyStatus when send message ([42e9fb7](https://github.com/zCloak-Network/zkid-credential/commit/42e9fb72eeaf59aba7d97d01fb7c7f2e41cade96))
+
+
 ## [0.9.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.9.0...v0.9.1) (2022-12-24)
 
 

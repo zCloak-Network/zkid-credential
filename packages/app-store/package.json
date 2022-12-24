@@ -14,7 +14,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "dependencies": {
     "@zcloak/ctype": "^0.7.0",
     "@zcloak/did-resolver": "^0.7.0",
