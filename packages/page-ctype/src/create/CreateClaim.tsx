@@ -24,8 +24,8 @@ import { useCTypeMetaForAttest, useToggle } from '@credential/react-hooks';
 
 import SubmitClaim from './SubmitClaim';
 
-function CreateClaim({ ctype }: { ctype: CType }) {
-  const [open, toggleOpen] = useToggle();
+function CreateClaim({ ctype, isAuto }: { ctype: CType; isAuto: boolean }) {
+  const [open, toggleOpen] = useToggle(isAuto);
   const [attester, setAttester] = useState<Did | null>(null);
   const [contents, setContents] = useState<AnyJson>({});
   const navigate = useNavigate();
@@ -39,9 +39,13 @@ function CreateClaim({ ctype }: { ctype: CType }) {
 
   return (
     <>
-      <Button onClick={toggleOpen} variant="contained">
-        Create Claim
-      </Button>
+      {!isAuto ? (
+        <Button onClick={toggleOpen} variant="contained">
+          Create Claim
+        </Button>
+      ) : (
+        <></>
+      )}
       {open && (
         <FullScreenDialog open={open}>
           <FullScreenDialogHeader

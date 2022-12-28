@@ -11,7 +11,6 @@ import PageCreateAccount from '@credential/page-account/Create';
 import PageRestoreAccount from '@credential/page-account/Restore';
 import PageClaims from '@credential/page-claims';
 import PageCType from '@credential/page-ctype';
-import AutoImport from '@credential/page-ctype/AutoImport';
 import PageCreateCType from '@credential/page-ctype/create';
 import PageOwnerCType from '@credential/page-ctype/OwnerCType';
 import PageDidProfile from '@credential/page-did/DidProfile';
@@ -112,7 +111,14 @@ const createClaimerApp = () => (
         }
         index
       />
-      <Route element={<AutoImport />} path=":id/create-claim" />
+      <Route
+        element={
+          <Container hasPaddingTop hasPaddingX>
+            <PageCType />
+          </Container>
+        }
+        path=":id/create-claim"
+      />
     </Route>
     <Route
       element={
