@@ -58,8 +58,8 @@ export class CredentialDidResolver extends ArweaveDidResolver {
     }
   }
 
-  async submitAttesterCtype(ctype: CType, reCAPTCHA?: string | null) {
-    const res = await post(`${this.server}/ctype`, { ...ctype, reCAPTCHA });
+  async submitAttesterCtype(ctype: CType, token?: string | null) {
+    const res = await post(`${this.server}/ctype`, { ...ctype, token });
 
     if (res?.code !== 200) {
       throw new Error(res?.message);
