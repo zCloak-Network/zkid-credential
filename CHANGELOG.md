@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.11.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.11.0...v0.11.1) (2022-12-28)
+
+
+### Bug Fixes
+
+* **ctype:** pass wrong param when create ctype. ([fdaa2b8](https://github.com/zCloak-Network/zkid-credential/commit/fdaa2b88e6ddbd32c337565d7573b8e910a4efb6))
+
+
 ## [0.11.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.10.0...v0.11.0) (2022-12-28)
 
 

@@ -14,9 +14,9 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "dependencies": {
-    "@credential/react-dids": "0.11.0",
+    "@credential/react-dids": "0.11.1",
     "@polkadot/util": "^10.2.1",
     "@zcloak/crypto": "^0.7.0",
     "@zcloak/ctype": "^0.7.0",
