@@ -48,6 +48,7 @@ export class DidManager extends ZkDid {
     localStorage.setItem(STORAGE_KEY, value.id);
     this._current = value;
     this._db = new DidDB(value.id);
+    this.emit('changed', value);
   }
 
   public loadCurrent(): void {
@@ -74,6 +75,20 @@ export class DidManager extends ZkDid {
     if (did) {
       this.setCurrent(did);
     }
+  }
+
+  // only support unique login did
+  public reloadLoginDid(loginDid: LoginDid): void {
+    this.dids.forEach((did, key) => {
+      if (isLoginDid(did)) {
+        this.remove(key);
+
+        if (key === this._current?.id) {
+          this.setCurrent(loginDid);
+        }
+      }
+    });
+    this.addDid(loginDid);
   }
 
   public async loadLoginDid(provider: ZkidWalletProvider): Promise<void> {

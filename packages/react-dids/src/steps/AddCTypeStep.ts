@@ -9,10 +9,13 @@ import { putCacheCType, putCType } from '@credential/app-store';
 
 import { resolver } from '../instance';
 
-export async function addCtype(ctype?: CType | null): Promise<void> {
+export async function addCtype(
+  ctype?: CType | null,
+  reCaptchaToken?: string | null
+): Promise<void> {
   assert(ctype, 'No ctype found');
 
-  await resolver.submitAttesterCtype(ctype);
+  await resolver.submitAttesterCtype(ctype, reCaptchaToken);
   await putCType(ctype);
   await putCacheCType(ctype);
 }

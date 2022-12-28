@@ -16,7 +16,6 @@ export interface DidsState {
   didRole: DidRole;
   isLocked: boolean;
   lock: () => void;
-  switchDid: (did: Did) => void;
 }
 
 type DidKeys$JsonVersion = '1';

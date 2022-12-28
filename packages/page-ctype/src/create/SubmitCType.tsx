@@ -5,7 +5,7 @@ import type { BaseCType, CType, CTypeSchema } from '@zcloak/ctype/types';
 
 import React, { useContext, useMemo, useState } from 'react';
 
-import { Button } from '@credential/react-components';
+import { Button, Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal } from '@credential/react-dids';
 import { addCtype, signCType, Steps } from '@credential/react-dids/steps';
 import { useToggle } from '@credential/react-hooks';
@@ -19,6 +19,7 @@ const SubmitCType: React.FC<{
   const { did: publisher } = useContext(DidsContext);
   const [open, toggleOpen] = useToggle();
   const [ctype, setCType] = useState<CType>();
+  const [recaptchaToken, setRecaptchaToken] = useState<string>();
 
   const base: BaseCType | null = useMemo(
     () =>
@@ -53,7 +54,9 @@ const SubmitCType: React.FC<{
               },
               {
                 label: 'Upload ctype',
-                exec: () => addCtype(ctype)
+                paused: true,
+                content: <Recaptcha onCallback={setRecaptchaToken} />,
+                exec: () => addCtype(ctype, recaptchaToken)
               }
             ]}
             submitText="Submit ctype"

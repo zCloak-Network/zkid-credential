@@ -26,13 +26,12 @@ import { didManager } from '@credential/react-dids/instance';
 import { useCopyClipboard } from '@credential/react-hooks';
 
 function DidCell({ active, did, onClose }: { active?: boolean; did: Did; onClose: () => void }) {
-  const { switchDid } = useContext(DidsContext);
   const [isCopy, copy] = useCopyClipboard();
 
   const handleClick = useCallback(() => {
-    switchDid(did);
+    didManager.setCurrent(did);
     onClose();
-  }, [did, onClose, switchDid]);
+  }, [did, onClose]);
 
   const handleCopy = useCallback(() => {
     copy(did.id);
@@ -101,7 +100,7 @@ function DidCell({ active, did, onClose }: { active?: boolean; did: Did; onClose
 
 function MultiDids({ onClose }: { onClose: () => void }) {
   const location = useLocation();
-  const { all, did, switchDid } = useContext(DidsContext);
+  const { all, did } = useContext(DidsContext);
   const navigate = useNavigate();
 
   const localDids = useMemo(() => all.filter((did) => !isLoginDid(did)), [all]);
@@ -145,7 +144,7 @@ function MultiDids({ onClose }: { onClose: () => void }) {
           {loginDid ? (
             <DidCell active={loginDid === did} did={loginDid} key={loginDid.id} onClose={onClose} />
           ) : (
-            <ButtonWallet fullWidth onDone={switchDid} variant="contained" />
+            <ButtonWallet fullWidth variant="contained" />
           )}
           {localDids.map((item) => (
             <DidCell active={item === did} did={item} key={item.id} onClose={onClose} />

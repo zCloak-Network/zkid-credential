@@ -37,18 +37,27 @@ function DidsProvider({ children, didRole }: { didRole: DidRole; children: React
   );
 
   useEffect(() => {
-    const didChange = () => {
+    const didListChanged = () => {
       const all = didManager.all();
 
       setAll(all);
     };
 
-    didManager.on('add', didChange);
-    didManager.on('remove', didChange);
+    const didChanged = () => {
+      const did = didManager.current;
+
+      setDid(did);
+      did && setIsLocked(getIsLocked(did));
+    };
+
+    didManager.on('add', didListChanged);
+    didManager.on('remove', didListChanged);
+    didManager.on('changed', didChanged);
 
     return () => {
-      didManager.off('add', didChange);
-      didManager.off('remove', didChange);
+      didManager.off('add', didListChanged);
+      didManager.off('remove', didListChanged);
+      didManager.off('changed', didChanged);
     };
   }, []);
 
@@ -75,12 +84,6 @@ function DidsProvider({ children, didRole }: { didRole: DidRole; children: React
     }
   }, [did, isLocked]);
 
-  const switchDid = useCallback((did: Did) => {
-    didManager.setCurrent(did);
-    setDid(did);
-    setIsLocked(getIsLocked(did));
-  }, []);
-
   return did ? (
     <DidsContext.Provider
       value={{
@@ -88,8 +91,7 @@ function DidsProvider({ children, didRole }: { didRole: DidRole; children: React
         all,
         did,
         isLocked,
-        lock,
-        switchDid
+        lock
       }}
     >
       {isLocked ? <UnlockModal did={did} onUnlock={unUnlock} open /> : children}
