@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [0.11.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.10.0...v0.11.0) (2022-12-28)
+
+
+### Features
+
+* **ctype, login:** add create ctype with link, and auto login with zkid wallet ([#12](https://github.com/zCloak-Network/zkid-credential/issues/12)) ([de3bfc0](https://github.com/zCloak-Network/zkid-credential/commit/de3bfc06bbccc97b8cf636c3da1bf603b670e75e))
+* listen zkid wallet did changed event and switch login did ([131ebf4](https://github.com/zCloak-Network/zkid-credential/commit/131ebf4180c873c4d31b13608735fd346632c3c6))
+
+
 ## [0.10.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.9.1...v0.10.0) (2022-12-24)
 
 
