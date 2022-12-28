@@ -17,7 +17,7 @@ const CTypeList: React.FC<{ list: CType[] }> = ({ list }) => {
         {list.map((item, index) => (
           <Grid key={index} lg={4} xl={3} xs={4}>
             <CTypeCard
-              actions={<CreateClaim ctype={item} />}
+              actions={<CreateClaim ctype={item} isAuto={false} />}
               ctype={item}
               meta={getCTypeMetaForAttest(item.$id)}
             />

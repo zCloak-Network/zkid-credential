@@ -12,6 +12,7 @@ import {
   IdentityIcon,
   Stack,
   TaskStatusDisplay,
+  Tooltip,
   Typography,
   Unstable_Grid2 as Grid
 } from '@credential/react-components';
@@ -79,9 +80,11 @@ const ClaimInfo: React.FC<{
           <IdentityIcon diameter={70} value={task.data.holder} />
           <Box sx={{ width: 300 }}>
             <Typography sx={({ palette }) => ({ color: palette.grey[700] })}>Claimer</Typography>
-            <Typography sx={{ ...ellipsisMixin() }} variant="h4">
-              <DidName value={task.data.holder} />
-            </Typography>
+            <Tooltip placement="bottom" title={task.data.holder}>
+              <Typography sx={{ ...ellipsisMixin() }} variant="h4">
+                <DidName value={task.data.holder} />
+              </Typography>
+            </Tooltip>
           </Box>
         </Stack>
         {showActions && (

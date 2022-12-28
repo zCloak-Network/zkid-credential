@@ -102,14 +102,24 @@ const createClaimerApp = () => (
         path="profile"
       />
     </Route>
-    <Route
-      element={
-        <Container hasPaddingTop hasPaddingX>
-          <PageCType />
-        </Container>
-      }
-      path="ctype"
-    />
+    <Route path="ctype">
+      <Route
+        element={
+          <Container hasPaddingTop hasPaddingX>
+            <PageCType />
+          </Container>
+        }
+        index
+      />
+      <Route
+        element={
+          <Container hasPaddingTop hasPaddingX>
+            <PageCType />
+          </Container>
+        }
+        path=":id/create-claim"
+      />
+    </Route>
     <Route
       element={
         <Container hasPaddingTop hasPaddingX>
