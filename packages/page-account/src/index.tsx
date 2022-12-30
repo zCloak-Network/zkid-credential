@@ -41,16 +41,15 @@ const Account: React.FC = () => {
     }
 
     try {
-      await provider.requestAuth();
+      const challenge = new Date().getTime();
+
+      await provider.requestAuthAndLogin(challenge);
       const did = await LoginDid.fromProvider(provider);
 
       didManager.addDid(did);
       didManager.setCurrent(did);
-    } finally {
-      const isAuth = await provider.isAuth();
-
-      isAuth && navigate(redirect ?? '/claimer');
-    }
+      navigate(redirect ?? '/claimer/ctype');
+    } catch {}
   }, [redirect, login, navigate, toggleOpen]);
 
   useEffect(() => {

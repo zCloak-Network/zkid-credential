@@ -4819,43 +4819,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/login-did@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "@zcloak/login-did@npm:0.4.0"
+"@zcloak/login-did@npm:^0.4.1-0":
+  version: 0.4.1-0
+  resolution: "@zcloak/login-did@npm:0.4.1-0"
   dependencies:
     "@polkadot/util": ^10.2.1
     "@zcloak/did": ^0.7.0
     "@zcloak/did-resolver": ^0.7.0
-    "@zcloak/login-providers": ^0.4.0
-  checksum: 5c84422de60dfaa501b3467434ab313a30d3d8ae9dee8fb76ef0ae39a1169afe0e0f05eae65dc55dfe51e9848d5d389802b2a38fabc4478ffd5cefc857f5e704
+    "@zcloak/login-providers": ^0.4.1-0
+  checksum: 131908dd642b0f81164ba6de6e0d40161d0da6eb34a830c4f8252addc7367f805c34c796ec8e9b3e9817c254822f9bcb3415fdddabd7d57cea7f8bca939b55c3
   languageName: node
   linkType: hard
 
-"@zcloak/login-providers@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "@zcloak/login-providers@npm:0.4.0"
+"@zcloak/login-providers@npm:^0.4.1-0":
+  version: 0.4.1-0
+  resolution: "@zcloak/login-providers@npm:0.4.1-0"
   dependencies:
     "@polkadot/util": ^10.2.1
-    "@zcloak/login-rpc": 0.4.0
-    "@zcloak/login-rpc-defines": 0.4.0
+    "@zcloak/login-rpc": 0.4.1-0
+    "@zcloak/login-rpc-defines": 0.4.1-0
     eventemitter3: ^5.0.0
-  checksum: 0f7aa617487488274a7e097e6885eadd202128f0202a710be29dbf76b1c07bd9e73896a9d1c2689d167a87474d331647ab32d91d53cd4db7e3e4abc285fc3d2f
+  checksum: adb7a3d27312f3f0588b603ad888e312b0bfff722c084cf0d4d58ccc90254cfdf580cc22dcc77abcfc4f912fabb80827d30be32558d8ddd688aebca8fab0ea3d
   languageName: node
   linkType: hard
 
-"@zcloak/login-rpc-defines@npm:0.4.0":
-  version: 0.4.0
-  resolution: "@zcloak/login-rpc-defines@npm:0.4.0"
+"@zcloak/login-rpc-defines@npm:0.4.1-0":
+  version: 0.4.1-0
+  resolution: "@zcloak/login-rpc-defines@npm:0.4.1-0"
   dependencies:
-    "@zcloak/login-rpc": ^0.4.0
-  checksum: 8134e628274c50725075492f1f8ac9a280d6fd6eab90b1f0f801bc85aa775bec1deb30f6596e1409207f33769bd0615aad58f9d5440c18986fccf27fbda7b621
+    "@zcloak/login-rpc": ^0.4.1-0
+  checksum: 8f26a9e59aa5791c6785c9ad6f8be55b43fadfe2f20fca83ae80bd813ff91f9c3626198eb7ad3fc8dd30a533b88e5eb2c5e395d62e64e8370779918dff2df161
   languageName: node
   linkType: hard
 
-"@zcloak/login-rpc@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "@zcloak/login-rpc@npm:0.4.0"
-  checksum: a91f7f20280d89a8b5b9ada67737c85a6a98923dc8d77318b9564c8728fb7bb3c59f30c9daeb2aded5d786af8229e22182e357287e5d0814a2bdd49902e78419
+"@zcloak/login-rpc@npm:^0.4.1-0":
+  version: 0.4.1-0
+  resolution: "@zcloak/login-rpc@npm:0.4.1-0"
+  checksum: deebaaae5ea93b514f19a8c50ecc4b7584d1498922ab130c862af02882b9803a8035bcaeaa043122d2049b19bc6bbfad46cca3722802ab9c5f18c689ae6560ef
   languageName: node
   linkType: hard
 
