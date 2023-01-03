@@ -7,7 +7,8 @@ import React, { useCallback, useState } from 'react';
 
 import { LoginDid } from '@zcloak/login-did';
 
-import { didManager, provider } from '@credential/react-dids/instance';
+import { provider } from '@credential/react-dids/instance';
+import { useLoginWalletCallback } from '@credential/react-hooks';
 
 import Button from './Button';
 
@@ -17,23 +18,20 @@ interface Props extends ButtonProps {
 
 const ButtonWallet = React.forwardRef<any, Props>(function ({ onDone, ...props }, ref) {
   const [loading, setLoading] = useState(false);
+  const loginWalletCallback = useLoginWalletCallback();
 
-  const loginWallet = useCallback(async () => {
+  const loginWallet = useCallback(() => {
     if (!provider) return;
 
     setLoading(true);
-
-    try {
-      await provider.requestAuth();
-      const did = await LoginDid.fromProvider(provider);
-
-      didManager.addDid(did);
-      didManager.setCurrent(did);
-      onDone?.(did);
-    } finally {
-      setLoading(false);
-    }
-  }, [onDone]);
+    loginWalletCallback()
+      .then((did) => {
+        onDone?.(did as any);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [onDone, loginWalletCallback]);
 
   const download = useCallback(() => {
     window.open(

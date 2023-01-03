@@ -1,10 +1,8 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { LoginDid } from '@zcloak/login-did';
 
 import {
   Box,
@@ -16,8 +14,8 @@ import {
   useMediaQuery,
   useTheme
 } from '@credential/react-components';
-import { didManager, provider } from '@credential/react-dids/instance';
-import { useQueryParam, useToggle } from '@credential/react-hooks';
+import { provider } from '@credential/react-dids/instance';
+import { useLoginWalletCallback, useQueryParam, useToggle } from '@credential/react-hooks';
 
 import WalletNotInstall from './WalletNotInstall';
 
@@ -30,8 +28,9 @@ const Account: React.FC = () => {
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
   const [open, toggleOpen] = useToggle();
+  const loginWallet = useLoginWalletCallback();
 
-  const loginWallet = useCallback(async () => {
+  useEffect(() => {
     if (!login || login !== 'zkid-wallet') return;
 
     if (!provider) {
@@ -40,22 +39,10 @@ const Account: React.FC = () => {
       return;
     }
 
-    try {
-      await provider.requestAuth();
-      const did = await LoginDid.fromProvider(provider);
-
-      didManager.addDid(did);
-      didManager.setCurrent(did);
-    } finally {
-      const isAuth = await provider.isAuth();
-
-      isAuth && navigate(redirect ?? '/claimer');
-    }
-  }, [redirect, login, navigate, toggleOpen]);
-
-  useEffect(() => {
-    loginWallet();
-  }, [loginWallet]);
+    loginWallet().then(() => {
+      navigate(redirect ?? '/claimer/ctype');
+    });
+  }, [loginWallet, redirect, login, navigate, toggleOpen]);
 
   return (
     <Container maxWidth="lg">
