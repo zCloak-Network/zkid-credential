@@ -7,6 +7,7 @@ export * from './useDebounce';
 export * from './useInterval';
 export * from './useLiveQuery';
 export * from './useLocalStorage';
+export * from './useLoginWalletCallback';
 export * from './useToggle';
 export * from './useQueryParams';
 export * from './useRootHash';

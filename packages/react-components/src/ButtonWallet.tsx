@@ -8,7 +8,7 @@ import React, { useCallback, useState } from 'react';
 import { LoginDid } from '@zcloak/login-did';
 
 import { provider } from '@credential/react-dids/instance';
-import { useLoginWalletCallback } from '@credential/react-hooks/useLoginWalletCallback';
+import { useLoginWalletCallback } from '@credential/react-hooks';
 
 import Button from './Button';
 

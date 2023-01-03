@@ -15,8 +15,7 @@ import {
   useTheme
 } from '@credential/react-components';
 import { provider } from '@credential/react-dids/instance';
-import { useQueryParam, useToggle } from '@credential/react-hooks';
-import { useLoginWalletCallback } from '@credential/react-hooks/useLoginWalletCallback';
+import { useLoginWalletCallback, useQueryParam, useToggle } from '@credential/react-hooks';
 
 import WalletNotInstall from './WalletNotInstall';
 
