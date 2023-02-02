@@ -30,9 +30,6 @@
     "test": "zcloak-dev-run-test --coverage --forceExit --runInBand --testPathIgnorePatterns e2e",
     "test:one": "zcloak-dev-run-test --detectOpenHandles --forceExit"
   },
-  "dependencies": {
-    "bip39": "^3.0.4"
-  },
   "devDependencies": {
     "@babel/core": "^7.20.5",
     "@babel/register": "^7.18.9",

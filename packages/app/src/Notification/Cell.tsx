@@ -216,7 +216,7 @@ function Cell({
           </Stack>
           {!isRead && (
             <Button onClick={onRead} size="small">
-              Mask as read
+              Mark as read
             </Button>
           )}
           <Button onClick={handleClick} size="small">

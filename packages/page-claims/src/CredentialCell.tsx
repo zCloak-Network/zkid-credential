@@ -30,7 +30,6 @@ import { isMobile } from '@credential/react-hooks/utils/userAgent';
 import DownloadButton from './button/DownloadButton';
 import ImportButton from './button/ImportButton';
 import QrcodeButton from './button/QrcodeButton';
-import RetweetButton from './button/RetweetButton';
 import ShareButton from './button/ShareButton';
 
 const Wrapper = styled(Paper)(({ theme }) => ({
@@ -194,7 +193,7 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
               <ImportButton credential={vc} />
               <ShareButton credential={vc} />
               <DownloadButton credential={vc} />
-              <RetweetButton credential={vc} />
+              {/* <RetweetButton credential={vc} /> */}
               <QrcodeButton credential={vc} />
             </Stack>
           )}
