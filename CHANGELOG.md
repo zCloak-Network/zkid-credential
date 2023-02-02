@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [0.12.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.11.1...v0.12.0) (2023-02-02)
+
+
+### Features
+
+* add authAndLogin when logging in with zkid wallet ([#13](https://github.com/zCloak-Network/zkid-credential/issues/13)) ([6445634](https://github.com/zCloak-Network/zkid-credential/commit/644563433200df3e24d2c7cd13a07ae8982efdbf))
+* add christmas bg card and fix issue button ([#14](https://github.com/zCloak-Network/zkid-credential/issues/14)) ([935eddf](https://github.com/zCloak-Network/zkid-credential/commit/935eddff66d2e94c2ee407a4883464588c2291cd))
+
+
 ## [0.11.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.11.0...v0.11.1) (2022-12-28)
 
 
