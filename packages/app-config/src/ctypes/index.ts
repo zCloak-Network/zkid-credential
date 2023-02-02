@@ -23,11 +23,21 @@ export const ctypeMeta: Record<HexString, CTypeMeta> = {
   '0x9884edce63d4de703c4b3ebf23063929705b7139ce2eeb3b6631c2fa25deb74f': {
     type: 'all',
     card: 'christmas2022/bac_card1.webp'
+  },
+  '0x28b5f594de884efe23886d1ade88a48db1670644664780364a7e6a6c55ee5c63': {
+    type: 'all',
+    card: 'christmas2022/bac_card3.webp'
+  },
+  '0x15ea88be73bd78986a41141fc86497f0cfef4a0d1b5463d100758edca37c546b': {
+    type: 'all',
+    card: 'christmas2022/bac_card2.webp'
   }
 };
 
 export const TOP_CTYPES_FOR_ISSUE: HexString[] = isRelease
   ? [
+      '0x28b5f594de884efe23886d1ade88a48db1670644664780364a7e6a6c55ee5c63',
+      '0x15ea88be73bd78986a41141fc86497f0cfef4a0d1b5463d100758edca37c546b',
       '0x9884edce63d4de703c4b3ebf23063929705b7139ce2eeb3b6631c2fa25deb74f',
       '0x4394e5a3f6d7e18957d02095d46e37558e2502bce59aacd407b074781d7d6b5b'
     ]
@@ -37,7 +47,11 @@ export const TOP_CTYPES_FOR_ISSUE: HexString[] = isRelease
     ];
 
 export const TOP_CTYPES_FOR_ATTEST: HexString[] = isRelease
-  ? ['0x9884edce63d4de703c4b3ebf23063929705b7139ce2eeb3b6631c2fa25deb74f']
+  ? [
+      '0x28b5f594de884efe23886d1ade88a48db1670644664780364a7e6a6c55ee5c63',
+      '0x15ea88be73bd78986a41141fc86497f0cfef4a0d1b5463d100758edca37c546b',
+      '0x9884edce63d4de703c4b3ebf23063929705b7139ce2eeb3b6631c2fa25deb74f'
+    ]
   : [];
 
 export function getCTypeMetaForIssue(id: HexString): CTypeMeta | undefined {

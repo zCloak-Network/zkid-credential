@@ -41,10 +41,12 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
   const [vc, setVC] = useState<VerifiableCredential | null>(null);
 
   const _toggleOpen = useCallback(() => {
+    if (!holder) return;
+
     try {
       const raw = new Raw({
         contents,
-        owner: sender.id,
+        owner: holder.id,
         ctype,
         hashType: DEFAULT_ROOT_HASH_TYPE
       });
@@ -57,7 +59,7 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
     } catch (error) {
       notifyError(error);
     }
-  }, [contents, ctype, notifyError, sender, toggleOpen]);
+  }, [contents, ctype, holder, notifyError, toggleOpen]);
 
   const _onDone = useCallback(() => {
     onDone?.();
