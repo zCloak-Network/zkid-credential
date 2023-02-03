@@ -117,7 +117,7 @@ const createClaimerApp = () => (
             <PageCType />
           </Container>
         }
-        path=":id/create-claim"
+        path=":id/create-claim/:holder"
       />
     </Route>
     <Route

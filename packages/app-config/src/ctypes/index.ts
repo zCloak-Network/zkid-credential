@@ -31,6 +31,18 @@ export const ctypeMeta: Record<HexString, CTypeMeta> = {
   '0x15ea88be73bd78986a41141fc86497f0cfef4a0d1b5463d100758edca37c546b': {
     type: 'all',
     card: 'christmas2022/bac_card2.webp'
+  },
+  '0xa99186086d83f834f0bf951cb7f78cd142f147f3bd7a689086f157418944716c': {
+    type: 'attest',
+    card: 'legal-dao/bg2.jpeg',
+    icon: 'legal-dao/icon.jpeg',
+    color: '#FFFFFF'
+  },
+  '0xfd4a31cc472ab8fa4fdb8a1096cb3e8fc52514c92193602f5996b912ed898b02': {
+    type: 'attest',
+    card: 'legal-dao/bg2.jpeg',
+    icon: 'legal-dao/icon.jpeg',
+    color: '#FFFFFF'
   }
 };
 
