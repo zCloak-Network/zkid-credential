@@ -97,7 +97,9 @@ function DidsProvider({ children, didRole }: { didRole: DidRole; children: React
       {isLocked ? <UnlockModal did={did} onUnlock={unUnlock} open /> : children}
     </DidsContext.Provider>
   ) : (
-    <Navigate to={{ pathname: '/account', search: `?redirect=${location.pathname}` }} />
+    <Navigate
+      to={{ pathname: '/account', search: `?redirect=${location.pathname}${location.search}` }}
+    />
   );
 }
 
