@@ -23,6 +23,7 @@ const Account: React.FC = () => {
   const navigate = useNavigate();
   const [redirect] = useQueryParam<string>('redirect');
   const [login] = useQueryParam<string>('login');
+  const [attester] = useQueryParam<string>('attester');
 
   const [type, setType] = useState(0);
   const theme = useTheme();
@@ -40,9 +41,9 @@ const Account: React.FC = () => {
     }
 
     loginWallet().then(() => {
-      navigate(redirect ?? '/claimer/ctype');
+      navigate(`${redirect}?attester=${attester}`);
     });
-  }, [loginWallet, redirect, login, navigate, toggleOpen]);
+  }, [loginWallet, redirect, login, navigate, toggleOpen, attester]);
 
   return (
     <Container maxWidth="lg">

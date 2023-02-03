@@ -20,7 +20,7 @@ import {
 } from '@credential/react-components';
 import { CreateSubject } from '@credential/react-ctype';
 import { InputDid } from '@credential/react-dids';
-import { useCTypeMetaForAttest, useToggle } from '@credential/react-hooks';
+import { useCTypeMetaForAttest, useQueryParam, useToggle } from '@credential/react-hooks';
 
 import SubmitClaim from './SubmitClaim';
 
@@ -29,15 +29,17 @@ function CreateClaim({ ctype, isAuto }: { ctype: CType; isAuto: boolean }) {
   const [attester, setAttester] = useState<Did | null>(null);
   const [contents, setContents] = useState<AnyJson>({});
   const navigate = useNavigate();
-  const { holder, id } = useParams();
+  const { id } = useParams();
+
+  const [_attester] = useQueryParam<string>('attester');
 
   const defaultAttester = useMemo(() => {
     if (ctype.$id === id) {
-      return holder;
+      return _attester ?? undefined;
     }
 
     return undefined;
-  }, [ctype, id, holder]);
+  }, [ctype, id, _attester]);
 
   const ctypeMeta = useCTypeMetaForAttest(ctype.$id);
 
