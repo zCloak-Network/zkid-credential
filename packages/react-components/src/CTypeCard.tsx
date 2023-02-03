@@ -113,7 +113,8 @@ function CTypeCard({ actions, ctype, meta }: Props) {
           ? {
               background: `url(${meta.card}) no-repeat, #fff`,
               backgroundSize: 'cover',
-              backgroundPosition: 'center'
+              backgroundPosition: 'center',
+              color: meta?.color
             }
           : {}
       }

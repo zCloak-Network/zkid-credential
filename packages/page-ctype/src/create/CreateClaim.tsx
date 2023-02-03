@@ -4,8 +4,8 @@
 import type { CType } from '@zcloak/ctype/types';
 import type { AnyJson } from '@zcloak/vc/types';
 
-import React, { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Did } from '@zcloak/did';
 
@@ -20,7 +20,7 @@ import {
 } from '@credential/react-components';
 import { CreateSubject } from '@credential/react-ctype';
 import { InputDid } from '@credential/react-dids';
-import { useCTypeMetaForAttest, useToggle } from '@credential/react-hooks';
+import { useCTypeMetaForAttest, useQueryParam, useToggle } from '@credential/react-hooks';
 
 import SubmitClaim from './SubmitClaim';
 
@@ -29,6 +29,17 @@ function CreateClaim({ ctype, isAuto }: { ctype: CType; isAuto: boolean }) {
   const [attester, setAttester] = useState<Did | null>(null);
   const [contents, setContents] = useState<AnyJson>({});
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const [_attester] = useQueryParam<string>('attester');
+
+  const defaultAttester = useMemo(() => {
+    if (ctype.$id === id) {
+      return _attester ?? undefined;
+    }
+
+    return undefined;
+  }, [ctype, id, _attester]);
 
   const ctypeMeta = useCTypeMetaForAttest(ctype.$id);
 
@@ -58,7 +69,12 @@ function CreateClaim({ ctype, isAuto }: { ctype: CType; isAuto: boolean }) {
             <Typography mb={4} textAlign="center" variant="h2">
               Create Claim
             </Typography>
-            <InputDid label="Attester" onChange={setAttester} />
+            <InputDid
+              defaultValue={defaultAttester}
+              disabled={!!defaultAttester}
+              label="Attester"
+              onChange={setAttester}
+            />
             <Box mt={2}>
               <CreateSubject onChange={setContents as any} schema={ctype} />
             </Box>

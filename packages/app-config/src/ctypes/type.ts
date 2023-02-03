@@ -6,4 +6,5 @@ export type CTypeMeta = {
   icon?: string;
   card?: string;
   bg?: string;
+  color?: string;
 };

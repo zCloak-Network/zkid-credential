@@ -40,7 +40,7 @@ const Account: React.FC = () => {
     }
 
     loginWallet().then(() => {
-      navigate(redirect ?? '/claimer/ctype');
+      navigate(redirect ?? '/claimer');
     });
   }, [loginWallet, redirect, login, navigate, toggleOpen]);
 
