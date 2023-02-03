@@ -7,7 +7,11 @@ import type { CTypeMeta } from '@credential/app-config/ctypes/type';
 
 import { useMemo } from 'react';
 
-import { getCTypeMetaForAttest, getCTypeMetaForIssue } from '@credential/app-config/ctypes';
+import {
+  getCTypeMetaForAttest,
+  getCTypeMetaForCredential,
+  getCTypeMetaForIssue
+} from '@credential/app-config/ctypes';
 
 export function useCTypeMetaForIssue(id: HexString): CTypeMeta | undefined {
   return useMemo(() => getCTypeMetaForIssue(id), [id]);
@@ -15,4 +19,10 @@ export function useCTypeMetaForIssue(id: HexString): CTypeMeta | undefined {
 
 export function useCTypeMetaForAttest(id: HexString): CTypeMeta | undefined {
   return useMemo(() => getCTypeMetaForAttest(id), [id]);
+}
+
+export function useCTypeMetaForCredential(id?: HexString): CTypeMeta | undefined {
+  return useMemo(() => {
+    return id ? getCTypeMetaForCredential(id) : undefined;
+  }, [id]);
 }

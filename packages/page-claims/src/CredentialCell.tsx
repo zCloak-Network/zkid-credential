@@ -24,7 +24,7 @@ import {
 } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
-import { useToggle } from '@credential/react-hooks';
+import { useCTypeMetaForCredential, useToggle } from '@credential/react-hooks';
 import { isMobile } from '@credential/react-hooks/utils/userAgent';
 
 import DownloadButton from './button/DownloadButton';
@@ -120,6 +120,8 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
 
   const vc = useMemo(() => (isVC(credential) ? credential : null), [credential]);
 
+  const ctypeMeta = useCTypeMetaForCredential(vc?.ctype);
+
   return (
     <>
       <Box position="relative">
@@ -143,7 +145,19 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
                 : palette.success.main
           })}
         />
-        <Wrapper onClick={toggleOpen}>
+        <Wrapper
+          onClick={toggleOpen}
+          sx={
+            ctypeMeta?.card
+              ? {
+                  background: `url(${ctypeMeta.card}) no-repeat, #fff`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  color: ctypeMeta?.color
+                }
+              : {}
+          }
+        >
           <Box className="CredentialCell_Status">
             <CredentialStatusDisplay showText status={status} />
             <Typography className="CredentialCell_Time" variant="inherit">
