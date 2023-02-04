@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [0.13.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.12.0...v0.13.0) (2023-02-04)
+
+
+### Features
+
+* add credential card bg ([#16](https://github.com/zCloak-Network/zkid-credential/issues/16)) ([4e7c33c](https://github.com/zCloak-Network/zkid-credential/commit/4e7c33c6747c48bb38915815d3ed84a50c4c9f5d))
+* add legal-dao card and attester param in router ([#15](https://github.com/zCloak-Network/zkid-credential/issues/15)) ([371f83a](https://github.com/zCloak-Network/zkid-credential/commit/371f83aea8727591502c423c158831dfc49e000e))
+
+
 ## [0.12.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.11.1...v0.12.0) (2023-02-02)
 
 
