@@ -32,6 +32,7 @@ export const ctypeMeta: Record<HexString, CTypeMeta> = {
     type: 'all',
     card: 'christmas2022/bac_card2.webp'
   },
+  // legal-dao
   '0xa99186086d83f834f0bf951cb7f78cd142f147f3bd7a689086f157418944716c': {
     type: 'attest',
     card: 'legal-dao/bg2.jpeg',
@@ -67,17 +68,19 @@ export const TOP_CTYPES_FOR_ATTEST: HexString[] = isRelease
   : [];
 
 export function getCTypeMetaForIssue(id: HexString): CTypeMeta | undefined {
-  const meta: CTypeMeta | undefined = ctypeMeta[id];
+  const meta: CTypeMeta | undefined = getCTypeMeta(id);
 
-  if (!meta) return undefined;
-
-  return ['all', 'issue'].includes(meta.type) ? meta : undefined;
+  return meta && ['all', 'issue'].includes(meta.type) ? meta : undefined;
 }
 
 export function getCTypeMetaForAttest(id: HexString): CTypeMeta | undefined {
+  const meta: CTypeMeta | undefined = getCTypeMeta(id);
+
+  return meta && ['all', 'attest'].includes(meta.type) ? meta : undefined;
+}
+
+export function getCTypeMeta(id: HexString): CTypeMeta | undefined {
   const meta: CTypeMeta | undefined = ctypeMeta[id];
 
-  if (!meta) return undefined;
-
-  return ['all', 'attest'].includes(meta.type) ? meta : undefined;
+  return meta ?? undefined;
 }
