@@ -24,7 +24,7 @@ import {
 } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
-import { useCTypeMetaForCredential, useToggle } from '@credential/react-hooks';
+import { useCTypeMeta, useToggle } from '@credential/react-hooks';
 import { isMobile } from '@credential/react-hooks/utils/userAgent';
 
 import DownloadButton from './button/DownloadButton';
@@ -120,7 +120,7 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
 
   const vc = useMemo(() => (isVC(credential) ? credential : null), [credential]);
 
-  const ctypeMeta = useCTypeMetaForCredential(vc?.ctype);
+  const ctypeMeta = useCTypeMeta(vc?.ctype);
 
   return (
     <>

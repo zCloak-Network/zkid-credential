@@ -68,22 +68,18 @@ export const TOP_CTYPES_FOR_ATTEST: HexString[] = isRelease
   : [];
 
 export function getCTypeMetaForIssue(id: HexString): CTypeMeta | undefined {
-  const meta: CTypeMeta | undefined = ctypeMeta[id];
+  const meta: CTypeMeta | undefined = getCTypeMeta(id);
 
-  if (!meta) return undefined;
-
-  return ['all', 'issue'].includes(meta.type) ? meta : undefined;
+  return meta && ['all', 'issue'].includes(meta.type) ? meta : undefined;
 }
 
 export function getCTypeMetaForAttest(id: HexString): CTypeMeta | undefined {
-  const meta: CTypeMeta | undefined = ctypeMeta[id];
+  const meta: CTypeMeta | undefined = getCTypeMeta(id);
 
-  if (!meta) return undefined;
-
-  return ['all', 'attest'].includes(meta.type) ? meta : undefined;
+  return meta && ['all', 'attest'].includes(meta.type) ? meta : undefined;
 }
 
-export function getCTypeMetaForCredential(id: HexString): CTypeMeta | undefined {
+export function getCTypeMeta(id: HexString): CTypeMeta | undefined {
   const meta: CTypeMeta | undefined = ctypeMeta[id];
 
   return meta ?? undefined;
