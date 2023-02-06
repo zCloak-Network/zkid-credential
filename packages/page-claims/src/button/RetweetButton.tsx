@@ -28,7 +28,7 @@ Tutorial: https://zcloaknetwork.medium.com/worlds-first-zk-guessing-for-the-worl
   return (
     <Tooltip title="Retweet">
       <Stack alignItems="center">
-        <IconButton onClick={retweet} size="small">
+        <IconButton color="inherit" onClick={retweet} size="small">
           <IconTwitter />
         </IconButton>
         {withText && (
