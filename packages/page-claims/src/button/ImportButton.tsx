@@ -33,7 +33,7 @@ const ImportButton: React.FC<{ withText?: boolean; credential: VerifiableCredent
   return (
     <Tooltip title="Import to zCloak ID Wallet">
       <Stack alignItems="center">
-        <IconButton onClick={importToExtension} size="small">
+        <IconButton color="inherit" onClick={importToExtension} size="small">
           <IconImport />
         </IconButton>
         {withText && (
