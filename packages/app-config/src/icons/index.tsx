@@ -30,4 +30,5 @@ export { default as IconRevoke } from './IconRevoke';
 export { default as IconScan } from './IconScan';
 export { default as IconStar } from './IconStar';
 export { default as IconTask } from './IconTask';
+export { default as IconTips } from './IconTips';
 export { default as IconTwitter } from './IconTwitter';

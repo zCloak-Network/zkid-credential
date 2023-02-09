@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Circle from '@mui/icons-material/Circle';
-import { Stack, Typography, useTheme } from '@mui/material';
+import { alpha, Stack, Typography, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
 
 import { CredentialStatus } from '@credential/app-store/pending-credential';
@@ -26,11 +26,18 @@ const CredentialStatusDisplay: React.FC<{
   return (
     <Stack
       direction="row"
+      pl={1}
+      pr={1}
       spacing={1}
       sx={() => ({
         display: 'inline-flex',
         alignItems: 'center',
         direction: 'row',
+        borderRadius: '5px',
+        bgcolor: alpha(
+          status === 'approved' ? submitColor : status === 'rejected' ? rejectColor : initColor,
+          0.2
+        ),
         color: status === 'approved' ? submitColor : status === 'rejected' ? rejectColor : initColor
       })}
     >

@@ -16,13 +16,15 @@ import {
   CredentialModal,
   CredentialStatusDisplay,
   CTypeName,
+  Divider,
+  IdentityIcon,
   Paper,
   Stack,
   styled,
   Tooltip,
   Typography
 } from '@credential/react-components';
-import { ellipsisMixin } from '@credential/react-components/utils';
+import { alpha, ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
 import { useCTypeMeta, useToggle } from '@credential/react-hooks';
 import { isMobile } from '@credential/react-hooks/utils/userAgent';
@@ -34,8 +36,8 @@ import ShareButton from './button/ShareButton';
 
 const Wrapper = styled(Paper)(({ theme }) => ({
   position: 'relative',
-  padding: theme.spacing(4),
-  height: 211,
+  padding: theme.spacing(2.5),
+  height: 282,
   borderRadius: theme.spacing(2.5),
   overflow: 'hidden',
   cursor: 'pointer',
@@ -43,20 +45,16 @@ const Wrapper = styled(Paper)(({ theme }) => ({
   ':hover': {
     boxShadow: theme.shadows[3],
 
-    '.CredentialCell_title': {
-      transform: 'translate(90px, -40px)',
-      fontSize: 18
-    },
-    '.CredentialCell_issuer': {
-      transform: 'translate(0, -30px)'
-    },
     '.CredentialCell_actions': {
       opacity: 1,
       transform: 'translateY(0)'
     },
-    '.CredentialCell_Time': {
+    '.CredentialCell_Status': {
       opacity: 0
     }
+  },
+  '.CredentialCell_action_status': {
+    position: 'relative'
   },
   '.CredentialCell_Status': {
     display: 'flex',
@@ -65,7 +63,7 @@ const Wrapper = styled(Paper)(({ theme }) => ({
   },
   '.CredentialCell_Time': {
     color: theme.palette.grey[500],
-    opacity: isMobile ? 0 : 1
+    textAlign: 'right'
   },
   '.CredentialCell_title': {
     transformOrigin: 'top left',
@@ -88,8 +86,8 @@ const Wrapper = styled(Paper)(({ theme }) => ({
     })
   },
   '.CredentialCell_actions': {
-    right: theme.spacing(4),
-    bottom: theme.spacing(4),
+    bottom: 0,
+    right: 0,
     position: 'absolute',
     textAlign: 'right',
     opacity: isMobile ? 1 : 0,
@@ -125,26 +123,6 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
   return (
     <>
       <Box position="relative">
-        <Box
-          sx={({ palette }) => ({
-            zIndex: 1,
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            bottom: 0,
-            width: 4,
-            height: '60%',
-            margin: 'auto',
-            borderTopRightRadius: 4,
-            borderBottomRightRadius: 4,
-            background:
-              status === 'pending'
-                ? palette.warning.main
-                : status === 'rejected'
-                ? palette.error.main
-                : palette.success.main
-          })}
-        />
         <Wrapper
           onClick={toggleOpen}
           sx={
@@ -158,32 +136,18 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
               : {}
           }
         >
-          <Box className="CredentialCell_Status">
-            <CredentialStatusDisplay showText status={status} />
-            <Typography className="CredentialCell_Time" variant="inherit">
-              {moment(time).format('YYYY-MM-DD HH:mm:ss')}
-            </Typography>
-          </Box>
-          <Typography className="CredentialCell_title" mt={2} variant="h3">
+          <Typography className="CredentialCell_title" mt={0} variant="h3">
             <CTypeName cTypeHash={credential.ctype} />
           </Typography>
           <Stack
+            alignItems="center"
             className="CredentialCell_issuer"
             direction="row"
             justifyContent="space-between"
+            mb={2.5}
             mt={2}
             spacing={1}
           >
-            <Box width="50%">
-              <Typography sx={({ palette }) => ({ color: palette.grey[500] })} variant="inherit">
-                Attested by
-              </Typography>
-              <Tooltip placement="top" title={issuer}>
-                <Typography sx={{ fontWeight: 500, ...ellipsisMixin() }}>
-                  <DidName value={issuer} />
-                </Typography>
-              </Tooltip>
-            </Box>
             <Box width="50%">
               <Typography sx={({ palette }) => ({ color: palette.grey[500] })} variant="inherit">
                 {vc ? 'Digest' : 'Claim hash'}
@@ -194,23 +158,55 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
                 </Typography>
               </Tooltip>
             </Box>
-          </Stack>
-          {vc && (
-            <Stack
-              className="CredentialCell_actions"
-              direction="row-reverse"
-              display="inline-flex"
-              mt={2}
-              onClick={(e) => e.stopPropagation()}
-              spacing={1}
-            >
-              <ImportButton credential={vc} />
-              <ShareButton credential={vc} />
-              <DownloadButton credential={vc} />
-              {/* <RetweetButton credential={vc} /> */}
-              <QrcodeButton credential={vc} />
+            <Stack alignItems="center" className="CredentialCell_action_status">
+              <Box className="CredentialCell_Status">
+                <CredentialStatusDisplay showText status={status} />
+              </Box>
+
+              {vc && (
+                <Stack
+                  className="CredentialCell_actions"
+                  direction="row-reverse"
+                  display="inline-flex"
+                  mt={2}
+                  onClick={(e) => e.stopPropagation()}
+                  spacing={1}
+                >
+                  <ShareButton credential={vc} />
+                  <DownloadButton credential={vc} />
+                  {/* <RetweetButton credential={vc} /> */}
+                  <QrcodeButton credential={vc} />
+                </Stack>
+              )}
             </Stack>
-          )}
+          </Stack>
+          <Divider
+            sx={({ palette }) => ({
+              borderColor: alpha(palette.grey[300], 0.3)
+            })}
+          />
+          <Stack alignItems="end" direction="row" justifyContent="space-between" mb={2.5} mt={2.5}>
+            <Stack alignItems="center" direction="row" spacing={1}>
+              <IdentityIcon diameter={40} value={issuer} />
+              <Box>
+                <Typography sx={({ palette }) => ({ color: palette.grey[500] })} variant="inherit">
+                  Attested by
+                </Typography>
+                <Tooltip placement="top" title={issuer}>
+                  <Typography sx={{ fontWeight: 500, ...ellipsisMixin() }}>
+                    <DidName value={issuer} />
+                  </Typography>
+                </Tooltip>
+              </Box>
+            </Stack>
+            <Box>
+              <Typography className="CredentialCell_Time" variant="inherit">
+                {moment(time).format('YYYY-MM-DD HH:mm:ss')}
+              </Typography>
+            </Box>
+          </Stack>
+
+          {vc && <ImportButton credential={vc} />}
         </Wrapper>
       </Box>
       {vc && open && <CredentialModal credential={vc} onClose={toggleOpen} />}
