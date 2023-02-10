@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.14.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.13.1...v0.14.0) (2023-02-10)
+
+
+### Features
+
+* change credential card style ([#18](https://github.com/zCloak-Network/zkid-credential/issues/18)) ([9d120b7](https://github.com/zCloak-Network/zkid-credential/commit/9d120b7eef0fba58319b52cb93e1d0c6b9e3c8ff))
+
+
 ## [0.13.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.13.0...v0.13.1) (2023-02-06)
 
 
