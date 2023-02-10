@@ -16,6 +16,7 @@ import { useLiveQuery } from '@credential/react-hooks';
 
 import CredentialCell, { CredentialProps } from './CredentialCell';
 import ImportCredential from './ImportCredential';
+import Tips from './Tips';
 
 const Claims: React.FC = () => {
   const [type, setType] = useState(0);
@@ -73,6 +74,8 @@ const Claims: React.FC = () => {
         <Tab label="Attested" />
       </Tabs>
       <Box>
+        <Tips />
+
         <Grid columns={{ xs: 4, sm: 8, lg: 12 }} container spacing={3}>
           {list.map(({ credential, issuer, rootHash, status, time }, index) => (
             <Grid key={index} lg={4} xl={3} xs={4}>

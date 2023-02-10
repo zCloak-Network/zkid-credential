@@ -7,18 +7,11 @@ import { stringToHex } from '@polkadot/util';
 import React, { useCallback, useContext } from 'react';
 
 import { IconImport } from '@credential/app-config/icons';
-import {
-  IconButton,
-  NotificationContext,
-  Stack,
-  Tooltip,
-  Typography
-} from '@credential/react-components';
+import { Button, NotificationContext } from '@credential/react-components';
 import { provider } from '@credential/react-dids/instance';
 
 const ImportButton: React.FC<{ withText?: boolean; credential: VerifiableCredential }> = ({
-  credential,
-  withText = false
+  credential
 }) => {
   const { notifyError } = useContext(NotificationContext);
 
@@ -31,18 +24,27 @@ const ImportButton: React.FC<{ withText?: boolean; credential: VerifiableCredent
   );
 
   return (
-    <Tooltip title="Import to zCloak ID Wallet">
-      <Stack alignItems="center">
-        <IconButton color="inherit" onClick={importToExtension} size="small">
-          <IconImport />
-        </IconButton>
-        {withText && (
-          <Typography sx={({ palette }) => ({ color: palette.common.white })} variant="inherit">
-            Import
-          </Typography>
-        )}
-      </Stack>
-    </Tooltip>
+    <Button
+      fullWidth
+      onClick={importToExtension}
+      startIcon={
+        <IconImport
+          style={{
+            fontSize: 12
+          }}
+        />
+      }
+      sx={({ palette, spacing }) => ({
+        height: spacing(4.5),
+        bgcolor: '#F0F0F3',
+        color: palette.common.black,
+        borderRadius: spacing(1),
+        fontSize: spacing(1.5)
+      })}
+      variant="contained"
+    >
+      Import to zkID Wallet
+    </Button>
   );
 };
 
