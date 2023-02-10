@@ -48,9 +48,6 @@ const Wrapper = styled(Paper)(({ theme }) => ({
     '.CredentialCell_actions': {
       opacity: 1,
       transform: 'translateY(0)'
-    },
-    '.CredentialCell_Status': {
-      opacity: 0
     }
   },
   '.CredentialCell_action_status': {
@@ -131,9 +128,20 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
                   background: `url(${ctypeMeta.card}) no-repeat, #fff`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  color: ctypeMeta?.color
+                  color: ctypeMeta?.color,
+                  ':hover': {
+                    '.CredentialCell_Status': {
+                      opacity: vc ? 0 : 1
+                    }
+                  }
                 }
-              : {}
+              : {
+                  ':hover': {
+                    '.CredentialCell_Status': {
+                      opacity: vc ? 0 : 1
+                    }
+                  }
+                }
           }
         >
           <Typography className="CredentialCell_title" mt={0} variant="h3">

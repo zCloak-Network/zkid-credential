@@ -34,10 +34,12 @@ const CredentialStatusDisplay: React.FC<{
         alignItems: 'center',
         direction: 'row',
         borderRadius: '5px',
-        bgcolor: alpha(
-          status === 'approved' ? submitColor : status === 'rejected' ? rejectColor : initColor,
-          0.2
-        ),
+        bgcolor: showText
+          ? alpha(
+              status === 'approved' ? submitColor : status === 'rejected' ? rejectColor : initColor,
+              0.2
+            )
+          : 'inherit',
         color: status === 'approved' ? submitColor : status === 'rejected' ? rejectColor : initColor
       })}
     >

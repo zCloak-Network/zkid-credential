@@ -3,6 +3,7 @@
 
 import jazzicon from '@metamask/jazzicon';
 import { Box } from '@mui/material';
+import { hexFixLength, hexToNumber, isHex, stringToHex } from '@polkadot/util';
 import React, { useLayoutEffect, useMemo, useRef } from 'react';
 
 interface Props {
@@ -12,10 +13,14 @@ interface Props {
 
 const IdentityIcon: React.FC<Props> = ({ diameter = 16, value }) => {
   const icon = useMemo(
-    () => value && jazzicon(diameter, parseInt(value.slice(2, 10), 16)),
+    () =>
+      value &&
+      jazzicon(
+        diameter,
+        hexToNumber(hexFixLength(isHex(value.slice) ? value : stringToHex(value), 52))
+      ),
     [diameter, value]
   );
-
   const iconRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
