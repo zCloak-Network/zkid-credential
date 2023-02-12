@@ -14,10 +14,10 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "dependencies": {
-    "@credential/react-components": "0.14.0",
-    "@credential/react-dids": "0.14.0",
+    "@credential/react-components": "0.14.1",
+    "@credential/react-dids": "0.14.1",
     "@zcloak/ctype": "^0.7.0"
   }
 }

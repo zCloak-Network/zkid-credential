@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.14.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.14.0...v0.14.1) (2023-02-12)
+
+
+### Bug Fixes
+
+* fix identity icon ([#19](https://github.com/zCloak-Network/zkid-credential/issues/19)) ([1c360a7](https://github.com/zCloak-Network/zkid-credential/commit/1c360a73a36bbb6af7a13869324517fc36673aaf))
+
+
 ## [0.14.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.13.1...v0.14.0) (2023-02-10)
 
 
