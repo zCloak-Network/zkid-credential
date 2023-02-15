@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.15.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.14.1...v0.15.0) (2023-02-15)
+
+
+### Features
+
+* update zkid wallet download link ([#20](https://github.com/zCloak-Network/zkid-credential/issues/20)) ([63e9e4d](https://github.com/zCloak-Network/zkid-credential/commit/63e9e4d604c87dd0c5aad731ce44a0f1dae83755))
+
+
 ## [0.14.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.14.0...v0.14.1) (2023-02-12)
 
 
