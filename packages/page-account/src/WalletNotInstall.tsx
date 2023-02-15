@@ -49,7 +49,7 @@ const WalletNotInstall: React.FC<{ open: boolean; onClose: () => void }> = ({ on
           <Button
             onClick={() => {
               window.open(
-                'https://chrome.google.com/webstore/detail/zkid-wallet/hkdbehojhcibpbcdpjphajfbgigldjkh'
+                'https://chrome.google.com/webstore/detail/zkid-wallet/ahkpfejaeoepmfopmbhjgjekibmfcfgo'
               );
             }}
             sx={{
