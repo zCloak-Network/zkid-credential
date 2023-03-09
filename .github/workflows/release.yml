@@ -30,10 +30,10 @@ jobs:
           yarn install --immutable | grep -v 'YN0013'
 
       - name: build:release
-        run: yarn run release
+        run: yarn run build:release
 
       - name: Generate release description
-        run: yarn run release
+        run: yarn run get-release-text
 
       - name: Release
         uses: softprops/action-gh-release@v1
