@@ -18,4 +18,6 @@ const appPkgJson = JSON.parse(fs.readFileSync(path.join(appDir, 'package.json'),
 
 const version = appPkgJson.version;
 
+execSync('git add .');
+execSync(`git commit -m 'chore(release): ${version}'`);
 execSync(`git tag v${version}`);

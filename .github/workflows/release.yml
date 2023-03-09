@@ -7,7 +7,7 @@ on:
 
 jobs:
   release:
-    if: "github.repository == 'zCloak-Network/zkid-credential' && github.event.head_commit.message = 'chore: Version App'"
+    if: github.repository == 'zCloak-Network/zkid-credential'
     runs-on: ubuntu-latest
     env:
       YARN_ENABLE_SCRIPTS: false

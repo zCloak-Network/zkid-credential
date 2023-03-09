@@ -1,5 +1,17 @@
 # @credential/react-ctype
 
+## 0.18.0
+
+### Minor Changes
+
+- create release
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @credential/react-components@0.18.0
+  - @credential/react-dids@0.18.0
+
 ## 0.17.0
 
 ### Minor Changes

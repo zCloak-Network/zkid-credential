@@ -19,10 +19,10 @@
   },
   "scripts": {
     "analyze": "yarn clean && BUILD_ANALYZE=1 yarn run build:code && yarn source-map-explorer packages/app/build/main.*.js",
-    "bump": "yarn changeset version && yarn create-tag",
     "build": "yarn build-assets && yarn build:code && yarn build:zip",
     "build:code": "NODE_ENV=production yarn zcloak-dev-build-ts",
     "build:zip": "rm -rf ./zkid-credential.zip && cd packages/app/build && zip -r -FS ../../../zkid-credential.zip .",
+    "bump": "yarn changeset version && yarn create-tag",
     "changeset": "zcloak-exec-changeset",
     "clean": "zcloak-dev-clean-build",
     "create-tag": "node --loader @esbuild-kit/esm-loader scripts/create-tag.ts",

@@ -1,5 +1,19 @@
 # @credential/page-tasks
 
+## 0.18.0
+
+### Minor Changes
+
+- create release
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @credential/app-config@0.18.0
+  - @credential/react-components@0.18.0
+  - @credential/react-dids@0.18.0
+  - @credential/react-hooks@0.18.0
+
 ## 0.17.0
 
 ### Minor Changes
