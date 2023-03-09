@@ -1,10 +1,13 @@
 name: Release
 
-on: push
+on:
+  push:
+    tags:
+      - "v*.*.*"
 
 jobs:
   release:
-    if: github.repository == 'zCloak-Network/zkid-credential' && startsWith(github.ref, 'refs/tags/zkid-credential')
+    if: "github.repository == 'zCloak-Network/zkid-credential' && github.event.head_commit.message = 'chore: Version App'"
     runs-on: ubuntu-latest
     env:
       YARN_ENABLE_SCRIPTS: false

@@ -16,6 +16,8 @@
   "type": "module",
   "version": "0.17.0",
   "dependencies": {
+    "@credential/app-config": "workspace:^",
+    "@credential/react-components": "workspace:^",
     "@credential/react-dids": "workspace:^",
     "@polkadot/util": "^10.2.1",
     "@zcloak/crypto": "^1.2.0",
@@ -23,10 +25,12 @@
     "@zcloak/did": "^1.2.1",
     "@zcloak/did-resolver": "^1.1.0",
     "@zcloak/keyring": "^1.1.0",
+    "@zcloak/login-did": "^1.1.0",
     "@zcloak/message": "^1.0.4",
     "@zcloak/vc": "^1.2.2",
     "@zcloak/verify": "^1.2.2",
     "copy-to-clipboard": "^3.3.3",
+    "dexie": "^3.2.3",
     "react-router-dom": "^6.4.5",
     "search-query-parser": "^1.6.0",
     "ua-parser-js": "^1.0.32"

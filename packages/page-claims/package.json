@@ -16,8 +16,18 @@
   "type": "module",
   "version": "0.17.0",
   "dependencies": {
+    "@credential/app-config": "workspace:^",
+    "@credential/app-store": "workspace:^",
+    "@credential/react-components": "workspace:^",
+    "@credential/react-dids": "workspace:^",
+    "@credential/react-hooks": "workspace:^",
+    "@mui/icons-material": "^5.11.11",
+    "@polkadot/util": "^11.0.1",
     "@zcloak/did": "^1.2.1",
     "@zcloak/did-resolver": "^1.1.0",
-    "@zcloak/vc": "^1.2.2"
+    "@zcloak/message": "^1.0.4",
+    "@zcloak/vc": "^1.2.2",
+    "file-saver": "^2.0.5",
+    "moment": "^2.29.4"
   }
 }

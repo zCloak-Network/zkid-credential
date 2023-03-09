@@ -18,6 +18,8 @@
   "dependencies": {
     "@credential/react-components": "workspace:^",
     "@credential/react-dids": "workspace:^",
+    "@mui/icons-material": "^5.11.11",
+    "@polkadot/util": "^11.0.1",
     "@zcloak/ctype": "^1.2.1"
   }
 }
