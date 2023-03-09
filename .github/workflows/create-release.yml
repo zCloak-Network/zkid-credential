@@ -1,11 +1,11 @@
-name: Push Master
+name: Create release
 on:
   push:
     branches:
       - master
 
 jobs:
-  release:
+  create-release:
     if: github.repository == 'zCloak-Network/zkid-credential'
     runs-on: ubuntu-latest
     env:

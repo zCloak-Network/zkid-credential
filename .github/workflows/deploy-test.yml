@@ -1,11 +1,11 @@
-name: Pre release
+name: Deploy test
 on:
   push:
     branches:
       - master
 
 jobs:
-  release:
+  deploy-test:
     runs-on: ubuntu-latest
     environment: dev
     env:
@@ -31,7 +31,7 @@ jobs:
           yarn test
           yarn build
 
-      - name: Deploy prerelease
+      - name: Deploy to test environment
         uses: appleboy/scp-action@master
         with:
           username: ubuntu
