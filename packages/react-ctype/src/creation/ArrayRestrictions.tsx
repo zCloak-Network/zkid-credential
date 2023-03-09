@@ -1,18 +1,11 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchema } from '@zcloak/ctype/types';
 
 import React, { useEffect, useState } from 'react';
 
-import {
-  alpha,
-  Box,
-  InputBool,
-  InputNumber,
-  Stack,
-  Typography
-} from '@credential/react-components';
+import { alpha, Box, InputBool, InputNumber, Stack, Typography } from '@credential/react-components';
 
 import ItemCreation from './ItemCreation';
 
@@ -51,11 +44,11 @@ function StringRestrictions({ onChange }: Props) {
   return (
     <Stack spacing={1}>
       <Box>
-        <InputNumber onChange={setMin} size="small" startAdornment="minimum items" />
-        <InputNumber onChange={setMax} size="small" startAdornment="maximum items" />
+        <InputNumber onChange={setMin} size='small' startAdornment='minimum items' />
+        <InputNumber onChange={setMax} size='small' startAdornment='maximum items' />
       </Box>
       <Box>
-        <InputBool label="Unique" onChange={setUnique} size="small" />
+        <InputBool label='Unique' onChange={setUnique} size='small' />
       </Box>
       <Box>
         <Typography>Item types</Typography>
@@ -66,11 +59,7 @@ function StringRestrictions({ onChange }: Props) {
             background: alpha(palette.info.main, 0.05)
           })}
         >
-          <ItemCreation
-            onChange={setItems}
-            supported={['integer', 'number', 'string']}
-            withName={false}
-          />
+          <ItemCreation onChange={setItems} supported={['integer', 'number', 'string']} withName={false} />
         </Box>
       </Box>
     </Stack>

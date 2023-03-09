@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { ButtonProps } from '@mui/material';
@@ -34,9 +34,7 @@ const ButtonWallet = React.forwardRef<any, Props>(function ({ onDone, ...props }
   }, [onDone, loginWalletCallback]);
 
   const download = useCallback(() => {
-    window.open(
-      'https://chrome.google.com/webstore/detail/zkid-wallet/ahkpfejaeoepmfopmbhjgjekibmfcfgo'
-    );
+    window.open('https://chrome.google.com/webstore/detail/zkid-wallet/ahkpfejaeoepmfopmbhjgjekibmfcfgo');
   }, []);
 
   return (

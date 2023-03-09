@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import { Box, StepIconProps, useTheme } from '@mui/material';
@@ -17,14 +17,14 @@ const StepIcon: React.FC<StepIconProps> = ({ active, completed, icon }) => {
       width={36}
     >
       <Box
-        alignItems="center"
+        alignItems='center'
         bgcolor={active || completed ? palette.primary.main : 'transparent'}
         borderRadius={2}
         color={active || completed ? palette.common.white : palette.grey[500]}
-        display="flex"
-        height="100%"
-        justifyContent="center"
-        width="100%"
+        display='flex'
+        height='100%'
+        justifyContent='center'
+        width='100%'
       >
         {icon}
       </Box>

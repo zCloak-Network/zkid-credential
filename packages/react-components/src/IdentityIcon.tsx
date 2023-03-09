@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import jazzicon from '@metamask/jazzicon';
@@ -13,12 +13,7 @@ interface Props {
 
 const IdentityIcon: React.FC<Props> = ({ diameter = 16, value }) => {
   const icon = useMemo(
-    () =>
-      value &&
-      jazzicon(
-        diameter,
-        hexToNumber(hexFixLength(isHex(value.slice) ? value : stringToHex(value), 52))
-      ),
+    () => value && jazzicon(diameter, hexToNumber(hexFixLength(isHex(value.slice) ? value : stringToHex(value), 52))),
     [diameter, value]
   );
   const iconRef = useRef<HTMLDivElement>(null);
@@ -43,7 +38,7 @@ const IdentityIcon: React.FC<Props> = ({ diameter = 16, value }) => {
 
   return (
     <Box
-      component="span"
+      component='span'
       ref={iconRef}
       sx={{
         display: 'inline-block',

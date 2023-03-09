@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { Task } from '@credential/react-hooks/types';
@@ -36,10 +36,7 @@ const Row: React.FC<{ task: Task }> = ({ task }) => {
 
   const [decrypted, decrypt] = useDecryptedMessage(task);
 
-  const decryptedTask = useMemo(
-    () => decrypted && { ...decrypted, meta: task.meta },
-    [decrypted, task.meta]
-  );
+  const decryptedTask = useMemo(() => decrypted && { ...decrypted, meta: task.meta }, [decrypted, task.meta]);
 
   return (
     <TaskCard
@@ -49,8 +46,8 @@ const Row: React.FC<{ task: Task }> = ({ task }) => {
             <ActionButton task={decryptedTask} />
           ) : (
             <>
-              {task.meta.taskStatus === 'pending' && <Approve task={decryptedTask} type="button" />}
-              {task.meta.taskStatus === 'pending' && <Reject task={decryptedTask} type="button" />}
+              {task.meta.taskStatus === 'pending' && <Approve task={decryptedTask} type='button' />}
+              {task.meta.taskStatus === 'pending' && <Reject task={decryptedTask} type='button' />}
             </>
           )
         ) : (
@@ -58,24 +55,18 @@ const Row: React.FC<{ task: Task }> = ({ task }) => {
         )
       }
     >
-      <TaskCardItem content={<DidName value={task.sender} />} label="Sender" />
+      <TaskCardItem content={<DidName value={task.sender} />} label='Sender' />
       <TaskCardItem
         content={
           <Link component={LinkRouter} to={`/attester/tasks/${task.id}`}>
             {task.id}
           </Link>
         }
-        label="Task id"
+        label='Task id'
       />
-      <TaskCardItem content={<CTypeName cTypeHash={task.ctype} />} label="Credential type" />
-      <TaskCardItem
-        content={moment(task.createTime).format('YYYY-MM-DD HH:mm:ss')}
-        label="Approval initiation time"
-      />
-      <TaskCardItem
-        content={<TaskStatusDisplay showText status={task.meta.taskStatus} />}
-        label="Status"
-      />
+      <TaskCardItem content={<CTypeName cTypeHash={task.ctype} />} label='Credential type' />
+      <TaskCardItem content={moment(task.createTime).format('YYYY-MM-DD HH:mm:ss')} label='Approval initiation time' />
+      <TaskCardItem content={<TaskStatusDisplay showText status={task.meta.taskStatus} />} label='Status' />
     </TaskCard>
   );
 };

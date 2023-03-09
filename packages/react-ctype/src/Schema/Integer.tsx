@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchemaProps } from '../types';
@@ -8,17 +8,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { isInteger, isOrDefault } from './utils';
 import { SchemaNumber } from '.';
 
-function SchemaInteger({
-  defaultValue,
-  disabled,
-  name,
-  onChange,
-  schema
-}: CTypeSchemaProps<number>) {
-  const _defaultValue = useMemo(
-    () => isOrDefault('integer', defaultValue) as number,
-    [defaultValue]
-  );
+function SchemaInteger({ defaultValue, disabled, name, onChange, schema }: CTypeSchemaProps<number>) {
+  const _defaultValue = useMemo(() => isOrDefault('integer', defaultValue) as number, [defaultValue]);
   const [value, setValue] = useState<number>(_defaultValue);
   const [error, setError] = useState<Error | null>(null);
 

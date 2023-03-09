@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useContext, useMemo } from 'react';
@@ -35,7 +35,7 @@ const OwnerCType: React.FC = () => {
         }}
         value={0}
       >
-        <Tab label="My CTypes" />
+        <Tab label='My CTypes' />
       </Tabs>
       <Box px={4}>
         <CTypes list={ownCTypes} />

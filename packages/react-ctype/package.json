@@ -18,6 +18,6 @@
   "dependencies": {
     "@credential/react-components": "0.15.0",
     "@credential/react-dids": "0.15.0",
-    "@zcloak/ctype": "^0.7.0"
+    "@zcloak/ctype": "^1.2.0"
   }
 }

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React from 'react';
@@ -10,8 +10,8 @@ const Tips = () => {
   return (
     <Box>
       <Stack
-        alignItems="center"
-        direction="row"
+        alignItems='center'
+        direction='row'
         mb={3}
         p={1}
         spacing={1}

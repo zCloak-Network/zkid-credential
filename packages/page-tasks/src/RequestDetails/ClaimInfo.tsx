@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DecryptedTask } from '@credential/react-hooks/types';
@@ -18,7 +18,6 @@ import {
 } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
-import { useRootHash } from '@credential/react-hooks';
 
 import Approve from './Approve';
 import Reject from './Reject';
@@ -61,12 +60,6 @@ const ClaimInfo: React.FC<{
   showActions: boolean;
   task: DecryptedTask;
 }> = ({ showActions, task }) => {
-  const rootHash = useRootHash(
-    task.data.credentialSubject,
-    task.data.hasher[0],
-    task.data.credentialSubjectNonceMap
-  );
-
   return (
     <Box
       sx={({ palette }) => ({
@@ -76,24 +69,19 @@ const ClaimInfo: React.FC<{
       })}
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Stack alignItems="center" direction="row" spacing={3} sx={{ width: '60%' }}>
+        <Stack alignItems='center' direction='row' spacing={3} sx={{ width: '60%' }}>
           <IdentityIcon diameter={70} value={task.data.holder} />
           <Box sx={{ width: 300 }}>
             <Typography sx={({ palette }) => ({ color: palette.grey[700] })}>Claimer</Typography>
-            <Tooltip placement="bottom" title={task.data.holder}>
-              <Typography sx={{ ...ellipsisMixin() }} variant="h4">
+            <Tooltip placement='bottom' title={task.data.holder}>
+              <Typography sx={{ ...ellipsisMixin() }} variant='h4'>
                 <DidName value={task.data.holder} />
               </Typography>
             </Tooltip>
           </Box>
         </Stack>
         {showActions && (
-          <Stack
-            alignItems="center"
-            direction="row"
-            spacing={1.5}
-            sx={{ display: { md: 'flex', xs: 'none' } }}
-          >
+          <Stack alignItems='center' direction='row' spacing={1.5} sx={{ display: { md: 'flex', xs: 'none' } }}>
             {task.meta.taskStatus === 'pending' && <Approve task={task} />}
             {task.meta.taskStatus === 'pending' && <Reject task={task} />}
           </Stack>
@@ -110,25 +98,25 @@ const ClaimInfo: React.FC<{
         >
           <Cell
             content={
-              <Typography sx={{ ...ellipsisMixin() }} variant="inherit">
-                {rootHash}
+              <Typography sx={{ ...ellipsisMixin() }} variant='inherit'>
+                {task.id}
               </Typography>
             }
-            label="Claim hash"
+            label='Task id'
           />
           <Cell
             content={
-              <Typography sx={{ ...ellipsisMixin() }} variant="inherit">
+              <Typography sx={{ ...ellipsisMixin() }} variant='inherit'>
                 <CTypeName cTypeHash={task.data.ctype} />
               </Typography>
             }
-            label="Credential type"
+            label='Credential type'
           />
           <Cell
             content={
-              <Stack alignItems="center" direction="row" spacing={0.75}>
+              <Stack alignItems='center' direction='row' spacing={0.75}>
                 <TaskStatusDisplay showText status={task.meta.taskStatus} />
-                <Typography sx={({ palette }) => ({ color: palette.grey[700] })} variant="inherit">
+                <Typography sx={({ palette }) => ({ color: palette.grey[700] })} variant='inherit'>
                   <DidName value={task.data.holder} />
                 </Typography>
               </Stack>
@@ -136,12 +124,8 @@ const ClaimInfo: React.FC<{
             label={'Status'}
           />
           <Cell
-            content={
-              <Typography variant="inherit">
-                {moment(task.createTime).format('YYYY-MM-DD HH:mm:ss')}
-              </Typography>
-            }
-            label="Request time"
+            content={<Typography variant='inherit'>{moment(task.createTime).format('YYYY-MM-DD HH:mm:ss')}</Typography>}
+            label='Request time'
           />
         </Grid>
       </Box>

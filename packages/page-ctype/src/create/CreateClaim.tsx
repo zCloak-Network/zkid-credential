@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CType } from '@zcloak/ctype/types';
@@ -51,7 +51,7 @@ function CreateClaim({ ctype, isAuto }: { ctype: CType; isAuto: boolean }) {
   return (
     <>
       {!isAuto ? (
-        <Button onClick={toggleOpen} variant="contained">
+        <Button onClick={toggleOpen} variant='contained'>
           Create Claim
         </Button>
       ) : (
@@ -66,19 +66,19 @@ function CreateClaim({ ctype, isAuto }: { ctype: CType; isAuto: boolean }) {
             title={ctype.title}
           />
           <FullScreenDialogContent bg={ctypeMeta?.bg}>
-            <Typography mb={4} textAlign="center" variant="h2">
+            <Typography mb={4} textAlign='center' variant='h2'>
               Create Claim
             </Typography>
             <InputDid
               defaultValue={defaultAttester}
               disabled={!!defaultAttester}
-              label="Attester"
+              label='Attester'
               onChange={setAttester}
             />
             <Box mt={2}>
               <CreateSubject onChange={setContents as any} schema={ctype} />
             </Box>
-            <Box mt={4} textAlign="center">
+            <Box mt={4} textAlign='center'>
               <SubmitClaim attester={attester} contents={contents} ctype={ctype} onDone={onDone} />
             </Box>
           </FullScreenDialogContent>

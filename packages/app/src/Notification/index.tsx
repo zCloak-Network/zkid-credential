@@ -1,19 +1,10 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import CloseIcon from '@mui/icons-material/Close';
 import React, { useContext, useMemo, useState } from 'react';
 
-import {
-  AppContext,
-  Badge,
-  Box,
-  Drawer,
-  IconButton,
-  Tab,
-  Tabs,
-  Typography
-} from '@credential/react-components';
+import { AppContext, Badge, Box, Drawer, IconButton, Tab, Tabs, Typography } from '@credential/react-components';
 
 import Cell from './Cell';
 import { UseNotification } from './useNotification';
@@ -32,14 +23,11 @@ const Notification: React.FC<Props> = ({
   const { readMessage } = useContext(AppContext);
   const [type, setType] = useState(0);
 
-  const messages = useMemo(
-    () => (type === 0 ? all : type === 1 ? task : message),
-    [all, message, task, type]
-  );
+  const messages = useMemo(() => (type === 0 ? all : type === 1 ? task : message), [all, message, task, type]);
 
   return (
     <Drawer
-      anchor="right"
+      anchor='right'
       onClose={onClose}
       open={open}
       sx={{
@@ -64,21 +52,21 @@ const Notification: React.FC<Props> = ({
         <Tabs onChange={(_, value) => setType(value)} value={type}>
           <Tab
             label={
-              <Badge badgeContent={allUnread} color="warning" max={99} variant="dot">
+              <Badge badgeContent={allUnread} color='warning' max={99} variant='dot'>
                 All
               </Badge>
             }
           />
           <Tab
             label={
-              <Badge badgeContent={taskUnread} color="warning" max={99} variant="dot">
+              <Badge badgeContent={taskUnread} color='warning' max={99} variant='dot'>
                 Tasks
               </Badge>
             }
           />
           <Tab
             label={
-              <Badge badgeContent={messageUnread} color="warning" max={99} variant="dot">
+              <Badge badgeContent={messageUnread} color='warning' max={99} variant='dot'>
                 Messages
               </Badge>
             }

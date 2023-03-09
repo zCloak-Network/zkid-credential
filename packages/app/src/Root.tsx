@@ -1,15 +1,10 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React from 'react';
 import { HashRouter } from 'react-router-dom';
 
-import {
-  CssBaseline,
-  NotificationProvider,
-  StyledEngineProvider,
-  ThemeProvider
-} from '@credential/react-components';
+import { CssBaseline, NotificationProvider, StyledEngineProvider, ThemeProvider } from '@credential/react-components';
 
 import App from './App';
 

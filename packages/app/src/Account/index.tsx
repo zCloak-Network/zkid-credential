@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React from 'react';
@@ -31,7 +31,7 @@ const Logo = styled('a')(
 const AccountFrame: React.FC = () => {
   return (
     <Wrapper>
-      <Stack alignItems="center" justifyContent="center" mb={2} py={2.5}>
+      <Stack alignItems='center' justifyContent='center' mb={2} py={2.5}>
         <Logo>
           <Box component={IconLogo} mr={2} />
           zCloak Network

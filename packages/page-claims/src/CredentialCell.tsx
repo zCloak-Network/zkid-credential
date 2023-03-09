@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
@@ -7,8 +7,7 @@ import type { RawCredential } from '@zcloak/vc/types';
 import moment from 'moment';
 import React, { useMemo } from 'react';
 
-import { HexString } from '@zcloak/crypto/types';
-import { isVC } from '@zcloak/vc/utils';
+import { isVC } from '@zcloak/vc/is';
 
 import { CredentialStatus } from '@credential/app-store/pending-credential';
 import {
@@ -103,14 +102,14 @@ const Wrapper = styled(Paper)(({ theme }) => ({
 }));
 
 export interface CredentialProps {
-  credential: RawCredential;
-  rootHash: HexString;
+  credential: Omit<RawCredential, 'credentialSubject'> | RawCredential;
+  messageId?: string;
   time: number;
   issuer: DidUrl;
   status: CredentialStatus;
 }
 
-function CredentialCell({ credential, issuer, rootHash, status, time }: CredentialProps) {
+function CredentialCell({ credential, issuer, messageId, status, time }: CredentialProps) {
   const [open, toggleOpen] = useToggle();
 
   const vc = useMemo(() => (isVC(credential) ? credential : null), [credential]);
@@ -119,7 +118,7 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
 
   return (
     <>
-      <Box position="relative">
+      <Box position='relative'>
         <Wrapper
           onClick={toggleOpen}
           sx={
@@ -144,38 +143,36 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
                 }
           }
         >
-          <Typography className="CredentialCell_title" mt={0} variant="h3">
+          <Typography className='CredentialCell_title' mt={0} variant='h3'>
             <CTypeName cTypeHash={credential.ctype} />
           </Typography>
           <Stack
-            alignItems="center"
-            className="CredentialCell_issuer"
-            direction="row"
-            justifyContent="space-between"
+            alignItems='center'
+            className='CredentialCell_issuer'
+            direction='row'
+            justifyContent='space-between'
             mb={2.5}
             mt={2}
             spacing={1}
           >
-            <Box width="50%">
-              <Typography sx={({ palette }) => ({ color: palette.grey[500] })} variant="inherit">
-                {vc ? 'Digest' : 'Claim hash'}
+            <Box width='50%'>
+              <Typography sx={({ palette }) => ({ color: palette.grey[500] })} variant='inherit'>
+                {vc ? 'Digest' : 'Message id'}
               </Typography>
-              <Tooltip placement="top" title={vc ? vc.digest : rootHash}>
-                <Typography sx={{ fontWeight: 500, ...ellipsisMixin() }}>
-                  {vc ? vc.digest : rootHash}
-                </Typography>
+              <Tooltip placement='top' title={vc ? vc.digest : messageId}>
+                <Typography sx={{ fontWeight: 500, ...ellipsisMixin() }}>{vc ? vc.digest : messageId}</Typography>
               </Tooltip>
             </Box>
-            <Stack alignItems="center" className="CredentialCell_action_status">
-              <Box className="CredentialCell_Status">
+            <Stack alignItems='center' className='CredentialCell_action_status'>
+              <Box className='CredentialCell_Status'>
                 <CredentialStatusDisplay showText status={status} />
               </Box>
 
               {vc && (
                 <Stack
-                  className="CredentialCell_actions"
-                  direction="row-reverse"
-                  display="inline-flex"
+                  className='CredentialCell_actions'
+                  direction='row-reverse'
+                  display='inline-flex'
                   mt={2}
                   onClick={(e) => e.stopPropagation()}
                   spacing={1}
@@ -193,14 +190,14 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
               borderColor: alpha(palette.grey[300], 0.3)
             })}
           />
-          <Stack alignItems="end" direction="row" justifyContent="space-between" mb={2.5} mt={2.5}>
-            <Stack alignItems="center" direction="row" spacing={1}>
+          <Stack alignItems='end' direction='row' justifyContent='space-between' mb={2.5} mt={2.5}>
+            <Stack alignItems='center' direction='row' spacing={1}>
               <IdentityIcon diameter={40} value={issuer} />
               <Box>
-                <Typography sx={({ palette }) => ({ color: palette.grey[500] })} variant="inherit">
+                <Typography sx={({ palette }) => ({ color: palette.grey[500] })} variant='inherit'>
                   Attested by
                 </Typography>
-                <Tooltip placement="top" title={issuer}>
+                <Tooltip placement='top' title={issuer}>
                   <Typography sx={{ fontWeight: 500, ...ellipsisMixin() }}>
                     <DidName value={issuer} />
                   </Typography>
@@ -208,7 +205,7 @@ function CredentialCell({ credential, issuer, rootHash, status, time }: Credenti
               </Box>
             </Stack>
             <Box>
-              <Typography className="CredentialCell_Time" variant="inherit">
+              <Typography className='CredentialCell_Time' variant='inherit'>
                 {moment(time).format('YYYY-MM-DD HH:mm:ss')}
               </Typography>
             </Box>

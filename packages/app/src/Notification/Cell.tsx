@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DecryptedMessage, Message, MessageType } from '@zcloak/message/types';
@@ -27,7 +27,7 @@ import {
 import { DidName } from '@credential/react-dids';
 import { useDecryptedMessage, useToggle } from '@credential/react-hooks';
 
-function getCredential(message: DecryptedMessage<MessageType>): VerifiableCredential | null {
+function getCredential(message: DecryptedMessage<MessageType>): VerifiableCredential<boolean> | null {
   switch (message.msgType) {
     case 'Send_VP':
       return (message.data as VerifiablePresentation).verifiableCredential[0];
@@ -36,10 +36,10 @@ function getCredential(message: DecryptedMessage<MessageType>): VerifiableCreden
       return (message.data as VerifiablePresentation).verifiableCredential[0];
 
     case 'Send_issuedVC':
-      return message.data as VerifiableCredential;
+      return message.data as VerifiableCredential<boolean>;
 
     case 'Response_Approve_Attestation':
-      return message.data as VerifiableCredential;
+      return message.data as VerifiableCredential<boolean>;
 
     default:
       return null;
@@ -136,7 +136,7 @@ function Cell({
   const navigate = useNavigate();
   const [decrypted, decrypt] = useDecryptedMessage(message);
 
-  const credential = useRef<VerifiableCredential | null>(null);
+  const credential = useRef<VerifiableCredential<boolean> | null>(null);
 
   const [open, toggleOpen] = useToggle();
 
@@ -168,9 +168,9 @@ function Cell({
   return (
     <>
       <Stack
-        alignItems="flex-start"
+        alignItems='flex-start'
         direction={upSm ? 'row' : 'column'}
-        justifyContent="space-between"
+        justifyContent='space-between'
         paddingX={2}
         paddingY={1.5}
         spacing={upSm ? 2.5 : 1.5}
@@ -183,14 +183,14 @@ function Cell({
         {upSm && (
           <Box sx={{ width: 24, display: 'flex', alignSelf: 'center', flex: '0 0 auto' }}>
             {message.msgType === 'Request_Attestation' ? (
-              <IconNewTask color="primary" />
+              <IconNewTask color='primary' />
             ) : (
-              <IconNewMessage color="primary" />
+              <IconNewMessage color='primary' />
             )}
           </Box>
         )}
         <Box sx={{ width: upSm ? 'calc(100% - 24px) * 0.41' : '100%' }}>
-          <Typography variant="inherit">{desc}</Typography>
+          <Typography variant='inherit'>{desc}</Typography>
         </Box>
         <Box
           sx={{
@@ -203,30 +203,28 @@ function Cell({
             }
           }}
         >
-          <Stack alignItems="center" direction="row" spacing={1.5}>
+          <Stack alignItems='center' direction='row' spacing={1.5}>
             <Typography
               sx={({ palette }) => ({
                 color: palette.grey[500]
               })}
-              variant="inherit"
+              variant='inherit'
             >
               {moment(message.createTime).format('YYYY-MM-DD HH:mm:ss')}
             </Typography>
             <Circle color={isRead ? 'disabled' : 'warning'} sx={{ width: 8, height: 8 }} />
           </Stack>
           {!isRead && (
-            <Button onClick={onRead} size="small">
+            <Button onClick={onRead} size='small'>
               Mark as read
             </Button>
           )}
-          <Button onClick={handleClick} size="small">
+          <Button onClick={handleClick} size='small'>
             View
           </Button>
         </Box>
       </Stack>
-      {open && credential.current && (
-        <CredentialModal credential={credential.current} onClose={toggleOpen} />
-      )}
+      {open && credential.current && <CredentialModal credential={credential.current} onClose={toggleOpen} />}
     </>
   );
 }

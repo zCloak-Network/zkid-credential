@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useContext, useEffect, useMemo, useState } from 'react';
@@ -38,9 +38,7 @@ type DidValue = {
 
 function InputDid({ defaultValue, disabled = false, label, onChange, withSelftButton }: Props) {
   const { did: self } = useContext(DidsContext);
-  const [value, setValue] = useState<DidValue | null>(
-    defaultValue ? { title: defaultValue } : null
-  );
+  const [value, setValue] = useState<DidValue | null>(defaultValue ? { title: defaultValue } : null);
   const knownDids = useKnownDids();
   const options = useMemo(() => {
     const _options = knownDids.map((did) => ({ title: did }));
@@ -120,11 +118,7 @@ function InputDid({ defaultValue, disabled = false, label, onChange, withSelftBu
       options={options}
       renderInput={(params) => {
         return (
-          <FormControl
-            color={error ? 'error' : undefined}
-            error={!!error}
-            fullWidth={params.fullWidth}
-          >
+          <FormControl color={error ? 'error' : undefined} error={!!error} fullWidth={params.fullWidth}>
             {label && (
               <InputLabel {...params.InputLabelProps} shrink>
                 {label}
@@ -136,13 +130,11 @@ function InputDid({ defaultValue, disabled = false, label, onChange, withSelftBu
               endAdornment={
                 <>
                   {fetching && (
-                    <InputAdornment position="end">
+                    <InputAdornment position='end'>
                       <CircularProgress size={16} />
                     </InputAdornment>
                   )}
-                  {withSelftButton && (
-                    <Button onClick={() => setValue({ title: self.id })}>{withSelftButton}</Button>
-                  )}
+                  {withSelftButton && <Button onClick={() => setValue({ title: self.id })}>{withSelftButton}</Button>}
                   {params.InputProps.endAdornment}
                 </>
               }

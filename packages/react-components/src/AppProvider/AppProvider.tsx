@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DecryptedMessage, Message, MessageType } from '@zcloak/message/types';
@@ -11,7 +11,7 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useS
 
 import { isSameUri } from '@zcloak/did/utils';
 import { DidUrl } from '@zcloak/did-resolver/types';
-import { decryptMessage, verifyMessageEnvelope, verifyMessageSignature } from '@zcloak/message';
+import { decryptMessage, verifyMessageEnvelope } from '@zcloak/message';
 
 import { MESSAGE_WS } from '@credential/app-config/endpoints';
 import { addVC } from '@credential/app-store';
@@ -25,10 +25,7 @@ interface State {
   messages: MessageWithMeta<MessageType>[];
   sentMessages: MessageWithMeta<MessageType>[];
   readMessage: (id: string) => Promise<void>;
-  sendMessage: <T extends MessageType>(
-    message?: Message<T>,
-    reCaptchaToken?: string | null
-  ) => Promise<void>;
+  sendMessage: <T extends MessageType>(message?: Message<T>, reCaptchaToken?: string | null) => Promise<void>;
   decrypt: <T extends MessageType>(message: Message<T>) => Promise<DecryptedMessage<T>>;
 }
 
@@ -53,11 +50,7 @@ function transformMessage(
           isRead: message.isRead,
           isPush: message.isPush,
           taskStatus:
-            message.replyStatus === 'approved'
-              ? 'approved'
-              : message.replyStatus === 'reject'
-              ? 'rejected'
-              : 'pending'
+            message.replyStatus === 'approved' ? 'approved' : message.replyStatus === 'reject' ? 'rejected' : 'pending'
         }
       });
     }
@@ -69,11 +62,7 @@ function transformMessage(
           isRead: message.isRead,
           isPush: message.isPush,
           taskStatus:
-            message.replyStatus === 'approved'
-              ? 'approved'
-              : message.replyStatus === 'reject'
-              ? 'rejected'
-              : 'pending'
+            message.replyStatus === 'approved' ? 'approved' : message.replyStatus === 'reject' ? 'rejected' : 'pending'
         }
       });
     }
@@ -82,9 +71,7 @@ function transformMessage(
   return [_messages, _sentMessages];
 }
 
-function duplicateServerMessages(
-  messages: ServerMessage<MessageType>[]
-): ServerMessage<MessageType>[] {
+function duplicateServerMessages(messages: ServerMessage<MessageType>[]): ServerMessage<MessageType>[] {
   const messagesMap: Map<string, ServerMessage<MessageType>> = new Map();
 
   messages.forEach((message) => messagesMap.set(message.rawData.id, message));
@@ -108,10 +95,7 @@ function AppProvider({ children }: { children: React.ReactNode }) {
     return null;
   }, [did]);
 
-  const [messages, sentMessages] = useMemo(
-    () => transformMessage(serverMessages, did.id),
-    [did.id, serverMessages]
-  );
+  const [messages, sentMessages] = useMemo(() => transformMessage(serverMessages, did.id), [did.id, serverMessages]);
 
   const decrypt = useCallback(
     async <T extends MessageType>(message: Message<T>): Promise<DecryptedMessage<T>> => {
@@ -123,8 +107,8 @@ function AppProvider({ children }: { children: React.ReactNode }) {
 
       if (cachePromise) return cachePromise as Promise<DecryptedMessage<T>>;
 
-      const promise: Promise<DecryptedMessage<T>> = decryptMessage(message, did, resolver).then(
-        (decrypted) => {
+      const promise: Promise<DecryptedMessage<T>> = decryptMessage(message, did, resolver)
+        .then((decrypted) => {
           if (decrypted.msgType === 'Response_Approve_Attestation') {
             addVC(decrypted.data);
           } else if (decrypted.msgType === 'Send_issuedVC') {
@@ -137,8 +121,11 @@ function AppProvider({ children }: { children: React.ReactNode }) {
           decryptedCachePromise.delete(message.id);
 
           return decrypted;
-        }
-      );
+        })
+        .catch((error) => {
+          decryptedCachePromise.delete(message.id);
+          throw error;
+        });
 
       decryptedCachePromise.set(message.id, promise);
 
@@ -164,9 +151,7 @@ function AppProvider({ children }: { children: React.ReactNode }) {
       .then((messages) => {
         syncProvider.isReady.then((provider) => {
           provider.subscribe(didUrl, messages?.[0]?.rawData.createTime || 0, (messages) => {
-            setServerMessages((serverMessages) =>
-              duplicateServerMessages(messages.concat(serverMessages))
-            );
+            setServerMessages((serverMessages) => duplicateServerMessages(messages.concat(serverMessages)));
           });
         });
       });
@@ -209,7 +194,6 @@ function AppProvider({ children }: { children: React.ReactNode }) {
       assert(message, 'Not encrypted message found');
 
       verifyMessageEnvelope(message);
-      await verifyMessageSignature(message, resolver);
 
       const serverMessage = await resolver.postMessage(message, reCaptchaToken ?? undefined);
 
@@ -225,9 +209,7 @@ function AppProvider({ children }: { children: React.ReactNode }) {
                     serverMessage.rawData.msgType
                   )
                     ? 'approved'
-                    : ['Response_Reject_Attestation', 'Response_Reject_VP'].includes(
-                        serverMessage.rawData.msgType
-                      )
+                    : ['Response_Reject_Attestation', 'Response_Reject_VP'].includes(serverMessage.rawData.msgType)
                     ? 'reject'
                     : message.replyStatus
                 }

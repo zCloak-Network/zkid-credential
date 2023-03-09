@@ -1,19 +1,11 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DidsStepProps } from './types';
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import {
-  Button,
-  CircularProgress,
-  lighten,
-  Step,
-  StepContent,
-  StepLabel,
-  Stepper
-} from '@credential/react-components';
+import { Button, CircularProgress, lighten, Step, StepContent, StepLabel, Stepper } from '@credential/react-components';
 import { useStopPropagation } from '@credential/react-hooks';
 
 const DidsModal: React.FC<{
@@ -103,7 +95,7 @@ const DidsModal: React.FC<{
     <>
       <Stepper
         activeStep={activeStep}
-        orientation="vertical"
+        orientation='vertical'
         sx={({ palette }) => ({
           padding: 4.5,
           borderRadius: 2.5,
@@ -138,11 +130,11 @@ const DidsModal: React.FC<{
         ))}
       </Stepper>
       {activeStep === steps.length ? (
-        <Button fullWidth onClick={onDone} variant="contained">
+        <Button fullWidth onClick={onDone} variant='contained'>
           Finish
         </Button>
       ) : (
-        <Button disabled={execing || loading} fullWidth onClick={handleExec} variant="contained">
+        <Button disabled={execing || loading} fullWidth onClick={handleExec} variant='contained'>
           {submitText ?? 'Submit'}
         </Button>
       )}

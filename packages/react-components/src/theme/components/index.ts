@@ -1,8 +1,8 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { type PaletteMode, alpha } from '@mui/material';
-import { type ThemeOptions, lighten } from '@mui/material/styles';
+import { alpha, type PaletteMode } from '@mui/material';
+import { lighten, type ThemeOptions } from '@mui/material/styles';
 
 type Func = (mode: PaletteMode) => NonNullable<ThemeOptions['components']>;
 

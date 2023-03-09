@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchemaProps, CTypeSchemaVectorFixedProps } from '../types';
@@ -28,13 +28,7 @@ function Item({
   return <SchemaBase {...props} onChange={onChange} />;
 }
 
-function SchemaVectorFixed({
-  defaultValue,
-  disabled,
-  items,
-  name,
-  onChange
-}: CTypeSchemaVectorFixedProps) {
+function SchemaVectorFixed({ defaultValue, disabled, items, name, onChange }: CTypeSchemaVectorFixedProps) {
   const _defaultValue = useMemo(
     () => isOrDefault('array', defaultValue, { length: items.length }) as unknown[],
     [defaultValue, items.length]

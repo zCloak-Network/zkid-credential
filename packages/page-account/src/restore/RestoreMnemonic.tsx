@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
@@ -42,29 +42,24 @@ const RestoreMnemonic: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ on
 
   return (
     <Stack spacing={5.5}>
-      <FormControl error={!!mnemonic && !isMnemonic} fullWidth variant="outlined">
+      <FormControl error={!!mnemonic && !isMnemonic} fullWidth variant='outlined'>
         <InputLabel shrink>Mnemonic Phrase</InputLabel>
         <OutlinedInput
           fullWidth
           notched
           onChange={(e) => setMnemonic(e.target.value)}
-          placeholder="Enter 12 word Mnemonic Phrase"
+          placeholder='Enter 12 word Mnemonic Phrase'
           value={mnemonic}
         />
       </FormControl>
-      <Divider sx={() => ({ marginTop: 3, marginBottom: 3 })} variant="fullWidth" />
-      <InputPassword
-        label="Enter password"
-        onChange={setPassword}
-        placeholder="Enter your password"
-        withBorder
-      />
+      <Divider sx={() => ({ marginTop: 3, marginBottom: 3 })} variant='fullWidth' />
+      <InputPassword label='Enter password' onChange={setPassword} placeholder='Enter your password' withBorder />
       <Button
         disabled={!isMnemonic || !mnemonic || !password}
         fullWidth
         onClick={restore}
-        size="large"
-        variant="contained"
+        size='large'
+        variant='contained'
       >
         Restore
       </Button>

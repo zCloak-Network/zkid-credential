@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { VerifiableCredential } from '@zcloak/vc/types';
@@ -11,10 +11,13 @@ import { useToggle } from '@credential/react-hooks';
 
 import QrcodeModal from './QrcodeModal';
 
-const QrcodeButton: React.FC<{ credential: VerifiableCredential; withText?: boolean }> = ({
+function QrcodeButton({
   credential,
   withText = false
-}) => {
+}: {
+  credential: VerifiableCredential<boolean>;
+  withText?: boolean;
+}) {
   const [open, toggleOpen] = useToggle();
   const _toggleOpen: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
@@ -27,13 +30,13 @@ const QrcodeButton: React.FC<{ credential: VerifiableCredential; withText?: bool
 
   return (
     <>
-      <Tooltip title="Show QR code">
-        <Stack alignItems="center">
-          <IconButton color="inherit" onClick={_toggleOpen} size="small">
+      <Tooltip title='Show QR code'>
+        <Stack alignItems='center'>
+          <IconButton color='inherit' onClick={_toggleOpen} size='small'>
             <IconQrcode sx={{ width: 14, height: 14 }} />
           </IconButton>
           {withText && (
-            <Typography sx={({ palette }) => ({ color: palette.common.white })} variant="inherit">
+            <Typography sx={({ palette }) => ({ color: palette.common.white })} variant='inherit'>
               QR code
             </Typography>
           )}
@@ -42,6 +45,6 @@ const QrcodeButton: React.FC<{ credential: VerifiableCredential; withText?: bool
       {open && <QrcodeModal credential={credential} onClose={toggleOpen} open={open} />}
     </>
   );
-};
+}
 
 export default React.memo(QrcodeButton);

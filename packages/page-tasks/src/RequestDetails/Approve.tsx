@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { Message } from '@zcloak/message/types';
@@ -31,10 +31,9 @@ const Approve: React.FC<{
   const { serverCTypes } = useContext(CTypeContext);
   const { sendMessage } = useContext(AppContext);
   const [open, toggleOpen] = useToggle();
-  const [encryptedMessage, setEncryptedMessage] =
-    useState<Message<'Response_Approve_Attestation'>>();
+  const [encryptedMessage, setEncryptedMessage] = useState<Message<'Response_Approve_Attestation'>>();
   const [recaptchaToken, setRecaptchaToken] = useState<string>();
-  const [vc, setVC] = useState<VerifiableCredential>();
+  const [vc, setVC] = useState<VerifiableCredential<boolean>>();
 
   const claimer = useDid(task.data.holder);
 
@@ -58,14 +57,14 @@ const Approve: React.FC<{
               borderColor: palette.success.main
             }
           })}
-          variant="outlined"
+          variant='outlined'
         >
           Approve
         </Button>
       ) : (
         <MenuItem onClick={_toggleOpen} sx={({ palette }) => ({ color: palette.success.main })}>
           <ListItemIcon sx={{ minWidth: '0px !important', marginRight: 1 }}>
-            <IconApprove color="success" />
+            <IconApprove color='success' />
           </ListItemIcon>
           <ListItemText>Approve</ListItemText>
         </MenuItem>
@@ -86,13 +85,9 @@ const Approve: React.FC<{
                 {
                   label: 'Encrypt message',
                   exec: () =>
-                    encryptMessageStep(
-                      'Response_Approve_Attestation',
-                      vc,
-                      attester,
-                      claimer,
-                      task.id
-                    ).then(setEncryptedMessage)
+                    encryptMessageStep('Response_Approve_Attestation', vc, attester, claimer, task.id).then(
+                      setEncryptedMessage
+                    )
                 },
                 {
                   label: 'Send message',
@@ -103,7 +98,7 @@ const Approve: React.FC<{
               ]}
             />
           }
-          title="Approve the request"
+          title='Approve the request'
         />
       )}
     </>

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DidRole } from '@credential/react-dids/types';
@@ -19,13 +19,7 @@ import PageMessage from '@credential/page-message';
 import PageAttesterMessage from '@credential/page-message/attester';
 import PageTasks from '@credential/page-tasks';
 import PageRequestDetails from '@credential/page-tasks/RequestDetails';
-import {
-  AppProvider,
-  Box,
-  CTypeProvider,
-  useMediaQuery,
-  useTheme
-} from '@credential/react-components';
+import { AppProvider, Box, CTypeProvider, useMediaQuery, useTheme } from '@credential/react-components';
 import { DidsProvider } from '@credential/react-dids';
 
 import Account from './Account';
@@ -50,13 +44,11 @@ function Container({
   const upSm = useMediaQuery(theme.breakpoints.up('sm'));
 
   const paddingT = useMemo(
-    () =>
-      hasPaddingTop ? (upMd ? theme.spacing(4) : upSm ? theme.spacing(3) : theme.spacing(2)) : 0,
+    () => (hasPaddingTop ? (upMd ? theme.spacing(4) : upSm ? theme.spacing(3) : theme.spacing(2)) : 0),
     [hasPaddingTop, theme, upMd, upSm]
   );
   const paddingH = useMemo(
-    () =>
-      hasPaddingX ? (upMd ? theme.spacing(4) : upSm ? theme.spacing(3) : theme.spacing(2)) : 0,
+    () => (hasPaddingX ? (upMd ? theme.spacing(4) : upSm ? theme.spacing(3) : theme.spacing(2)) : 0),
     [hasPaddingX, theme, upMd, upSm]
   );
 
@@ -86,23 +78,23 @@ function BaseProvider({ children, role }: { children: any; role: DidRole }) {
 const createClaimerApp = () => (
   <Route
     element={
-      <BaseProvider role="claimer">
+      <BaseProvider role='claimer'>
         <Claimer />
       </BaseProvider>
     }
-    path="claimer"
+    path='claimer'
   >
-    <Route path="did">
+    <Route path='did'>
       <Route
         element={
           <Container>
             <PageDidProfile />
           </Container>
         }
-        path="profile"
+        path='profile'
       />
     </Route>
-    <Route path="ctype">
+    <Route path='ctype'>
       <Route
         element={
           <Container hasPaddingTop hasPaddingX>
@@ -117,7 +109,7 @@ const createClaimerApp = () => (
             <PageCType />
           </Container>
         }
-        path=":id/create-claim"
+        path=':id/create-claim'
       />
     </Route>
     <Route
@@ -126,7 +118,7 @@ const createClaimerApp = () => (
           <PageClaims />
         </Container>
       }
-      path="claims"
+      path='claims'
     />
     <Route
       element={
@@ -134,33 +126,33 @@ const createClaimerApp = () => (
           <PageMessage />
         </Container>
       }
-      path="message"
+      path='message'
     />
-    <Route element={<NoMatch to="ctype" />} path="*" />
-    <Route element={<NoMatch to="ctype" />} index />
+    <Route element={<NoMatch to='ctype' />} path='*' />
+    <Route element={<NoMatch to='ctype' />} index />
   </Route>
 );
 
 const createAttesterApp = () => (
   <Route
     element={
-      <BaseProvider role="attester">
+      <BaseProvider role='attester'>
         <Attester />
       </BaseProvider>
     }
-    path="attester"
+    path='attester'
   >
-    <Route path="did">
+    <Route path='did'>
       <Route
         element={
           <Container>
             <PageDidProfile />
           </Container>
         }
-        path="profile"
+        path='profile'
       />
     </Route>
-    <Route path="ctypes">
+    <Route path='ctypes'>
       <Route
         element={
           <Container hasPaddingTop>
@@ -175,10 +167,10 @@ const createAttesterApp = () => (
             <PageCreateCType />
           </Container>
         }
-        path="create"
+        path='create'
       />
     </Route>
-    <Route path="tasks">
+    <Route path='tasks'>
       <Route
         element={
           <Container hasPaddingTop>
@@ -193,10 +185,10 @@ const createAttesterApp = () => (
             <PageRequestDetails />
           </Container>
         }
-        path=":id"
+        path=':id'
       />
     </Route>
-    <Route path="issue">
+    <Route path='issue'>
       <Route
         element={
           <Container hasPaddingTop>
@@ -212,10 +204,10 @@ const createAttesterApp = () => (
           <PageAttesterMessage />
         </Container>
       }
-      path="message"
+      path='message'
     />
-    <Route element={<NoMatch to="ctypes" />} path="*" />
-    <Route element={<NoMatch to="ctypes" />} index />
+    <Route element={<NoMatch to='ctypes' />} path='*' />
+    <Route element={<NoMatch to='ctypes' />} index />
   </Route>
 );
 
@@ -227,12 +219,12 @@ const App: React.FC = () => {
     <Routes>
       {AppClaimer}
       {AppAttester}
-      <Route element={<Account />} path="account">
-        <Route element={<PageCreateAccount />} path="create" />
-        <Route element={<PageRestoreAccount />} path="restore" />
+      <Route element={<Account />} path='account'>
+        <Route element={<PageCreateAccount />} path='create' />
+        <Route element={<PageRestoreAccount />} path='restore' />
         <Route element={<PageAccount />} index />
       </Route>
-      <Route element={<NoMatch to="/claimer" />} path="*" />
+      <Route element={<NoMatch to='/claimer' />} path='*' />
     </Routes>
   );
 };

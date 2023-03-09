@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
@@ -7,14 +7,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import FileSaver from 'file-saver';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import {
-  Box,
-  Button,
-  FormControl,
-  Grid,
-  InputLabel,
-  OutlinedInput
-} from '@credential/react-components';
+import { Box, Button, FormControl, Grid, InputLabel, OutlinedInput } from '@credential/react-components';
 import { didManager } from '@credential/react-dids/instance';
 
 function random(min = 0, max = 11): number {
@@ -74,7 +67,7 @@ const Step3: React.FC<{
       <Grid columnSpacing={4} container rowSpacing={3}>
         {keyWordsIndex.map((keyWordsIndex, index) => (
           <Grid item key={keyWordsIndex} xs={6}>
-            <FormControl variant="outlined">
+            <FormControl variant='outlined'>
               <InputLabel shrink>#{keyWordsIndex + 1}</InputLabel>
               <OutlinedInput
                 onChange={(e) =>
@@ -93,7 +86,7 @@ const Step3: React.FC<{
         <Button onClick={prevStep} startIcon={<ArrowBackIosIcon />}>
           Go back
         </Button>
-        <Button disabled={!checkTrue} onClick={toggleContinue} variant="contained">
+        <Button disabled={!checkTrue} onClick={toggleContinue} variant='contained'>
           Continue
         </Button>
       </Box>

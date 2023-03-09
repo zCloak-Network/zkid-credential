@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CType } from '@zcloak/ctype/types';
@@ -40,8 +40,6 @@ const SubmitClaim: React.FC<{
         hashType: DEFAULT_ROOT_HASH_TYPE
       });
 
-      raw.calcRootHash();
-
       setRawCredential(raw.toRawCredential());
 
       toggleOpen();
@@ -60,7 +58,7 @@ const SubmitClaim: React.FC<{
 
   return (
     <>
-      <Button disabled={!attester || !ctype || !contents} onClick={_toggleOpen} variant="contained">
+      <Button disabled={!attester || !ctype || !contents} onClick={_toggleOpen} variant='contained'>
         Submit
       </Button>
       {open && (
@@ -88,10 +86,10 @@ const SubmitClaim: React.FC<{
                   exec: () => sendMessage(encryptedMessage, recaptchaToken)
                 }
               ]}
-              submitText="Submit claim"
+              submitText='Submit claim'
             />
           }
-          title="Submit claim"
+          title='Submit claim'
         />
       )}
     </>

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/types';
@@ -19,22 +19,22 @@ import {
 } from '@credential/react-components';
 import { DidsContext, DidsModal } from '@credential/react-dids';
 
-const QrcodeModal: React.FC<{
-  credential: VerifiableCredential;
+function QrcodeModal({
+  credential,
+  onClose,
+  open
+}: {
+  credential: VerifiableCredential<boolean>;
   open: boolean;
   onClose?: () => void;
-}> = ({ credential, onClose, open }) => {
+}) {
   const { did } = useContext(DidsContext);
   const attributes = useMemo(() => Object.keys(credential.credentialSubject), [credential]);
   const [selectedAttributes, setSelectAttributes] = useState<string[]>(attributes);
   const [presentation, setPresentation] = useState<VerifiablePresentation | null>(null);
 
   return (
-    <DidsModal
-      onClose={onClose}
-      open={open}
-      title={presentation ? 'Your credential' : 'Selective disclosure'}
-    >
+    <DidsModal onClose={onClose} open={open} title={presentation ? 'Your credential' : 'Selective disclosure'}>
       {presentation ? (
         <Box
           sx={{
@@ -53,16 +53,15 @@ const QrcodeModal: React.FC<{
               marginBottom: 5,
               textAlign: 'center'
             })}
-            variant="inherit"
+            variant='inherit'
           >
-            This QR code contains the credential info you are about to share, please use it with
-            care.
+            This QR code contains the credential info you are about to share, please use it with care.
           </Typography>
           <CredentialQrcode presentation={presentation} />
         </Box>
       ) : (
         <Stack spacing={3}>
-          <Paper sx={{ height: 225, overflowY: 'scroll' }} variant="outlined">
+          <Paper sx={{ height: 225, overflowY: 'scroll' }} variant='outlined'>
             {attributes.map((key) => (
               <Box
                 key={key}
@@ -81,9 +80,7 @@ const QrcodeModal: React.FC<{
                       checked={selectedAttributes.includes(key)}
                       onChange={() =>
                         selectedAttributes.includes(key)
-                          ? setSelectAttributes((attributes) =>
-                              attributes.filter((attribute) => attribute !== key)
-                            )
+                          ? setSelectAttributes((attributes) => attributes.filter((attribute) => attribute !== key))
                           : setSelectAttributes((attributes) => [...attributes, key])
                       }
                     />
@@ -98,12 +95,9 @@ const QrcodeModal: React.FC<{
             onClick={() => {
               const builder = new VerifiablePresentationBuilder(did);
 
-              builder
-                .addVC(credential, 'VP_SelectiveDisclosure', selectedAttributes)
-                .build()
-                .then(setPresentation);
+              builder.addVC(credential, 'VP_SelectiveDisclosure', selectedAttributes).build().then(setPresentation);
             }}
-            variant="contained"
+            variant='contained'
           >
             Generate QR code
           </Button>
@@ -111,6 +105,6 @@ const QrcodeModal: React.FC<{
       )}
     </DidsModal>
   );
-};
+}
 
 export default React.memo(QrcodeModal);

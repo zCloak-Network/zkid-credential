@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useContext, useEffect, useMemo } from 'react';
@@ -31,10 +31,7 @@ const RequestDetails: React.FC = () => {
   const navigate = useNavigate();
   const [decrypted, decrypt] = useDecryptedMessage(task);
 
-  const decryptedTask = useMemo(
-    () => decrypted && task && { ...decrypted, meta: task.meta },
-    [decrypted, task]
-  );
+  const decryptedTask = useMemo(() => decrypted && task && { ...decrypted, meta: task.meta }, [decrypted, task]);
 
   useEffect(() => {
     id && readMessage(id);
@@ -46,14 +43,10 @@ const RequestDetails: React.FC = () => {
         <DialogHeader onClose={() => navigate('/attester/tasks', { replace: true })}>
           <Box sx={{ ...ellipsisMixin(), maxWidth: '80%' }}>{id}</Box>
         </DialogHeader>
-        <Container
-          component={DialogContent}
-          maxWidth="lg"
-          sx={{ background: 'transparent !important' }}
-        ></Container>
+        <Container component={DialogContent} maxWidth='lg' sx={{ background: 'transparent !important' }}></Container>
         <DialogActions>
-          <Stack alignItems="center" direction="row" spacing={1.5}>
-            <Button onClick={decrypt} variant="contained">
+          <Stack alignItems='center' direction='row' spacing={1.5}>
+            <Button onClick={decrypt} variant='contained'>
               Decrypt to view
             </Button>
           </Stack>
@@ -67,21 +60,12 @@ const RequestDetails: React.FC = () => {
       <DialogHeader onClose={() => navigate('/attester/tasks', { replace: true })}>
         <Box sx={{ ...ellipsisMixin(), maxWidth: '80%' }}>{id}</Box>
       </DialogHeader>
-      <Container
-        component={DialogContent}
-        maxWidth="lg"
-        sx={{ background: 'transparent !important' }}
-      >
+      <Container component={DialogContent} maxWidth='lg' sx={{ background: 'transparent !important' }}>
         <ClaimInfo showActions task={decryptedTask} />
         <Details contents={decryptedTask.data.credentialSubject} />
       </Container>
       <DialogActions>
-        <Stack
-          alignItems="center"
-          direction="row"
-          spacing={1.5}
-          sx={{ display: { md: 'none', xs: 'flex' } }}
-        >
+        <Stack alignItems='center' direction='row' spacing={1.5} sx={{ display: { md: 'none', xs: 'flex' } }}>
           {decryptedTask.meta.taskStatus === 'pending' && <Approve task={decryptedTask} />}
           {decryptedTask.meta.taskStatus === 'pending' && <Reject task={decryptedTask} />}
         </Stack>

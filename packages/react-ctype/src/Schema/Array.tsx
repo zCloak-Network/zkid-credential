@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchemaProps } from '../types';
@@ -13,10 +13,7 @@ import SchemaVector from './Vector';
 import SchemaVectorFixed from './VectorFixed';
 
 function SchemaArray({ defaultValue, disabled, name, onChange, schema }: CTypeSchemaProps) {
-  const _defaultValue = useMemo(
-    () => isOrDefault('array', defaultValue) as unknown[],
-    [defaultValue]
-  );
+  const _defaultValue = useMemo(() => isOrDefault('array', defaultValue) as unknown[], [defaultValue]);
   const [value, setValue] = useState<unknown[] | undefined>(_defaultValue);
   const [error, setError] = useState<Error | null>(null);
 
@@ -59,7 +56,7 @@ function SchemaArray({ defaultValue, disabled, name, onChange, schema }: CTypeSc
           schema={schema}
         />
       )}
-      {error && <Alert severity="error">{error.message}</Alert>}
+      {error && <Alert severity='error'>{error.message}</Alert>}
     </>
   );
 }

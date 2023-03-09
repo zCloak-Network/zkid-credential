@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchema } from '@zcloak/ctype/types';
@@ -32,8 +32,8 @@ function NumberRestrictions({ onChange }: Props) {
   return (
     <Stack spacing={1}>
       <Box>
-        <InputNumber fullWidth onChange={setMin} size="small" startAdornment="minimum" />
-        <InputNumber fullWidth onChange={setMax} size="small" startAdornment="maximum" />
+        <InputNumber fullWidth onChange={setMin} size='small' startAdornment='minimum' />
+        <InputNumber fullWidth onChange={setMax} size='small' startAdornment='maximum' />
       </Box>
     </Stack>
   );

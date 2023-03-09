@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import Check from '@mui/icons-material/Check';
@@ -12,16 +12,8 @@ const Copy: React.FC<{ value: string }> = ({ value }) => {
   const [isCopied, copy] = useCopyClipboard();
 
   return (
-    <IconButton
-      onClick={() => copy(value)}
-      size="small"
-      sx={{ padding: 0, height: 'auto', width: 'auto' }}
-    >
-      {!isCopied ? (
-        <ContentCopyIcon sx={{ width: 16, height: 16 }} />
-      ) : (
-        <Check sx={{ width: 16, height: 16 }} />
-      )}
+    <IconButton onClick={() => copy(value)} size='small' sx={{ padding: 0, height: 'auto', width: 'auto' }}>
+      {!isCopied ? <ContentCopyIcon sx={{ width: 16, height: 16 }} /> : <Check sx={{ width: 16, height: 16 }} />}
     </IconButton>
   );
 };

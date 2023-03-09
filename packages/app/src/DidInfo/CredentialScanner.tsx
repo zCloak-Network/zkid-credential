@@ -1,17 +1,17 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { VerifiableCredential } from '@zcloak/vc/types';
 
 import React, { useCallback, useState } from 'react';
 
-import { isVP } from '@zcloak/vc/utils';
+import { isVP } from '@zcloak/vc/is';
 
 import { CredentialModal, QrScanner } from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
 function CredentialScanner({ onClose }: { onClose: () => void }) {
-  const [credential, setCredential] = useState<VerifiableCredential>();
+  const [credential, setCredential] = useState<VerifiableCredential<boolean>>();
   const [open, toggleOpen] = useToggle();
 
   const onResult = useCallback(

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DecryptedMessage, Message, MessageType } from '@zcloak/message/types';
@@ -24,9 +24,7 @@ export function useDecryptedMessage<T extends MessageType>(
       if (cache) {
         setDecrypted(cache);
       } else {
-        decryptedCachePromise
-          .get(message.id)
-          ?.then((decrypted) => setDecrypted(decrypted as DecryptedMessage<T>));
+        decryptedCachePromise.get(message.id)?.then((decrypted) => setDecrypted(decrypted as DecryptedMessage<T>));
       }
     }
   }, [message]);

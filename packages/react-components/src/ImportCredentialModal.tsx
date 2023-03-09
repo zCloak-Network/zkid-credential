@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { VerifiableCredential } from '@zcloak/vc/types';
@@ -7,7 +7,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import React, { useContext, useEffect, useState } from 'react';
 
-import { isVC } from '@zcloak/vc/utils';
+import { isVC } from '@zcloak/vc/is';
 import { vcVerify } from '@zcloak/verify';
 
 import { addVC } from '@credential/app-store';
@@ -18,14 +18,11 @@ import FileUpload from './FileUpload';
 import { NotificationContext } from './Notification';
 import { Button, Dialog, DialogContent, DialogHeader, Stack, Typography } from '.';
 
-const ImportCredentialModal: React.FC<{ open: boolean; onClose?: () => void }> = ({
-  onClose,
-  open
-}) => {
+const ImportCredentialModal: React.FC<{ open: boolean; onClose?: () => void }> = ({ onClose, open }) => {
   const { did } = useContext(DidsContext);
   const [value, setValue] = useState<File[]>([]);
   const [result, setResult] = useState<
-    { error: null; vc: VerifiableCredential } | { error: Error; vc: null }
+    { error: null; vc: VerifiableCredential<boolean> } | { error: Error; vc: null }
   >();
   const { notifyError } = useContext(NotificationContext);
 
@@ -60,16 +57,16 @@ const ImportCredentialModal: React.FC<{ open: boolean; onClose?: () => void }> =
   }, [did, value]);
 
   return (
-    <Dialog maxWidth="sm" onClose={onClose} open={open}>
+    <Dialog maxWidth='sm' onClose={onClose} open={open}>
       {!result && <DialogHeader onClose={onClose}>Import credential type</DialogHeader>}
       <DialogContent sx={{ width: 500, maxWidth: '100%' }}>
         {result ? (
-          <Stack alignItems="center" spacing={2}>
+          <Stack alignItems='center' spacing={2}>
             {result.error ? (
               <>
-                <ErrorIcon color="warning" sx={{ width: 50, height: 50 }} />
-                <Typography variant="h5">Import denied</Typography>
-                <Typography color="grey.700" variant="inherit">
+                <ErrorIcon color='warning' sx={{ width: 50, height: 50 }} />
+                <Typography variant='h5'>Import denied</Typography>
+                <Typography color='grey.700' variant='inherit'>
                   {result.error.message}
                 </Typography>
                 <Button
@@ -77,16 +74,16 @@ const ImportCredentialModal: React.FC<{ open: boolean; onClose?: () => void }> =
                     setValue([]);
                     setResult(undefined);
                   }}
-                  size="large"
-                  variant="contained"
+                  size='large'
+                  variant='contained'
                 >
                   Reimport
                 </Button>
               </>
             ) : (
               <>
-                <CheckCircleIcon color="primary" sx={{ width: 50, height: 50 }} />
-                <Typography variant="h5">Import successful</Typography>
+                <CheckCircleIcon color='primary' sx={{ width: 50, height: 50 }} />
+                <Typography variant='h5'>Import successful</Typography>
                 <Button
                   onClick={() => {
                     if (result.vc) {
@@ -95,8 +92,8 @@ const ImportCredentialModal: React.FC<{ open: boolean; onClose?: () => void }> =
                         .catch(notifyError);
                     }
                   }}
-                  size="large"
-                  variant="contained"
+                  size='large'
+                  variant='contained'
                 >
                   Confirm
                 </Button>

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { Message, MessageData, MessageType } from '@zcloak/message/types';
@@ -21,14 +21,7 @@ export async function encryptMessageStep<T extends MessageType>(
   assert(sender, 'No sender did provided');
   assert(receiver, 'No receiver did provided');
 
-  const encrypted = await encryptMessage<T>(
-    type,
-    data,
-    sender,
-    receiver.getKeyUrl('keyAgreement'),
-    reply,
-    resolver
-  );
+  const encrypted = await encryptMessage<T>(type, data, sender, receiver.getKeyUrl('keyAgreement'), reply, resolver);
 
   return encrypted;
 }

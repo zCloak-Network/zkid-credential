@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { VerifiableCredential } from '@zcloak/vc/types';
@@ -11,10 +11,13 @@ import { useToggle } from '@credential/react-hooks';
 
 import ShareModal from './ShareModal';
 
-const ShareButton: React.FC<{ credential: VerifiableCredential; withText?: boolean }> = ({
+function ShareButton({
   credential,
   withText = false
-}) => {
+}: {
+  credential: VerifiableCredential<boolean>;
+  withText?: boolean;
+}) {
   const [open, toggleOpen] = useToggle();
   const _toggleOpen: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
@@ -26,13 +29,13 @@ const ShareButton: React.FC<{ credential: VerifiableCredential; withText?: boole
 
   return (
     <>
-      <Tooltip title="Share to other">
-        <Stack alignItems="center">
-          <IconButton color="inherit" onClick={_toggleOpen} size="small">
+      <Tooltip title='Share to other'>
+        <Stack alignItems='center'>
+          <IconButton color='inherit' onClick={_toggleOpen} size='small'>
             <IconForward />
           </IconButton>
           {withText && (
-            <Typography sx={({ palette }) => ({ color: palette.common.white })} variant="inherit">
+            <Typography sx={({ palette }) => ({ color: palette.common.white })} variant='inherit'>
               Share
             </Typography>
           )}
@@ -41,6 +44,6 @@ const ShareButton: React.FC<{ credential: VerifiableCredential; withText?: boole
       {open && <ShareModal credential={credential} onClose={toggleOpen} open={open} />}
     </>
   );
-};
+}
 
 export default React.memo(ShareButton);

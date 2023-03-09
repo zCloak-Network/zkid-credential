@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { VerifiableCredential } from '@zcloak/vc/types';
@@ -8,9 +8,7 @@ import React, { useCallback } from 'react';
 import { IconTwitter } from '@credential/app-config/icons';
 import { IconButton, Stack, Tooltip, Typography } from '@credential/react-components';
 
-const RetweetButton: React.FC<{ credential: VerifiableCredential; withText?: boolean }> = ({
-  withText = false
-}) => {
+function RetweetButton({ withText = false }: { credential: VerifiableCredential<boolean>; withText?: boolean }) {
   const retweet = useCallback(() => {
     const search = new URLSearchParams();
 
@@ -26,19 +24,19 @@ Tutorial: https://zcloaknetwork.medium.com/worlds-first-zk-guessing-for-the-worl
   }, []);
 
   return (
-    <Tooltip title="Retweet">
-      <Stack alignItems="center">
-        <IconButton color="inherit" onClick={retweet} size="small">
+    <Tooltip title='Retweet'>
+      <Stack alignItems='center'>
+        <IconButton color='inherit' onClick={retweet} size='small'>
           <IconTwitter />
         </IconButton>
         {withText && (
-          <Typography sx={({ palette }) => ({ color: palette.common.white })} variant="inherit">
+          <Typography sx={({ palette }) => ({ color: palette.common.white })} variant='inherit'>
             Retweet
           </Typography>
         )}
       </Stack>
     </Tooltip>
   );
-};
+}
 
 export default React.memo(RetweetButton);

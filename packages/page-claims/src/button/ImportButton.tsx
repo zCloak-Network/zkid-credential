@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { VerifiableCredential } from '@zcloak/vc/types';
@@ -10,9 +10,7 @@ import { IconImport } from '@credential/app-config/icons';
 import { Button, NotificationContext } from '@credential/react-components';
 import { provider } from '@credential/react-dids/instance';
 
-const ImportButton: React.FC<{ withText?: boolean; credential: VerifiableCredential }> = ({
-  credential
-}) => {
+function ImportButton({ credential }: { withText?: boolean; credential: VerifiableCredential<boolean> }) {
   const { notifyError } = useContext(NotificationContext);
 
   const importToExtension: React.MouseEventHandler<HTMLButtonElement> = useCallback(
@@ -41,11 +39,11 @@ const ImportButton: React.FC<{ withText?: boolean; credential: VerifiableCredent
         borderRadius: spacing(1),
         fontSize: spacing(1.5)
       })}
-      variant="contained"
+      variant='contained'
     >
       Import to zkID Wallet
     </Button>
   );
-};
+}
 
 export default React.memo(ImportButton);

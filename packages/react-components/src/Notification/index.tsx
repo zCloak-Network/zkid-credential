@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import { Alert, AlertTitle, Box, Collapse, Portal, styled } from '@mui/material';
@@ -88,7 +88,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren<{}>> = ({ children 
                   onClose={() => closeNotification(id)}
                   severity={severity}
                   sx={{ my: 1, mx: 2, width: '300px' }}
-                  variant="filled"
+                  variant='filled'
                 >
                   <AlertTitle>{title}</AlertTitle>
                   <Box sx={{ wordBreak: 'break-all' }}>{message}</Box>

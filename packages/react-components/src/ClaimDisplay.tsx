@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CredentialSubject, NativeType, NativeTypeWithOutNull } from '@zcloak/vc/types';
@@ -43,16 +43,8 @@ export const ClaimItem: React.FC<{
   }, [value]);
 
   return (
-    <Stack
-      alignItems="baseline"
-      direction="row"
-      justifyContent="space-between"
-      paddingX={3}
-      spacing={3}
-    >
-      <Typography sx={({ palette }) => ({ flex: '0 0 30%', color: palette.grey[700] })}>
-        {label}
-      </Typography>
+    <Stack alignItems='baseline' direction='row' justifyContent='space-between' paddingX={3} spacing={3}>
+      <Typography sx={({ palette }) => ({ flex: '0 0 30%', color: palette.grey[700] })}>{label}</Typography>
       <Box>{el}</Box>
     </Stack>
   );

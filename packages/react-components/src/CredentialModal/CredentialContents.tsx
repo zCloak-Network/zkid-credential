@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { HexString } from '@zcloak/crypto/types';
@@ -32,12 +32,12 @@ const CredentialContents: React.FC<Props> = ({ attester, contents, ctypeHash, ow
         borderRadius: 2.5,
         marginTop: '94px'
       })}
-      variant="outlined"
+      variant='outlined'
     >
-      <Stack alignItems="center" marginBottom={5.5} marginTop="-30px" spacing={2}>
+      <Stack alignItems='center' marginBottom={5.5} marginTop='-30px' spacing={2}>
         <IconLogoCircle sx={{ width: 60, height: 60 }} />
-        <Box textAlign="center">
-          <Typography variant="h3">
+        <Box textAlign='center'>
+          <Typography variant='h3'>
             <CTypeName cTypeHash={ctypeHash} />
           </Typography>
           <Typography>
@@ -48,7 +48,7 @@ const CredentialContents: React.FC<Props> = ({ attester, contents, ctypeHash, ow
           </Typography>
         </Box>
       </Stack>
-      <ClaimItem label="Credential owner" value={<DidName value={owner} />} />
+      <ClaimItem label='Credential owner' value={<DidName value={owner} />} />
       <Divider sx={({ palette }) => ({ marginY: 3, borderColor: palette.grey[300] })} />
       <Box paddingBottom={5}>
         <ClaimDisplay contents={contents} />

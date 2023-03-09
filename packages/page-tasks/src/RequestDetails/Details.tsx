@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useState } from 'react';
@@ -16,7 +16,7 @@ const Details: React.FC<Props> = ({ contents }) => {
 
   return (
     <Box mt={3}>
-      <Stack direction="row" justifyContent="center" spacing={2}>
+      <Stack direction='row' justifyContent='center' spacing={2}>
         <Button
           onClick={() => setActive(0)}
           sx={({ palette }) => ({ color: active === 0 ? undefined : palette.grey[700] })}
@@ -38,7 +38,7 @@ const Details: React.FC<Props> = ({ contents }) => {
         })}
       >
         {active === 0 && (
-          <Container maxWidth="sm">
+          <Container maxWidth='sm'>
             <ClaimDisplay contents={contents} />
           </Container>
         )}

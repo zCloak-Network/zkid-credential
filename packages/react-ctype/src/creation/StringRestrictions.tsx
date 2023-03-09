@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchema } from '@zcloak/ctype/types';
@@ -37,16 +37,16 @@ function StringRestrictions({ onChange }: Props) {
   return (
     <Stack spacing={1}>
       <Box>
-        <InputNumber fullWidth onChange={setMin} size="small" startAdornment="minimum length" />
-        <InputNumber fullWidth onChange={setMax} size="small" startAdornment="maximum length" />
+        <InputNumber fullWidth onChange={setMin} size='small' startAdornment='minimum length' />
+        <InputNumber fullWidth onChange={setMax} size='small' startAdornment='maximum length' />
       </Box>
       <Box>
         <InputString
           fullWidth
           onChange={setPattern}
-          placeholder="E.g: ^[0-9A-Za-z]{10}$"
-          size="small"
-          startAdornment="Pattern"
+          placeholder='E.g: ^[0-9A-Za-z]{10}$'
+          size='small'
+          startAdornment='Pattern'
         />
       </Box>
     </Stack>

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { BaseCType, CType, CTypeSchema } from '@zcloak/ctype/types';
@@ -37,7 +37,7 @@ const SubmitCType: React.FC<{
 
   return (
     <>
-      <Button onClick={toggleOpen} variant="contained">
+      <Button onClick={toggleOpen} variant='contained'>
         Submit
       </Button>
       <DidsModal
@@ -59,10 +59,10 @@ const SubmitCType: React.FC<{
                 exec: () => addCtype(ctype, recaptchaToken)
               }
             ]}
-            submitText="Submit ctype"
+            submitText='Submit ctype'
           />
         }
-        title="Submit ctype"
+        title='Submit ctype'
       />
     </>
   );

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useMemo } from 'react';
@@ -15,7 +15,7 @@ import Sidebar from '../Sidebar';
 const Badge: React.FC<{ value: number }> = ({ value }) => {
   return (
     <Box
-      color="warning"
+      color='warning'
       sx={({ palette }) => ({
         minWidth: 20,
         height: 20,
@@ -74,14 +74,14 @@ const Attester: React.FC = () => {
 
   return (
     <>
-      <Box bgcolor="#fff" overflow="hidden" paddingTop="70px">
+      <Box bgcolor='#fff' overflow='hidden' paddingTop='70px'>
         <Header isAttester toggleOpen={toggleOpen} unreads={unreads} />
         <Box></Box>
-        <Box overflow="hidden" position="relative">
-          <Sidebar accountType="attester" items={items} open={open} toggleOpen={toggleOpen} />
+        <Box overflow='hidden' position='relative'>
+          <Sidebar accountType='attester' items={items} open={open} toggleOpen={toggleOpen} />
           <Box
-            height="calc(100vh - 70px)"
-            overflow="scroll"
+            height='calc(100vh - 70px)'
+            overflow='scroll'
             pl={upMd ? (open ? '220px' : '93px') : 0}
             sx={{
               boxSizing: 'border-box',

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { HexString } from '@zcloak/crypto/types';
@@ -7,7 +7,7 @@ import type { HashType, RawCredential } from '@zcloak/vc/types';
 
 import { isHex } from '@polkadot/util';
 
-import { calcRoothash } from '@zcloak/vc';
+import { randomAsHex } from '@zcloak/crypto';
 
 import { didManager } from '@credential/react-dids/instance';
 
@@ -40,19 +40,11 @@ export async function addPendingCredential(
 ): Promise<void> {
   if (isHex(rawCredential.credentialSubject)) return;
 
-  const rootHash = calcRoothash(
-    rawCredential.credentialSubject,
-    rawCredential.hasher[0],
-    rawCredential.credentialSubjectNonceMap
-  ).rootHash;
-
-  const exists = await didManager.db.pendingCredential
-    .filter((c) => c.issuer === issuer && c.rootHash === rootHash)
-    .toArray();
+  const exists = await didManager.db.pendingCredential.filter((c) => c.boundMessageId === boundMessageId).toArray();
 
   if (exists.length === 0) {
     await didManager.db.pendingCredential.add({
-      rootHash,
+      rootHash: randomAsHex(32),
       ctype: rawCredential.ctype,
       issuer,
       holder: rawCredential.holder,
@@ -65,10 +57,7 @@ export async function addPendingCredential(
   }
 }
 
-export async function updatePendingCredential(
-  boundMessageId: string,
-  status: CredentialStatus
-): Promise<void> {
+export async function updatePendingCredential(boundMessageId: string, status: CredentialStatus): Promise<void> {
   await didManager.db.pendingCredential
     .filter((c) => c.boundMessageId === boundMessageId)
     .modify({

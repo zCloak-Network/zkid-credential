@@ -42,7 +42,7 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@types/ua-parser-js": "^0.7.36",
-    "@zcloak/dev": "^0.12.0",
+    "@zcloak/dev": "^0.23.1",
     "concurrently": "^7.6.0",
     "devtron": "^1.4.0",
     "humps": "^2.0.1",
@@ -59,24 +59,7 @@
     "webpack-cli": "^5.0.1"
   },
   "resolutions": {
-    "@polkadot/util": "^10.2.1",
-    "@zcloak/crypto": "^0.7.0",
-    "@zcloak/ctype": "^0.7.0",
-    "@zcloak/did": "^0.7.0",
-    "@zcloak/did-keyring": "^0.6.0",
-    "@zcloak/did-resolver": "^0.7.0",
-    "@zcloak/keyring": "^0.7.0",
-    "@zcloak/login-did": "^0.5.0",
-    "@zcloak/login-providers": "^0.5.0",
-    "@zcloak/login-rpc": "^0.5.0",
-    "@zcloak/message": "^0.7.0",
-    "@zcloak/ui-did-keyring": "^0.6.0",
-    "@zcloak/ui-store": "^0.6.0",
-    "@zcloak/vc": "^0.7.0",
-    "@zcloak/verify": "^0.7.0",
-    "@zcloak/wasm": "^0.7.0",
-    "@zcloak/wasm-asm": "^0.7.0",
-    "@zcloak/wasm-bridge": "^0.7.0",
-    "typescript": "^4.9.3"
+    "@polkadot/util": "^10.3.1",
+    "typescript": "^4.9.5"
   }
 }

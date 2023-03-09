@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useMemo } from 'react';
@@ -26,31 +26,19 @@ const Claimer: React.FC = () => {
       {
         to: '/claimer/ctype',
         active: pathname.startsWith('/claimer/ctype'),
-        svgIcon: (
-          <CTypeIcon
-            color={pathname.startsWith('/claimer/ctype') ? palette.primary.main : undefined}
-          />
-        ),
+        svgIcon: <CTypeIcon color={pathname.startsWith('/claimer/ctype') ? palette.primary.main : undefined} />,
         text: 'Credential type'
       },
       {
         to: '/claimer/claims',
         active: pathname.startsWith('/claimer/claims'),
-        svgIcon: (
-          <ClaimsIcon
-            color={pathname.startsWith('/claimer/claims') ? palette.primary.main : undefined}
-          />
-        ),
+        svgIcon: <ClaimsIcon color={pathname.startsWith('/claimer/claims') ? palette.primary.main : undefined} />,
         text: 'Credentials'
       },
       {
         to: '/claimer/message',
         active: pathname.startsWith('/claimer/message'),
-        svgIcon: (
-          <MessageIcon
-            color={pathname.startsWith('/claimer/message') ? palette.primary.main : undefined}
-          />
-        ),
+        svgIcon: <MessageIcon color={pathname.startsWith('/claimer/message') ? palette.primary.main : undefined} />,
         text: 'Message'
       }
     ],
@@ -58,7 +46,7 @@ const Claimer: React.FC = () => {
   );
 
   return (
-    <Box bgcolor="#F5F6FA" overflow="hidden" paddingTop="70px">
+    <Box bgcolor='#F5F6FA' overflow='hidden' paddingTop='70px'>
       <Header toggleOpen={toggleOpen} unreads={unreads} />
       <Box
         sx={{
@@ -70,8 +58,8 @@ const Claimer: React.FC = () => {
         }}
       >
         <Stack
-          alignItems="center"
-          direction="row"
+          alignItems='center'
+          direction='row'
           sx={{
             justifyContent: 'space-around',
             maxWidth: '400px',
@@ -89,9 +77,7 @@ const Claimer: React.FC = () => {
             }}
           />
           <Button
-            onClick={() =>
-              window.open('https://zcloaknetwork.medium.com/christmas-card-event-9fa41796f0e5')
-            }
+            onClick={() => window.open('https://zcloaknetwork.medium.com/christmas-card-event-9fa41796f0e5')}
             sx={{
               width: '181px',
               height: '39px',
@@ -101,11 +87,11 @@ const Claimer: React.FC = () => {
           />
         </Stack>
       </Box>
-      <Box overflow="hidden" position="relative">
-        <Sidebar accountType="claimer" items={items} open={open} toggleOpen={toggleOpen} />
+      <Box overflow='hidden' position='relative'>
+        <Sidebar accountType='claimer' items={items} open={open} toggleOpen={toggleOpen} />
         <Box
-          height="calc(100vh - 230px)"
-          overflow="scroll"
+          height='calc(100vh - 230px)'
+          overflow='scroll'
           pl={upMd ? (open ? '230px' : '93px') : 0}
           sx={{
             position: 'relative',

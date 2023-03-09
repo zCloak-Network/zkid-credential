@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 const fs = require('fs');
@@ -121,9 +121,7 @@ function createWebpack(context, mode = 'production') {
             /node_modules\/(@mui|@emotion|@stardust|classnames|codeflask|copy-to-clipboard|file-selector|file-saver|hoist-non-react|i18next|jdenticon|keyboard-key|mini-create-react|prop-types|react|react|remark-parse)/,
             /* 01 */ /node_modules\/(dexie|cross-fetch|qrcode-generator|qr-scanner|ua-parser-js)/
           ]),
-          ...mapChunks('utils', [
-            /node_modules\/(@polkadot|jsonschema|url|socket.io-client|engine.io-client)/
-          ]),
+          ...mapChunks('utils', [/node_modules\/(@polkadot|jsonschema|url|socket.io-client|engine.io-client)/]),
           ...mapChunks('credential', [
             /packages\/(app|app-config|app-store)/,
             /* 01 */ /packages\/(react-components|react-hooks|react-ctype|react-dids)/,

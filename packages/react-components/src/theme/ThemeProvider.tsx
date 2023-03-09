@@ -1,11 +1,8 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import { type PaletteMode, type Theme } from '@mui/material';
-import {
-  createTheme as createMuiTheme,
-  ThemeProvider as MuiThemeProvider
-} from '@mui/material/styles';
+import { createTheme as createMuiTheme, ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
 
 import { createComponents } from './components';
@@ -51,9 +48,7 @@ function ThemeProvider(props: ThemeProviderProps): JSX.Element {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <ToggleThemeContext.Provider value={toggleTheme}>
-        {props.children}
-      </ToggleThemeContext.Provider>
+      <ToggleThemeContext.Provider value={toggleTheme}>{props.children}</ToggleThemeContext.Provider>
     </MuiThemeProvider>
   );
 }

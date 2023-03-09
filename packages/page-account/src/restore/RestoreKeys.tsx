@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
@@ -42,37 +42,37 @@ const Restore: React.FC<{ onSuccess: (didUrl: DidUrl) => void }> = ({ onSuccess 
 
   return (
     <Stack spacing={5.5}>
-      <FormControl fullWidth variant="outlined">
+      <FormControl fullWidth variant='outlined'>
         <InputLabel shrink>DID-Key File</InputLabel>
         <OutlinedInput
           endAdornment={
-            <InputAdornment position="end">
-              <Button component="label" variant="contained">
+            <InputAdornment position='end'>
+              <Button component='label' variant='contained'>
                 Select DID-Key file
                 <input
-                  accept="application/json"
+                  accept='application/json'
                   hidden
                   onChange={(e) => {
                     setFile(e.target.files?.[0]);
                   }}
-                  type="file"
+                  type='file'
                 />
               </Button>
             </InputAdornment>
           }
           fullWidth
-          placeholder="Select DID-Key file"
+          placeholder='Select DID-Key file'
           value={file?.name}
         />
       </FormControl>
-      <Divider sx={() => ({ marginTop: 3, marginBottom: 3 })} variant="fullWidth" />
+      <Divider sx={() => ({ marginTop: 3, marginBottom: 3 })} variant='fullWidth' />
       <InputPassword
-        label="Enter Keyfile password"
+        label='Enter Keyfile password'
         onChange={setPassword}
-        placeholder="Enter your password"
+        placeholder='Enter your password'
         withBorder
       />
-      <Button fullWidth onClick={restore} size="large" variant="contained">
+      <Button fullWidth onClick={restore} size='large' variant='contained'>
         Restore
       </Button>
     </Stack>

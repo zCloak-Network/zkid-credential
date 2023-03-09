@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchema } from '@zcloak/ctype/types';
@@ -50,12 +50,10 @@ const CreateCType: React.FC = () => {
 
   return (
     <Dialog fullScreen open>
-      <DialogHeader onClose={() => navigate('/attester/ctypes', { replace: true })}>
-        Create ctype
-      </DialogHeader>
-      <Container component={DialogContent} maxWidth="lg">
-        <Container component={Stack} maxWidth="sm" spacing={3} sx={{ paddingY: 7 }}>
-          <FormControl fullWidth variant="outlined">
+      <DialogHeader onClose={() => navigate('/attester/ctypes', { replace: true })}>Create ctype</DialogHeader>
+      <Container component={DialogContent} maxWidth='lg'>
+        <Container component={Stack} maxWidth='sm' spacing={3} sx={{ paddingY: 7 }}>
+          <FormControl fullWidth variant='outlined'>
             <InputLabel shrink>Ctype title</InputLabel>
             <OutlinedInput
               defaultValue={cTypeContent?.title}
@@ -67,7 +65,7 @@ const CreateCType: React.FC = () => {
               }
             />
           </FormControl>
-          <FormControl fullWidth variant="outlined">
+          <FormControl fullWidth variant='outlined'>
             <InputLabel shrink>Description</InputLabel>
             <OutlinedInput
               defaultValue={cTypeContent?.description}
@@ -81,7 +79,7 @@ const CreateCType: React.FC = () => {
               }}
             />
           </FormControl>
-          <FormControl fullWidth variant="outlined">
+          <FormControl fullWidth variant='outlined'>
             <InputLabel shrink>Data</InputLabel>
             <Box sx={{ textAlign: 'right' }}>
               <CreateProperty
@@ -138,7 +136,7 @@ const CreateCType: React.FC = () => {
         </Container>
       </Container>
       <DialogActions>
-        <Button variant="outlined">Save</Button>
+        <Button variant='outlined'>Save</Button>
         <SubmitCType
           description={cTypeContent?.description}
           onDone={onDone}

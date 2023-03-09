@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { TaskStatus } from '@credential/react-hooks/types';
@@ -24,7 +24,7 @@ const TaskStatusDisplay: React.FC<{
 
   return (
     <Stack
-      direction="row"
+      direction='row'
       spacing={1}
       sx={() => ({
         display: 'inline-flex',
@@ -42,7 +42,7 @@ const TaskStatusDisplay: React.FC<{
     >
       <Circle sx={{ width: 10, height: 10 }} />
       {showText && (
-        <Typography variant="inherit">
+        <Typography variant='inherit'>
           {status === 'approved'
             ? approvedText
             : status === 'rejected'

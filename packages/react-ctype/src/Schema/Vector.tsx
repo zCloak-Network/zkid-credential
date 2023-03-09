@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchemaProps, CTypeSchemaVectorProps } from '../types';
@@ -31,10 +31,7 @@ function Item({
 }
 
 function SchemaVector({ defaultValue, disabled, items, name, onChange }: CTypeSchemaVectorProps) {
-  const _defaultValue = useMemo(
-    () => isOrDefault('array', defaultValue) as unknown[],
-    [defaultValue]
-  );
+  const _defaultValue = useMemo(() => isOrDefault('array', defaultValue) as unknown[], [defaultValue]);
   const [values, setValues] = useState<unknown[]>(_defaultValue);
   const [count, setCount] = useState(() => values.length);
 
@@ -93,15 +90,15 @@ function SchemaVector({ defaultValue, disabled, items, name, onChange }: CTypeSc
           />
         ))}
         {!disabled && (
-          <Stack direction="row" spacing={2}>
-            <Button onClick={_rowAdd} startIcon={<AddCircleOutlineIcon />} variant="outlined">
+          <Stack direction='row' spacing={2}>
+            <Button onClick={_rowAdd} startIcon={<AddCircleOutlineIcon />} variant='outlined'>
               Add item
             </Button>
             <Button
               disabled={values.length === 0}
               onClick={_rowRemove}
               startIcon={<RemoveCircleOutlineIcon />}
-              variant="contained"
+              variant='contained'
             >
               Remove item
             </Button>

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { InputPasswordProps } from './types';
@@ -21,10 +21,10 @@ function InputPassword({ endAdornment, onChange, startAdornment, ...props }: Inp
       autoFocus
       endAdornment={
         endAdornment ? (
-          <InputAdornment position="end">{endAdornment}</InputAdornment>
+          <InputAdornment position='end'>{endAdornment}</InputAdornment>
         ) : (
-          <InputAdornment position="end">
-            <IconButton edge="end" onClick={toggle}>
+          <InputAdornment position='end'>
+            <IconButton edge='end' onClick={toggle}>
               {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
@@ -33,10 +33,10 @@ function InputPassword({ endAdornment, onChange, startAdornment, ...props }: Inp
       onChange={onChange}
       startAdornment={
         startAdornment ? (
-          <InputAdornment position="start">{startAdornment}</InputAdornment>
+          <InputAdornment position='start'>{startAdornment}</InputAdornment>
         ) : (
-          <InputAdornment position="start">
-            <LockIcon color="primary" />
+          <InputAdornment position='start'>
+            <LockIcon color='primary' />
           </InputAdornment>
         )
       }

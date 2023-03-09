@@ -1,27 +1,17 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { u8aToHex } from '@polkadot/util';
+import type { HexString } from '@zcloak/crypto/types';
+
+import { isU8a, u8aToHex } from '@polkadot/util';
 import React, { useContext, useMemo } from 'react';
 
-import {
-  Box,
-  Container,
-  Copy,
-  IdentityIcon,
-  Stack,
-  Tab,
-  Tabs,
-  Typography
-} from '@credential/react-components';
+import { Box, Container, Copy, IdentityIcon, Stack, Tab, Tabs, Typography } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidCell, DidsContext } from '@credential/react-dids';
 
-const KeyCell: React.FC<{ name: string; publicKey?: Uint8Array | null }> = ({
-  name,
-  publicKey
-}) => {
-  const text = useMemo(() => (publicKey ? u8aToHex(publicKey) : null), [publicKey]);
+const KeyCell: React.FC<{ name: string; publicKey?: Uint8Array | HexString | null }> = ({ name, publicKey }) => {
+  const text = useMemo(() => (publicKey ? (isU8a(publicKey) ? u8aToHex(publicKey) : publicKey) : null), [publicKey]);
 
   return (
     <Box sx={{ marginTop: 4 }}>
@@ -29,7 +19,7 @@ const KeyCell: React.FC<{ name: string; publicKey?: Uint8Array | null }> = ({
         sx={({ palette }) => ({
           color: palette.grey[700]
         })}
-        variant="inherit"
+        variant='inherit'
       >
         {name}
       </Typography>
@@ -48,7 +38,7 @@ const KeyCell: React.FC<{ name: string; publicKey?: Uint8Array | null }> = ({
               maxWidth: 'calc(100% - 20px)',
               ...ellipsisMixin()
             }}
-            variant="inherit"
+            variant='inherit'
           >
             {text}
           </Typography>
@@ -129,7 +119,7 @@ const DidProfile: React.FC = () => {
         }}
       />
       <Stack
-        alignItems="center"
+        alignItems='center'
         direction={{ xs: 'column', md: 'row' }}
         justifyContent={{ xs: 'center', md: 'flex-start' }}
         sx={{
@@ -142,13 +132,13 @@ const DidProfile: React.FC = () => {
         <Box sx={{ width: 168, height: 168, borderRadius: '84px', border: '4px solid #fff' }}>
           <IdentityIcon diameter={160} value={did.id} />
         </Box>
-        <Box marginLeft={{ md: 3, xs: 0 }} maxWidth="80%" width={400}>
+        <Box marginLeft={{ md: 3, xs: 0 }} maxWidth='80%' width={400}>
           <Typography
             sx={{
               textAlign: { md: 'left', xs: 'center' },
               color: { md: 'white', xs: 'inherit' }
             }}
-            variant="h1"
+            variant='h1'
           >
             {'web3name'}
           </Typography>
@@ -157,16 +147,16 @@ const DidProfile: React.FC = () => {
           </Box>
         </Box>
       </Stack>
-      <Container maxWidth="md" sx={{ marginTop: { xs: 7, md: 14 } }}>
+      <Container maxWidth='md' sx={{ marginTop: { xs: 7, md: 14 } }}>
         <Tabs value={0}>
-          <Tab label="Keys" />
+          <Tab label='Keys' />
         </Tabs>
         <Stack spacing={4}>
-          <KeyCell name="Authentication Key" publicKey={authenticationKey} />
-          <KeyCell name="Assertion Method Set" publicKey={assertionMethodKey} />
-          <KeyCell name="Key Agreement Key" publicKey={keyAgreementKey} />
-          <KeyCell name="Capability Delegation Key" publicKey={capabilityDelegationKey} />
-          <KeyCell name="Capability Invocation Key" publicKey={capabilityInvocationKey} />
+          <KeyCell name='Authentication Key' publicKey={authenticationKey} />
+          <KeyCell name='Assertion Method Set' publicKey={assertionMethodKey} />
+          <KeyCell name='Key Agreement Key' publicKey={keyAgreementKey} />
+          <KeyCell name='Capability Delegation Key' publicKey={capabilityDelegationKey} />
+          <KeyCell name='Capability Invocation Key' publicKey={capabilityInvocationKey} />
         </Stack>
       </Container>
     </Box>

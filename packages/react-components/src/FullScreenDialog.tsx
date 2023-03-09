@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import { Box, Container, Modal, useMediaQuery, useTheme } from '@mui/material';
@@ -41,7 +41,7 @@ function FullScreenDialog({ children, open }: Props) {
         </Box>
       ) : (
         <Container
-          maxWidth="xl"
+          maxWidth='xl'
           sx={({ spacing }) => ({
             position: 'absolute',
             bottom: 0,

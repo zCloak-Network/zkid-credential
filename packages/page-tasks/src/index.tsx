@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React from 'react';
@@ -17,7 +17,7 @@ const Tasks: React.FC = () => {
         }}
         value={0}
       >
-        <Tab label="Tasks" />
+        <Tab label='Tasks' />
       </Tabs>
       <Box px={{ md: 4, xs: 2 }}>
         <RequestTable />

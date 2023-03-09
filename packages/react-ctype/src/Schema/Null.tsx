@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchemaProps } from '../types';
@@ -12,7 +12,7 @@ function SchemaNull({ name, onChange }: CTypeSchemaProps<null>) {
     onChange?.(null);
   }, [onChange]);
 
-  return <InputString defaultValue="Null" disabled label={name} />;
+  return <InputString defaultValue='Null' disabled label={name} />;
 }
 
 export default React.memo(SchemaNull);

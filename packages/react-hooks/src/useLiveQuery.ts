@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import { liveQuery, Subscription } from 'dexie';
@@ -39,9 +39,7 @@ function subscribe<T extends Awaited<ReturnType<F>>, F extends LiveQueryFn<T>>(
   }).subscribe();
 }
 
-function unsubscribe<T extends Awaited<ReturnType<F>>, F extends LiveQueryFn<T>>(
-  tracker: TrackerRef<F>
-) {
+function unsubscribe<T extends Awaited<ReturnType<F>>, F extends LiveQueryFn<T>>(tracker: TrackerRef<F>) {
   if (tracker.current.subscriber) {
     tracker.current.subscriber.unsubscribe();
     tracker.current.subscriber = null;

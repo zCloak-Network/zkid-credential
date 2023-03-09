@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { IDidDetails } from '@zcloak/did/types';
@@ -83,10 +83,10 @@ const DidMenu: React.FC<Props> = ({ anchorEl, did, onClose, open }) => {
         open={open}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Typography fontWeight={500} variant="h6">
+          <Typography fontWeight={500} variant='h6'>
             Did
           </Typography>
-          <Button onClick={handleChange} size="small">
+          <Button onClick={handleChange} size='small'>
             Change
           </Button>
         </Box>
@@ -119,7 +119,7 @@ const DidMenu: React.FC<Props> = ({ anchorEl, did, onClose, open }) => {
         <Divider sx={{ marginY: 1 }} />
         <MenuItem onClick={handleProfile}>
           <ListItemIcon>
-            <IconStar color="error" sx={{ fontSize: '0.875rem' }} />
+            <IconStar color='error' sx={{ fontSize: '0.875rem' }} />
           </ListItemIcon>
           <ListItemText>DID Profile</ListItemText>
         </MenuItem>

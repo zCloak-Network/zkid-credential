@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import { Button as MuiButton, ButtonProps, ButtonTypeMap } from '@mui/material';
@@ -7,9 +7,7 @@ import React, { useCallback } from 'react';
 
 interface ButtonType {
   (props: ButtonProps): React.ReactElement;
-  <C extends React.ElementType>(
-    props: { component: C } & OverrideProps<ButtonTypeMap, C>
-  ): React.ReactElement;
+  <C extends React.ElementType>(props: { component: C } & OverrideProps<ButtonTypeMap, C>): React.ReactElement;
 }
 
 const Button = React.forwardRef<any, ButtonProps>(function (props, ref) {

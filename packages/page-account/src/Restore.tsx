@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
@@ -33,12 +33,12 @@ const Restore: React.FC = () => {
   }, []);
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 8 }}>
+    <Container maxWidth='sm' sx={{ mt: 8 }}>
       {success && didUrl ? (
         <Success
-          desc="Remember to keep your secret recovery phrase safe, it’s your responsibility."
+          desc='Remember to keep your secret recovery phrase safe, it’s your responsibility.'
           didUrl={didUrl}
-          title="Your account has been restored account!"
+          title='Your account has been restored account!'
           toggleStart={() => navigate(redirect ?? '/claimer')}
         />
       ) : (
@@ -51,10 +51,10 @@ const Restore: React.FC = () => {
             }
           })}
         >
-          <Typography textAlign="center" variant="h3">
+          <Typography textAlign='center' variant='h3'>
             Restore account
           </Typography>
-          <Typography marginBottom={9} marginTop={3} textAlign="center" variant="inherit">
+          <Typography marginBottom={9} marginTop={3} textAlign='center' variant='inherit'>
             Enter your Mnemonic Phrase or select your DID-Key file here to restore your account.
           </Typography>
 
@@ -64,16 +64,10 @@ const Restore: React.FC = () => {
             <RestoreKeys onSuccess={onSuccess} />
           ) : (
             <>
-              <Button fullWidth onClick={() => setSelected(0)} size="large" variant="outlined">
+              <Button fullWidth onClick={() => setSelected(0)} size='large' variant='outlined'>
                 DID-Key file
               </Button>
-              <Button
-                fullWidth
-                onClick={() => setSelected(1)}
-                size="large"
-                sx={{ marginTop: 4.5 }}
-                variant="outlined"
-              >
+              <Button fullWidth onClick={() => setSelected(1)} size='large' sx={{ marginTop: 4.5 }} variant='outlined'>
                 Mnemonic phrase
               </Button>
             </>

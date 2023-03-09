@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchemaProps } from '../types';
@@ -9,17 +9,8 @@ import { InputString } from '@credential/react-components';
 
 import { isOrDefault } from './utils';
 
-function SchemaString({
-  defaultValue,
-  disabled,
-  name,
-  onChange,
-  schema
-}: CTypeSchemaProps<string>) {
-  const _defaultValue = useMemo(
-    () => isOrDefault('string', defaultValue) as string,
-    [defaultValue]
-  );
+function SchemaString({ defaultValue, disabled, name, onChange, schema }: CTypeSchemaProps<string>) {
+  const _defaultValue = useMemo(() => isOrDefault('string', defaultValue) as string, [defaultValue]);
   const [value, setValue] = useState<string | undefined>(_defaultValue);
   const [error, setError] = useState<Error | null>(null);
 
@@ -44,13 +35,7 @@ function SchemaString({
   }, [schema, value]);
 
   return (
-    <InputString
-      defaultValue={_defaultValue}
-      disabled={disabled}
-      error={error}
-      label={name}
-      onChange={setValue}
-    />
+    <InputString defaultValue={_defaultValue} disabled={disabled} error={error} label={name} onChange={setValue} />
   );
 }
 

@@ -1,8 +1,8 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import { type PaletteMode } from '@mui/material';
-import { type PaletteOptions, alpha } from '@mui/material/styles';
+import { alpha, type PaletteOptions } from '@mui/material/styles';
 
 /**
  * Customized Material UI color palette.

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -83,8 +83,7 @@ const DrawerMd = styled(MuiDrawer, {
     position: 'absolute',
     bottom: 0,
     top: 0,
-    background:
-      accountType === 'attester' ? theme.palette.common.black : theme.palette.common.white,
+    background: accountType === 'attester' ? theme.palette.common.black : theme.palette.common.white,
     zIndex: 99,
     padding: '30px 16px 0',
     borderRight: 'none',
@@ -108,8 +107,7 @@ const DrawerSm = styled(MuiDrawer, {
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
   '& .MuiDrawer-paper': {
-    background:
-      accountType === 'attester' ? theme.palette.common.black : theme.palette.common.white,
+    background: accountType === 'attester' ? theme.palette.common.black : theme.palette.common.white,
     zIndex: 99,
     padding: '16px',
     borderRight: 'none'
@@ -162,9 +160,7 @@ const Sidebar: React.FC<Props> = ({ accountType, items, open, toggleOpen }) => {
             sx={({ palette }) => ({
               display: 'block',
               mb: 2,
-              background: active
-                ? alpha(palette.primary.main, accountType === 'attester' ? 1 : 0.1)
-                : undefined
+              background: active ? alpha(palette.primary.main, accountType === 'attester' ? 1 : 0.1) : undefined
             })}
           >
             <ListItemButton
@@ -195,7 +191,7 @@ const Sidebar: React.FC<Props> = ({ accountType, items, open, toggleOpen }) => {
               </ListItemIcon>
               <ListItemText
                 primary={
-                  <Stack alignItems="center" direction="row" spacing={1}>
+                  <Stack alignItems='center' direction='row' spacing={1}>
                     <span>{text}</span>
                     {extra}
                   </Stack>
@@ -210,9 +206,9 @@ const Sidebar: React.FC<Props> = ({ accountType, items, open, toggleOpen }) => {
       </List>
       {upMd && (
         <Fab
-          color="primary"
+          color='primary'
           onClick={toggleOpen}
-          size="small"
+          size='small'
           sx={({ palette }) => ({
             display: 'flex',
             position: 'absolute',

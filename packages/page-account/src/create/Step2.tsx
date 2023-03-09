@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -18,7 +18,7 @@ const Step2: React.FC<{
         <Button onClick={prevStep} startIcon={<ArrowBackIosIcon />}>
           Go back
         </Button>
-        <Button onClick={nextStep} variant="contained">
+        <Button onClick={nextStep} variant='contained'>
           Confirm Seed Phrase
         </Button>
       </Box>

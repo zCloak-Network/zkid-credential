@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CacheCType } from './cache-ctype';
@@ -17,8 +17,7 @@ export class CacheDB extends Dexie {
     super('zkid:credential:cache');
     this.version(2).stores({
       cacheDid: '&did, *document',
-      cacheCType:
-        '&$id, $schema, publisher, signature, title, description, type, *properties, *required'
+      cacheCType: '&$id, $schema, publisher, signature, title, description, type, *properties, *required'
     });
   }
 }
@@ -31,10 +30,8 @@ export class DidDB extends Dexie {
   constructor(name: string) {
     super(`zkid:credential:${name}`);
     this.version(2).stores({
-      pendingCredential:
-        'rootHash, ctype, issuer, holder, submitDate, status, *hasher, *rawCredential',
-      credential:
-        'digest, rootHash, ctype, issuer, holder, issuanceDate, expirationDate, *hasher, *vc',
+      pendingCredential: 'rootHash, ctype, issuer, holder, submitDate, status, *hasher, *rawCredential',
+      credential: 'digest, rootHash, ctype, issuer, holder, issuanceDate, expirationDate, *hasher, *vc',
       ctype: '&$id, $schema, publisher, signature, title, description, type, *properties, *required'
     });
   }

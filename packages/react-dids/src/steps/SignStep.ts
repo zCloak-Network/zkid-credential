@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { BaseCType, CType } from '@zcloak/ctype/types';
@@ -14,17 +14,14 @@ export async function signAndBuildVC(
   rawCredential: RawCredential,
   serverCTypes: CType[],
   sender?: Did | null
-): Promise<VerifiableCredential> {
+): Promise<VerifiableCredential<false>> {
   assert(sender, 'No sender did provided');
 
   const ctype = serverCTypes.find((ctype) => ctype.$id === rawCredential.ctype);
 
   assert(ctype, 'ctype not found');
 
-  const builder = VerifiableCredentialBuilder.fromRawCredential(
-    rawCredential,
-    ctype
-  ).setExpirationDate(null);
+  const builder = VerifiableCredentialBuilder.fromRawCredential(rawCredential, ctype).setExpirationDate(null);
 
   const vc = builder.build(sender);
 

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CType } from '@zcloak/ctype/types';
@@ -11,13 +11,7 @@ import { Message } from '@zcloak/message/types';
 import { Raw } from '@zcloak/vc';
 
 import { DEFAULT_ROOT_HASH_TYPE } from '@credential/app-config/vc';
-import {
-  AppContext,
-  Button,
-  CTypeContext,
-  NotificationContext,
-  Recaptcha
-} from '@credential/react-components';
+import { AppContext, Button, CTypeContext, NotificationContext, Recaptcha } from '@credential/react-components';
 import { DidsContext, DidsModal } from '@credential/react-dids';
 import { encryptMessageStep, signAndBuildVC, Steps } from '@credential/react-dids/steps';
 import { useToggle } from '@credential/react-hooks';
@@ -38,7 +32,7 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
   const [encryptedMessage, setEncryptedMessage] = useState<Message<'Send_issuedVC'>>();
   const [recaptchaToken, setRecaptchaToken] = useState<string>();
   const [rawCredential, setRawCredential] = useState<RawCredential | null>(null);
-  const [vc, setVC] = useState<VerifiableCredential | null>(null);
+  const [vc, setVC] = useState<VerifiableCredential<boolean> | null>(null);
 
   const _toggleOpen = useCallback(() => {
     if (!holder) return;
@@ -50,8 +44,6 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
         ctype,
         hashType: DEFAULT_ROOT_HASH_TYPE
       });
-
-      raw.calcRootHash();
 
       setRawCredential(raw.toRawCredential());
 
@@ -67,7 +59,7 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
 
   return (
     <>
-      <Button disabled={!holder || !ctype || !contents} onClick={_toggleOpen} variant="contained">
+      <Button disabled={!holder || !ctype || !contents} onClick={_toggleOpen} variant='contained'>
         Submit
       </Button>
       {open && rawCredential && (
@@ -86,9 +78,7 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
                 {
                   label: 'Encrypt message',
                   exec: () =>
-                    encryptMessageStep<'Send_issuedVC'>('Send_issuedVC', vc, sender, holder).then(
-                      setEncryptedMessage
-                    )
+                    encryptMessageStep<'Send_issuedVC'>('Send_issuedVC', vc, sender, holder).then(setEncryptedMessage)
                 },
                 {
                   label: 'Send message',
@@ -97,10 +87,10 @@ function SubmitVC({ contents, ctype, holder, onDone }: Props) {
                   exec: () => sendMessage(encryptedMessage, recaptchaToken)
                 }
               ]}
-              submitText="Submit"
+              submitText='Submit'
             />
           }
-          title="Issue Verifiable Credential"
+          title='Issue Verifiable Credential'
         />
       )}
     </>

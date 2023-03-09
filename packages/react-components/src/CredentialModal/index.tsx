@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { VerifiableCredential } from '@zcloak/vc/types';
@@ -7,16 +7,11 @@ import React, { useMemo } from 'react';
 
 import { DidName } from '@credential/react-dids';
 
-import {
-  FullScreenDialog,
-  FullScreenDialogContent,
-  FullScreenDialogHeader,
-  IdentityIcon
-} from '..';
+import { FullScreenDialog, FullScreenDialogContent, FullScreenDialogHeader, IdentityIcon } from '..';
 import CredentialContents from './CredentialContents';
 
 interface Props {
-  credential: VerifiableCredential;
+  credential: VerifiableCredential<boolean>;
   actions?: React.ReactNode;
   onClose?: () => void;
 }
@@ -42,7 +37,7 @@ const CredentialModal: React.FC<Props> = ({ credential, onClose }) => {
           contents={contents}
           ctypeHash={ctypeHash}
           owner={owner}
-          status="approved"
+          status='approved'
         />
       </FullScreenDialogContent>
     </FullScreenDialog>

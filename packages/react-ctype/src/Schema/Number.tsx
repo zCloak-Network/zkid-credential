@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchemaProps } from '../types';
@@ -9,18 +9,8 @@ import { InputNumber } from '@credential/react-components';
 
 import { isOrDefault } from './utils';
 
-function SchemaNumber({
-  defaultValue,
-  disabled,
-  error: errorProps,
-  name,
-  onChange,
-  schema
-}: CTypeSchemaProps<number>) {
-  const _defaultValue = useMemo(
-    () => isOrDefault('number', defaultValue) as number,
-    [defaultValue]
-  );
+function SchemaNumber({ defaultValue, disabled, error: errorProps, name, onChange, schema }: CTypeSchemaProps<number>) {
+  const _defaultValue = useMemo(() => isOrDefault('number', defaultValue) as number, [defaultValue]);
   const [value, setValue] = useState<number | undefined>(_defaultValue);
   const [error, setError] = useState<Error | null>(null);
 

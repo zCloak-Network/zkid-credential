@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import Circle from '@mui/icons-material/Circle';
@@ -25,7 +25,7 @@ const CredentialStatusDisplay: React.FC<{
 
   return (
     <Stack
-      direction="row"
+      direction='row'
       pl={1}
       pr={1}
       spacing={1}
@@ -35,17 +35,14 @@ const CredentialStatusDisplay: React.FC<{
         direction: 'row',
         borderRadius: '5px',
         bgcolor: showText
-          ? alpha(
-              status === 'approved' ? submitColor : status === 'rejected' ? rejectColor : initColor,
-              0.2
-            )
+          ? alpha(status === 'approved' ? submitColor : status === 'rejected' ? rejectColor : initColor, 0.2)
           : 'inherit',
         color: status === 'approved' ? submitColor : status === 'rejected' ? rejectColor : initColor
       })}
     >
       <Circle sx={{ width: 10, height: 10 }} />
       {showText && (
-        <Typography variant="inherit">
+        <Typography variant='inherit'>
           {status === 'approved' ? submitText : status === 'rejected' ? rejectText : initText}
         </Typography>
       )}

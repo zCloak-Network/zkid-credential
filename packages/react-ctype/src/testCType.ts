@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { BaseCType } from '@zcloak/ctype/types';
@@ -98,14 +98,7 @@ export const testCType: BaseCType = {
     },
     EnumArray: {
       type: 'array',
-      enum: [
-        'ArraySelected1',
-        'ArraySelected2',
-        'ArraySelected3',
-        'ArraySelected4',
-        'ArraySelected5',
-        'ArraySelected6'
-      ]
+      enum: ['ArraySelected1', 'ArraySelected2', 'ArraySelected3', 'ArraySelected4', 'ArraySelected5', 'ArraySelected6']
     }
   }
 };

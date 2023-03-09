@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useEffect, useState } from 'react';
@@ -45,11 +45,11 @@ const Account: React.FC = () => {
   }, [loginWallet, redirect, login, navigate, toggleOpen]);
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth='lg'>
       <WalletNotInstall onClose={toggleOpen} open={open} />
-      <Stack alignItems="center" direction={upMd ? 'row' : 'column'} justifyContent="space-between">
+      <Stack alignItems='center' direction={upMd ? 'row' : 'column'} justifyContent='space-between'>
         <Stack spacing={3}>
-          <Typography variant="h1">
+          <Typography variant='h1'>
             Welcome to
             <br />
             zCloak Credential Center
@@ -64,8 +64,8 @@ const Account: React.FC = () => {
                     search: redirect ? `?redirect=${redirect}` : undefined
                   })
                 }
-                size="large"
-                variant="contained"
+                size='large'
+                variant='contained'
               >
                 Create account
               </Button>
@@ -76,28 +76,28 @@ const Account: React.FC = () => {
                     search: redirect ? `?redirect=${redirect}` : undefined
                   })
                 }
-                size="large"
-                variant="outlined"
+                size='large'
+                variant='outlined'
               >
                 Restore account
               </Button>
             </>
           ) : (
             <>
-              <Button onClick={() => setType(1)} size="large" variant="contained">
+              <Button onClick={() => setType(1)} size='large' variant='contained'>
                 Web wallet
               </Button>
               <ButtonWallet
                 onDone={() => {
                   navigate(redirect ?? '/claimer');
                 }}
-                size="large"
-                variant="contained"
+                size='large'
+                variant='contained'
               />
             </>
           )}
         </Stack>
-        <Box component="img" maxWidth="100%" src="/images/home-pic.webp" width="490px" />
+        <Box component='img' maxWidth='100%' src='/images/home-pic.webp' width='490px' />
       </Stack>
     </Container>
   );

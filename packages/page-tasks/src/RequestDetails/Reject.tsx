@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DecryptedTask } from '@credential/react-hooks/types';
@@ -28,8 +28,7 @@ const Reject: React.FC<{
   const { did: attester } = useContext(DidsContext);
   const { sendMessage } = useContext(AppContext);
   const [open, toggleOpen] = useToggle();
-  const [encryptedMessage, setEncryptedMessage] =
-    useState<Message<'Response_Reject_Attestation'>>();
+  const [encryptedMessage, setEncryptedMessage] = useState<Message<'Response_Reject_Attestation'>>();
   const [recaptchaToken, setRecaptchaToken] = useState<string>();
 
   const claimer = useDid(task.data.holder);
@@ -54,14 +53,14 @@ const Reject: React.FC<{
               borderColor: palette.error.main
             }
           })}
-          variant="outlined"
+          variant='outlined'
         >
           Reject
         </Button>
       ) : (
         <MenuItem onClick={_toggleOpen} sx={({ palette }) => ({ color: palette.error.main })}>
           <ListItemIcon sx={{ minWidth: '0px !important', marginRight: 1 }}>
-            <IconReject color="error" />
+            <IconReject color='error' />
           </ListItemIcon>
           <ListItemText>Reject</ListItemText>
         </MenuItem>
@@ -96,10 +95,10 @@ const Reject: React.FC<{
                   exec: () => sendMessage(encryptedMessage, recaptchaToken)
                 }
               ]}
-              submitText="Reject"
+              submitText='Reject'
             />
           }
-          title="Reject the request"
+          title='Reject the request'
         />
       )}
     </>

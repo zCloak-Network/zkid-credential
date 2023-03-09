@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { HexString } from '@zcloak/crypto/types';
@@ -8,6 +8,7 @@ import type { HashType, VerifiableCredential } from '@zcloak/vc/types';
 import { isHex } from '@polkadot/util';
 
 import { calcRoothash } from '@zcloak/vc';
+import { isPrivateVC } from '@zcloak/vc/is';
 
 import { didManager } from '@credential/react-dids/instance';
 
@@ -20,27 +21,23 @@ export interface Credential {
   hasher: [HashType, HashType];
   issuanceDate: number;
   expirationDate?: number;
-  vc: VerifiableCredential;
+  vc: VerifiableCredential<boolean>;
 }
 
 export function getCredentials(): Promise<Credential[]> {
   return didManager.db.credential.toArray();
 }
 
-export async function addVC(
-  vc: VerifiableCredential | null | undefined
-): Promise<Credential | null> {
+export async function addVC(vc: VerifiableCredential<boolean> | null | undefined): Promise<Credential | null> {
   if (!vc) return null;
 
   if (isHex(vc.credentialSubject)) {
     throw new Error('The vc subject is not an object');
   }
 
-  const rootHash = calcRoothash(
-    vc.credentialSubject,
-    vc.hasher[0],
-    vc.credentialSubjectNonceMap
-  ).rootHash;
+  const rootHash = isPrivateVC(vc)
+    ? calcRoothash(vc.credentialSubject, vc.hasher[0], vc.credentialSubjectNonceMap).rootHash
+    : calcRoothash(vc.credentialSubject, vc.hasher[0]).rootHash;
 
   const exists = await didManager.db.credential
     .filter((credential) => credential.digest === vc.digest && credential.issuer === vc.issuer)

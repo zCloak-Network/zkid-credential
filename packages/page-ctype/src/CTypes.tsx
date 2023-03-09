@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CType } from '@zcloak/ctype/types';
@@ -16,12 +16,7 @@ const CTypes: React.FC<{ list: CType[] }> = ({ list }) => {
   return (
     <Box>
       <Box sx={{ textAlign: 'right', mb: 3 }}>
-        <Button
-          component={Link}
-          startIcon={<AddBoxOutlinedIcon />}
-          to="/attester/ctypes/create"
-          variant="contained"
-        >
+        <Button component={Link} startIcon={<AddBoxOutlinedIcon />} to='/attester/ctypes/create' variant='contained'>
           Create ctype
         </Button>
       </Box>
@@ -37,11 +32,11 @@ const CTypes: React.FC<{ list: CType[] }> = ({ list }) => {
               paddingX: 4.5,
               boxShadow: '0px 3px 6px rgba(153, 155, 168, 0.1)'
             }}
-            variant="outlined"
+            variant='outlined'
           >
             <Stack
-              alignItems="center"
-              direction="row"
+              alignItems='center'
+              direction='row'
               spacing={2}
               sx={({ breakpoints }) => ({
                 width: '20%',
@@ -59,14 +54,10 @@ const CTypes: React.FC<{ list: CType[] }> = ({ list }) => {
                 [breakpoints.down('lg')]: { display: 'none' }
               })}
             >
-              <Typography
-                fontWeight={300}
-                sx={({ palette }) => ({ color: palette.grey[500] })}
-                variant="inherit"
-              >
+              <Typography fontWeight={300} sx={({ palette }) => ({ color: palette.grey[500] })} variant='inherit'>
                 Created by
               </Typography>
-              <Typography sx={{ ...ellipsisMixin() }} variant="inherit">
+              <Typography sx={{ ...ellipsisMixin() }} variant='inherit'>
                 <DidName shorten={false} value={cType.publisher} />
               </Typography>
             </Stack>
@@ -77,15 +68,11 @@ const CTypes: React.FC<{ list: CType[] }> = ({ list }) => {
                 [breakpoints.down('md')]: { display: 'none' }
               })}
             >
-              <Typography
-                fontWeight={300}
-                sx={({ palette }) => ({ color: palette.grey[500] })}
-                variant="inherit"
-              >
+              <Typography fontWeight={300} sx={({ palette }) => ({ color: palette.grey[500] })} variant='inherit'>
                 CType Hash
               </Typography>
-              <Stack direction="row" spacing={1}>
-                <Typography sx={{ ...ellipsisMixin() }} variant="inherit">
+              <Stack direction='row' spacing={1}>
+                <Typography sx={{ ...ellipsisMixin() }} variant='inherit'>
                   {cType.$id}
                 </Typography>
                 <Copy value={cType.$id} />

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
@@ -15,13 +15,13 @@ const Success: React.FC<{
 }> = ({ desc, title, toggleStart }) => {
   return (
     <>
-      <Stack spacing={3} textAlign="center">
-        <Box component="img" src="/images/home-pic.webp" />
-        <Typography variant="h5">{title}</Typography>
+      <Stack spacing={3} textAlign='center'>
+        <Box component='img' src='/images/home-pic.webp' />
+        <Typography variant='h5'>{title}</Typography>
         <Typography>{desc}</Typography>
       </Stack>
-      <Stack alignItems="center" direction="column" mt={5.5} spacing={3}>
-        <Button onClick={toggleStart} size="large" variant="contained">
+      <Stack alignItems='center' direction='column' mt={5.5} spacing={3}>
+        <Button onClick={toggleStart} size='large' variant='contained'>
           Get Start
         </Button>
       </Stack>

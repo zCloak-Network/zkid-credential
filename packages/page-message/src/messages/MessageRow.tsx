@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DecryptedMessage, Message, MessageType } from '@zcloak/message/types';
@@ -16,9 +16,7 @@ import { useDecryptedMessage, useToggle } from '@credential/react-hooks';
 import { MessageCard, MessageCardItem } from './MessageCard';
 import MessageTypeDisplay from './MessageTypeDisplay';
 
-function getCredential(
-  decryptedMessage: DecryptedMessage<MessageType>
-): VerifiableCredential | null {
+function getCredential(decryptedMessage: DecryptedMessage<MessageType>): VerifiableCredential<boolean> | null {
   switch (decryptedMessage.msgType) {
     case 'Send_VP':
       return (decryptedMessage.data as VerifiablePresentation).verifiableCredential[0];
@@ -27,10 +25,10 @@ function getCredential(
       return (decryptedMessage.data as VerifiablePresentation).verifiableCredential[0];
 
     case 'Send_issuedVC':
-      return decryptedMessage.data as VerifiableCredential;
+      return decryptedMessage.data as VerifiableCredential<boolean>;
 
     case 'Response_Approve_Attestation':
-      return decryptedMessage.data as VerifiableCredential;
+      return decryptedMessage.data as VerifiableCredential<boolean>;
 
     default:
       return null;
@@ -41,7 +39,7 @@ function MessageRow({ message }: { message: Message<MessageType> }) {
   const { did } = useContext(DidsContext);
   const [decrypted, decrypt] = useDecryptedMessage(message);
   const [open, toggleOpen] = useToggle();
-  const [credential, setCredential] = useState<VerifiableCredential | null>(null);
+  const [credential, setCredential] = useState<VerifiableCredential<boolean> | null>(null);
   const [loading, setLoading] = useState(false);
 
   const isReceiver = useMemo(() => isSameUri(message.receiver, did.id), [did.id, message.receiver]);
@@ -66,7 +64,7 @@ function MessageRow({ message }: { message: Message<MessageType> }) {
               <DidName value={message.sender} />
             </Link>
           }
-          label="Sender"
+          label='Sender'
         />
         <MessageCardItem
           content={
@@ -74,18 +72,12 @@ function MessageRow({ message }: { message: Message<MessageType> }) {
               <DidName value={message.receiver} />
             </Link>
           }
-          label="Receiver"
+          label='Receiver'
         />
-        <MessageCardItem content={message.id} label="Message id" />
-        <MessageCardItem
-          content={<CTypeName cTypeHash={message.ctype} />}
-          label="Credential type"
-        />
-        <MessageCardItem content={<MessageTypeDisplay message={message} />} label="Type" />
-        <MessageCardItem
-          content={moment(message.createTime).format('YYYY-MM-DD HH:mm:ss')}
-          label="Time"
-        />
+        <MessageCardItem content={message.id} label='Message id' />
+        <MessageCardItem content={<CTypeName cTypeHash={message.ctype} />} label='Credential type' />
+        <MessageCardItem content={<MessageTypeDisplay message={message} />} label='Type' />
+        <MessageCardItem content={moment(message.createTime).format('YYYY-MM-DD HH:mm:ss')} label='Time' />
         <MessageCardItem
           content={
             isReceiver && (
@@ -94,7 +86,7 @@ function MessageRow({ message }: { message: Message<MessageType> }) {
               </Button>
             )
           }
-          label="Operation"
+          label='Operation'
         />
       </MessageCard>
       {open && credential && <CredentialModal credential={credential} onClose={toggleOpen} />}

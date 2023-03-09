@@ -1,18 +1,11 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useCallback, useState } from 'react';
 
 import { Did } from '@zcloak/did';
 
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  InputPassword,
-  Stack
-} from '@credential/react-components';
+import { Button, Dialog, DialogContent, DialogHeader, InputPassword, Stack } from '@credential/react-components';
 
 import DidName from './DidName';
 import { keyring } from './instance';
@@ -35,9 +28,7 @@ function UnlockModal({
     try {
       if (!password) return;
 
-      Array.from(did.keyRelationship.values()).forEach(({ publicKey }) =>
-        keyring.getPair(publicKey).unlock(password)
-      );
+      Array.from(did.keyRelationship.values()).forEach(({ publicKey }) => keyring.getPair(publicKey).unlock(password));
 
       onUnlock();
     } catch (error) {
@@ -46,11 +37,11 @@ function UnlockModal({
   }, [did, onUnlock, password]);
 
   return (
-    <Dialog maxWidth="sm" onClose={onClose} open={open}>
+    <Dialog maxWidth='sm' onClose={onClose} open={open}>
       <DialogHeader onClose={onClose}>Unlock</DialogHeader>
       <DialogContent>
         <Stack
-          component="form"
+          component='form'
           onSubmit={(e) => {
             e.preventDefault();
             _onUnlock();
@@ -66,9 +57,9 @@ function UnlockModal({
               </>
             }
             onChange={setPassword}
-            placeholder="Please input password"
+            placeholder='Please input password'
           />
-          <Button fullWidth type="submit" variant="contained">
+          <Button fullWidth type='submit' variant='contained'>
             Unlock
           </Button>
         </Stack>

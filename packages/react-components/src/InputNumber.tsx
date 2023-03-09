@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { InputNumberProps } from './types';
@@ -12,7 +12,7 @@ function InputNumber({ defaultValue, onChange, ...props }: InputNumberProps) {
     <Input
       defaultValue={defaultValue !== undefined ? String(defaultValue) : undefined}
       onChange={(value) => onChange?.(Number(value) ?? 0)}
-      type="number"
+      type='number'
       {...props}
     />
   );

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { createContext, useCallback, useEffect, useState } from 'react';
@@ -32,9 +32,7 @@ function DidsProvider({ children, didRole }: { didRole: DidRole; children: React
   const location = useLocation();
   const [all, setAll] = useState<Did[]>(didManager.all());
   const [did, setDid] = useState<Did | null>(didManager.current);
-  const [isLocked, setIsLocked] = useState<boolean>(
-    didManager.current ? getIsLocked(didManager.current) : true
-  );
+  const [isLocked, setIsLocked] = useState<boolean>(didManager.current ? getIsLocked(didManager.current) : true);
 
   useEffect(() => {
     const didListChanged = () => {
@@ -63,9 +61,7 @@ function DidsProvider({ children, didRole }: { didRole: DidRole; children: React
 
   const lock = useCallback(() => {
     if (did) {
-      Array.from(did.keyRelationship.values()).forEach(({ publicKey }) =>
-        keyring.getPair(publicKey).lock()
-      );
+      Array.from(did.keyRelationship.values()).forEach(({ publicKey }) => keyring.getPair(publicKey).lock());
       setIsLocked(true);
     }
   }, [did]);
@@ -97,9 +93,7 @@ function DidsProvider({ children, didRole }: { didRole: DidRole; children: React
       {isLocked ? <UnlockModal did={did} onUnlock={unUnlock} open /> : children}
     </DidsContext.Provider>
   ) : (
-    <Navigate
-      to={{ pathname: '/account', search: `?redirect=${location.pathname}${location.search}` }}
-    />
+    <Navigate to={{ pathname: '/account', search: `?redirect=${location.pathname}${location.search}` }} />
   );
 }
 

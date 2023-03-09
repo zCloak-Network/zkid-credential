@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import UploadFileIcon from '@mui/icons-material/UploadFile';
@@ -18,13 +18,7 @@ const ListItem = styled('li')(({ theme }) => ({
 function FileListItem({ name, onDelete }: FileListItemProps) {
   return (
     <ListItem>
-      <Chip
-        icon={<UploadFileIcon />}
-        label={name}
-        onDelete={onDelete}
-        sx={{ maxWidth: 200 }}
-        variant="outlined"
-      />
+      <Chip icon={<UploadFileIcon />} label={name} onDelete={onDelete} sx={{ maxWidth: 200 }} variant='outlined' />
     </ListItem>
   );
 }

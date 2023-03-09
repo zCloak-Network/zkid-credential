@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -32,11 +32,11 @@ function FullScreenDialogHeader({
         borderColor: downMd ? palette.grey[200] : 'transparent'
       })}
     >
-      <Stack alignItems="center" direction="row" spacing={3}>
+      <Stack alignItems='center' direction='row' spacing={3}>
         <span>{icon}</span>
         <Box>
-          <Typography variant="h4">{title}</Typography>
-          <Typography variant="inherit">{desc}</Typography>
+          <Typography variant='h4'>{title}</Typography>
+          <Typography variant='inherit'>{desc}</Typography>
         </Box>
       </Stack>
       {onClose && (

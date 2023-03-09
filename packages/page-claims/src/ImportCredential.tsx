@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
@@ -22,12 +22,12 @@ const ImportCredential: React.FC = () => {
   return (
     <>
       {downSm ? (
-        <IconButton color="primary" onClick={toggleOpen}>
+        <IconButton color='primary' onClick={toggleOpen}>
           <FileUploadOutlinedIcon />
         </IconButton>
       ) : (
         <Button
-          color="primary"
+          color='primary'
           onClick={toggleOpen}
           startIcon={<FileUploadOutlinedIcon />}
           sx={({ palette }) => ({
@@ -40,7 +40,7 @@ const ImportCredential: React.FC = () => {
               background: alpha(palette.primary.main, 0.35)
             }
           })}
-          variant="contained"
+          variant='contained'
         >
           Import Credential
         </Button>

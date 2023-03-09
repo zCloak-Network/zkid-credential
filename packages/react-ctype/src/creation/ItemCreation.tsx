@@ -1,18 +1,11 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchema } from '@zcloak/ctype/types';
 
 import { useEffect, useState } from 'react';
 
-import {
-  Autocomplete,
-  FormControl,
-  InputBool,
-  InputLabel,
-  OutlinedInput,
-  Stack
-} from '@credential/react-components';
+import { Autocomplete, FormControl, InputBool, InputLabel, OutlinedInput, Stack } from '@credential/react-components';
 
 import ArrayRestrictions from './ArrayRestrictions';
 import EnumType from './EnumType';
@@ -30,8 +23,8 @@ interface Props {
 function ItemCreation({
   onChange,
   onNameChange,
-  withName = true,
-  supported = ['array', 'boolean', 'integer', 'number', 'string']
+  supported = ['array', 'boolean', 'integer', 'number', 'string'],
+  withName = true
 }: Props) {
   const [name, setName] = useState<string>();
   const [type, setType] = useState<ItemType | null>(null);
@@ -64,7 +57,7 @@ function ItemCreation({
   return (
     <Stack spacing={3}>
       {withName && (
-        <FormControl fullWidth variant="outlined">
+        <FormControl fullWidth variant='outlined'>
           <InputLabel shrink>Data name</InputLabel>
           <OutlinedInput defaultValue={name} onChange={(e) => setName(e.target.value)} />
         </FormControl>
@@ -74,21 +67,17 @@ function ItemCreation({
         onChange={(_, value) => setType(value)}
         options={supported}
         renderInput={(params) => (
-          <FormControl fullWidth variant="outlined">
+          <FormControl fullWidth variant='outlined'>
             <InputLabel shrink>Type</InputLabel>
             <OutlinedInput {...params.InputProps} inputProps={params.inputProps} />
           </FormControl>
         )}
       />
-      {type && <InputBool label="Required" onChange={setRequired} />}
-      {(type === 'number' || type === 'integer') && (
-        <NumberRestrictions onChange={setRestrictions} />
-      )}
+      {type && <InputBool label='Required' onChange={setRequired} />}
+      {(type === 'number' || type === 'integer') && <NumberRestrictions onChange={setRestrictions} />}
       {type === 'string' && <StringRestrictions onChange={setRestrictions} />}
       {type === 'array' && <ArrayRestrictions onChange={setRestrictions} />}
-      {(type === 'number' || type === 'integer' || type === 'string') && (
-        <EnumType onChange={setEnums} type={type} />
-      )}
+      {(type === 'number' || type === 'integer' || type === 'string') && <EnumType onChange={setEnums} type={type} />}
     </Stack>
   );
 }

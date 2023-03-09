@@ -1,16 +1,9 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React from 'react';
 
-import {
-  Box,
-  Stack,
-  TableCell,
-  TableRow,
-  useMediaQuery,
-  useTheme
-} from '@credential/react-components';
+import { Box, Stack, TableCell, TableRow, useMediaQuery, useTheme } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 
 export const MessageCard = React.memo(function MessageCard({
@@ -28,7 +21,7 @@ export const MessageCard = React.memo(function MessageCard({
 
   return (
     <Box
-      className="MessageCard"
+      className='MessageCard'
       sx={({ palette, typography }) => ({
         padding: 2.5,
         background: palette.common.white,
@@ -56,7 +49,7 @@ export const MessageCardItem = React.memo(function MessageCardItem({
     return (
       <TableCell>
         <Box
-          className="MessageCard_Item_content"
+          className='MessageCard_Item_content'
           sx={({ palette }) => ({
             color: palette.text.primary,
             maxWidth: 160,
@@ -71,7 +64,7 @@ export const MessageCardItem = React.memo(function MessageCardItem({
 
   return (
     <Box
-      className="MessageCard_Item"
+      className='MessageCard_Item'
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -79,7 +72,7 @@ export const MessageCardItem = React.memo(function MessageCardItem({
       }}
     >
       <Box
-        className="MessageCard_Item_label"
+        className='MessageCard_Item_label'
         sx={({ palette }) => ({
           color: palette.grey[500]
         })}
@@ -87,7 +80,7 @@ export const MessageCardItem = React.memo(function MessageCardItem({
         {label}
       </Box>
       <Box
-        className="MessageCard_Item_content"
+        className='MessageCard_Item_content'
         sx={({ palette }) => ({
           color: palette.text.primary,
           textAlign: 'right',

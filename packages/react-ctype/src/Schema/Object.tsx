@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchemaProps } from '../types';
@@ -29,26 +29,12 @@ function Item({
   );
 
   return (
-    <CTypeSchema
-      defaultValue={defaultValue}
-      disabled={disabled}
-      name={name}
-      onChange={onChange}
-      schema={schema}
-    />
+    <CTypeSchema defaultValue={defaultValue} disabled={disabled} name={name} onChange={onChange} schema={schema} />
   );
 }
 
-function SchemaBase({
-  defaultValue,
-  disabled,
-  onChange,
-  schema
-}: CTypeSchemaProps<Record<string, unknown>>) {
-  const _defaultValue = useMemo(
-    () => isOrDefault('object', defaultValue) as Record<string, unknown>,
-    [defaultValue]
-  );
+function SchemaBase({ defaultValue, disabled, onChange, schema }: CTypeSchemaProps<Record<string, unknown>>) {
+  const _defaultValue = useMemo(() => isOrDefault('object', defaultValue) as Record<string, unknown>, [defaultValue]);
 
   const [value, setValue] = useState<Record<string, unknown>>(_defaultValue);
   const properties = useMemo(() => Object.entries(schema.properties ?? {}), [schema]);

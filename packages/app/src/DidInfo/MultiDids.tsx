@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { Did } from '@zcloak/did';
@@ -45,9 +45,9 @@ function DidCell({ active, did, onClose }: { active?: boolean; did: Did; onClose
 
   return (
     <Stack
-      alignItems="center"
-      direction="row"
-      justifyContent="space-between"
+      alignItems='center'
+      direction='row'
+      justifyContent='space-between'
       onClick={handleClick}
       sx={({ palette }) => ({
         paddingX: 2.5,
@@ -63,21 +63,17 @@ function DidCell({ active, did, onClose }: { active?: boolean; did: Did; onClose
         }
       })}
     >
-      <Stack alignItems="center" direction="row" spacing={1.5}>
+      <Stack alignItems='center' direction='row' spacing={1.5}>
         <IdentityIcon diameter={24} value={did.id} />
         <Typography>
           <DidName value={did.id} />
         </Typography>
-        <Chip
-          color={isLogin ? 'success' : 'primary'}
-          label={isLogin ? 'zkID Wallet' : 'Local'}
-          size="small"
-        />
+        <Chip color={isLogin ? 'success' : 'primary'} label={isLogin ? 'zkID Wallet' : 'Local'} size='small' />
       </Stack>
       {!active && !isLogin && (
         <Stack
-          alignItems="center"
-          direction="row"
+          alignItems='center'
+          direction='row'
           spacing={1}
           sx={({ palette }) => ({
             '.MuiIconButton-root': {
@@ -86,10 +82,10 @@ function DidCell({ active, did, onClose }: { active?: boolean; did: Did; onClose
             }
           })}
         >
-          <IconButton onClick={handleCopy} size="small">
+          <IconButton onClick={handleCopy} size='small'>
             {isCopy ? <DoneIcon /> : <IconCopy />}
           </IconButton>
-          <IconButton onClick={handleDelete} size="small">
+          <IconButton onClick={handleDelete} size='small'>
             <IconDelete />
           </IconButton>
         </Stack>
@@ -107,13 +103,13 @@ function MultiDids({ onClose }: { onClose: () => void }) {
   const loginDid = useMemo(() => all.find(isLoginDid), [all]);
 
   return (
-    <Dialog maxWidth="sm" onClose={onClose} open>
+    <Dialog maxWidth='sm' onClose={onClose} open>
       <DialogHeader onClose={onClose}>Manage DID Account</DialogHeader>
       <DialogContent>
-        <Stack direction="row" justifyContent="center" spacing={7}>
+        <Stack direction='row' justifyContent='center' spacing={7}>
           <Stack spacing={1}>
             <IconButton
-              color="primary"
+              color='primary'
               onClick={() =>
                 navigate({
                   pathname: '/account/restore',
@@ -123,11 +119,11 @@ function MultiDids({ onClose }: { onClose: () => void }) {
             >
               <IconImportDid />
             </IconButton>
-            <Typography color="primary.main">Import</Typography>
+            <Typography color='primary.main'>Import</Typography>
           </Stack>
           <Stack spacing={1}>
             <IconButton
-              color="primary"
+              color='primary'
               onClick={() =>
                 navigate({
                   pathname: '/account/create',
@@ -137,14 +133,14 @@ function MultiDids({ onClose }: { onClose: () => void }) {
             >
               <IconCreate />
             </IconButton>
-            <Typography color="primary.main">Create</Typography>
+            <Typography color='primary.main'>Create</Typography>
           </Stack>
         </Stack>
         <Stack mt={4} spacing={1}>
           {loginDid ? (
             <DidCell active={loginDid === did} did={loginDid} key={loginDid.id} onClose={onClose} />
           ) : (
-            <ButtonWallet fullWidth variant="contained" />
+            <ButtonWallet fullWidth variant='contained' />
           )}
           {localDids.map((item) => (
             <DidCell active={item === did} did={item} key={item.id} onClose={onClose} />

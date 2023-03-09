@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import { Dialog, Typography } from '@mui/material';
@@ -34,10 +34,10 @@ const WalletNotInstall: React.FC<{ open: boolean; onClose: () => void }> = ({ on
         >
           <img src={BacDownloadzkid} />
         </Box>
-        <Typography component="h4" fontSize={20} fontWeight={500} mb={2} textAlign="center">
+        <Typography component='h4' fontSize={20} fontWeight={500} mb={2} textAlign='center'>
           zkID Wallet Not Installed
         </Typography>
-        <Typography color="#666" fontSize={14} mb={4} textAlign="center">
+        <Typography color='#666' fontSize={14} mb={4} textAlign='center'>
           Please download zkID Wallet.
         </Typography>
         <Box
@@ -48,14 +48,12 @@ const WalletNotInstall: React.FC<{ open: boolean; onClose: () => void }> = ({ on
         >
           <Button
             onClick={() => {
-              window.open(
-                'https://chrome.google.com/webstore/detail/zkid-wallet/ahkpfejaeoepmfopmbhjgjekibmfcfgo'
-              );
+              window.open('https://chrome.google.com/webstore/detail/zkid-wallet/ahkpfejaeoepmfopmbhjgjekibmfcfgo');
             }}
             sx={{
               width: '100%'
             }}
-            variant="contained"
+            variant='contained'
           >
             DownLoad
           </Button>

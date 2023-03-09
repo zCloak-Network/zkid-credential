@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { VerifiableCredential, VerifiablePresentation } from '@zcloak/vc/types';
@@ -22,11 +22,15 @@ import {
 import { DidsContext, DidsModal, InputDid } from '@credential/react-dids';
 import { encryptMessageStep, Steps } from '@credential/react-dids/steps';
 
-const ShareModal: React.FC<{
-  credential: VerifiableCredential;
+function ShareModal({
+  credential,
+  onClose,
+  open
+}: {
+  credential: VerifiableCredential<boolean>;
   open: boolean;
   onClose?: () => void;
-}> = ({ credential, onClose, open }) => {
+}) {
   const { did: sender } = useContext(DidsContext);
   const { sendMessage } = useContext(AppContext);
   const [receiver, setReceiver] = useState<Did | null>(null);
@@ -49,9 +53,7 @@ const ShareModal: React.FC<{
               {
                 label: 'Encrypt message',
                 exec: () =>
-                  encryptMessageStep<'Send_VP'>('Send_VP', presentation, sender, receiver).then(
-                    setEncryptedMessage
-                  )
+                  encryptMessageStep<'Send_VP'>('Send_VP', presentation, sender, receiver).then(setEncryptedMessage)
               },
               {
                 label: 'Send message',
@@ -60,15 +62,15 @@ const ShareModal: React.FC<{
                 exec: () => sendMessage<'Send_VP'>(encryptedMessage, recaptchaToken)
               }
             ]}
-            submitText="Share"
+            submitText='Share'
           />
         ) : null
       }
-      title="Share this with others"
+      title='Share this with others'
     >
       <Stack spacing={3}>
-        <InputDid label="Receiver" onChange={setReceiver} />
-        <Paper sx={{ height: 225, overflowY: 'scroll' }} variant="outlined">
+        <InputDid label='Receiver' onChange={setReceiver} />
+        <Paper sx={{ height: 225, overflowY: 'scroll' }} variant='outlined'>
           {attributes.map((key) => (
             <Box
               key={key}
@@ -87,9 +89,7 @@ const ShareModal: React.FC<{
                     checked={selectedAttributes.includes(key)}
                     onChange={() =>
                       selectedAttributes.includes(key)
-                        ? setSelectAttributes((attributes) =>
-                            attributes.filter((attribute) => attribute !== key)
-                          )
+                        ? setSelectAttributes((attributes) => attributes.filter((attribute) => attribute !== key))
                         : setSelectAttributes((attributes) => [...attributes, key])
                     }
                   />
@@ -105,18 +105,15 @@ const ShareModal: React.FC<{
           onClick={() => {
             const builder = new VerifiablePresentationBuilder(sender);
 
-            builder
-              .addVC(credential, 'VP_SelectiveDisclosure', selectedAttributes)
-              .build()
-              .then(setPresentation);
+            builder.addVC(credential, 'VP_SelectiveDisclosure', selectedAttributes).build().then(setPresentation);
           }}
-          variant="contained"
+          variant='contained'
         >
           Share
         </Button>
       </Stack>
     </DidsModal>
   );
-};
+}
 
 export default React.memo(ShareModal);

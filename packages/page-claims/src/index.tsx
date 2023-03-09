@@ -1,17 +1,10 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useMemo, useState } from 'react';
 
 import { getCredentials, getPendingCredentials } from '@credential/app-store';
-import {
-  Box,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-  Unstable_Grid2 as Grid
-} from '@credential/react-components';
+import { Box, Stack, Tab, Tabs, Typography, Unstable_Grid2 as Grid } from '@credential/react-components';
 import { useLiveQuery } from '@credential/react-hooks';
 
 import CredentialCell, { CredentialProps } from './CredentialCell';
@@ -31,7 +24,6 @@ const Claims: React.FC = () => {
       .map(
         (credential): CredentialProps => ({
           credential: credential.vc,
-          rootHash: credential.rootHash,
           time: credential.issuanceDate,
           issuer: credential.issuer,
           status: 'approved'
@@ -44,7 +36,7 @@ const Claims: React.FC = () => {
         ..._pendingCredentials
           .map((credential) => ({
             credential: credential.rawCredential,
-            rootHash: credential.rootHash,
+            messageId: credential.boundMessageId,
             time: credential.submitDate,
             issuer: credential.issuer,
             status: credential.status
@@ -66,23 +58,23 @@ const Claims: React.FC = () => {
           marginBottom: 3
         }}
       >
-        <Typography variant="h2">Credentials</Typography>
+        <Typography variant='h2'>Credentials</Typography>
         <ImportCredential />
       </Box>
       <Tabs onChange={(_, value) => setType(value)} value={type}>
-        <Tab label="All credentials" />
-        <Tab label="Attested" />
+        <Tab label='All credentials' />
+        <Tab label='Attested' />
       </Tabs>
       <Box>
         <Tips />
 
         <Grid columns={{ xs: 4, sm: 8, lg: 12 }} container spacing={3}>
-          {list.map(({ credential, issuer, rootHash, status, time }, index) => (
+          {list.map(({ credential, issuer, messageId, status, time }, index) => (
             <Grid key={index} lg={4} xl={3} xs={4}>
               <CredentialCell
                 credential={credential}
                 issuer={issuer}
-                rootHash={rootHash}
+                messageId={messageId}
                 status={status}
                 time={time}
               />

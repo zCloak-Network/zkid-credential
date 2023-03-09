@@ -1,16 +1,9 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import React from 'react';
 
-import {
-  Box,
-  Stack,
-  TableCell,
-  TableRow,
-  useMediaQuery,
-  useTheme
-} from '@credential/react-components';
+import { Box, Stack, TableCell, TableRow, useMediaQuery, useTheme } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 
 export const TaskCard = React.memo(function TaskCard({
@@ -27,14 +20,14 @@ export const TaskCard = React.memo(function TaskCard({
     return (
       <TableRow hover>
         {children}
-        <TaskCardItem content={operate} label="Operate" />
+        <TaskCardItem content={operate} label='Operate' />
       </TableRow>
     );
   }
 
   return (
     <Box
-      className="TaskCard"
+      className='TaskCard'
       sx={({ palette, typography }) => ({
         padding: 2.5,
         border: '1px solid',
@@ -47,7 +40,7 @@ export const TaskCard = React.memo(function TaskCard({
       <Stack spacing={3}>
         {children}
         <Stack
-          direction="row"
+          direction='row'
           spacing={1.5}
           sx={{
             '> *': {
@@ -76,7 +69,7 @@ export const TaskCardItem = React.memo(function TaskCardItem({
     return (
       <TableCell>
         <Box
-          className="TaskCard_Item_content"
+          className='TaskCard_Item_content'
           sx={({ palette }) => ({
             color: palette.text.primary,
             maxWidth: 160,
@@ -91,7 +84,7 @@ export const TaskCardItem = React.memo(function TaskCardItem({
 
   return (
     <Box
-      className="TaskCard_Item"
+      className='TaskCard_Item'
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -99,7 +92,7 @@ export const TaskCardItem = React.memo(function TaskCardItem({
       }}
     >
       <Box
-        className="TaskCard_Item_label"
+        className='TaskCard_Item_label'
         sx={({ palette }) => ({
           color: palette.grey[500]
         })}
@@ -107,7 +100,7 @@ export const TaskCardItem = React.memo(function TaskCardItem({
         {label}
       </Box>
       <Box
-        className="TaskCard_Item_content"
+        className='TaskCard_Item_content'
         sx={({ palette }) => ({
           color: palette.text.primary,
           textAlign: 'right',

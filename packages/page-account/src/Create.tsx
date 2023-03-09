@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DidUrl } from '@zcloak/did-resolver/types';
@@ -52,17 +52,17 @@ const Create: React.FC = () => {
   }, [didUrl, step]);
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 4 }}>
+    <Container maxWidth='sm' sx={{ mt: 4 }}>
       {step === 3 && didUrl ? (
         <Success
-          desc="Remember to keep your secret recovery phrase safe, it’s your responsibility."
+          desc='Remember to keep your secret recovery phrase safe, it’s your responsibility.'
           didUrl={didUrl}
-          title="Your account has been restored account!"
+          title='Your account has been restored account!'
           toggleStart={() => navigate(redirect ?? '/claimer')}
         />
       ) : (
-        <Stack alignItems="center" spacing={5.5}>
-          <Typography textAlign="center" variant="h3">
+        <Stack alignItems='center' spacing={5.5}>
+          <Typography textAlign='center' variant='h3'>
             Create A New Account
           </Typography>
           <Stepper
@@ -81,7 +81,7 @@ const Create: React.FC = () => {
               <StepLabel StepIconComponent={StepIcon}>Confirm</StepLabel>
             </Step>
           </Stepper>
-          <Typography textAlign="center">
+          <Typography textAlign='center'>
             {step === 0
               ? 'Master password is the only key to access/retrieve your local storage including all your secret keys and claims. Never forget your master password.'
               : step === 1

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CTypeSchemaProps } from '../types';
@@ -19,13 +19,7 @@ function isString(value: unknown): value is string {
   return typeof value === 'string' || value instanceof String;
 }
 
-function SchemaEnum({
-  defaultValue,
-  disabled,
-  name,
-  onChange,
-  schema
-}: CTypeSchemaProps<string | number>) {
+function SchemaEnum({ defaultValue, disabled, name, onChange, schema }: CTypeSchemaProps<string | number>) {
   const _defaultValue = useMemo(() => (isString(defaultValue) ? defaultValue : ''), [defaultValue]);
   const [value, setValue] = useState<string | number>(_defaultValue);
   const [error, setError] = useState<Error | null>(null);
@@ -43,7 +37,7 @@ function SchemaEnum({
   }, [onChange, value]);
 
   if (!schema.enum) {
-    return <Alert severity="error">Not enum property provide]</Alert>;
+    return <Alert severity='error'>Not enum property provide]</Alert>;
   }
 
   return (

@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DecryptedTask } from '@credential/react-hooks/types';
@@ -8,13 +8,7 @@ import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import { IconDetails } from '@credential/app-config/icons';
-import {
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem
-} from '@credential/react-components';
+import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@credential/react-components';
 import { useStopPropagation } from '@credential/react-hooks';
 
 import Approve from './RequestDetails/Approve';
@@ -59,8 +53,8 @@ const ActionButton: React.FC<{
           </ListItemIcon>
           <ListItemText>Details</ListItemText>
         </MenuItem>
-        {task.meta.taskStatus === 'pending' && <Approve task={task} type="menu" />}
-        {task.meta.taskStatus === 'pending' && <Reject task={task} type="menu" />}
+        {task.meta.taskStatus === 'pending' && <Approve task={task} type='menu' />}
+        {task.meta.taskStatus === 'pending' && <Reject task={task} type='menu' />}
       </Menu>
     </>
   );

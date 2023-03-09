@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { CType } from '@zcloak/ctype/types';
@@ -36,7 +36,7 @@ function IssueVC({ ctype }: { ctype: CType }) {
 
   return (
     <>
-      <Button onClick={toggleOpen} variant="contained">
+      <Button onClick={toggleOpen} variant='contained'>
         Issue
       </Button>
       {open && (
@@ -48,14 +48,14 @@ function IssueVC({ ctype }: { ctype: CType }) {
             title={ctype.title}
           />
           <FullScreenDialogContent bg={ctypeMeta?.bg}>
-            <Typography mb={4} textAlign="center" variant="h2">
+            <Typography mb={4} textAlign='center' variant='h2'>
               Issue Credential
             </Typography>
-            <InputDid label="Holder" onChange={setHolder} withSelftButton="Issue to myself" />
+            <InputDid label='Holder' onChange={setHolder} withSelftButton='Issue to myself' />
             <Box mt={2}>
               <CreateSubject onChange={setContents as any} schema={ctype} />
             </Box>
-            <Box mt={4} textAlign="center">
+            <Box mt={4} textAlign='center'>
               <SubmitVC contents={contents} ctype={ctype} holder={holder} onDone={onDone} />
             </Box>
           </FullScreenDialogContent>

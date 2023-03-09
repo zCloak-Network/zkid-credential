@@ -1,17 +1,10 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import React from 'react';
 
-import {
-  alpha,
-  Button,
-  IconButton,
-  ImportCTypeModal,
-  useMediaQuery,
-  useTheme
-} from '@credential/react-components';
+import { alpha, Button, IconButton, ImportCTypeModal, useMediaQuery, useTheme } from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
 function ImportCType({ variant }: { variant?: 'text' | 'outlined' | 'contained' }) {
@@ -22,7 +15,7 @@ function ImportCType({ variant }: { variant?: 'text' | 'outlined' | 'contained' 
   return (
     <>
       {downSm ? (
-        <IconButton color="primary" onClick={toggleOpen}>
+        <IconButton color='primary' onClick={toggleOpen}>
           <FileUploadOutlinedIcon />
         </IconButton>
       ) : (

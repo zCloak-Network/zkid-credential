@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { ButtonProps } from '@mui/material';
@@ -38,8 +38,7 @@ function FileUpload({
     noKeyboard: true
   });
 
-  const isFileTooLarge =
-    maxSize !== undefined && fileRejections.length > 0 && fileRejections[0].file.size > maxSize;
+  const isFileTooLarge = maxSize !== undefined && fileRejections.length > 0 && fileRejections[0].file.size > maxSize;
 
   const remove = (index: number) => {
     const files = [...value];
@@ -48,9 +47,7 @@ function FileUpload({
     onChange(files);
   };
 
-  const files = value?.map((file, i) => (
-    <FileListItem key={file.name} name={file.name} onDelete={() => remove(i)} />
-  ));
+  const files = value?.map((file, i) => <FileListItem key={file.name} name={file.name} onDelete={() => remove(i)} />);
 
   return (
     <Box
@@ -82,7 +79,7 @@ function FileUpload({
           disabled={disabled}
           onClick={open}
           startIcon={<FileUploadOutlinedIcon />}
-          variant="contained"
+          variant='contained'
           {...buttonProps}
         >
           {buttonText}
@@ -91,7 +88,7 @@ function FileUpload({
       </FormControl>
       {files.length > 0 && (
         <Box
-          component="ul"
+          component='ul'
           sx={{
             display: 'flex',
             justifyContent: 'center',
