@@ -1,5 +1,26 @@
 # zkid-credential
 
+## 0.17.0
+
+### Minor Changes
+
+- [`f97abea`](https://github.com/zCloak-Network/zkid-credential/commit/f97abea5f33dd979a994ba6b914d60e5b1e3c7c8) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - unlock controller key
+
+### Patch Changes
+
+- Updated dependencies [[`f97abea`](https://github.com/zCloak-Network/zkid-credential/commit/f97abea5f33dd979a994ba6b914d60e5b1e3c7c8)]:
+  - @credential/react-components@0.17.0
+  - @credential/page-account@0.17.0
+  - @credential/page-message@0.17.0
+  - @credential/page-claims@0.17.0
+  - @credential/react-hooks@0.17.0
+  - @credential/app-config@0.17.0
+  - @credential/page-ctype@0.17.0
+  - @credential/page-issue@0.17.0
+  - @credential/page-tasks@0.17.0
+  - @credential/react-dids@0.17.0
+  - @credential/page-did@0.17.0
+
 ## 0.16.0
 
 ### Minor Changes
