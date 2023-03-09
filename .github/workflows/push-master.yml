@@ -25,18 +25,12 @@ jobs:
           node-version: "16"
           cache: "yarn"
 
-      - name: Install deps
+      - name: Install deps and build
         run: |
           yarn install --immutable | grep -v 'YN0013'
-
-      - name: Create Release Pull Request
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          version: yarn zcloak-dev-bump-version
-          publish: yarn release
-          commit: "chore: Version App"
-          title: "chore: Version App"
+          yarn lint
+          yarn test
+          yarn build
 
       - name: Deploy prerelease
         uses: appleboy/scp-action@master
@@ -49,4 +43,13 @@ jobs:
           target: "/home/ubuntu/cred"
           strip_components: 5
           rm: true
+
+      - name: Create Release Pull Request
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: yarn zcloak-dev-bump-version
+          publish: yarn release
+          commit: "chore: Version App"
+          title: "chore: Version App"
 

@@ -19,7 +19,7 @@
   },
   "scripts": {
     "analyze": "yarn clean && BUILD_ANALYZE=1 yarn run build:code && yarn source-map-explorer packages/app/build/main.*.js",
-    "build": "yarn build-assets && yarn build:code && build:zip",
+    "build": "yarn build-assets && yarn build:code && yarn build:zip",
     "build:code": "NODE_ENV=production yarn zcloak-dev-build-ts",
     "build:zip": "rm -rf ./zkid-credential.zip && cd packages/app/build && zip -r -FS ../../../zkid-credential.zip .",
     "changeset": "zcloak-exec-changeset",
