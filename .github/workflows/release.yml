@@ -25,12 +25,12 @@ jobs:
           node-version: "16"
           cache: "yarn"
 
-      - name: Install deps and build
+      - name: Install deps
         run: |
           yarn install --immutable | grep -v 'YN0013'
-          yarn lint
-          yarn test
-          yarn build
+
+      - name: build:release
+        run: yarn run release
 
       - name: Generate release description
         run: yarn run release

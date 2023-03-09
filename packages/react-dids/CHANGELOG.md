@@ -1,5 +1,19 @@
 # @credential/react-dids
 
+## 0.19.0
+
+### Minor Changes
+
+- build release
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @credential/app-config@0.19.0
+  - @credential/app-store@0.19.0
+  - @credential/react-components@0.19.0
+  - @credential/react-hooks@0.19.0
+
 ## 0.18.0
 
 ### Minor Changes

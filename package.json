@@ -21,6 +21,7 @@
     "analyze": "yarn clean && BUILD_ANALYZE=1 yarn run build:code && yarn source-map-explorer packages/app/build/main.*.js",
     "build": "yarn build-assets && yarn build:code && yarn build:zip",
     "build:code": "NODE_ENV=production yarn zcloak-dev-build-ts",
+    "build:release": "node --loader @esbuild-kit/esm-loader scripts/release.ts",
     "build:zip": "rm -rf ./zkid-credential.zip && cd packages/app/build && zip -r -FS ../../../zkid-credential.zip .",
     "bump": "yarn changeset version && yarn create-tag",
     "changeset": "zcloak-exec-changeset",
@@ -30,7 +31,6 @@
     "lint": "zcloak-dev-run-lint",
     "lint:css": "stylelint './packages/**/src/**/*.tsx'",
     "lint:dependencies": "zcloak-dev-lint-dependencies --fix",
-    "release": "node --loader @esbuild-kit/esm-loader scripts/release.ts",
     "start": "yarn clean && cd packages/app && yarn webpack serve --config webpack.serve.cjs --port 3000",
     "test": "zcloak-dev-run-test --coverage --forceExit --runInBand --testPathIgnorePatterns e2e",
     "test:one": "zcloak-dev-run-test --detectOpenHandles --forceExit"

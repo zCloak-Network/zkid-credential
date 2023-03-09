@@ -1,5 +1,26 @@
 # zkid-credential
 
+## 0.19.0
+
+### Minor Changes
+
+- build release
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @credential/app-config@0.19.0
+  - @credential/page-account@0.19.0
+  - @credential/page-claims@0.19.0
+  - @credential/page-ctype@0.19.0
+  - @credential/page-did@0.19.0
+  - @credential/page-issue@0.19.0
+  - @credential/page-message@0.19.0
+  - @credential/page-tasks@0.19.0
+  - @credential/react-components@0.19.0
+  - @credential/react-dids@0.19.0
+  - @credential/react-hooks@0.19.0
+
 ## 0.18.0
 
 ### Minor Changes

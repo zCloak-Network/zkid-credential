@@ -1,5 +1,16 @@
 # @credential/app-store
 
+## 0.19.0
+
+### Minor Changes
+
+- build release
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @credential/react-dids@0.19.0
+
 ## 0.18.0
 
 ### Minor Changes

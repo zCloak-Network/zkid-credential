@@ -27,12 +27,7 @@ function runBuild() {
   execSync('yarn build');
 }
 
-function runTag() {
-  execSync('yarn zcloak-exec-changeset tag');
-}
-
 runClean();
 runCheck();
 runTest();
 runBuild();
-runTag();
