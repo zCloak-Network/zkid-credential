@@ -3,7 +3,7 @@
 
 import React, { useCallback, useState } from 'react';
 
-import { Did } from '@zcloak/did';
+import { Did, keys } from '@zcloak/did';
 
 import { Button, Dialog, DialogContent, DialogHeader, InputPassword, Stack } from '@credential/react-components';
 
@@ -28,6 +28,7 @@ function UnlockModal({
     try {
       if (!password) return;
 
+      keys.getEcdsaIdentifierPair(keyring, did)?.unlock(password);
       Array.from(did.keyRelationship.values()).forEach(({ publicKey }) => keyring.getPair(publicKey).unlock(password));
 
       onUnlock();

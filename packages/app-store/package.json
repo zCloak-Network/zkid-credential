@@ -16,11 +16,11 @@
   "type": "module",
   "version": "0.16.0",
   "dependencies": {
-    "@zcloak/ctype": "^1.2.0",
+    "@zcloak/ctype": "^1.2.1",
     "@zcloak/did-resolver": "^1.1.0",
     "@zcloak/keyring": "^1.1.0",
-    "@zcloak/message": "^1.0.3",
-    "@zcloak/vc": "^1.2.1",
+    "@zcloak/message": "^1.0.4",
+    "@zcloak/vc": "^1.2.2",
     "dexie": "^3.2.2"
   }
 }

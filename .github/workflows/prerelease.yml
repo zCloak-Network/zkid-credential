@@ -1,4 +1,4 @@
-name: Push Master
+name: Pre release
 on:
   push:
     branches:
@@ -6,8 +6,8 @@ on:
 
 jobs:
   release:
-    if: github.repository == 'zCloak-Network/zkid-credential'
     runs-on: ubuntu-latest
+    environment: dev
     env:
       YARN_ENABLE_SCRIPTS: false
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -24,17 +24,21 @@ jobs:
           node-version: "16"
           cache: "yarn"
 
-      - name: Install deps
+      - name: Install deps and build
         run: |
           yarn install --immutable | grep -v 'YN0013'
+          yarn lint
+          yarn test
+          yarn build
 
-      - name: Create Release Pull Request
-        id: changesets
-        uses: changesets/action@v1
+      - name: Deploy prerelease
+        uses: appleboy/scp-action@master
         with:
-          version: yarn zcloak-dev-bump-version
-          publish: yarn release
-          commit: "chore: Version App"
-          title: "chore: Version App"
-          createGithubReleases: false
-
+          username: ubuntu
+          host: ${{ secrets.HOST }}
+          port: 22
+          key: ${{ secrets.KEY }}
+          source: ${{ github.workspace }}/packages/app/build
+          target: "/home/ubuntu/cred"
+          strip_components: 5
+          rm: true
