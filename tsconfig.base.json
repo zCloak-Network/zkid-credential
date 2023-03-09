@@ -4,8 +4,8 @@
     "composite": false,
     "jsx": "react-jsx",
     "paths": {
-      "@credential/app": ["app/src"],
-      "@credential/app/*": ["app/src/*"],
+      "zkid-credential": ["app/src"],
+      "zkid-credential/*": ["app/src/*"],
       "@credential/app-config": ["app-config/src"],
       "@credential/app-config/*": ["app-config/src/*"],
       "@credential/app-store": ["app-store/src"],

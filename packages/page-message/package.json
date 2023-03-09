@@ -3,7 +3,7 @@
   "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
   "contributors": [],
   "description": "credential page-message",
-  "homepage": "https://github.com/zCloak-Network/zkid-credential/tree/master/packages/page-message#readme",
+  "homepage": "https://github.com/zCloak-Network/zkid-credential#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@credential/page-message",

@@ -1,11 +1,11 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { execSync } from 'child_process';
 import fs from 'fs-extra';
-import path from 'path';
 import humps from 'humps';
 import { parse } from 'node-html-parser';
-import { execSync } from 'child_process';
+import path from 'path';
 
 function main() {
   const assets = fs.readdirSync('packages/app-config/src/assets');
@@ -23,12 +23,6 @@ function main() {
     const viewBox = parse(
       fs.readFileSync(path.join('packages/app-config/src/assets/', asset)).toString()
     ).getElementsByTagName('svg')[0].attributes.viewBox;
-    const width = parse(
-      fs.readFileSync(path.join('packages/app-config/src/assets/', asset)).toString()
-    ).getElementsByTagName('svg')[0].attributes.width;
-    const height = parse(
-      fs.readFileSync(path.join('packages/app-config/src/assets/', asset)).toString()
-    ).getElementsByTagName('svg')[0].attributes.height;
 
     console.log(`write ${fileName}.tsx`);
     fs.writeFileSync(

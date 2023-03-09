@@ -3,7 +3,7 @@
   "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
   "contributors": [],
   "description": "credential react-dids",
-  "homepage": "https://github.com/zCloak-Network/zkid-credential/tree/master/packages/react-dids#readme",
+  "homepage": "https://github.com/zCloak-Network/zkid-credential#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@credential/react-dids",

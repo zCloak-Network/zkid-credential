@@ -3,7 +3,7 @@
   "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
   "contributors": [],
   "description": "credential react-ctype",
-  "homepage": "https://github.com/zCloak-Network/zkid-credential/tree/master/packages/react-ctype#readme",
+  "homepage": "https://github.com/zCloak-Network/zkid-credential#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@credential/react-ctype",
@@ -16,8 +16,8 @@
   "type": "module",
   "version": "0.15.0",
   "dependencies": {
-    "@credential/react-components": "0.15.0",
-    "@credential/react-dids": "0.15.0",
+    "@credential/react-components": "workspace:^",
+    "@credential/react-dids": "workspace:^",
     "@zcloak/ctype": "^1.2.0"
   }
 }

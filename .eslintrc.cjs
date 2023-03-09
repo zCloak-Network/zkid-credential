@@ -6,8 +6,7 @@ const base = require('@zcloak/dev/config/eslint.cjs');
 module.exports = {
   ...base,
   ignorePatterns: [
-    ...base.ignorePatterns,
-    'scripts/**/*'
+    ...base.ignorePatterns
   ],
   parserOptions: {
     ...base.parserOptions,
