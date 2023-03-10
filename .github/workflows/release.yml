@@ -9,7 +9,7 @@ jobs:
   release:
     if: github.repository == 'zCloak-Network/zkid-credential'
     runs-on: ubuntu-latest
-    environment: dev
+    environment: master
     env:
       YARN_ENABLE_SCRIPTS: false
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
