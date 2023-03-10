@@ -33,7 +33,7 @@ jobs:
       - name: build:release
         run: yarn run build:release
 
-      - name: Deploy to test environment
+      - name: Deploy to stable environment
         uses: appleboy/scp-action@master
         with:
           username: ubuntu
