@@ -1,5 +1,12 @@
 # @credential/page-issue
 
+## 0.19.1
+
+### Patch Changes
+
+- Updated dependencies [24d39cb]
+  - @credential/page-ctype@0.19.1
+
 ## 0.19.0
 
 ### Minor Changes

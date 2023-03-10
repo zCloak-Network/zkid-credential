@@ -1,5 +1,14 @@
 # zkid-credential
 
+## 0.19.1
+
+### Patch Changes
+
+- 24d39cb: fix ctype no properties error
+- Updated dependencies [24d39cb]
+  - @credential/page-ctype@0.19.1
+  - @credential/page-issue@0.19.1
+
 ## 0.19.0
 
 ### Minor Changes

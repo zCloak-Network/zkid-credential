@@ -1,9 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
-  "changelog": [
-    "@changesets/changelog-github",
-    { "repo": "zCloak-Network/zkid-credential" }
-  ],
+  "changelog": "@changesets/changelog-git",
   "commit": false,
   "fixed": [],
   "linked": [],

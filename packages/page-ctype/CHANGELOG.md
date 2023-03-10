@@ -1,5 +1,11 @@
 # @credential/page-ctype
 
+## 0.19.1
+
+### Patch Changes
+
+- 24d39cb: fix ctype no properties error
+
 ## 0.19.0
 
 ### Minor Changes
