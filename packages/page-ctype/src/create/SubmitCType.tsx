@@ -23,12 +23,12 @@ const SubmitCType: React.FC<{
 
   const base: BaseCType | null = useMemo(
     () =>
-      title && description && properties
+      title && description
         ? {
             title,
             description,
             type: 'object',
-            properties,
+            properties: properties || {},
             required: []
           }
         : null,
