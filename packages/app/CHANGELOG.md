@@ -1,5 +1,26 @@
 # zkid-credential
 
+## 0.20.0
+
+### Minor Changes
+
+- 30d7c16: upgrade zkid-sdk and deploy to stable server
+
+### Patch Changes
+
+- Updated dependencies [30d7c16]
+  - @credential/app-config@0.20.0
+  - @credential/page-account@0.20.0
+  - @credential/page-claims@0.20.0
+  - @credential/page-ctype@0.20.0
+  - @credential/page-did@0.20.0
+  - @credential/page-issue@0.20.0
+  - @credential/page-message@0.20.0
+  - @credential/page-tasks@0.20.0
+  - @credential/react-components@0.20.0
+  - @credential/react-dids@0.20.0
+  - @credential/react-hooks@0.20.0
+
 ## 0.19.1
 
 ### Patch Changes

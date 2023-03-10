@@ -1,5 +1,17 @@
 # @credential/react-ctype
 
+## 0.20.0
+
+### Minor Changes
+
+- 30d7c16: upgrade zkid-sdk and deploy to stable server
+
+### Patch Changes
+
+- Updated dependencies [30d7c16]
+  - @credential/react-components@0.20.0
+  - @credential/react-dids@0.20.0
+
 ## 0.19.0
 
 ### Minor Changes
