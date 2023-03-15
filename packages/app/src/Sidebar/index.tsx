@@ -68,7 +68,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
 });
 
 const DrawerMd = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => !['open', 'accountType'].includes(prop as string)
+  shouldForwardProp: (prop) => !(['accountType'] as any[]).includes(prop)
 })<{
   accountType: ACCOUNT_TYPE;
 }>(({ accountType, open, theme }) => ({
@@ -98,7 +98,7 @@ const DrawerMd = styled(MuiDrawer, {
 }));
 
 const DrawerSm = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => !['accountType'].includes(prop as string)
+  shouldForwardProp: (prop) => !(['accountType'] as any[]).includes(prop)
 })<{
   accountType: ACCOUNT_TYPE;
 }>(({ accountType, theme }) => ({
