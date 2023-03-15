@@ -18,6 +18,6 @@
   "dependencies": {
     "@credential/react-components": "workspace:^",
     "@zcloak/crypto": "^1.2.0",
-    "@zcloak/ctype": "^1.2.1"
+    "@zcloak/ctype": "^1.2.2"
   }
 }

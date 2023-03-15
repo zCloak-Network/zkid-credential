@@ -21,13 +21,13 @@
     "@credential/react-dids": "workspace:^",
     "@credential/react-hooks": "workspace:^",
     "@mui/icons-material": "^5.11.11",
-    "@mui/material": "^5.11.12",
-    "@mui/system": "^5.11.12",
+    "@mui/material": "^5.11.13",
+    "@mui/system": "^5.11.13",
     "@zcloak/crypto": "^1.2.0",
-    "@zcloak/did": "^1.2.1",
+    "@zcloak/did": "^1.3.0",
     "@zcloak/did-resolver": "^1.1.0",
     "@zcloak/keyring": "^1.1.0",
     "file-saver": "^2.0.5",
-    "react-router-dom": "^6.8.2"
+    "react-router-dom": "^6.9.0"
   }
 }

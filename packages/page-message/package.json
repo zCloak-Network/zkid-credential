@@ -20,12 +20,12 @@
     "@credential/react-dids": "workspace:^",
     "@credential/react-hooks": "workspace:^",
     "@zcloak/crypto": "^1.2.0",
-    "@zcloak/ctype": "^1.2.1",
-    "@zcloak/did": "^1.2.1",
+    "@zcloak/ctype": "^1.2.2",
+    "@zcloak/did": "^1.3.0",
     "@zcloak/did-resolver": "^1.1.0",
     "@zcloak/keyring": "^1.1.0",
-    "@zcloak/message": "^1.0.4",
-    "@zcloak/vc": "^1.2.2",
+    "@zcloak/message": "^1.0.5",
+    "@zcloak/vc": "^1.2.3",
     "moment": "^2.29.4"
   }
 }

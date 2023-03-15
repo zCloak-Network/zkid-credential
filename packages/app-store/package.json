@@ -17,13 +17,13 @@
   "version": "0.20.0",
   "dependencies": {
     "@credential/react-dids": "workspace:^",
-    "@polkadot/util": "^11.0.1",
+    "@polkadot/util": "^11.0.2",
     "@zcloak/crypto": "^1.2.0",
-    "@zcloak/ctype": "^1.2.1",
+    "@zcloak/ctype": "^1.2.2",
     "@zcloak/did-resolver": "^1.1.0",
     "@zcloak/keyring": "^1.1.0",
-    "@zcloak/message": "^1.0.4",
-    "@zcloak/vc": "^1.2.2",
-    "dexie": "^3.2.2"
+    "@zcloak/message": "^1.0.5",
+    "@zcloak/vc": "^1.2.3",
+    "dexie": "^3.2.3"
   }
 }
