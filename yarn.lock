@@ -1842,6 +1842,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@credential/page-hk-event@workspace:packages/page-hk-event":
+  version: 0.0.0-use.local
+  resolution: "@credential/page-hk-event@workspace:packages/page-hk-event"
+  languageName: unknown
+  linkType: soft
+
 "@credential/page-issue@workspace:^, @credential/page-issue@workspace:packages/page-issue":
   version: 0.0.0-use.local
   resolution: "@credential/page-issue@workspace:packages/page-issue"
