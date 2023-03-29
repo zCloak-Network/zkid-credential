@@ -14,5 +14,8 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "dependencies": {
+    "@zcloak/ui-store": "^0.9.7"
+  }
 }

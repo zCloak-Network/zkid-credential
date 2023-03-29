@@ -1,7 +1,9 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+export { default as FirstTopLogo } from './FirstTopLogo';
 export { default as IconAddress } from './IconAddress';
+export { default as IconAnd } from './IconAnd';
 export { default as IconApprove } from './IconApprove';
 export { default as IconAttester } from './IconAttester';
 export { default as IconClaimer } from './IconClaimer';
@@ -12,6 +14,7 @@ export { default as IconDelete } from './IconDelete';
 export { default as IconDetails } from './IconDetails';
 export { default as IconDownload } from './IconDownload';
 export { default as IconExport } from './IconExport';
+export { default as IconExportHk } from './IconExportHk';
 export { default as IconForward } from './IconForward';
 export { default as IconImport } from './IconImport';
 export { default as IconImportDid } from './IconImportDid';
@@ -28,6 +31,7 @@ export { default as IconQrcode } from './IconQrcode';
 export { default as IconReject } from './IconReject';
 export { default as IconRevoke } from './IconRevoke';
 export { default as IconScan } from './IconScan';
+export { default as IconScanHk } from './IconScanHk';
 export { default as IconStar } from './IconStar';
 export { default as IconTask } from './IconTask';
 export { default as IconTips } from './IconTips';

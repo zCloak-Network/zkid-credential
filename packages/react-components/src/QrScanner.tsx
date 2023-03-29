@@ -4,15 +4,16 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, IconButton, Modal } from '@mui/material';
 import Scanner from 'qr-scanner';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 function QrScanner({ onClose, onResult }: { onResult: (result: string) => void; onClose: () => void }) {
   const container = useRef<HTMLVideoElement | null>(null);
+  const [scanner, setScanner] = useState<Scanner>();
 
   useEffect(() => {
     setTimeout(() => {
       if (container.current) {
-        const scanner = new Scanner(
+        const _scanner = new Scanner(
           container.current,
           (result) => {
             onResult(result.data);
@@ -23,10 +24,19 @@ function QrScanner({ onClose, onResult }: { onResult: (result: string) => void; 
           }
         );
 
-        scanner.start();
+        setScanner(_scanner);
       }
     });
   }, [onResult]);
+
+  useEffect(() => {
+    if (!scanner) return;
+    scanner.start();
+
+    return () => {
+      scanner.stop();
+    };
+  }, [scanner]);
 
   return (
     <Modal onClose={onClose} open>

@@ -5,3 +5,4 @@ export * from './icons';
 export * from './images';
 export * from './isRelease';
 export * from './vc';
+export * from './hk-event';

@@ -1845,6 +1845,8 @@ __metadata:
 "@credential/page-hk-event@workspace:packages/page-hk-event":
   version: 0.0.0-use.local
   resolution: "@credential/page-hk-event@workspace:packages/page-hk-event"
+  dependencies:
+    "@zcloak/ui-store": "npm:^0.9.7"
   languageName: unknown
   linkType: soft
 
@@ -5142,6 +5144,15 @@ __metadata:
   dependencies:
     eventemitter3: "npm:^5.0.0"
   checksum: 04420c3c688978beb9a860759cde5ff6a30cb2bfa6ccd66466334a7ee55d93d8472aae144eaed510eb9b9e881407dcab413c12a70f4e30b8df37bb0e95a43be1
+  languageName: node
+  linkType: hard
+
+"@zcloak/ui-store@npm:^0.9.7":
+  version: 0.9.7
+  resolution: "@zcloak/ui-store@npm:0.9.7"
+  dependencies:
+    eventemitter3: "npm:^5.0.0"
+  checksum: c20cc57a7a1069dcef8924ae220836cce54c6fcbd51a77c79168bf8a29646f561f57d092405afb76cba34f9a992c33dfba031f79eff384a990422b40e8245ea0
   languageName: node
   linkType: hard
 

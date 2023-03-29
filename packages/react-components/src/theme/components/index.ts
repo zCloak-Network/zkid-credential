@@ -182,6 +182,13 @@ const createComponents: Func = () => ({
       font-weight: 400;
       src: url("/fonts/PapyrusStd.OTF");
     }
+    @font-face {
+      font-family: "BebasNeue";
+      font-style: normal;
+      font-display: swap;
+      font-weight: 400;
+      src: url("/fonts/BebasNeue-Regular.ttf");
+    }
   `
   },
 

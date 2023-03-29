@@ -225,7 +225,14 @@ const App: React.FC = () => {
         <Route element={<PageRestoreAccount />} path='restore' />
         <Route element={<PageAccount />} index />
       </Route>
-      <Route element={<PageHkEvent />} path='event'></Route>
+      <Route
+        element={
+          <BaseProvider role='attester'>
+            <PageHkEvent />
+          </BaseProvider>
+        }
+        path='event'
+      ></Route>
       <Route element={<NoMatch to='/claimer' />} path='*' />
     </Routes>
   );
