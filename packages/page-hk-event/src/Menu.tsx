@@ -3,6 +3,8 @@
 
 import { useCallback, useState } from 'react';
 
+import { isDidUrl } from '@zcloak/did/utils';
+
 import { useToggle } from '@credential/react-hooks';
 
 import Step0 from './Step0';
@@ -23,11 +25,12 @@ const Menu = () => {
 
   const onScan = useCallback(
     (val: string) => {
-      setAddress(val);
+      if (isDidUrl(val)) {
+        setAddress(val);
+        next();
+      }
 
       toggle();
-
-      next();
     },
     [toggle, next]
   );
