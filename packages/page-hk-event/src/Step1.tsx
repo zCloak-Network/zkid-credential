@@ -33,6 +33,7 @@ const Step1: React.FC<{ receiver: string; prev: () => void; retry: () => void; c
   const [holder, setHolder] = useState<Did>();
   const { org } = useContext(LoginContext);
   const [encryptedMessage, setEncryptedMessage] = useState<Message<'Send_issuedVC'>>();
+  const [isSend, setIsSend] = useState<boolean>(false);
 
   useEffect(() => {
     if (!org) return;
@@ -62,6 +63,7 @@ const Step1: React.FC<{ receiver: string; prev: () => void; retry: () => void; c
   const send = useCallback(async () => {
     if (!encryptedMessage) return;
     await resolver.sendHkMessage(encryptedMessage);
+    setIsSend(true);
   }, [encryptedMessage]);
 
   return (
@@ -115,9 +117,11 @@ const Step1: React.FC<{ receiver: string; prev: () => void; retry: () => void; c
           ]}
         />
 
-        <Button className='Issue_Again' onClick={retry} variant='outlined'>
-          Issue Again
-        </Button>
+        {isSend && (
+          <Button className='Issue_Again' onClick={retry} variant='outlined'>
+            Issue Again
+          </Button>
+        )}
       </Stack>
     </Box>
   );

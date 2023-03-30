@@ -41,10 +41,11 @@ const Menu = () => {
     (val: string) => {
       if (isDidUrl(val)) {
         setAddress(val);
+
+        closeQr();
+
         next();
       }
-
-      closeQr();
     },
     [next, closeQr]
   );
