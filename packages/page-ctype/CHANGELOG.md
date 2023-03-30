@@ -1,5 +1,18 @@
 # @credential/page-ctype
 
+## 0.20.1
+
+### Patch Changes
+
+- cc04910: upgrade zkid-login sdk
+- Updated dependencies [cc04910]
+  - @credential/react-components@0.20.1
+  - @credential/react-ctype@0.20.1
+  - @credential/react-hooks@0.20.1
+  - @credential/app-config@0.20.1
+  - @credential/react-dids@0.20.1
+  - @credential/app-store@0.20.1
+
 ## 0.20.0
 
 ### Minor Changes
