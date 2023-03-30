@@ -1,5 +1,13 @@
 # @credential/app-store
 
+## 0.20.1
+
+### Patch Changes
+
+- cc04910: upgrade zkid-login sdk
+- Updated dependencies [cc04910]
+  - @credential/react-dids@0.20.1
+
 ## 0.20.0
 
 ### Minor Changes

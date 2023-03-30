@@ -14,10 +14,10 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.20.0",
+  "version": "0.20.1",
   "dependencies": {
     "@credential/react-components": "workspace:^",
-    "@zcloak/crypto": "^1.2.0",
-    "@zcloak/ctype": "^1.2.2"
+    "@zcloak/crypto": "^1.2.1",
+    "@zcloak/ctype": "^1.2.3"
   }
 }

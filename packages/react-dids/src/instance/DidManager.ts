@@ -8,7 +8,7 @@ import type { Keyring } from '@zcloak/keyring';
 import { Did } from '@zcloak/did';
 import { isDidUrl } from '@zcloak/did/utils';
 import { LoginDid } from '@zcloak/login-did';
-import { ZkidWalletProvider } from '@zcloak/login-providers';
+import { ZkidWalletProvider } from '@zcloak/login-providers/types';
 import { ZkDid } from '@zcloak/ui-did-keyring';
 import { BrowserStore } from '@zcloak/ui-store';
 
