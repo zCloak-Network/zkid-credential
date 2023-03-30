@@ -1,0 +1,23 @@
+{
+  "author": "zCloak",
+  "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
+  "contributors": [],
+  "description": "credential page-hk-event",
+  "homepage": "https://github.com/zCloak-Network/zkid-credential#readme",
+  "license": "Apache-2.0",
+  "maintainers": [],
+  "name": "@credential/page-hk-event",
+  "repository": {
+    "directory": "packages/page-hk-event",
+    "type": "git",
+    "url": "https://github.com/zCloak-Network/zkid-credential.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.0.0",
+  "dependencies": {
+    "@zcloak/login-did": "^1.1.2",
+    "@zcloak/login-providers": "^1.2.0",
+    "@zcloak/ui-store": "^0.9.7"
+  }
+}

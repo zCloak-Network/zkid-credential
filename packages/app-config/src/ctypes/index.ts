@@ -44,6 +44,13 @@ export const ctypeMeta: Record<HexString, CTypeMeta> = {
     card: 'legal-dao/bg2.jpeg',
     icon: 'legal-dao/icon.jpeg',
     color: '#FFFFFF'
+  },
+  // hk-event
+  '0x449fc52725462c610c9c1652fe208c205b654e9a5133d3bbfe99d010de99fe4f': {
+    type: 'all',
+    card: 'hk-event/png_bag.svg',
+    icon: 'hk-event/icon_logo.png',
+    color: '#FFFFFF'
   }
 };
 

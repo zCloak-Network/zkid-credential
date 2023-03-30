@@ -1842,6 +1842,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@credential/page-hk-event@workspace:packages/page-hk-event":
+  version: 0.0.0-use.local
+  resolution: "@credential/page-hk-event@workspace:packages/page-hk-event"
+  dependencies:
+    "@zcloak/login-did": "npm:^1.1.2"
+    "@zcloak/login-providers": "npm:^1.2.0"
+    "@zcloak/ui-store": "npm:^0.9.7"
+  languageName: unknown
+  linkType: soft
+
 "@credential/page-issue@workspace:^, @credential/page-issue@workspace:packages/page-issue":
   version: 0.0.0-use.local
   resolution: "@credential/page-issue@workspace:packages/page-issue"
