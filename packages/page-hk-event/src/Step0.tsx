@@ -12,11 +12,13 @@ import { resolver } from '@credential/react-dids/instance';
 
 import { LoginContext } from './LoginProvider';
 
-const Step0: React.FC<{ open: boolean; next?: () => void; onScan: (val: string) => void; toggle: () => void }> = ({
-  onScan,
-  open,
-  toggle
-}) => {
+const Step0: React.FC<{
+  open: boolean;
+  next?: () => void;
+  onScan: (val: string) => void;
+  openQr: () => void;
+  closeQr: () => void;
+}> = ({ closeQr, onScan, open, openQr }) => {
   const { logout, org } = useContext(LoginContext);
 
   const exportClaimers = useCallback(async () => {
@@ -32,7 +34,7 @@ const Step0: React.FC<{ open: boolean; next?: () => void; onScan: (val: string) 
 
   return (
     <Box height='100%' position='relative'>
-      {open && <QrScanner onClose={toggle} onResult={onScan} />}
+      {open && <QrScanner onClose={closeQr} onResult={onScan} />}
       <Stack
         alignItems='center'
         sx={{
@@ -79,7 +81,7 @@ const Step0: React.FC<{ open: boolean; next?: () => void; onScan: (val: string) 
           }
         }}
       >
-        <Button onClick={toggle} startIcon={<IconScanHk />}>
+        <Button onClick={openQr} startIcon={<IconScanHk />}>
           Scan
         </Button>
         <Button onClick={exportClaimers} startIcon={<IconExportHk />}>

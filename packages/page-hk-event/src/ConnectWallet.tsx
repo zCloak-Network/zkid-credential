@@ -2,12 +2,19 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Box, Button, Typography } from '@mui/material';
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 
+import { DidContext } from './DidProvider';
 import { LoginContext } from './LoginProvider';
 
 const ConnectWallet = () => {
+  const { getDid } = useContext(DidContext);
   const { error, login } = useContext(LoginContext);
+
+  const connect = useCallback(async () => {
+    await getDid();
+    await login();
+  }, [getDid, login]);
 
   return (
     <Box
@@ -26,7 +33,7 @@ const ConnectWallet = () => {
       )}
       <Button
         fullWidth
-        onClick={login}
+        onClick={connect}
         sx={{
           height: 50,
           bgcolor: '#fff',

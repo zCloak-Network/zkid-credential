@@ -3,6 +3,7 @@
 
 import { Box, styled } from '@mui/material';
 
+import DidProvider from './DidProvider';
 import LoginProvider from './LoginProvider';
 import Main from './Main';
 import Splash from './Splash';
@@ -14,12 +15,14 @@ const Wrapper = styled(Box)({
 
 const HkEvent = () => {
   return (
-    <LoginProvider>
-      <Wrapper>
-        <Splash />
-        <Main />
-      </Wrapper>
-    </LoginProvider>
+    <DidProvider>
+      <LoginProvider>
+        <Wrapper>
+          <Splash />
+          <Main />
+        </Wrapper>
+      </LoginProvider>
+    </DidProvider>
   );
 };
 

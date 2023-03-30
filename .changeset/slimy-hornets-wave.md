@@ -8,3 +8,4 @@
 
 add issue vc page
 fix close qrscanner
+separate hk event did

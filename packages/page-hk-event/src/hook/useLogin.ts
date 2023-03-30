@@ -5,9 +5,11 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 
 import { BrowserStore } from '@zcloak/ui-store';
 
-import { LOGGED_PREFIX } from '@credential/app-config';
-import { DidsContext } from '@credential/react-dids';
+import { CTYPE_ID, LOGGED_PREFIX } from '@credential/app-config';
+import { getCacheCType, putCacheCType } from '@credential/app-store';
 import { resolver } from '@credential/react-dids/instance';
+
+import { DidContext } from '../DidProvider';
 
 export const store = new BrowserStore();
 
@@ -17,12 +19,24 @@ interface WhiteProps {
 }
 
 export function useLogin() {
-  const { did } = useContext(DidsContext);
+  const { did } = useContext(DidContext);
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [org, setOrg] = useState<WhiteProps>();
   const [error, setError] = useState<Error>();
 
+  useEffect(() => {
+    getCacheCType(CTYPE_ID).then((ctype) => {
+      if (!ctype) {
+        resolver
+          .getAllCtypes()
+          .then((ctypes) => ctypes.filter((c) => c._id === CTYPE_ID)[0])
+          .then((ctype) => putCacheCType(ctype.rawData));
+      }
+    });
+  }, []);
   const initWhiteList = useCallback(async () => {
+    if (!did) return;
+
     const res = await resolver.hkEventLogin(did.id);
 
     if (res.inWhitelist) {
@@ -39,13 +53,15 @@ export function useLogin() {
       setError(new Error('You don’t have Access.'));
       setIsLogged(false);
     }
-  }, [did.id]);
+  }, [did]);
 
   const login = useCallback(async () => {
     await initWhiteList();
   }, [initWhiteList]);
 
   const logout = useCallback(async () => {
+    if (!did) return;
+
     const key = `${LOGGED_PREFIX}${did.id}`;
 
     await store.remove(key);
@@ -54,6 +70,8 @@ export function useLogin() {
   }, [did]);
 
   useEffect(() => {
+    if (!did) return;
+
     const key = `${LOGGED_PREFIX}${did.id}`;
 
     store.get(key).then((val) => {

@@ -6,30 +6,33 @@ import type { AnyJson, RawCredential, VerifiableCredential } from '@zcloak/vc/ty
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Box, Stack, Typography } from '@mui/material';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 import { Did, helpers } from '@zcloak/did';
 import { Message } from '@zcloak/message/types';
 import { Raw } from '@zcloak/vc';
 
-import { CTYPE_ID, DEFAULT_ROOT_HASH_TYPE } from '@credential/app-config';
-import { Button, CTypeContext, IconButton, InputString } from '@credential/react-components';
-import { DidsContext } from '@credential/react-dids';
+import { DEFAULT_ROOT_HASH_TYPE } from '@credential/app-config';
+import { CType } from '@credential/app-store';
+import { Button, IconButton, InputString } from '@credential/react-components';
 import { resolver } from '@credential/react-dids/instance';
 import { encryptMessageStep, signAndBuildVC, Steps } from '@credential/react-dids/steps';
 
+import { DidContext } from './DidProvider';
 import { LoginContext } from './LoginProvider';
 
-const Step1: React.FC<{ receiver: string; prev: () => void; retry: () => void }> = ({ prev, receiver, retry }) => {
-  const { did: sender } = useContext(DidsContext);
+const Step1: React.FC<{ receiver: string; prev: () => void; retry: () => void; ctype: CType }> = ({
+  ctype,
+  prev,
+  receiver,
+  retry
+}) => {
+  const { did: sender } = useContext(DidContext);
   const [rawCredential, setRawCredential] = useState<RawCredential | null>(null);
-  const { ctypes } = useContext(CTypeContext);
   const [vc, setVC] = useState<VerifiableCredential<boolean> | null>(null);
   const [holder, setHolder] = useState<Did>();
   const { org } = useContext(LoginContext);
   const [encryptedMessage, setEncryptedMessage] = useState<Message<'Send_issuedVC'>>();
-
-  const ctype = useMemo(() => ctypes.filter((c) => c.$id === CTYPE_ID)[0], [ctypes]);
 
   useEffect(() => {
     if (!org) return;
@@ -53,8 +56,8 @@ const Step1: React.FC<{ receiver: string; prev: () => void; retry: () => void }>
   const sign = useCallback(async () => {
     if (!rawCredential) return;
 
-    await signAndBuildVC(rawCredential, ctypes, sender).then(setVC);
-  }, [rawCredential, ctypes, sender]);
+    await signAndBuildVC(rawCredential, [ctype], sender).then(setVC);
+  }, [rawCredential, sender, ctype]);
 
   const send = useCallback(async () => {
     if (!encryptedMessage) return;
