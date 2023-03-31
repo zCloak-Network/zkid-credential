@@ -15,12 +15,12 @@ const Login = () => {
       position='relative'
       sx={{
         height: '100%',
-        minHeight: 800
+        minHeight: 620
       }}
     >
       <Box
         bgcolor='#4B45FF'
-        height={330}
+        height={230}
         sx={{
           display: 'flex',
           alignItems: 'center',
