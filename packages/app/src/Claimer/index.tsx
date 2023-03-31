@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useMemo } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
-import { Box, Button, Stack, useMediaQuery, useTheme } from '@credential/react-components';
+import { Box, useMediaQuery, useTheme } from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
 import Header from '../Header';
@@ -14,7 +14,7 @@ import Sidebar from '../Sidebar';
 
 const Claimer: React.FC = () => {
   const { breakpoints, palette, transitions } = useTheme();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const upMd = useMediaQuery(breakpoints.up('md'));
 
   const [open, toggleOpen] = useToggle(!!upMd);
@@ -48,7 +48,7 @@ const Claimer: React.FC = () => {
   return (
     <Box bgcolor='#F5F6FA' overflow='hidden' paddingTop='70px'>
       <Header toggleOpen={toggleOpen} unreads={unreads} />
-      <Box
+      {/* <Box
         sx={{
           height: '150px',
           background: 'url(./christmas2022/pic_bac.webp) no-repeat',
@@ -86,11 +86,11 @@ const Claimer: React.FC = () => {
             }}
           />
         </Stack>
-      </Box>
+      </Box> */}
       <Box overflow='hidden' position='relative'>
         <Sidebar accountType='claimer' items={items} open={open} toggleOpen={toggleOpen} />
         <Box
-          height='calc(100vh - 230px)'
+          height='calc(100vh - 70px)'
           overflow='scroll'
           pl={upMd ? (open ? '230px' : '93px') : 0}
           sx={{
