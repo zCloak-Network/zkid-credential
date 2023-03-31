@@ -29,7 +29,7 @@ export function useLogin() {
       if (!ctype) {
         resolver
           .getAllCtypes()
-          .then((ctypes) => ctypes.filter((c) => c._id === CTYPE_ID)[0])
+          .then((ctypes) => ctypes.filter((c) => c.id === CTYPE_ID)[0])
           .then((ctype) => putCacheCType(ctype.rawData));
       }
     });
