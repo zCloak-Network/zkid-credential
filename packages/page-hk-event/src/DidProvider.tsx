@@ -10,7 +10,7 @@ import { didManager, provider } from '@credential/react-dids/instance';
 
 interface State {
   did?: Did | null;
-  getDid: () => Promise<void>;
+  getDid: () => Promise<Did | undefined>;
 }
 
 export const DidContext = createContext({} as State);
@@ -31,6 +31,8 @@ const DidProvider: React.FC<PropsWithChildren> = ({ children }) => {
       setDid(did);
       didManager.setCurrent(did);
     }
+
+    return did;
   }, []);
 
   useEffect(() => {

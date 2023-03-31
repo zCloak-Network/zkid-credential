@@ -12,8 +12,9 @@ const ConnectWallet = () => {
   const { error, login } = useContext(LoginContext);
 
   const connect = useCallback(async () => {
-    await getDid();
-    await login();
+    const did = await getDid();
+
+    await login(did);
   }, [getDid, login]);
 
   return (

@@ -3,6 +3,8 @@
 
 import { createContext, PropsWithChildren } from 'react';
 
+import { Did } from '@zcloak/did';
+
 import { useLogin } from './hook/useLogin';
 
 export interface WhiteProps {
@@ -13,7 +15,7 @@ export interface WhiteProps {
 interface State {
   isLogged: boolean;
   logout: () => Promise<void>;
-  login: () => Promise<void>;
+  login: (did?: Did) => Promise<void>;
   org?: WhiteProps;
   error?: Error;
 }

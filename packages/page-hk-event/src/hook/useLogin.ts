@@ -3,6 +3,7 @@
 
 import { useCallback, useContext, useEffect, useState } from 'react';
 
+import { Did } from '@zcloak/did';
 import { BrowserStore } from '@zcloak/ui-store';
 
 import { CTYPE_ID, LOGGED_PREFIX } from '@credential/app-config';
@@ -34,7 +35,7 @@ export function useLogin() {
       }
     });
   }, []);
-  const initWhiteList = useCallback(async () => {
+  const initWhiteList = useCallback(async (did: Did) => {
     if (!did) return;
 
     const res = await resolver.hkEventLogin(did.id);
@@ -53,11 +54,14 @@ export function useLogin() {
       setError(new Error('You don’t have Access.'));
       setIsLogged(false);
     }
-  }, [did]);
+  }, []);
 
-  const login = useCallback(async () => {
-    await initWhiteList();
-  }, [initWhiteList]);
+  const login = useCallback(
+    async (did?: Did) => {
+      did && (await initWhiteList(did));
+    },
+    [initWhiteList]
+  );
 
   const logout = useCallback(async () => {
     if (!did) return;
@@ -76,7 +80,7 @@ export function useLogin() {
 
     store.get(key).then((val) => {
       if (val) {
-        initWhiteList();
+        initWhiteList(did);
       } else {
         setIsLogged(false);
       }

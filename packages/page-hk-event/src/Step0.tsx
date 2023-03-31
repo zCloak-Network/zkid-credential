@@ -33,7 +33,7 @@ const Step0: React.FC<{
   }, [org]);
 
   return (
-    <Box height='100%' position='relative'>
+    <Box height='100%' minHeight={600} position='relative'>
       {open && <QrScanner onClose={closeQr} onResult={onScan} />}
       <Stack
         alignItems='center'
