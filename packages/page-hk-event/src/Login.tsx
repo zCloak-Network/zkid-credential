@@ -3,7 +3,7 @@
 
 import { Box, Stack, Typography } from '@mui/material';
 
-import { FirstTopLogo, IconAnd, IconWeb3 } from '@credential/app-config';
+import { IconWeb3 } from '@credential/app-config';
 
 import ConnectWallet from './ConnectWallet';
 
@@ -15,69 +15,63 @@ const Login = () => {
       position='relative'
       sx={{
         height: '100%',
-        minHeight: 620
+        minHeight: 620,
+        background: 'url(/hk-event/jpg_hk.webp) no-repeat #F4F5F9',
+        backgroundPosition: 'bottom center'
       }}
     >
       <Box
-        bgcolor='#4B45FF'
-        height={230}
+        // height={230}
         sx={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           '.Logo_Icons': {
-            width: 64,
-            height: 64,
-            bgcolor: '#fff',
+            width: 50,
+            height: 50,
+            bgcolor: '#000',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            borderRadius: '15px'
+            borderRadius: '5px'
           }
         }}
       >
-        <Stack direction='row' spacing={5}>
+        <Stack
+          alignItems='center'
+          direction='column'
+          pt={16}
+          sx={{
+            '.HK_TITLE': {
+              color: '#000',
+              fontSize: '39px',
+              fontFamily: 'BebasNeue'
+            }
+          }}
+        >
           <Box className='Logo_Icons'>
-            <img height={35} src={IconWeb3} width={50} />
+            <img height={22} src={IconWeb3} width={33} />
           </Box>
-          <Box className='Logo_Icons' fontSize={39}>
-            <FirstTopLogo />
-          </Box>
+
+          <Typography className='HK_TITLE' mt={3.5}>
+            WELCOME TO
+          </Typography>
+          <Typography className='HK_TITLE'>HONG KONG WEB3 FESTIVAL</Typography>
+          <Typography className='HK_TITLE'>2023</Typography>
+          <Typography
+            mb={4}
+            sx={{
+              '&.MuiTypography-root': {
+                fontSize: '13px',
+                fontFamily: 'Poppins'
+              }
+            }}
+          >
+            Powered by zCloak
+          </Typography>
+          <ConnectWallet />
         </Stack>
       </Box>
-      <Stack
-        alignItems='center'
-        bgcolor='#051C3F'
-        flexGrow={1}
-        pt={6}
-        sx={{
-          '.MuiTypography-root': {
-            color: '#fff',
-            fontSize: '39px',
-            fontFamily: 'BebasNeue'
-          }
-        }}
-      >
-        <Typography>WELCOME TO</Typography>
-
-        <Typography
-          sx={{
-            textShadow: '0px 3px 20px rgba(255,255,255,0.33)'
-          }}
-        >
-          ZCLOAK
-        </Typography>
-        <IconAnd />
-        <Typography
-          sx={{
-            textShadow: '0px 3px 20px rgba(255,255,255,0.33)'
-          }}
-        >
-          HK WEB3 FESTIVAL
-        </Typography>
-        <Typography>CREDENTIAL EVENT</Typography>
-      </Stack>
-      <ConnectWallet />
     </Box>
   );
 };

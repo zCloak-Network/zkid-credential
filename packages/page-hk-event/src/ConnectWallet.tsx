@@ -21,10 +21,9 @@ const ConnectWallet = () => {
     <Box
       sx={{
         width: '100%',
+        maxWidth: 230,
         paddingX: 2,
-        margin: '0 auto',
-        position: 'absolute',
-        bottom: 32
+        margin: '0 auto'
       }}
     >
       {error && (
@@ -37,12 +36,18 @@ const ConnectWallet = () => {
         onClick={connect}
         sx={{
           height: 50,
-          bgcolor: '#fff',
-          color: '#000'
+          bgcolor: '#000',
+          color: '#fff',
+          borderRadius: '25px',
+          boxShadow: '0px 4px 20px rgba(45,51,60,0.27)',
+          ':hover': {
+            bgcolor: '#000',
+            opacity: 0.8
+          }
         }}
         variant='contained'
       >
-        Connect
+        Connect zkID Wallet
       </Button>
     </Box>
   );
