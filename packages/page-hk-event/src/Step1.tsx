@@ -84,10 +84,9 @@ const Step1: React.FC<{ receiver: string; prev: () => void; retry: () => void; c
           borderRadius: '15px',
           boxShadow: '0px 0px 30px rgba(53,41,183,0.07)',
 
-          '.MuiButtonBase-root': {
+          '.MuiButton-root': {
             width: '100%',
             height: 50,
-            background: '#000',
             marginTop: '24px'
           },
           '.Issue_Again': {

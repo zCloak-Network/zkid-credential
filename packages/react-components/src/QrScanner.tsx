@@ -2,44 +2,21 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, IconButton, Modal } from '@mui/material';
+import FlipCameraIosIcon from '@mui/icons-material/FlipCameraIos';
+import { Box, Button, IconButton, SwipeableDrawer } from '@mui/material';
 import Scanner from 'qr-scanner';
 import React, { useEffect, useRef, useState } from 'react';
 
 function QrScanner({ onClose, onResult }: { onResult: (result: string) => void; onClose: () => void }) {
-  const container = useRef<HTMLVideoElement | null>(null);
-  const [scanner, setScanner] = useState<Scanner>();
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (container.current) {
-        const _scanner = new Scanner(
-          container.current,
-          (result) => {
-            onResult(result.data);
-          },
-          {
-            highlightScanRegion: true,
-            highlightCodeOutline: true
-          }
-        );
-
-        setScanner(_scanner);
-      }
-    });
-  }, [onResult]);
-
-  useEffect(() => {
-    if (!scanner) return;
-    scanner.start();
-
-    return () => {
-      scanner.stop();
-    };
-  }, [scanner]);
-
   return (
-    <Modal onClose={onClose} open>
+    <SwipeableDrawer
+      ModalProps={{ keepMounted: false }}
+      PaperProps={{ sx: { height: '100%' } }}
+      anchor='bottom'
+      onClose={onClose}
+      onOpen={onClose}
+      open
+    >
       <Box
         sx={{
           display: 'flex',
@@ -52,19 +29,76 @@ function QrScanner({ onClose, onResult }: { onResult: (result: string) => void; 
           height: '100%'
         }}
       >
+        <Scan onClose={onClose} onResult={onResult} />
+        <IconButton onClick={onClose} sx={{ position: 'absolute', right: 12, top: 12, color: '#fff' }}>
+          <CloseIcon />
+        </IconButton>
+      </Box>
+    </SwipeableDrawer>
+  );
+}
+
+export default React.memo(QrScanner);
+
+function Scan({ onClose, onResult }: { onClose: () => void; onResult: (result: string) => void }) {
+  const container = useRef<HTMLVideoElement | null>(null);
+  const scanner = useRef<Scanner | null>(null);
+  const onResultRef = useRef<(value: string) => void>(onResult);
+  const [mode, setMode] = useState<Scanner.FacingMode>('environment');
+
+  useEffect(() => {
+    const ele = container.current as HTMLVideoElement;
+
+    scanner.current = new Scanner(
+      ele,
+      (result) => {
+        onResultRef.current(result.data);
+      },
+      {
+        preferredCamera: 'environment',
+        highlightScanRegion: true,
+        highlightCodeOutline: true
+      }
+    );
+    scanner.current.start();
+
+    return () => {
+      scanner.current?.destroy();
+    };
+  }, []);
+
+  useEffect(() => {
+    onResultRef.current = onResult;
+  }, [onResult]);
+
+  return (
+    <Box>
+      <Box />
+      <Box sx={{ position: 'relative', overflow: 'hidden' }}>
+        <IconButton
+          onClick={() => {
+            const value = mode === 'environment' ? 'user' : 'environment';
+
+            setMode(value);
+            scanner.current?.setCamera(value);
+          }}
+        >
+          <FlipCameraIosIcon />
+        </IconButton>
         <video
+          autoPlay
           ref={container}
           style={{
             width: '100%',
             height: '100%'
           }}
         />
-        <IconButton onClick={onClose} sx={{ position: 'absolute', right: 12, top: 12, color: '#fff' }}>
-          <CloseIcon />
-        </IconButton>
       </Box>
-    </Modal>
+      <Box>
+        <Button fullWidth onClick={onClose} variant='contained'>
+          Close
+        </Button>
+      </Box>
+    </Box>
   );
 }
-
-export default React.memo(QrScanner);
