@@ -1,5 +1,13 @@
 # @credential/app-store
 
+## 0.20.2
+
+### Patch Changes
+
+- f5549a7: fix some problems
+- Updated dependencies [f5549a7]
+  - @credential/react-dids@0.20.2
+
 ## 0.20.1
 
 ### Patch Changes

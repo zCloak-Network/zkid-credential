@@ -1,5 +1,16 @@
 # @credential/page-tasks
 
+## 0.20.2
+
+### Patch Changes
+
+- f5549a7: fix some problems
+- Updated dependencies [f5549a7]
+  - @credential/app-config@0.20.2
+  - @credential/react-components@0.20.2
+  - @credential/react-dids@0.20.2
+  - @credential/react-hooks@0.20.2
+
 ## 0.20.1
 
 ### Patch Changes

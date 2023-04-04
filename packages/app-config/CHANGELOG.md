@@ -1,5 +1,13 @@
 # @credential/app-config
 
+## 0.20.2
+
+### Patch Changes
+
+- f5549a7: fix some problems
+- Updated dependencies [f5549a7]
+  - @credential/react-components@0.20.2
+
 ## 0.20.1
 
 ### Patch Changes
