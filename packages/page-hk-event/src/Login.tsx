@@ -14,14 +14,12 @@ const Login = () => {
       flexDirection='column'
       position='relative'
       sx={{
-        height: '100%',
-        minHeight: 620,
+        height: 730,
         background: 'url(/hk-event/jpg_hk.webp) no-repeat #F4F5F9',
         backgroundPosition: 'bottom center'
       }}
     >
       <Box
-        // height={230}
         sx={{
           display: 'flex',
           alignItems: 'center',
@@ -40,7 +38,7 @@ const Login = () => {
         <Stack
           alignItems='center'
           direction='column'
-          pt={16}
+          pt={6.25}
           sx={{
             '.HK_TITLE': {
               color: '#000',
@@ -58,20 +56,19 @@ const Login = () => {
           </Typography>
           <Typography className='HK_TITLE'>HONG KONG WEB3 FESTIVAL</Typography>
           <Typography className='HK_TITLE'>2023</Typography>
-          <Typography
-            mb={4}
-            sx={{
-              '&.MuiTypography-root': {
-                fontSize: '13px',
-                fontFamily: 'Poppins'
-              }
-            }}
-          >
-            Powered by zCloak
-          </Typography>
           <ConnectWallet />
         </Stack>
       </Box>
+      <Stack alignItems='center' bottom={20} justifyContent='center' position='absolute' width='100%'>
+        <Typography
+          sx={{
+            fontSize: '13px',
+            fontFamily: 'Poppins'
+          }}
+        >
+          Powered by zCloak
+        </Typography>
+      </Stack>
     </Box>
   );
 };
