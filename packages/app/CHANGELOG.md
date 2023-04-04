@@ -1,5 +1,28 @@
 # zkid-credential
 
+## 0.21.0
+
+### Minor Changes
+
+- e7e4dad: add issue vc page
+  fix close qrscanner
+  separate hk event did
+
+### Patch Changes
+
+- Updated dependencies [e7e4dad]
+  - @credential/react-components@0.21.0
+  - @credential/app-config@0.21.0
+  - @credential/react-dids@0.21.0
+  - @credential/page-account@0.20.3
+  - @credential/page-claims@0.20.3
+  - @credential/page-ctype@0.20.3
+  - @credential/page-did@0.20.3
+  - @credential/page-issue@0.20.3
+  - @credential/page-message@0.20.3
+  - @credential/page-tasks@0.20.3
+  - @credential/react-hooks@0.20.3
+
 ## 0.20.3
 
 ### Patch Changes

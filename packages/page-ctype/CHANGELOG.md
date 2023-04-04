@@ -1,5 +1,17 @@
 # @credential/page-ctype
 
+## 0.20.3
+
+### Patch Changes
+
+- Updated dependencies [e7e4dad]
+  - @credential/react-components@0.21.0
+  - @credential/app-config@0.21.0
+  - @credential/react-dids@0.21.0
+  - @credential/react-ctype@0.20.3
+  - @credential/react-hooks@0.20.3
+  - @credential/app-store@0.20.3
+
 ## 0.20.2
 
 ### Patch Changes

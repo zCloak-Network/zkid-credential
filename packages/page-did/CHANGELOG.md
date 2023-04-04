@@ -1,5 +1,13 @@
 # @credential/page-did
 
+## 0.20.3
+
+### Patch Changes
+
+- Updated dependencies [e7e4dad]
+  - @credential/react-components@0.21.0
+  - @credential/react-dids@0.21.0
+
 ## 0.20.2
 
 ### Patch Changes
