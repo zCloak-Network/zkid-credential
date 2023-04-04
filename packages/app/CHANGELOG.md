@@ -1,5 +1,11 @@
 # zkid-credential
 
+## 0.20.3
+
+### Patch Changes
+
+- 26c30ff: fix claimer container style
+
 ## 0.20.2
 
 ### Patch Changes
