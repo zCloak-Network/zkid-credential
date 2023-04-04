@@ -30,8 +30,8 @@ function QrScanner({ onClose, onResult }: { onResult: (result: string) => void; 
         }}
       >
         <Scan onClose={onClose} onResult={onResult} />
-        <IconButton onClick={onClose} sx={{ position: 'absolute', right: 12, top: 12, color: '#fff' }}>
-          <CloseIcon />
+        <IconButton onClick={onClose} sx={{ position: 'absolute', right: 12, top: 12, color: '#000' }}>
+          <CloseIcon color='inherit' />
         </IconButton>
       </Box>
     </SwipeableDrawer>
@@ -81,9 +81,9 @@ function Scan({ onClose, onResult }: { onClose: () => void; onResult: (result: s
             setMode(value);
             scanner.current?.setCamera(value);
           }}
-          sx={{ position: 'absolute', left: 12, top: 12, color: '#fff' }}
+          sx={{ position: 'absolute', left: 12, top: 12, color: '#000', zIndex: 999 }}
         >
-          <FlipCameraIosIcon />
+          <FlipCameraIosIcon color='inherit' />
         </IconButton>
         <video
           autoPlay
