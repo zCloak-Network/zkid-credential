@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useMemo } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
-import { Box, Button, Stack, useMediaQuery, useTheme } from '@credential/react-components';
+import { Box, useMediaQuery, useTheme } from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
 import Header from '../Header';
@@ -14,7 +14,6 @@ import Sidebar from '../Sidebar';
 
 const Claimer: React.FC = () => {
   const { breakpoints, palette, transitions } = useTheme();
-  const navigate = useNavigate();
   const upMd = useMediaQuery(breakpoints.up('md'));
 
   const [open, toggleOpen] = useToggle(!!upMd);
@@ -48,45 +47,6 @@ const Claimer: React.FC = () => {
   return (
     <Box bgcolor='#F5F6FA' overflow='hidden' paddingTop='70px'>
       <Header toggleOpen={toggleOpen} unreads={unreads} />
-      <Box
-        sx={{
-          height: '150px',
-          background: 'url(./christmas2022/pic_bac.webp) no-repeat',
-          backgroundSize: 'auto 160px',
-          backgroundPosition: 'center',
-          backgroundColor: '#002A2A'
-        }}
-      >
-        <Stack
-          alignItems='center'
-          direction='row'
-          sx={{
-            justifyContent: 'space-around',
-            maxWidth: '400px',
-            margin: '0 auto',
-            paddingTop: '84px'
-          }}
-        >
-          <Button
-            onClick={() => navigate('/claimer/ctype')}
-            sx={{
-              width: '181px',
-              height: '39px',
-              background: 'url(./christmas2022/btn_start.webp) no-repeat',
-              backgroundSize: 'cover'
-            }}
-          />
-          <Button
-            onClick={() => window.open('https://zcloaknetwork.medium.com/christmas-card-event-9fa41796f0e5')}
-            sx={{
-              width: '181px',
-              height: '39px',
-              background: 'url(./christmas2022/btn_event.webp) no-repeat',
-              backgroundSize: 'cover'
-            }}
-          />
-        </Stack>
-      </Box>
       <Box overflow='hidden' position='relative'>
         <Sidebar accountType='claimer' items={items} open={open} toggleOpen={toggleOpen} />
         <Box

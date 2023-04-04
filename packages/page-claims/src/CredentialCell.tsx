@@ -55,7 +55,8 @@ const Wrapper = styled(Paper)(({ theme }) => ({
   '.CredentialCell_Status': {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    transform: isMobile ? 'translateY(40px)' : undefined
   },
   '.CredentialCell_Time': {
     color: theme.palette.grey[500],
