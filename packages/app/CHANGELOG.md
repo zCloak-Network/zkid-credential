@@ -1,5 +1,29 @@
 # zkid-credential
 
+## 0.20.3
+
+### Patch Changes
+
+- 26c30ff: fix claimer container style
+
+## 0.20.2
+
+### Patch Changes
+
+- f5549a7: fix some problems
+- Updated dependencies [f5549a7]
+  - @credential/page-claims@0.20.2
+  - @credential/app-config@0.20.2
+  - @credential/page-account@0.20.2
+  - @credential/page-ctype@0.20.2
+  - @credential/page-did@0.20.2
+  - @credential/page-issue@0.20.2
+  - @credential/page-message@0.20.2
+  - @credential/page-tasks@0.20.2
+  - @credential/react-components@0.20.2
+  - @credential/react-dids@0.20.2
+  - @credential/react-hooks@0.20.2
+
 ## 0.20.1
 
 ### Patch Changes
