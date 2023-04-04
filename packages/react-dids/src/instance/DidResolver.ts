@@ -144,4 +144,34 @@ export class CredentialDidResolver extends ArweaveDidResolver {
       return res.data;
     }
   }
+
+  async hkEventLogin(did: string): Promise<{ inWhitelist: boolean; orgName?: string }> {
+    const res = await get(`${this.server}/wxBlockchainEvent/connect`, { did });
+
+    if (res?.code !== 200) {
+      throw new Error(res?.message);
+    } else {
+      return res.data;
+    }
+  }
+
+  async sendHkMessage<T extends MessageType>(message: Message<MessageType>): Promise<ServerMessage<T>> {
+    const res = await post(`${this.server}/wxBlockchainEvent/message`, { ...message });
+
+    if (res?.code !== 200) {
+      throw new Error(res?.message);
+    } else {
+      return res.data;
+    }
+  }
+
+  async exportHkClaimers(didUrl: DidUrl): Promise<string[]> {
+    const res = await post(`${this.server}/wxBlockchainEvent/attester/${didUrl}/exportClaimers`);
+
+    if (res?.code !== 200) {
+      throw new Error(res?.message);
+    } else {
+      return res.data;
+    }
+  }
 }

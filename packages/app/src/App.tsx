@@ -14,6 +14,7 @@ import PageCType from '@credential/page-ctype';
 import PageCreateCType from '@credential/page-ctype/create';
 import PageOwnerCType from '@credential/page-ctype/OwnerCType';
 import PageDidProfile from '@credential/page-did/DidProfile';
+import PageHkEvent from '@credential/page-hk-event';
 import Issue from '@credential/page-issue';
 import PageMessage from '@credential/page-message';
 import PageAttesterMessage from '@credential/page-message/attester';
@@ -224,6 +225,7 @@ const App: React.FC = () => {
         <Route element={<PageRestoreAccount />} path='restore' />
         <Route element={<PageAccount />} index />
       </Route>
+      <Route element={<PageHkEvent />} path='event'></Route>
       <Route element={<NoMatch to='/claimer' />} path='*' />
     </Routes>
   );

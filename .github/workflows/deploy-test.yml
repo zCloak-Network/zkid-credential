@@ -2,7 +2,7 @@ name: Deploy test
 on:
   push:
     branches:
-      - master
+      - dev
 
 jobs:
   deploy-test:
