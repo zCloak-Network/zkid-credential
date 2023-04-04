@@ -73,8 +73,7 @@ function Scan({ onClose, onResult }: { onClose: () => void; onResult: (result: s
 
   return (
     <Box>
-      <Box />
-      <Box sx={{ position: 'relative', overflow: 'hidden' }}>
+      <Box>
         <IconButton
           onClick={() => {
             const value = mode === 'environment' ? 'user' : 'environment';
@@ -82,6 +81,7 @@ function Scan({ onClose, onResult }: { onClose: () => void; onResult: (result: s
             setMode(value);
             scanner.current?.setCamera(value);
           }}
+          sx={{ position: 'absolute', left: 12, top: 12, color: '#fff' }}
         >
           <FlipCameraIosIcon />
         </IconButton>
