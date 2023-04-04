@@ -50,7 +50,7 @@ const Claimer: React.FC = () => {
       <Box overflow='hidden' position='relative'>
         <Sidebar accountType='claimer' items={items} open={open} toggleOpen={toggleOpen} />
         <Box
-          height='calc(100vh - 230px)'
+          height='calc(100vh - 70px)'
           overflow='scroll'
           pl={upMd ? (open ? '230px' : '93px') : 0}
           sx={{
