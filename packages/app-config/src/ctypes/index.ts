@@ -50,6 +50,11 @@ export const ctypeMeta: Record<HexString, CTypeMeta> = {
     type: 'all',
     card: 'hk-event/png_bag_hk.webp',
     icon: 'hk-event/icon_logo.png'
+  },
+  '0x03f12f63adfbbe2af64945da2966bd92e5770680be0bf91d2c5baf803c1e8458': {
+    type: 'all',
+    card: 'hk-event/png_bag_hk.webp',
+    icon: 'hk-event/icon_logo.png'
   }
 };
 
