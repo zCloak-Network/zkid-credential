@@ -1,5 +1,13 @@
 # @credential/page-message
 
+## 0.20.4
+
+### Patch Changes
+
+- @credential/react-components@0.21.1
+- @credential/react-dids@0.21.1
+- @credential/react-hooks@0.20.4
+
 ## 0.20.3
 
 ### Patch Changes
