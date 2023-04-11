@@ -1,5 +1,11 @@
 # zkid-credential
 
+## 0.21.2
+
+### Patch Changes
+
+- add error message when init
+
 ## 0.21.1
 
 ### Patch Changes
