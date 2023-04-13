@@ -1,5 +1,31 @@
 # @credential/react-dids
 
+## 0.21.1
+
+### Patch Changes
+
+- Updated dependencies [1357b3b]
+  - @credential/app-config@0.22.0
+  - @credential/react-components@0.21.1
+  - @credential/react-hooks@0.20.4
+  - @credential/app-store@0.20.4
+
+## 0.21.0
+
+### Minor Changes
+
+- e7e4dad: add issue vc page
+  fix close qrscanner
+  separate hk event did
+
+### Patch Changes
+
+- Updated dependencies [e7e4dad]
+  - @credential/react-components@0.21.0
+  - @credential/app-config@0.21.0
+  - @credential/react-hooks@0.20.3
+  - @credential/app-store@0.20.3
+
 ## 0.20.2
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @credential/app-store
 
+## 0.20.4
+
+### Patch Changes
+
+- @credential/react-dids@0.21.1
+
+## 0.20.3
+
+### Patch Changes
+
+- Updated dependencies [e7e4dad]
+  - @credential/react-dids@0.21.0
+
 ## 0.20.2
 
 ### Patch Changes

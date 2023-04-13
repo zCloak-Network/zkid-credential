@@ -1,5 +1,28 @@
 # @credential/app-config
 
+## 0.22.0
+
+### Minor Changes
+
+- 1357b3b: add release ctype card
+
+### Patch Changes
+
+- @credential/react-components@0.21.1
+
+## 0.21.0
+
+### Minor Changes
+
+- e7e4dad: add issue vc page
+  fix close qrscanner
+  separate hk event did
+
+### Patch Changes
+
+- Updated dependencies [e7e4dad]
+  - @credential/react-components@0.21.0
+
 ## 0.20.2
 
 ### Patch Changes

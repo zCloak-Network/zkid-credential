@@ -20,4 +20,13 @@ const root = createRoot(rootElement);
 
 initCrypto()
   .then(() => initInstance())
-  .then(() => root.render(<Root />));
+  .then(() => root.render(<Root />))
+  .catch((error) => {
+    root.render(
+      <>
+        <p>{error?.message}</p>
+        <p>{error?.toString()}</p>
+        <p>{JSON.stringify(error)}</p>
+      </>
+    );
+  });
