@@ -3,7 +3,7 @@
   "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
   "contributors": [],
   "description": "credential interface app",
-  "homepage": "https://github.com/zCloak-Network/zkid-credential#readme",
+  "homepage": "https:/github.com/zCloak-Network/zkid-credential/tree/master/packages/app/#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "zkid-credential",
