@@ -3,7 +3,7 @@
   "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
   "contributors": [],
   "description": "credential app-config",
-  "homepage": "https://github.com/zCloak-Network/zkid-credential#readme",
+  "homepage": "https://github.com/zCloak-Network/zkid-credential/tree/master/packages/app-config#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@credential/app-config",
@@ -17,7 +17,7 @@
   "version": "0.22.0",
   "dependencies": {
     "@credential/react-components": "workspace:^",
-    "@zcloak/crypto": "^1.2.1",
-    "@zcloak/ctype": "^1.2.3"
+    "@zcloak/crypto": "^1.2.3",
+    "@zcloak/ctype": "^1.2.5"
   }
 }

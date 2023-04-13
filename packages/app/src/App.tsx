@@ -22,6 +22,7 @@ import PageTasks from '@credential/page-tasks';
 import PageRequestDetails from '@credential/page-tasks/RequestDetails';
 import { AppProvider, Box, CTypeProvider, useMediaQuery, useTheme } from '@credential/react-components';
 import { DidsProvider } from '@credential/react-dids';
+import { useGaInitial } from '@credential/react-hooks';
 
 import Account from './Account';
 import Attester from './Attester';
@@ -216,6 +217,8 @@ const AppClaimer = createClaimerApp();
 const AppAttester = createAttesterApp();
 
 const App: React.FC = () => {
+  useGaInitial();
+
   return (
     <Routes>
       {AppClaimer}
