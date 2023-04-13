@@ -3,7 +3,7 @@
   "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
   "contributors": [],
   "description": "credential react-hooks",
-  "homepage": "https:/github.com/zCloak-Network/zkid-credential/tree/master/packages/react-hooks/#readme",
+  "homepage": "https://github.com/zCloak-Network/zkid-credential/tree/master/packages/react-hooks#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@credential/react-hooks",

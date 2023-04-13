@@ -1,7 +1,7 @@
 {
   "author": "zCloak",
   "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
-  "homepage": "https:/github.com/zCloak-Network/zkid-credential/#readme",
+  "homepage": "https://github.com/zCloak-Network/zkid-credential#readme",
   "license": "Apache-2.0",
   "packageManager": "yarn@4.0.0-rc.40",
   "private": true,
@@ -45,7 +45,7 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/ua-parser-js": "^0.7.36",
-    "@zcloak/dev": "^0.27.2",
+    "@zcloak/dev": "^0.27.3",
     "concurrently": "^7.6.0",
     "devtron": "^1.4.0",
     "humps": "^2.0.1",

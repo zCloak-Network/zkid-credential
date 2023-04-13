@@ -3,7 +3,7 @@
   "bugs": "https://github.com/zCloak-Network/zkid-credential/issues",
   "contributors": [],
   "description": "credential page-tasks",
-  "homepage": "https:/github.com/zCloak-Network/zkid-credential/tree/master/packages/page-tasks/#readme",
+  "homepage": "https://github.com/zCloak-Network/zkid-credential/tree/master/packages/page-tasks#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@credential/page-tasks",
