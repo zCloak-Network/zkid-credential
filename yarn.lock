@@ -1431,6 +1431,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime-corejs3@npm:^7.21.0":
+  version: 7.21.0
+  resolution: "@babel/runtime-corejs3@npm:7.21.0"
+  dependencies:
+    core-js-pure: "npm:^3.25.1"
+    regenerator-runtime: "npm:^0.13.11"
+  checksum: f4990101d1d03f330cac65b5cfcd98c37f46e55ebc048abcb44f39477348789d36b75b6ab216007a949b462f6fb9b15ebb2e09e6e4b8e50b31ce4840f27f383b
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.20.1, @babel/runtime@npm:^7.20.13, @babel/runtime@npm:^7.20.6, @babel/runtime@npm:^7.20.7, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7":
   version: 7.21.0
   resolution: "@babel/runtime@npm:7.21.0"
@@ -1749,8 +1759,8 @@ __metadata:
   resolution: "@credential/app-config@workspace:packages/app-config"
   dependencies:
     "@credential/react-components": "workspace:^"
-    "@zcloak/crypto": "npm:^1.2.1"
-    "@zcloak/ctype": "npm:^1.2.3"
+    "@zcloak/crypto": "npm:^1.2.3"
+    "@zcloak/ctype": "npm:^1.2.5"
   languageName: unknown
   linkType: soft
 
@@ -1760,12 +1770,12 @@ __metadata:
   dependencies:
     "@credential/react-dids": "workspace:^"
     "@polkadot/util": "npm:^11.0.2"
-    "@zcloak/crypto": "npm:^1.2.1"
-    "@zcloak/ctype": "npm:^1.2.3"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/keyring": "npm:^1.1.1"
-    "@zcloak/message": "npm:^1.0.6"
-    "@zcloak/vc": "npm:^1.2.4"
+    "@zcloak/crypto": "npm:^1.2.3"
+    "@zcloak/ctype": "npm:^1.2.5"
+    "@zcloak/did-resolver": "npm:^1.1.2"
+    "@zcloak/keyring": "npm:^1.1.3"
+    "@zcloak/message": "npm:^1.0.8"
+    "@zcloak/vc": "npm:^1.2.6"
     dexie: "npm:^3.2.3"
   languageName: unknown
   linkType: soft
@@ -1781,10 +1791,10 @@ __metadata:
     "@mui/icons-material": "npm:^5.11.11"
     "@mui/material": "npm:^5.11.13"
     "@mui/system": "npm:^5.11.13"
-    "@zcloak/crypto": "npm:^1.2.1"
-    "@zcloak/did": "npm:^1.3.1"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/keyring": "npm:^1.1.1"
+    "@zcloak/crypto": "npm:^1.2.3"
+    "@zcloak/did": "npm:^1.3.3"
+    "@zcloak/did-resolver": "npm:^1.1.2"
+    "@zcloak/keyring": "npm:^1.1.3"
     file-saver: "npm:^2.0.5"
     react-router-dom: "npm:^6.9.0"
   languageName: unknown
@@ -1801,10 +1811,10 @@ __metadata:
     "@credential/react-hooks": "workspace:^"
     "@mui/icons-material": "npm:^5.11.11"
     "@polkadot/util": "npm:^11.0.2"
-    "@zcloak/did": "npm:^1.3.1"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/message": "npm:^1.0.6"
-    "@zcloak/vc": "npm:^1.2.4"
+    "@zcloak/did": "npm:^1.3.3"
+    "@zcloak/did-resolver": "npm:^1.1.2"
+    "@zcloak/message": "npm:^1.0.8"
+    "@zcloak/vc": "npm:^1.2.6"
     file-saver: "npm:^2.0.5"
     moment: "npm:^2.29.4"
   languageName: unknown
@@ -1821,11 +1831,11 @@ __metadata:
     "@credential/react-dids": "workspace:^"
     "@credential/react-hooks": "workspace:^"
     "@mui/icons-material": "npm:^5.11.11"
-    "@zcloak/ctype": "npm:^1.2.3"
-    "@zcloak/did": "npm:^1.3.1"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/message": "npm:^1.0.6"
-    "@zcloak/vc": "npm:^1.2.4"
+    "@zcloak/ctype": "npm:^1.2.5"
+    "@zcloak/did": "npm:^1.3.3"
+    "@zcloak/did-resolver": "npm:^1.1.2"
+    "@zcloak/message": "npm:^1.0.8"
+    "@zcloak/vc": "npm:^1.2.6"
     react-router-dom: "npm:^6.9.0"
   languageName: unknown
   linkType: soft
@@ -1837,10 +1847,10 @@ __metadata:
     "@credential/react-components": "workspace:^"
     "@credential/react-dids": "workspace:^"
     "@polkadot/util": "npm:^11.0.2"
-    "@zcloak/crypto": "npm:^1.2.1"
-    "@zcloak/did": "npm:^1.3.1"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/keyring": "npm:^1.1.1"
+    "@zcloak/crypto": "npm:^1.2.3"
+    "@zcloak/did": "npm:^1.3.3"
+    "@zcloak/did-resolver": "npm:^1.1.2"
+    "@zcloak/keyring": "npm:^1.1.3"
   languageName: unknown
   linkType: soft
 
@@ -1848,8 +1858,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@credential/page-hk-event@workspace:packages/page-hk-event"
   dependencies:
-    "@zcloak/login-did": "npm:^1.1.2"
-    "@zcloak/login-providers": "npm:^1.2.0"
+    "@zcloak/login-did": "npm:^1.1.4"
+    "@zcloak/login-providers": "npm:^1.2.2"
     "@zcloak/ui-store": "npm:^0.9.7"
   languageName: unknown
   linkType: soft
@@ -1865,11 +1875,11 @@ __metadata:
     "@credential/react-ctype": "workspace:^"
     "@credential/react-dids": "workspace:^"
     "@credential/react-hooks": "workspace:^"
-    "@zcloak/ctype": "npm:^1.2.3"
-    "@zcloak/did": "npm:^1.3.1"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/message": "npm:^1.0.6"
-    "@zcloak/vc": "npm:^1.2.4"
+    "@zcloak/ctype": "npm:^1.2.5"
+    "@zcloak/did": "npm:^1.3.3"
+    "@zcloak/did-resolver": "npm:^1.1.2"
+    "@zcloak/message": "npm:^1.0.8"
+    "@zcloak/vc": "npm:^1.2.6"
   languageName: unknown
   linkType: soft
 
@@ -1880,13 +1890,13 @@ __metadata:
     "@credential/react-components": "workspace:^"
     "@credential/react-dids": "workspace:^"
     "@credential/react-hooks": "workspace:^"
-    "@zcloak/crypto": "npm:^1.2.1"
-    "@zcloak/ctype": "npm:^1.2.3"
-    "@zcloak/did": "npm:^1.3.1"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/keyring": "npm:^1.1.1"
-    "@zcloak/message": "npm:^1.0.6"
-    "@zcloak/vc": "npm:^1.2.4"
+    "@zcloak/crypto": "npm:^1.2.3"
+    "@zcloak/ctype": "npm:^1.2.5"
+    "@zcloak/did": "npm:^1.3.3"
+    "@zcloak/did-resolver": "npm:^1.1.2"
+    "@zcloak/keyring": "npm:^1.1.3"
+    "@zcloak/message": "npm:^1.0.8"
+    "@zcloak/vc": "npm:^1.2.6"
     moment: "npm:^2.29.4"
   languageName: unknown
   linkType: soft
@@ -1900,11 +1910,11 @@ __metadata:
     "@credential/react-dids": "workspace:^"
     "@credential/react-hooks": "workspace:^"
     "@mui/icons-material": "npm:^5.11.11"
-    "@zcloak/ctype": "npm:^1.2.3"
-    "@zcloak/did": "npm:^1.3.1"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/message": "npm:^1.0.6"
-    "@zcloak/vc": "npm:^1.2.4"
+    "@zcloak/ctype": "npm:^1.2.5"
+    "@zcloak/did": "npm:^1.3.3"
+    "@zcloak/did-resolver": "npm:^1.1.2"
+    "@zcloak/message": "npm:^1.0.8"
+    "@zcloak/vc": "npm:^1.2.6"
     moment: "npm:^2.29.4"
     react-router-dom: "npm:^6.9.0"
   languageName: unknown
@@ -1925,14 +1935,14 @@ __metadata:
     "@mui/material": "npm:^5.11.13"
     "@mui/system": "npm:^5.11.13"
     "@polkadot/util": "npm:^11.0.2"
-    "@zcloak/ctype": "npm:^1.2.3"
-    "@zcloak/did": "npm:^1.3.1"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/keyring": "npm:^1.1.1"
-    "@zcloak/login-did": "npm:^1.1.2"
-    "@zcloak/message": "npm:^1.0.6"
-    "@zcloak/vc": "npm:^1.2.4"
-    "@zcloak/verify": "npm:^1.3.1"
+    "@zcloak/ctype": "npm:^1.2.5"
+    "@zcloak/did": "npm:^1.3.3"
+    "@zcloak/did-resolver": "npm:^1.1.2"
+    "@zcloak/keyring": "npm:^1.1.3"
+    "@zcloak/login-did": "npm:^1.1.4"
+    "@zcloak/message": "npm:^1.0.8"
+    "@zcloak/vc": "npm:^1.2.6"
+    "@zcloak/verify": "npm:^1.3.3"
     qr-scanner: "npm:^1.4.2"
     qrcode-generator: "npm:^1.4.4"
     react-dropzone: "npm:^14.2.3"
@@ -1949,7 +1959,7 @@ __metadata:
     "@credential/react-dids": "workspace:^"
     "@mui/icons-material": "npm:^5.11.11"
     "@polkadot/util": "npm:^11.0.2"
-    "@zcloak/ctype": "npm:^1.2.3"
+    "@zcloak/ctype": "npm:^1.2.5"
   languageName: unknown
   linkType: soft
 
@@ -1963,18 +1973,18 @@ __metadata:
     "@credential/react-hooks": "workspace:^"
     "@mui/icons-material": "npm:^5.11.11"
     "@polkadot/util": "npm:^11.0.2"
-    "@zcloak/crypto": "npm:^1.2.1"
-    "@zcloak/ctype": "npm:^1.2.3"
-    "@zcloak/did": "npm:^1.3.1"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/keyring": "npm:^1.1.1"
-    "@zcloak/login-did": "npm:^1.1.2"
-    "@zcloak/login-providers": "npm:^1.2.0"
-    "@zcloak/message": "npm:^1.0.6"
+    "@zcloak/crypto": "npm:^1.2.3"
+    "@zcloak/ctype": "npm:^1.2.5"
+    "@zcloak/did": "npm:^1.3.3"
+    "@zcloak/did-resolver": "npm:^1.1.2"
+    "@zcloak/keyring": "npm:^1.1.3"
+    "@zcloak/login-did": "npm:^1.1.4"
+    "@zcloak/login-providers": "npm:^1.2.2"
+    "@zcloak/message": "npm:^1.0.8"
     "@zcloak/ui-did-keyring": "npm:^1.1.8"
     "@zcloak/ui-store": "npm:^0.9.7"
-    "@zcloak/vc": "npm:^1.2.4"
-    "@zcloak/verify": "npm:^1.3.1"
+    "@zcloak/vc": "npm:^1.2.6"
+    "@zcloak/verify": "npm:^1.3.3"
     eventemitter3: "npm:^5.0.0"
     react-router-dom: "npm:^6.9.0"
   languageName: unknown
@@ -1988,17 +1998,18 @@ __metadata:
     "@credential/react-components": "workspace:^"
     "@credential/react-dids": "workspace:^"
     "@polkadot/util": "npm:^11.0.2"
-    "@zcloak/crypto": "npm:^1.2.1"
-    "@zcloak/ctype": "npm:^1.2.3"
-    "@zcloak/did": "npm:^1.3.1"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/keyring": "npm:^1.1.1"
-    "@zcloak/login-did": "npm:^1.1.2"
-    "@zcloak/message": "npm:^1.0.6"
-    "@zcloak/vc": "npm:^1.2.4"
-    "@zcloak/verify": "npm:^1.3.1"
+    "@zcloak/crypto": "npm:^1.2.3"
+    "@zcloak/ctype": "npm:^1.2.5"
+    "@zcloak/did": "npm:^1.3.3"
+    "@zcloak/did-resolver": "npm:^1.1.2"
+    "@zcloak/keyring": "npm:^1.1.3"
+    "@zcloak/login-did": "npm:^1.1.4"
+    "@zcloak/message": "npm:^1.0.8"
+    "@zcloak/vc": "npm:^1.2.6"
+    "@zcloak/verify": "npm:^1.3.3"
     copy-to-clipboard: "npm:^3.3.3"
     dexie: "npm:^3.2.3"
+    react-ga4: "npm:^2.1.0"
     react-router-dom: "npm:^6.9.0"
     search-query-parser: "npm:^1.6.0"
     ua-parser-js: "npm:^1.0.34"
@@ -4901,7 +4912,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/crypto@npm:1.2.1, @zcloak/crypto@npm:^1.1.0, @zcloak/crypto@npm:^1.2.1":
+"@zcloak/crypto@npm:1.2.1, @zcloak/crypto@npm:^1.1.0":
   version: 1.2.1
   resolution: "@zcloak/crypto@npm:1.2.1"
   dependencies:
@@ -4919,22 +4930,40 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/ctype@npm:1.2.3, @zcloak/ctype@npm:^1.2.3":
+"@zcloak/crypto@npm:1.2.3, @zcloak/crypto@npm:^1.2.3":
   version: 1.2.3
-  resolution: "@zcloak/ctype@npm:1.2.3"
+  resolution: "@zcloak/crypto@npm:1.2.3"
   dependencies:
-    "@polkadot/util": "npm:^10.2.1"
-    "@zcloak/crypto": "npm:1.2.1"
-    "@zcloak/did": "npm:1.3.1"
-    "@zcloak/did-resolver": "npm:1.1.0"
-    jsonschema: "npm:^1.4.1"
-  checksum: e1a30ed41eb106a2c0c731886b7dc52fd451ad471f4fecbf8935258647f4d59c0f6f4c8e97f5dedfe679eb904109afcffa05009ed906334b9d5b63bea1e431cb
+    "@noble/hashes": "npm:^1.2.0"
+    "@noble/secp256k1": "npm:^1.7.1"
+    "@polkadot/util": "npm:^11.1.3"
+    "@scure/base": "npm:^1.1.1"
+    "@zcloak/wasm-bridge": "npm:1.0.2"
+    bip39: "npm:^3.1.0"
+    canonicalize: "npm:^2.0.0"
+    ed2curve: "npm:^0.3.0"
+    ethereumjs-abi: "npm:^0.6.8"
+    tweetnacl: "npm:^1.0.3"
+  checksum: cd55d3a39a2021f0c13e524e8ed88ea4c04e305029ac3ee66867c74650167842c7786c4adc2c8c58ac7bbbcc6b1a13e3867b4920eb62282adfafac275df6cd5c
   languageName: node
   linkType: hard
 
-"@zcloak/dev@npm:^0.26.0":
-  version: 0.26.0
-  resolution: "@zcloak/dev@npm:0.26.0"
+"@zcloak/ctype@npm:1.2.5, @zcloak/ctype@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "@zcloak/ctype@npm:1.2.5"
+  dependencies:
+    "@polkadot/util": "npm:^11.1.3"
+    "@zcloak/crypto": "npm:1.2.3"
+    "@zcloak/did": "npm:1.3.3"
+    "@zcloak/did-resolver": "npm:1.1.2"
+    jsonschema: "npm:^1.4.1"
+  checksum: 25952fe7157cda4a61fcbff6a22eff3a163463814c4e719ad5d2502e211b28323614f2b06ef9f0063f915a467c277294f53a5fba43b62709390d288ed41ba511
+  languageName: node
+  linkType: hard
+
+"@zcloak/dev@npm:^0.27.2":
+  version: 0.27.2
+  resolution: "@zcloak/dev@npm:0.27.2"
   dependencies:
     "@babel/cli": "npm:^7.21.0"
     "@babel/core": "npm:^7.21.3"
@@ -4953,13 +4982,14 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.21.0"
     "@babel/register": "npm:^7.21.0"
     "@babel/runtime": "npm:^7.21.0"
+    "@babel/runtime-corejs3": "npm:^7.21.0"
     "@changesets/changelog-github": "npm:^0.4.8"
     "@changesets/cli": "npm:^2.26.0"
     "@manypkg/get-packages": "npm:^2.1.0"
     "@rushstack/eslint-patch": "npm:^1.2.0"
     "@typescript-eslint/eslint-plugin": "npm:^5.55.0"
     "@typescript-eslint/parser": "npm:^5.55.0"
-    "@zcloak/lint": "npm:0.23.0"
+    "@zcloak/lint": "npm:0.24.1"
     babel-jest: "npm:^29.5.0"
     babel-plugin-module-extension-resolver: "npm:^1.0.0"
     babel-plugin-module-resolver: "npm:^5.0.0"
@@ -5000,7 +5030,7 @@ __metadata:
     mkdirp: "npm:^2.1.5"
     prettier: "npm:^2.8.4"
     rimraf: "npm:^4.4.0"
-    typescript: "npm:^5.0.1-rc"
+    typescript: "npm:^5.0.4"
     webpack: "npm:^5.76.1"
     webpack-cli: "npm:^5.0.1"
     webpack-dev-server: "npm:^4.12.0"
@@ -5014,7 +5044,6 @@ __metadata:
     zcloak-dev-bump-version: scripts/zcloak-dev-bump-version.mjs
     zcloak-dev-circular: scripts/zcloak-dev-circular.mjs
     zcloak-dev-clean-build: scripts/zcloak-dev-clean-build.mjs
-    zcloak-dev-copy-to: scripts/zcloak-dev-copy-to.mjs
     zcloak-dev-lint-dependencies: scripts/zcloak-dev-lint-dependencies.mjs
     zcloak-dev-run-lint: scripts/zcloak-dev-run-lint.mjs
     zcloak-dev-run-prettier: scripts/zcloak-dev-run-prettier.mjs
@@ -5027,7 +5056,7 @@ __metadata:
     zcloak-exec-prettier: scripts/zcloak-exec-prettier.mjs
     zcloak-exec-tsc: scripts/zcloak-exec-tsc.mjs
     zcloak-exec-webpack: scripts/zcloak-exec-webpack.mjs
-  checksum: f8353da2f116b7b6afc7e04b284413434adec21114e4714121211ff49d06b56f083dd6810520b8c7db6d53a408790c2d42712bef66cec8af7a9421ba56a4d964
+  checksum: 2e4cc1ddf92b69e239d5f78d66331ae6c659df6372353914456854f184c44a86441dacc9c537a992ef4bcd80da4095e80213bab344fa6c0564bd594067bfe757
   languageName: node
   linkType: hard
 
@@ -5057,7 +5086,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/did@npm:1.3.1, @zcloak/did@npm:^1.1.0, @zcloak/did@npm:^1.3.0, @zcloak/did@npm:^1.3.1":
+"@zcloak/did-resolver@npm:1.1.2, @zcloak/did-resolver@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@zcloak/did-resolver@npm:1.1.2"
+  dependencies:
+    cross-fetch: "npm:^3.1.5"
+  checksum: 85e28ee4120f01ad54202375bbc1360bf0b22c6989898e45c8d42921c2dede7553a714a494b49a795492367af0dd378eaf62516ed8009f7dd5f18bde13069750
+  languageName: node
+  linkType: hard
+
+"@zcloak/did@npm:1.3.3, @zcloak/did@npm:^1.3.3":
+  version: 1.3.3
+  resolution: "@zcloak/did@npm:1.3.3"
+  dependencies:
+    "@polkadot/util": "npm:^11.1.3"
+    "@zcloak/crypto": "npm:1.2.3"
+    "@zcloak/did-resolver": "npm:1.1.2"
+    "@zcloak/keyring": "npm:1.1.3"
+  checksum: 8cd8a7489a57a4bce00db523462f811fe41af869e138fe512de0deaf4b6c23d39a0de5c39a76c1ac0dca1747661277d9d6a33043ddbfd8c7c61a27beb2adb052
+  languageName: node
+  linkType: hard
+
+"@zcloak/did@npm:^1.1.0":
   version: 1.3.1
   resolution: "@zcloak/did@npm:1.3.1"
   dependencies:
@@ -5069,7 +5119,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/keyring@npm:1.1.1, @zcloak/keyring@npm:^1.0.1, @zcloak/keyring@npm:^1.1.1":
+"@zcloak/keyring@npm:1.1.1, @zcloak/keyring@npm:^1.0.1":
   version: 1.1.1
   resolution: "@zcloak/keyring@npm:1.1.1"
   dependencies:
@@ -5079,70 +5129,80 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/lint@npm:0.23.0":
-  version: 0.23.0
-  resolution: "@zcloak/lint@npm:0.23.0"
+"@zcloak/keyring@npm:1.1.3, @zcloak/keyring@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "@zcloak/keyring@npm:1.1.3"
+  dependencies:
+    "@polkadot/util": "npm:^11.1.3"
+    "@zcloak/crypto": "npm:1.2.3"
+  checksum: 563b837501fec19362629ee9f825a2b7629d8485508ad264d4d51cbe5867a13c6a30cf7b75d867c04ab1e77875998bf78d4437f6c4de11a7f9a79380c51447c2
+  languageName: node
+  linkType: hard
+
+"@zcloak/lint@npm:0.24.1":
+  version: 0.24.1
+  resolution: "@zcloak/lint@npm:0.24.1"
   dependencies:
     chalk: "npm:^5.2.0"
     glob: "npm:^9.3.0"
     parse-imports-ts: "npm:^1.0.3"
     throat: "npm:^6.0.2"
-  checksum: e3b5f2336c786f3f23e3f55ca7e7433f61ded2084e20f8785ba6fe0bb06c0c060267e660aaf352ddc0a0b598f55b09db89798fd881cc5c263d6272d69d45d835
+  checksum: 2a87dc8fd90404de8f90abb2fecdeb996715a2eed942926e120d3b34633e0b209992657bfe9311deb2754da3c33e3a9bd78f4d540cf02ba2cc123b79ec872032
   languageName: node
   linkType: hard
 
-"@zcloak/login-did@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "@zcloak/login-did@npm:1.1.2"
+"@zcloak/login-did@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "@zcloak/login-did@npm:1.1.4"
   dependencies:
-    "@polkadot/util": "npm:^10.3.1"
-    "@zcloak/did": "npm:^1.3.0"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/login-providers": "npm:1.2.0"
-  checksum: 1e2919ee9ef6c85241ee0b49e47159774f165e16cf0db15e4916e698980b6a458c44a78750ee798807f88bd0460c29078f97c321b6d4e2a4a1d19433c7a5f7e8
+    "@polkadot/util": "npm:^11.1.3"
+    "@zcloak/did": "npm:1.3.3"
+    "@zcloak/did-resolver": "npm:1.1.2"
+    "@zcloak/login-providers": "npm:1.2.2"
+  checksum: 1c47ccb08dbf0a8028b7c165c7621c8d9a415664a76b39d338579a3ceabb978c7a756464edf704fd797525fbc50a7334405ff684222284b25d5cf5a3b875d487
   languageName: node
   linkType: hard
 
-"@zcloak/login-providers@npm:1.2.0, @zcloak/login-providers@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@zcloak/login-providers@npm:1.2.0"
+"@zcloak/login-providers@npm:1.2.2, @zcloak/login-providers@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "@zcloak/login-providers@npm:1.2.2"
   dependencies:
-    "@polkadot/util": "npm:^10.3.1"
-    "@zcloak/login-rpc": "npm:1.1.0"
-    "@zcloak/login-rpc-defines": "npm:1.2.0"
+    "@polkadot/util": "npm:^11.1.3"
+    "@zcloak/login-rpc": "npm:1.1.2"
+    "@zcloak/login-rpc-defines": "npm:1.2.2"
     eventemitter3: "npm:^5.0.0"
-  checksum: ebdc77e5ac8550869f993fe9b07403afd653bb9df7c36f75fa7c5f040ff2c2869a23b696dd4c99adddf7a8ca9a9362387b35da706f2edd34f09e1e508a9e5b2c
+  checksum: 71d0d27b0f46ab94aa6e9f94fae8f0d542a12af4330ac6c77a9e597f55a71554734758ddecfae9993a59abb3093387bb532ae9010fb5c19c9d2c30a5d706d29e
   languageName: node
   linkType: hard
 
-"@zcloak/login-rpc-defines@npm:1.2.0":
-  version: 1.2.0
-  resolution: "@zcloak/login-rpc-defines@npm:1.2.0"
+"@zcloak/login-rpc-defines@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@zcloak/login-rpc-defines@npm:1.2.2"
   dependencies:
-    "@zcloak/login-rpc": "npm:1.1.0"
-  checksum: c563f94ea3a4e8bca77ce745c09fa5a7accd57fc33eb9fe9269e7b47f3eaafc5056411ad9c415bdd462628c5ea54e12f6ec71735363dca2e784484a884961a74
+    "@zcloak/login-rpc": "npm:1.1.2"
+  checksum: 5c4f328012ff42642bbf3d8aeab66098268816ace83f3fc760962202f7269f400af6dc83ca1d55950ce5ea3a981569290520cd0d3a41b719442ac39b586eee87
   languageName: node
   linkType: hard
 
-"@zcloak/login-rpc@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@zcloak/login-rpc@npm:1.1.0"
+"@zcloak/login-rpc@npm:1.1.2":
+  version: 1.1.2
+  resolution: "@zcloak/login-rpc@npm:1.1.2"
   dependencies:
-    "@polkadot/util": "npm:^10.3.1"
-  checksum: 8dc701d0c75db6612a6dabc17ca8db574e5582c519cfa69072a9ec4570f299f5bda10b43045c558ad1c173b7d49e428a9420b8fb15200df52645a38029d37e7f
+    "@polkadot/util": "npm:^11.1.3"
+  checksum: f68d0ad4f2e7c4101da240c763c0516eb05c6f0016477ea7f95a6966d71a59e76315717750d45b9cb002f3fbd149579acbb5c3ac321cfd1e3810571ae65b2f6b
   languageName: node
   linkType: hard
 
-"@zcloak/message@npm:^1.0.6":
-  version: 1.0.6
-  resolution: "@zcloak/message@npm:1.0.6"
+"@zcloak/message@npm:^1.0.8":
+  version: 1.0.8
+  resolution: "@zcloak/message@npm:1.0.8"
   dependencies:
-    "@polkadot/util": "npm:^10.3.1"
-    "@zcloak/crypto": "npm:1.2.1"
-    "@zcloak/did": "npm:1.3.1"
-    "@zcloak/did-resolver": "npm:1.1.0"
-    "@zcloak/vc": "npm:1.2.4"
-  checksum: 2b4ff0ab693d996a8ef1ef0b8b0fdaed2706041b69c6dc9507fb7a632ecde1a922897ae1386195c9653987df3180c9cedc98933a97fc34b3d08e41f75f476bff
+    "@polkadot/util": "npm:^11.1.3"
+    "@zcloak/crypto": "npm:1.2.3"
+    "@zcloak/did": "npm:1.3.3"
+    "@zcloak/did-resolver": "npm:1.1.2"
+    "@zcloak/vc": "npm:1.2.6"
+  checksum: c69caa610615cb50a25a83d144d3132571389b3859020e3be53d3a162e159c6614a7f73838ecde03acf8bf0d2aa495c0b08ebdbc96824666235e903b1e4d6af5
   languageName: node
   linkType: hard
 
@@ -5170,37 +5230,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/vc@npm:1.2.4, @zcloak/vc@npm:^1.2.4":
-  version: 1.2.4
-  resolution: "@zcloak/vc@npm:1.2.4"
+"@zcloak/vc@npm:1.2.6, @zcloak/vc@npm:^1.2.6":
+  version: 1.2.6
+  resolution: "@zcloak/vc@npm:1.2.6"
   dependencies:
-    "@polkadot/util": "npm:^10.3.1"
-    "@zcloak/crypto": "npm:1.2.1"
-    "@zcloak/ctype": "npm:1.2.3"
-    "@zcloak/did": "npm:1.3.1"
+    "@polkadot/util": "npm:^11.1.3"
+    "@zcloak/crypto": "npm:1.2.3"
+    "@zcloak/ctype": "npm:1.2.5"
+    "@zcloak/did": "npm:1.3.3"
     merkletreejs: "npm:^0.3.9"
-  checksum: cdd9e91f5649cc2a8fa9f0b954447c22d98d5c604a16fb54ee15d6e33022462d0007b1efe0343cab8612908fa23596123e57cbd0cc1205c3e8f10130557294d8
+  checksum: 56bad7c199bb985071fb942c7ebe412e104b4ce78ca619d6a02ded47d6a5a37fdaee7974a3e755282e19f8f352291320f75a4b8303add6e510cc03b7d7f5a7f3
   languageName: node
   linkType: hard
 
-"@zcloak/verify@npm:^1.3.1":
-  version: 1.3.1
-  resolution: "@zcloak/verify@npm:1.3.1"
+"@zcloak/verify@npm:^1.3.3":
+  version: 1.3.3
+  resolution: "@zcloak/verify@npm:1.3.3"
   dependencies:
-    "@polkadot/util": "npm:^10.3.1"
-    "@zcloak/crypto": "npm:1.2.1"
-    "@zcloak/ctype": "npm:1.2.3"
-    "@zcloak/did": "npm:1.3.1"
-    "@zcloak/did-resolver": "npm:1.1.0"
-    "@zcloak/vc": "npm:1.2.4"
-  checksum: dea5c26b8aa3e80c56de9720ca7b76ca3b9e36c05101383466898e663ea209a030016c3749bce113e9cf48ae09376c0b69c452820d00329665f62a51f7ee22ca
+    "@polkadot/util": "npm:^11.1.3"
+    "@zcloak/crypto": "npm:1.2.3"
+    "@zcloak/ctype": "npm:1.2.5"
+    "@zcloak/did": "npm:1.3.3"
+    "@zcloak/did-resolver": "npm:1.1.2"
+    "@zcloak/vc": "npm:1.2.6"
+  checksum: 959d9984dd79e6304728d3e8f32a5680e162812eb01666e3d88bbcdc5815fcfabc36f18fe3c2940ca8faa765f2d0c47878357a2aa47ff3391e785bd41d570e1f
   languageName: node
   linkType: hard
 
-"@zcloak/wasm-asm@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@zcloak/wasm-asm@npm:1.0.0"
-  checksum: 565690b93859e9400d96ae4d7c5afa4d667a475cfb4d79ce3aa5137e9b2be0310e412c9ec97c0f49be1a3ed8abf9078985a63d64697dd62ea253b5cd3f74345a
+"@zcloak/wasm-asm@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@zcloak/wasm-asm@npm:1.0.2"
+  checksum: 33bd4b491bc836e4a3690b944f572c2575876a11e6de39a63a135a8ef13938eb928475da1d0be5cfe10dd6a8b9e69b7c9fe1f8ab486d9c2a0681336055294892
   languageName: node
   linkType: hard
 
@@ -5216,10 +5276,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/wasm@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@zcloak/wasm@npm:1.0.0"
-  checksum: 3562c63990ebc4a8c80b04bd60becc6e39a6a53cb9b5054ff409affc7204987fa0b505f620e057e03cc6bc16dd84c0be511f7d90ca5fbed909eb11f3e9579a4c
+"@zcloak/wasm-bridge@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@zcloak/wasm-bridge@npm:1.0.2"
+  dependencies:
+    "@polkadot/util": "npm:^11.1.3"
+  peerDependencies:
+    "@zcloak/wasm": 1.0.2
+    "@zcloak/wasm-asm": 1.0.2
+  checksum: f01f65e02d3fe6f7d483811fdb6e34fe93415c4621a3b2fc5e51c49d00f3b52d31e6879d9d8e0863cc6969fb1c8da9e3de0f75fecde98d487a21d9963865da8a
+  languageName: node
+  linkType: hard
+
+"@zcloak/wasm@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@zcloak/wasm@npm:1.0.2"
+  checksum: abecf4c1d7729a1fb8a39a6104777dc9ab933adfb5e55fffea79a80b4de436ccd156bc3dbc5bc2cd10a95f4b9dd24a2df6354708695d5b82f723d048f256c154
   languageName: node
   linkType: hard
 
@@ -6083,7 +6155,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bip39@npm:^3.0.4":
+"bip39@npm:^3.0.4, bip39@npm:^3.1.0":
   version: 3.1.0
   resolution: "bip39@npm:3.1.0"
   dependencies:
@@ -6531,6 +6603,13 @@ __metadata:
   version: 1.0.8
   resolution: "canonicalize@npm:1.0.8"
   checksum: a4464dc5785705ca329c977d9cdfc610d7631f371a7f909afed0c3d2208cdde287626caad1e9bb46bd0adf8360312bca66a3b1e18ae6f7a3c97529c0cf8c2791
+  languageName: node
+  linkType: hard
+
+"canonicalize@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "canonicalize@npm:2.0.0"
+  checksum: 805062465afc354d4c1319216558136bd1ceab86d406de431d7167604326e48b6406b6b75804e563b5a1880754627c9101e4850958ce15efc77ec788b29eefdd
   languageName: node
   linkType: hard
 
@@ -7358,6 +7437,13 @@ __metadata:
   dependencies:
     browserslist: "npm:^4.21.5"
   checksum: 129755fec80fe8fcc7dcd048d1502cc87a41aae04a2ad724cb49ec55f86756b03eb385ad8974736afad8a2d634baff43ec5bc5178a13a885476403287c622702
+  languageName: node
+  linkType: hard
+
+"core-js-pure@npm:^3.25.1":
+  version: 3.30.0
+  resolution: "core-js-pure@npm:3.30.0"
+  checksum: da1369da504a1fb52e1a75c47f2f92b38221b2d8bd3690363f0a4328946f9381af7bd31e0be80e449909ff419e012faec5122f28401789253cfa21e48e129437
   languageName: node
   linkType: hard
 
@@ -15592,6 +15678,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-ga4@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "react-ga4@npm:2.1.0"
+  checksum: e99dd71619c786adc44be738ae8334631712b9ea135a8f644f3d7dedfe87ec03029ab7edfdbfa02d359f0ad931ae8c8a5fff1b5f08fcf2f6f104bcc9a9311cae
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1, react-is@npm:^16.7.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -16227,7 +16320,7 @@ __metadata:
     "@types/react": "npm:^18.0.28"
     "@types/react-dom": "npm:^18.0.11"
     "@types/ua-parser-js": "npm:^0.7.36"
-    "@zcloak/dev": "npm:^0.26.0"
+    "@zcloak/dev": "npm:^0.27.2"
     concurrently: "npm:^7.6.0"
     devtron: "npm:^1.4.0"
     humps: "npm:^2.0.1"
@@ -19022,18 +19115,18 @@ __metadata:
     "@mui/icons-material": "npm:^5.11.11"
     "@svgr/webpack": "npm:^6.5.1"
     "@types/punycode": "npm:^2.1.0"
-    "@zcloak/crypto": "npm:^1.2.1"
-    "@zcloak/ctype": "npm:^1.2.3"
-    "@zcloak/dev": "npm:^0.26.0"
-    "@zcloak/did": "npm:^1.3.1"
-    "@zcloak/did-resolver": "npm:^1.1.0"
-    "@zcloak/keyring": "npm:^1.1.1"
-    "@zcloak/login-did": "npm:^1.1.2"
-    "@zcloak/message": "npm:^1.0.6"
-    "@zcloak/vc": "npm:^1.2.4"
-    "@zcloak/verify": "npm:^1.3.1"
-    "@zcloak/wasm": "npm:^1.0.0"
-    "@zcloak/wasm-asm": "npm:^1.0.0"
+    "@zcloak/crypto": "npm:^1.2.3"
+    "@zcloak/ctype": "npm:^1.2.5"
+    "@zcloak/dev": "npm:^0.27.2"
+    "@zcloak/did": "npm:^1.3.3"
+    "@zcloak/did-resolver": "npm:^1.1.2"
+    "@zcloak/keyring": "npm:^1.1.3"
+    "@zcloak/login-did": "npm:^1.1.4"
+    "@zcloak/message": "npm:^1.0.8"
+    "@zcloak/vc": "npm:^1.2.6"
+    "@zcloak/verify": "npm:^1.3.3"
+    "@zcloak/wasm": "npm:^1.0.2"
+    "@zcloak/wasm-asm": "npm:^1.0.2"
     assert: "npm:^2.0.0"
     babel-loader: "npm:^9.1.2"
     buffer: "npm:^6.0.3"

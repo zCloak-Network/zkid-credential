@@ -4,6 +4,7 @@
 export * from './useCopyClipboard';
 export * from './useCTypeMeta';
 export * from './useDebounce';
+export * from './useGaInitial';
 export * from './useInterval';
 export * from './useLiveQuery';
 export * from './useLocalStorage';
