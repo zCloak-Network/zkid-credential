@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.22.2](https://github.com/zCloak-Network/zkid-credential/compare/v0.22.0...v0.22.2) (2023-04-17)
+
+
+### Bug Fixes
+
+* fix exists problem ([2ce39c0](https://github.com/zCloak-Network/zkid-credential/commit/2ce39c04680ed0f877afcea653e611d9032eee27))
+
+
 ## [0.15.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.14.1...v0.15.0) (2023-02-15)
 
 
