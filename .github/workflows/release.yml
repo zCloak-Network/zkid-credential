@@ -32,6 +32,7 @@ jobs:
       - name: build:release
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
+          GH_RELEASE_GITHUB_API_TOKEN: ${{ secrets.GH_PAT }}
           GH_RELEASE_FILES: zkid-credential.zip
         run: yarn build:release
 
