@@ -34,7 +34,7 @@ jobs:
           GH_RELEASE_FILES: zkid-credential.zip
         run: yarn build:release
 
-      - name: Deploy to server
+      - name: Deploy to stable environment
         uses: appleboy/scp-action@master
         with:
           username: ubuntu
@@ -42,6 +42,6 @@ jobs:
           port: 22
           key: ${{ secrets.KEY }}
           source: ${{ github.workspace }}/packages/app/build
-          target: "/home/ubuntu/wallet"
+          target: "/home/ubuntu/cred"
           strip_components: 5
           rm: true
