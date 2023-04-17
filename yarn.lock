@@ -4952,9 +4952,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/dev@npm:^0.29.0":
-  version: 0.29.0
-  resolution: "@zcloak/dev@npm:0.29.0"
+"@zcloak/dev@npm:^0.29.1":
+  version: 0.29.1
+  resolution: "@zcloak/dev@npm:0.29.1"
   dependencies:
     "@babel/cli": "npm:^7.21.0"
     "@babel/core": "npm:^7.21.3"
@@ -5048,7 +5048,7 @@ __metadata:
     zcloak-exec-prettier: scripts/zcloak-exec-prettier.mjs
     zcloak-exec-tsc: scripts/zcloak-exec-tsc.mjs
     zcloak-exec-webpack: scripts/zcloak-exec-webpack.mjs
-  checksum: e3986b44116841db468c87e3750655d83059f5feb2530e586b7c98ad6200694dfb00224b1b9d9358375b12136152d18a446340673703697d2367e592b373e939
+  checksum: 1789a4c9157ee10818b0b6be2d0dd4f08a4efba7d5069d9d60cfae8084ea7808a28ad21a69d9bc114321073e455a615c5e7fb4c0326923d9f018440a8cfcd2c8
   languageName: node
   linkType: hard
 
@@ -16274,7 +16274,7 @@ __metadata:
     "@types/react": "npm:^18.0.28"
     "@types/react-dom": "npm:^18.0.11"
     "@types/ua-parser-js": "npm:^0.7.36"
-    "@zcloak/dev": "npm:^0.29.0"
+    "@zcloak/dev": "npm:^0.29.1"
     concurrently: "npm:^7.6.0"
     devtron: "npm:^1.4.0"
     humps: "npm:^2.0.1"
@@ -19064,7 +19064,7 @@ __metadata:
     "@types/punycode": "npm:^2.1.0"
     "@zcloak/crypto": "npm:^1.2.3"
     "@zcloak/ctype": "npm:^1.2.5"
-    "@zcloak/dev": "npm:^0.29.0"
+    "@zcloak/dev": "npm:^0.29.1"
     "@zcloak/did": "npm:^1.3.3"
     "@zcloak/did-resolver": "npm:^1.1.2"
     "@zcloak/keyring": "npm:^1.1.3"
