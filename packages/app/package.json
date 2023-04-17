@@ -52,7 +52,7 @@
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
     "@types/punycode": "^2.1.0",
-    "@zcloak/dev": "^0.27.3",
+    "@zcloak/dev": "^0.29.0",
     "assert": "^2.0.0",
     "babel-loader": "^9.1.2",
     "buffer": "^6.0.3",

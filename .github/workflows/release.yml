@@ -2,18 +2,16 @@ name: Release
 
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - master
 
 jobs:
   release:
-    if: github.repository == 'zCloak-Network/zkid-credential'
+    if: "! startsWith(github.event.head_commit.message, 'chore: release')"
     runs-on: ubuntu-latest
     environment: master
     env:
       YARN_ENABLE_SCRIPTS: false
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     steps:
       - uses: actions/checkout@v3
@@ -31,9 +29,12 @@ jobs:
           yarn install --immutable | grep -v 'YN0013'
 
       - name: build:release
-        run: yarn run build:release
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_RELEASE_FILES: zkid-credential.zip
+        run: yarn build:release
 
-      - name: Deploy to stable environment
+      - name: Deploy to server
         uses: appleboy/scp-action@master
         with:
           username: ubuntu
@@ -41,17 +42,6 @@ jobs:
           port: 22
           key: ${{ secrets.KEY }}
           source: ${{ github.workspace }}/packages/app/build
-          target: "/home/ubuntu/cred"
+          target: "/home/ubuntu/wallet"
           strip_components: 5
           rm: true
-
-      - name: Generate release description
-        run: yarn run get-release-text
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          draft: false
-          files: zkid-credential.zip
-          body_path: RELEASE.md
-
