@@ -46,14 +46,14 @@ export const ctypeMeta: Record<HexString, CTypeMeta> = {
     color: '#FFFFFF'
   },
   // hk-event
-  '0x449fc52725462c610c9c1652fe208c205b654e9a5133d3bbfe99d010de99fe4f': {
+  '0x92df1b439f0280b3099531c9b26a2bf9bca02ec8bbb341eafe317a046d3cbda4': {
     type: 'all',
-    card: 'hk-event/png_bag_hk.webp',
+    card: 'hk-event/bag_card_teaxs.svg',
     icon: 'hk-event/icon_logo.png'
   },
-  '0x03f12f63adfbbe2af64945da2966bd92e5770680be0bf91d2c5baf803c1e8458': {
+  '0x5d8ec528de14ceafef6991244d4350af8b3a638dc18654a73d3c255e5c2b3e9e': {
     type: 'all',
-    card: 'hk-event/png_bag_hk.webp',
+    card: 'hk-event/bag_card_teaxs.svg',
     icon: 'hk-event/icon_logo.png'
   }
 };
