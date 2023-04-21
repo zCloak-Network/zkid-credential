@@ -3,8 +3,6 @@
 
 import { Box, Stack, Typography } from '@mui/material';
 
-import { IconWeb3 } from '@credential/app-config';
-
 import ConnectWallet from './ConnectWallet';
 
 const Login = () => {
@@ -15,8 +13,8 @@ const Login = () => {
       position='relative'
       sx={{
         height: 730,
-        background: 'url(/hk-event/jpg_hk.webp) no-repeat #F4F5F9',
-        backgroundPosition: 'bottom center'
+        background: 'url(/hk-event/bag_texas.svg) no-repeat #F4F5F9',
+        backgroundPosition: 'top center'
       }}
     >
       <Box
@@ -47,15 +45,27 @@ const Login = () => {
             }
           }}
         >
-          <Box className='Logo_Icons'>
-            <img height={22} src={IconWeb3} width={33} />
-          </Box>
-
+          <Stack direction='row' mt={3} spacing={3.75}>
+            <Box
+              className='Logo_Icons'
+              sx={{
+                background: 'url(/hk-event/logo_1.svg) no-repeat #F4F5F9'
+              }}
+            ></Box>
+            <Box
+              className='Logo_Icons'
+              sx={{
+                background: 'url(/hk-event/logo_2.svg) no-repeat #F4F5F9'
+              }}
+            ></Box>
+          </Stack>
           <Typography className='HK_TITLE' mt={3.5}>
             WELCOME TO
           </Typography>
-          <Typography className='HK_TITLE'>HONG KONG WEB3 FESTIVAL</Typography>
-          <Typography className='HK_TITLE'>2023</Typography>
+          <Typography className='HK_TITLE'>ETH Austin & Consensus </Typography>
+          <Typography className='HK_TITLE' mb={2}>
+            2023
+          </Typography>
           <ConnectWallet />
         </Stack>
       </Box>
