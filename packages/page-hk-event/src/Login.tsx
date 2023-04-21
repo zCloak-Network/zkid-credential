@@ -49,15 +49,17 @@ const Login = () => {
             <Box
               className='Logo_Icons'
               sx={{
-                background: 'url(/hk-event/logo_1.svg) no-repeat #F4F5F9'
+                background: 'url(/hk-event/logo_1.png) no-repeat #F4F5F9',
+                backgroundSize: 'cover'
               }}
-            ></Box>
+            />
             <Box
               className='Logo_Icons'
               sx={{
-                background: 'url(/hk-event/logo_2.svg) no-repeat #F4F5F9'
+                background: 'url(/hk-event/logo_2.png) no-repeat #F4F5F9',
+                backgroundSize: 'cover'
               }}
-            ></Box>
+            />
           </Stack>
           <Typography className='HK_TITLE' mt={3.5}>
             WELCOME TO
