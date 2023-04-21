@@ -1,5 +1,11 @@
 # zkid-credential
 
+## 0.22.0
+
+### Minor Changes
+
+- ae054c4: add google analytics
+
 ## 0.21.2
 
 ### Patch Changes

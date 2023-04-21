@@ -14,7 +14,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.21.2",
+  "version": "0.22.2",
   "dependencies": {
     "@babel/core": "^7.21.3",
     "@babel/polyfill": "^7.12.1",
@@ -52,7 +52,7 @@
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
     "@types/punycode": "^2.1.0",
-    "@zcloak/dev": "^0.27.3",
+    "@zcloak/dev": "^0.29.1",
     "assert": "^2.0.0",
     "babel-loader": "^9.1.2",
     "buffer": "^6.0.3",
