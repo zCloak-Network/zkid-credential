@@ -14,7 +14,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.20.9",
+  "version": "0.21.0",
   "dependencies": {
     "@credential/react-components": "workspace:^",
     "@credential/react-dids": "workspace:^",

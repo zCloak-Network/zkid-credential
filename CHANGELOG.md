@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.23.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.22.2...v0.23.0) (2023-04-21)
+
+
+### Features
+
+* change hk event to eth austin event ([#30](https://github.com/zCloak-Network/zkid-credential/issues/30)) ([f84aa03](https://github.com/zCloak-Network/zkid-credential/commit/f84aa032b17d3e94ec63da88108a82c0029b69b3))
+
+
 ## [0.22.2](https://github.com/zCloak-Network/zkid-credential/compare/v0.22.0...v0.22.2) (2023-04-17)
 
 
