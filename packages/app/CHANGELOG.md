@@ -1,5 +1,30 @@
 # zkid-credential
 
+## 0.24.0
+
+### Minor Changes
+
+- f84aa03: add issue vc page
+  fix close qrscanner
+  separate hk event did
+- f84aa03: change hk event to eth austin event
+
+### Patch Changes
+
+- Updated dependencies [f84aa03]
+- Updated dependencies [f84aa03]
+  - @credential/react-components@0.23.0
+  - @credential/app-config@0.24.0
+  - @credential/react-dids@0.23.0
+  - @credential/page-account@0.21.1
+  - @credential/page-claims@0.21.1
+  - @credential/page-ctype@0.21.1
+  - @credential/page-did@0.21.1
+  - @credential/page-issue@0.21.1
+  - @credential/page-message@0.21.1
+  - @credential/page-tasks@0.21.1
+  - @credential/react-hooks@0.21.1
+
 ## 0.22.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @credential/app-config
 
+## 0.24.0
+
+### Minor Changes
+
+- f84aa03: add issue vc page
+  fix close qrscanner
+  separate hk event did
+- f84aa03: change hk event to eth austin event
+
+### Patch Changes
+
+- Updated dependencies [f84aa03]
+  - @credential/react-components@0.23.0
+
 ## 0.22.0
 
 ### Minor Changes

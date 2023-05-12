@@ -1,5 +1,14 @@
 # @credential/page-message
 
+## 0.21.1
+
+### Patch Changes
+
+- Updated dependencies [f84aa03]
+  - @credential/react-components@0.23.0
+  - @credential/react-dids@0.23.0
+  - @credential/react-hooks@0.21.1
+
 ## 0.20.4
 
 ### Patch Changes
