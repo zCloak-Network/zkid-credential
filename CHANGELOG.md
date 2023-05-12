@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.24.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.23.0...v0.24.0) (2023-05-12)
+
+
+### Features
+
+* upgrade zkid sdk ([83a3249](https://github.com/zCloak-Network/zkid-credential/commit/83a3249cf4f36637805bf5452144951d9f43c246))
+
+
 ## [0.23.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.22.2...v0.23.0) (2023-04-21)
 
 
