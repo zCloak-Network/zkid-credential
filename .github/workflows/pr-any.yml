@@ -9,17 +9,20 @@ jobs:
     name: ${{ matrix.step }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-    - name: Setup Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: "16"
-        cache: "yarn"
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "yarn"
 
-    - name: ${{ matrix.step }}
-      run: |
-        yarn install --immutable | grep -v 'YN0013'
-        yarn ${{ matrix.step }}
+      - name: Install deps
+        run: |
+          yarn install --immutable | grep -v 'YN0013'
+
+      - name: ${{ matrix.step }}
+        run: |
+          yarn ${{ matrix.step }}
