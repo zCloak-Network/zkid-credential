@@ -20,7 +20,7 @@ import PageMessage from '@credential/page-message';
 import PageAttesterMessage from '@credential/page-message/attester';
 import PageTasks from '@credential/page-tasks';
 import PageRequestDetails from '@credential/page-tasks/RequestDetails';
-import { AppProvider, Box, CTypeProvider, useMediaQuery, useTheme } from '@credential/react-components';
+import { AppProvider, Box, CTypeProvider, useMediaQuery, useTheme, WagmiProvider } from '@credential/react-components';
 import { DidsProvider } from '@credential/react-dids';
 import { useGaInitial } from '@credential/react-hooks';
 
@@ -69,11 +69,13 @@ function Container({
 
 function BaseProvider({ children, role }: { children: any; role: DidRole }) {
   return (
-    <DidsProvider didRole={role}>
-      <AppProvider>
-        <CTypeProvider>{children}</CTypeProvider>
-      </AppProvider>
-    </DidsProvider>
+    <WagmiProvider>
+      <DidsProvider didRole={role}>
+        <AppProvider>
+          <CTypeProvider>{children}</CTypeProvider>
+        </AppProvider>
+      </DidsProvider>
+    </WagmiProvider>
   );
 }
 

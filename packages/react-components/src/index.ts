@@ -37,6 +37,8 @@ export { default as QrScanner } from './QrScanner';
 export { default as Recaptcha } from './Recaptcha';
 export { default as StepIcon } from './StepIcon';
 export { default as TaskStatusDisplay } from './TaskStatusDisplay';
+export { default as WagmiProvider } from './WagmiProvider';
+export { default as ButtonEnableMetamask } from './ButtonEnableMetamask';
 
 // export @mui/material
 export {
