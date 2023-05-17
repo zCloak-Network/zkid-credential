@@ -24,6 +24,8 @@
       "@credential/page-issue/*": ["page-issue/src/*"],
       "@credential/page-message": ["page-message/src"],
       "@credential/page-message/*": ["page-message/src/*"],
+      "@credential/page-sbt": ["page-sbt/src"],
+      "@credential/page-sbt/*": ["page-sbt/src/*"],
       "@credential/page-tasks": ["page-tasks/src"],
       "@credential/page-tasks/*": ["page-tasks/src/*"],
       "@credential/react-components": ["react-components/src"],

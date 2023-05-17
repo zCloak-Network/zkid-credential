@@ -62,7 +62,7 @@ function Header({
 }: {
   isAttester?: boolean;
   unreads: UseNotification;
-  toggleOpen: () => void;
+  toggleOpen?: () => void;
 }) {
   const { did, isLocked, lock } = useContext(DidsContext);
   const navigate = useNavigate();
@@ -94,7 +94,7 @@ function Header({
         })}
       >
         <Stack alignItems='center' direction='row' spacing={upMd ? 2 : 1}>
-          {!upMd && (
+          {toggleOpen && !upMd && (
             <IconButton onClick={toggleOpen} sx={{ padding: 0.5 }}>
               <MenuIcon />
             </IconButton>

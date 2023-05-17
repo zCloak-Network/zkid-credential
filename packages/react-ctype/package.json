@@ -18,8 +18,14 @@
   "dependencies": {
     "@credential/react-components": "workspace:^",
     "@credential/react-dids": "workspace:^",
-    "@mui/icons-material": "^5.11.11",
     "@polkadot/util": "^11.0.2",
     "@zcloak/ctype": "^1.2.11"
+  },
+  "peerDependencies": {
+    "@mui/icons-material": "^*",
+    "@mui/material": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-router-dom": "*"
   }
 }
