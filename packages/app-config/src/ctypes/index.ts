@@ -48,7 +48,7 @@ export const ctypeMeta: Record<HexString, CTypeMeta> = {
   // hk-event
   '0x6c62809700813f4ffb59ea97a31f4d34e206a4233bc2bb75bed1d705c4314930': {
     type: 'all',
-    card: 'hk-event/bag_card_teaxs.svg',
+    card: 'hk-event/bag_card_edcon.png',
     icon: 'hk-event/icon_logo.png'
   }
 };
