@@ -1786,6 +1786,12 @@ __metadata:
     "@credential/react-components": "workspace:^"
     "@zcloak/crypto": "npm:^1.4.2"
     "@zcloak/ctype": "npm:^1.2.11"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -1813,15 +1819,18 @@ __metadata:
     "@credential/react-components": "workspace:^"
     "@credential/react-dids": "workspace:^"
     "@credential/react-hooks": "workspace:^"
-    "@mui/icons-material": "npm:^5.11.11"
-    "@mui/material": "npm:^5.11.13"
-    "@mui/system": "npm:^5.11.13"
     "@zcloak/crypto": "npm:^1.4.2"
     "@zcloak/did": "npm:^1.3.9"
     "@zcloak/did-resolver": "npm:^1.1.3"
     "@zcloak/keyring": "npm:^1.1.9"
     file-saver: "npm:^2.0.5"
     react-router-dom: "npm:^6.9.0"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -1834,7 +1843,6 @@ __metadata:
     "@credential/react-components": "workspace:^"
     "@credential/react-dids": "workspace:^"
     "@credential/react-hooks": "workspace:^"
-    "@mui/icons-material": "npm:^5.11.11"
     "@polkadot/util": "npm:^11.0.2"
     "@zcloak/did": "npm:^1.3.9"
     "@zcloak/did-resolver": "npm:^1.1.3"
@@ -1842,6 +1850,12 @@ __metadata:
     "@zcloak/vc": "npm:^1.3.2"
     file-saver: "npm:^2.0.5"
     moment: "npm:^2.29.4"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -1855,13 +1869,17 @@ __metadata:
     "@credential/react-ctype": "workspace:^"
     "@credential/react-dids": "workspace:^"
     "@credential/react-hooks": "workspace:^"
-    "@mui/icons-material": "npm:^5.11.11"
     "@zcloak/ctype": "npm:^1.2.11"
     "@zcloak/did": "npm:^1.3.9"
     "@zcloak/did-resolver": "npm:^1.1.3"
     "@zcloak/message": "npm:^1.0.14"
     "@zcloak/vc": "npm:^1.3.2"
-    react-router-dom: "npm:^6.9.0"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -1876,6 +1894,12 @@ __metadata:
     "@zcloak/did": "npm:^1.3.9"
     "@zcloak/did-resolver": "npm:^1.1.3"
     "@zcloak/keyring": "npm:^1.1.9"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -1886,6 +1910,12 @@ __metadata:
     "@zcloak/login-did": "npm:^1.1.12"
     "@zcloak/login-providers": "npm:^1.2.6"
     "@zcloak/ui-store": "npm:^0.9.7"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -1905,6 +1935,12 @@ __metadata:
     "@zcloak/did-resolver": "npm:^1.1.3"
     "@zcloak/message": "npm:^1.0.14"
     "@zcloak/vc": "npm:^1.3.2"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -1923,6 +1959,37 @@ __metadata:
     "@zcloak/message": "npm:^1.0.14"
     "@zcloak/vc": "npm:^1.3.2"
     moment: "npm:^2.29.4"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
+  languageName: unknown
+  linkType: soft
+
+"@credential/page-sbt@workspace:packages/page-sbt":
+  version: 0.0.0-use.local
+  resolution: "@credential/page-sbt@workspace:packages/page-sbt"
+  dependencies:
+    "@credential/app-config": "workspace:^"
+    "@credential/app-store": "workspace:^"
+    "@credential/page-ctype": "workspace:^"
+    "@credential/react-components": "workspace:^"
+    "@credential/react-ctype": "workspace:^"
+    "@credential/react-dids": "workspace:^"
+    "@credential/react-hooks": "workspace:^"
+    "@zcloak/ctype": "npm:^1.2.11"
+    "@zcloak/did": "npm:^1.3.9"
+    "@zcloak/did-resolver": "npm:^1.1.3"
+    "@zcloak/message": "npm:^1.0.14"
+    "@zcloak/vc": "npm:^1.3.2"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -1934,14 +2001,18 @@ __metadata:
     "@credential/react-components": "workspace:^"
     "@credential/react-dids": "workspace:^"
     "@credential/react-hooks": "workspace:^"
-    "@mui/icons-material": "npm:^5.11.11"
     "@zcloak/ctype": "npm:^1.2.11"
     "@zcloak/did": "npm:^1.3.9"
     "@zcloak/did-resolver": "npm:^1.1.3"
     "@zcloak/message": "npm:^1.0.14"
     "@zcloak/vc": "npm:^1.3.2"
     moment: "npm:^2.29.4"
-    react-router-dom: "npm:^6.9.0"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -1953,12 +2024,7 @@ __metadata:
     "@credential/app-store": "workspace:^"
     "@credential/react-dids": "workspace:^"
     "@credential/react-hooks": "workspace:^"
-    "@emotion/react": "npm:^11.10.6"
-    "@emotion/styled": "npm:^11.10.6"
     "@metamask/jazzicon": "npm:^2.0.0"
-    "@mui/icons-material": "npm:^5.11.11"
-    "@mui/material": "npm:^5.11.13"
-    "@mui/system": "npm:^5.11.13"
     "@polkadot/util": "npm:^11.0.2"
     "@zcloak/ctype": "npm:^1.2.11"
     "@zcloak/did": "npm:^1.3.9"
@@ -1975,6 +2041,12 @@ __metadata:
     socket.io-client: "npm:^4.6.1"
     viem: "npm:^0.3.26"
     wagmi: "npm:^1.0.5"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -1984,9 +2056,14 @@ __metadata:
   dependencies:
     "@credential/react-components": "workspace:^"
     "@credential/react-dids": "workspace:^"
-    "@mui/icons-material": "npm:^5.11.11"
     "@polkadot/util": "npm:^11.0.2"
     "@zcloak/ctype": "npm:^1.2.11"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -1998,7 +2075,6 @@ __metadata:
     "@credential/app-store": "workspace:^"
     "@credential/react-components": "workspace:^"
     "@credential/react-hooks": "workspace:^"
-    "@mui/icons-material": "npm:^5.11.11"
     "@polkadot/util": "npm:^11.0.2"
     "@zcloak/crypto": "npm:^1.4.2"
     "@zcloak/ctype": "npm:^1.2.11"
@@ -2013,7 +2089,12 @@ __metadata:
     "@zcloak/vc": "npm:^1.3.2"
     "@zcloak/verify": "npm:^1.3.9"
     eventemitter3: "npm:^5.0.0"
-    react-router-dom: "npm:^6.9.0"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -2040,6 +2121,12 @@ __metadata:
     react-router-dom: "npm:^6.9.0"
     search-query-parser: "npm:^1.6.0"
     ua-parser-js: "npm:^1.0.34"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 
@@ -2115,7 +2202,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.10.6":
+"@emotion/react@npm:^11.11.0":
   version: 11.11.0
   resolution: "@emotion/react@npm:11.11.0"
   dependencies:
@@ -2156,7 +2243,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/styled@npm:^11.10.6":
+"@emotion/styled@npm:^11.11.0":
   version: 11.11.0
   resolution: "@emotion/styled@npm:11.11.0"
   dependencies:
@@ -3506,6 +3593,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mui/base@npm:5.0.0-beta.1":
+  version: 5.0.0-beta.1
+  resolution: "@mui/base@npm:5.0.0-beta.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.21.0"
+    "@emotion/is-prop-valid": "npm:^1.2.0"
+    "@mui/types": "npm:^7.2.4"
+    "@mui/utils": "npm:^5.13.1"
+    "@popperjs/core": "npm:^2.11.7"
+    clsx: "npm:^1.2.1"
+    prop-types: "npm:^15.8.1"
+    react-is: "npm:^18.2.0"
+  peerDependencies:
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 58c45ef04cb6fe3f69c6c65c28130de535d5e0e3635488b4b90c34a6323ac576812a90adbdf83b141efadeb98f4a8ed12a581dfe5fff05368bdd8fdea12d8dcc
+  languageName: node
+  linkType: hard
+
 "@mui/core-downloads-tracker@npm:^5.13.0":
   version: 5.13.0
   resolution: "@mui/core-downloads-tracker@npm:5.13.0"
@@ -3513,7 +3623,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/icons-material@npm:^5.11.11":
+"@mui/icons-material@npm:^*, @mui/icons-material@npm:^5.11.16":
   version: 5.11.16
   resolution: "@mui/icons-material@npm:5.11.16"
   dependencies:
@@ -3529,7 +3639,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material@npm:^5.0.0, @mui/material@npm:^5.11.13":
+"@mui/lab@npm:^5.0.0-alpha.130":
+  version: 5.0.0-alpha.130
+  resolution: "@mui/lab@npm:5.0.0-alpha.130"
+  dependencies:
+    "@babel/runtime": "npm:^7.21.0"
+    "@mui/base": "npm:5.0.0-beta.1"
+    "@mui/system": "npm:^5.13.1"
+    "@mui/types": "npm:^7.2.4"
+    "@mui/utils": "npm:^5.13.1"
+    clsx: "npm:^1.2.1"
+    prop-types: "npm:^15.8.1"
+    react-is: "npm:^18.2.0"
+  peerDependencies:
+    "@emotion/react": ^11.5.0
+    "@emotion/styled": ^11.3.0
+    "@mui/material": ^5.0.0
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@emotion/react":
+      optional: true
+    "@emotion/styled":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: f6b4c680264c9d9c725e688667a30036234079a9fb8065233c5b1b6f47944f5aee15f4dd75ba1e6df62a3ecdcbb07ee4157a446c6d68364184c74336a1f3f634
+  languageName: node
+  linkType: hard
+
+"@mui/material@npm:^5.0.0, @mui/material@npm:^5.13.0":
   version: 5.13.0
   resolution: "@mui/material@npm:5.13.0"
   dependencies:
@@ -3579,6 +3719,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mui/private-theming@npm:^5.13.1":
+  version: 5.13.1
+  resolution: "@mui/private-theming@npm:5.13.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.21.0"
+    "@mui/utils": "npm:^5.13.1"
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 122b4b3e46ac38d86554c699f6af3c24ebc79768517374b52ad27bc1d34d0deec6fcd06ba7f2f6159cc9490596c34ca9bbb90fb58e279db06b99bd837a777738
+  languageName: node
+  linkType: hard
+
 "@mui/styled-engine@npm:^5.12.3":
   version: 5.12.3
   resolution: "@mui/styled-engine@npm:5.12.3"
@@ -3600,7 +3757,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/system@npm:^5.11.13, @mui/system@npm:^5.12.3":
+"@mui/system@npm:^5.12.3":
   version: 5.12.3
   resolution: "@mui/system@npm:5.12.3"
   dependencies:
@@ -3628,6 +3785,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mui/system@npm:^5.13.1":
+  version: 5.13.1
+  resolution: "@mui/system@npm:5.13.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.21.0"
+    "@mui/private-theming": "npm:^5.13.1"
+    "@mui/styled-engine": "npm:^5.12.3"
+    "@mui/types": "npm:^7.2.4"
+    "@mui/utils": "npm:^5.13.1"
+    clsx: "npm:^1.2.1"
+    csstype: "npm:^3.1.2"
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    "@emotion/react": ^11.5.0
+    "@emotion/styled": ^11.3.0
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@emotion/react":
+      optional: true
+    "@emotion/styled":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: b069ab04da2179a5b0ec21bbf351b6b0238d4e1c75ededb1e177719c52046aedc969d2465abda1a5b93f57084a5efc69d24b2b20230a8336b0db674c4347e96c
+  languageName: node
+  linkType: hard
+
 "@mui/types@npm:^7.2.4":
   version: 7.2.4
   resolution: "@mui/types@npm:7.2.4"
@@ -3652,6 +3837,21 @@ __metadata:
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
   checksum: 092d17e9e4c19d9eb47a066e655f4e95cc54fefcaf3f35c401d1d36585aa6fafeb35d79edc52dffc13eb33f23db69e9134c5f79c6a8c1646b4ac08bda035bd66
+  languageName: node
+  linkType: hard
+
+"@mui/utils@npm:^5.13.1":
+  version: 5.13.1
+  resolution: "@mui/utils@npm:5.13.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.21.0"
+    "@types/prop-types": "npm:^15.7.5"
+    "@types/react-is": "npm:^18.2.0"
+    prop-types: "npm:^15.8.1"
+    react-is: "npm:^18.2.0"
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0
+  checksum: 37870c7e05bba7b210466483541b948dd2d8b128ef6e1f025d7694bc23fef2a7cbae547df151f82d67b35c741086c198767ea78b2be66a05b7b8c2d4eab20b98
   languageName: node
   linkType: hard
 
@@ -3836,8 +4036,8 @@ __metadata:
   linkType: hard
 
 "@octokit/request@npm:^6.0.0":
-  version: 6.2.3
-  resolution: "@octokit/request@npm:6.2.3"
+  version: 6.2.4
+  resolution: "@octokit/request@npm:6.2.4"
   dependencies:
     "@octokit/endpoint": "npm:^7.0.0"
     "@octokit/request-error": "npm:^3.0.0"
@@ -3845,7 +4045,7 @@ __metadata:
     is-plain-object: "npm:^5.0.0"
     node-fetch: "npm:^2.6.7"
     universal-user-agent: "npm:^6.0.0"
-  checksum: d70a57f89746e7cf17f440aad68e4a1114d2af93117a069a4e97a63290a428582907e62d50ae737a2401b59d07d43c0115eeec382d86a0289e143133e6788eae
+  checksum: d0df18629a7db86b4dbc90ac230e525e845bb5a9877729ebc8f250853604a0a92b983bc0f456c375d36912717e32a585730c1414f848d2f5b7a54d65e8d5709c
   languageName: node
   linkType: hard
 
@@ -4389,6 +4589,15 @@ __metadata:
     "@noble/hashes": "npm:~1.3.0"
     "@scure/base": "npm:~1.1.0"
   checksum: 5de25086d6330db807c6531b9e930ee8291ef4245cb68fa4495eaaa58f18ecd558a815ff6ffa9cc767af27d9053fc1ca90b904c49bdf63e4bc9ca68c1da53fa1
+  languageName: node
+  linkType: hard
+
+"@settlemint/merkle-tools@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "@settlemint/merkle-tools@npm:1.0.7"
+  dependencies:
+    js-sha3: "npm:^0.8.0"
+  checksum: 5f27d5f25421d2a1a00591ce2c1dac5ca7fe0852643a150667dc3cc6dd6e93d84ba1ae15b42aa9a36133e66fb44b7985970c0952efa05026a197d6cc853367e2
   languageName: node
   linkType: hard
 
@@ -5243,9 +5452,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 20.1.5
-  resolution: "@types/node@npm:20.1.5"
-  checksum: 7c5e634a77629afe8825acf8b79274cfc5c137f0d4b72cd56d5e91a62e5998ec22b4f6c3e1b6ef6ef9e6247dcedfa4a4d7854977a920d6effad4c0d69be4c6f1
+  version: 20.1.7
+  resolution: "@types/node@npm:20.1.7"
+  checksum: 82a1481e8b6d92913a3ef9ee1a8c37d8b12c889eeff058fb2cf04f5249f61eb7d28557d18e3e9c24f2fc960359b5abe9bf9642b091fc7e990c5d7ded35eae033
   languageName: node
   linkType: hard
 
@@ -5336,6 +5545,15 @@ __metadata:
   dependencies:
     "@types/react": "npm:^17"
   checksum: 37f34822b0e4b78af5f3915ca8d35ea295382bcda053f5b5dbb082fbb99f4ff7d37dc41f0bccbc3ee15a1463741ec4af826dfff08b27dd418088cdf907a4216c
+  languageName: node
+  linkType: hard
+
+"@types/react-is@npm:^18.2.0":
+  version: 18.2.0
+  resolution: "@types/react-is@npm:18.2.0"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 5e5f7c9ce0287ddfa83d39ea26bfab64eed0c75f862f65804de9667accfb18da356c3c2677e1e660206278d93bcc40f5904b47ec272a9d9cd640ceef224bcb4b
   languageName: node
   linkType: hard
 
@@ -6640,6 +6858,17 @@ __metadata:
     "@zcloak/did-resolver": "npm:1.1.3"
     "@zcloak/vc": "npm:1.3.2"
   checksum: 27e9f11b2932a393ed96c4f3b852198bbb7ea26924c5c4b733771935f8449de3d8a1a94b6b615f1cebc4c06768fdadc337eb3ffb58909861f51f75e315220815
+  languageName: node
+  linkType: hard
+
+"@zcloak/miden@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@zcloak/miden@npm:1.2.0"
+  dependencies:
+    "@polkadot/util": "npm:^12.1.2"
+    "@settlemint/merkle-tools": "npm:^1.0.7"
+    "@zcloak/wasm-bridge": "npm:1.1.2"
+  checksum: 4f40a3b853d59a6bf2507155de004d08534b020abd664851f78398b5008c75b89b75f7ec4de19dce2d114b8feb14433668f0e649ba163ea8f5403a0e3408d789
   languageName: node
   linkType: hard
 
@@ -10134,9 +10363,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.284":
-  version: 1.4.396
-  resolution: "electron-to-chromium@npm:1.4.396"
-  checksum: 9eacf7f556c2f1b14a328d1d697fe964a2b21d39af1ff1a3674816545ae1e7af357265e96bfe42db915bce2e06f4e0055e69fefb3a704e91078c0132a6dccb24
+  version: 1.4.397
+  resolution: "electron-to-chromium@npm:1.4.397"
+  checksum: 5c72dd3c275e8096d85e34639e683b82ebda98df40c71504d1c673f0ccebf52dd3fdee257022ef4d648c11dce48677d876327c9bd295a8d1c719d62ae0a52b09
   languageName: node
   linkType: hard
 
@@ -13251,11 +13480,11 @@ __metadata:
   linkType: hard
 
 "is-core-module@npm:^2.11.0, is-core-module@npm:^2.12.0, is-core-module@npm:^2.5.0, is-core-module@npm:^2.9.0":
-  version: 2.12.0
-  resolution: "is-core-module@npm:2.12.0"
+  version: 2.12.1
+  resolution: "is-core-module@npm:2.12.1"
   dependencies:
     has: "npm:^1.0.3"
-  checksum: 5619b73eeed50eb88c2941c4df535f080a2add4dc568e13411228121da6d7885da4f55be81167f221f4ddb3cb8feab27b00a36242721508a9b02743198aeaa43
+  checksum: ad50fa9887d64a912837625b54df9489005180d829128c5d979355a969e80e65f772a54ac29e8f25a18a2ad2c6b45115deffb32a3e0c2d5b16ee7ad292066b5a
   languageName: node
   linkType: hard
 
@@ -17146,9 +17375,9 @@ __metadata:
   linkType: hard
 
 "preact@npm:^10.12.0, preact@npm:^10.5.9":
-  version: 10.14.0
-  resolution: "preact@npm:10.14.0"
-  checksum: efa8fc0e430b5722161ef8d19ac8d43fdc0e964024edf5c5ba6865ba45c6af7db21f78545a63be41d9d6240edf6510d868dae8673cf3f4af7539ca7d2489f919
+  version: 10.14.1
+  resolution: "preact@npm:10.14.1"
+  checksum: a1daf0ad269efbdb3c1ecb67ee505a31c7b594959d790d8010d3c0d8e9515ca6cb42ab19e7ca780ea112e3c02d1bb05c6a3b559909a477f713d8b50de7237b72
   languageName: node
   linkType: hard
 
@@ -17690,7 +17919,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^6.9.0":
+"react-router-dom@npm:^6.11.1, react-router-dom@npm:^6.9.0":
   version: 6.11.1
   resolution: "react-router-dom@npm:6.11.1"
   dependencies:
@@ -17986,24 +18215,24 @@ __metadata:
   linkType: hard
 
 "remark-parse@npm:^10.0.1":
-  version: 10.0.1
-  resolution: "remark-parse@npm:10.0.1"
+  version: 10.0.2
+  resolution: "remark-parse@npm:10.0.2"
   dependencies:
     "@types/mdast": "npm:^3.0.0"
     mdast-util-from-markdown: "npm:^1.0.0"
     unified: "npm:^10.0.0"
-  checksum: f95df2708241dc9bc268f8315da5ca7c32a3949c051d57242b7fba6972a8847d34b02afcbeba99e260415a1d36ae32ebfb66a101cd5bb89f479cf5fe11194d47
+  checksum: 2b381faea74624a27a9f142b001f1efda11fadeb7850c648a31d8f6c6efcd20d6622b1bfaa3fe4505497ba511c65c08ec5dacf93302a5ffe383a524cea333c45
   languageName: node
   linkType: hard
 
 "remark-stringify@npm:^10.0.2":
-  version: 10.0.2
-  resolution: "remark-stringify@npm:10.0.2"
+  version: 10.0.3
+  resolution: "remark-stringify@npm:10.0.3"
   dependencies:
     "@types/mdast": "npm:^3.0.0"
     mdast-util-to-markdown: "npm:^1.0.0"
     unified: "npm:^10.0.0"
-  checksum: b9b1245a6beec3b0403c04a0b1e82e3f03f614385dbee8942ac877d62b322d48bea56c716708aeb0190ba08154163675e49368f08fee05c0f1d43ce7664e3cce
+  checksum: 141d6a3844ec9a8ddcedd184035cf4949ba75b6ec00742403adb45ff40d387b76a4b90734836aad5456d9539bfa82a4bd3e0451048b985d3d330eb7b45d19d90
   languageName: node
   linkType: hard
 
@@ -18311,7 +18540,12 @@ __metadata:
     "@babel/core": "npm:^7.21.3"
     "@babel/register": "npm:^7.21.0"
     "@babel/runtime": "npm:^7.21.0"
+    "@emotion/react": "npm:^11.11.0"
+    "@emotion/styled": "npm:^11.11.0"
     "@esbuild-kit/esm-loader": "npm:^2.5.5"
+    "@mui/icons-material": "npm:^5.11.16"
+    "@mui/lab": "npm:^5.0.0-alpha.130"
+    "@mui/material": "npm:^5.13.0"
     "@types/file-saver": "npm:^2.0.5"
     "@types/jest": "npm:^29.4.2"
     "@types/moment": "npm:^2.13.0"
@@ -18325,6 +18559,9 @@ __metadata:
     material-ui-popup-state: "npm:^5.0.5"
     mdast-util-to-string: "npm:^3.1.1"
     node-html-parser: "npm:^6.1.5"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+    react-router-dom: "npm:^6.11.1"
     remark-parse: "npm:^10.0.1"
     remark-stringify: "npm:^10.0.2"
     source-map-explorer: "npm:^2.5.3"
@@ -19613,8 +19850,8 @@ __metadata:
   linkType: hard
 
 "terser@npm:^5.10.0, terser@npm:^5.15.1, terser@npm:^5.16.8":
-  version: 5.17.3
-  resolution: "terser@npm:5.17.3"
+  version: 5.17.4
+  resolution: "terser@npm:5.17.4"
   dependencies:
     "@jridgewell/source-map": "npm:^0.3.2"
     acorn: "npm:^8.5.0"
@@ -19622,7 +19859,7 @@ __metadata:
     source-map-support: "npm:~0.5.20"
   bin:
     terser: bin/terser
-  checksum: 6670bd977583d3fb9b92ae54fbb9d8341cacd3c5120b7d8783b3e18a40564670ce987fdc24aa32d1aeb34b429c0950d16ec42bf527c1153900df83f063f669fd
+  checksum: 707a2579717ca467ca4702adccb4fd2a64a9ad0c936c39465242154ae02c55d1ef9735ddc45bea42ccf9d0ae113eb8b98476c4fc956378fdb2a29784edc4f4a4
   languageName: node
   linkType: hard
 
@@ -21328,7 +21565,7 @@ __metadata:
     "@credential/react-components": "workspace:^"
     "@credential/react-dids": "workspace:^"
     "@credential/react-hooks": "workspace:^"
-    "@mui/icons-material": "npm:^5.11.11"
+    "@mui/icons-material": "npm:^*"
     "@svgr/webpack": "npm:^6.5.1"
     "@types/punycode": "npm:^2.1.0"
     "@zcloak/crypto": "npm:^1.4.2"
@@ -21339,6 +21576,7 @@ __metadata:
     "@zcloak/keyring": "npm:^1.1.9"
     "@zcloak/login-did": "npm:^1.1.12"
     "@zcloak/message": "npm:^1.0.14"
+    "@zcloak/miden": "npm:^1.2.0"
     "@zcloak/vc": "npm:^1.3.2"
     "@zcloak/verify": "npm:^1.3.9"
     "@zcloak/wasm": "npm:^1.2.0"
@@ -21366,9 +21604,6 @@ __metadata:
     os-browserify: "npm:^0.3.0"
     path-browserify: "npm:^1.0.1"
     process: "npm:^0.11.10"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    react-router-dom: "npm:^6.9.0"
     stream-browserify: "npm:^3.0.0"
     stream-http: "npm:^3.2.0"
     thread-loader: "npm:^3.0.4"
@@ -21378,6 +21613,12 @@ __metadata:
     webpack-cli: "npm:^5.0.1"
     webpack-dev-server: "npm:^4.12.0"
     webpack-merge: "npm:^5.8.0"
+  peerDependencies:
+    "@mui/icons-material": ^*
+    "@mui/material": "*"
+    react: "*"
+    react-dom: "*"
+    react-router-dom: "*"
   languageName: unknown
   linkType: soft
 

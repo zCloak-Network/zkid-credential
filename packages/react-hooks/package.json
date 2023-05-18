@@ -35,5 +35,12 @@
     "react-router-dom": "^6.9.0",
     "search-query-parser": "^1.6.0",
     "ua-parser-js": "^1.0.34"
+  },
+  "peerDependencies": {
+    "@mui/icons-material": "^*",
+    "@mui/material": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-router-dom": "*"
   }
 }

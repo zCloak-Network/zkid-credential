@@ -11,7 +11,7 @@ import { parseDid } from '@zcloak/did-resolver/parseDid';
 import { Address } from '@credential/react-components';
 
 interface Props {
-  value?: DidUrl | undefined | null;
+  value?: DidUrl | string | undefined | null;
   shorten?: boolean;
 }
 

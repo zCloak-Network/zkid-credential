@@ -6,12 +6,15 @@ import type { RawCredential } from '@zcloak/vc/types';
 
 import moment from 'moment';
 import React, { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { isVC } from '@zcloak/vc/is';
 
+import { zkConfig } from '@credential/app-config';
 import { CredentialStatus } from '@credential/app-store/pending-credential';
 import {
   Box,
+  Button,
   CredentialModal,
   CredentialStatusDisplay,
   CTypeName,
@@ -112,10 +115,10 @@ export interface CredentialProps {
 
 function CredentialCell({ credential, issuer, messageId, status, time }: CredentialProps) {
   const [open, toggleOpen] = useToggle();
-
   const vc = useMemo(() => (isVC(credential) ? credential : null), [credential]);
-
   const ctypeMeta = useCTypeMeta(vc?.ctype);
+  const hasProgram = !!zkConfig[vc?.ctype || ''];
+  const navigate = useNavigate();
 
   return (
     <>
@@ -212,7 +215,26 @@ function CredentialCell({ credential, issuer, messageId, status, time }: Credent
             </Box>
           </Stack>
 
-          {vc && <ImportButton credential={vc} />}
+          {vc ? (
+            hasProgram ? (
+              <Button
+                fullWidth
+                onClick={() => navigate(`/sbt/${vc.digest}`)}
+                sx={({ spacing }) => ({
+                  height: spacing(4.5),
+                  borderRadius: spacing(1),
+                  fontSize: spacing(1.5)
+                })}
+                variant='contained'
+              >
+                Mint SBT
+              </Button>
+            ) : (
+              <ImportButton credential={vc} />
+            )
+          ) : (
+            <></>
+          )}
         </Wrapper>
       </Box>
       {vc && open && <CredentialModal credential={vc} onClose={toggleOpen} />}

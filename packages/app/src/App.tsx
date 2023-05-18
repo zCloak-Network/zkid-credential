@@ -1,8 +1,6 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { DidRole } from '@credential/react-dids/types';
-
 import React, { useMemo } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
@@ -18,6 +16,7 @@ import PageHkEvent from '@credential/page-hk-event';
 import Issue from '@credential/page-issue';
 import PageMessage from '@credential/page-message';
 import PageAttesterMessage from '@credential/page-message/attester';
+import PageSbt from '@credential/page-sbt';
 import PageTasks from '@credential/page-tasks';
 import PageRequestDetails from '@credential/page-tasks/RequestDetails';
 import { AppProvider, Box, CTypeProvider, useMediaQuery, useTheme, WagmiProvider } from '@credential/react-components';
@@ -27,6 +26,7 @@ import { useGaInitial } from '@credential/react-hooks';
 import Account from './Account';
 import Attester from './Attester';
 import Claimer from './Claimer';
+import NoSidebar from './NoSidebar';
 
 const NoMatch: React.FC<{ to: string }> = ({ to }) => {
   return <Navigate replace to={to} />;
@@ -67,10 +67,10 @@ function Container({
   );
 }
 
-function BaseProvider({ children, role }: { children: any; role: DidRole }) {
+function BaseProvider({ children }: { children: any }) {
   return (
     <WagmiProvider>
-      <DidsProvider didRole={role}>
+      <DidsProvider>
         <AppProvider>
           <CTypeProvider>{children}</CTypeProvider>
         </AppProvider>
@@ -82,7 +82,7 @@ function BaseProvider({ children, role }: { children: any; role: DidRole }) {
 const createClaimerApp = () => (
   <Route
     element={
-      <BaseProvider role='claimer'>
+      <BaseProvider>
         <Claimer />
       </BaseProvider>
     }
@@ -140,7 +140,7 @@ const createClaimerApp = () => (
 const createAttesterApp = () => (
   <Route
     element={
-      <BaseProvider role='attester'>
+      <BaseProvider>
         <Attester />
       </BaseProvider>
     }
@@ -215,8 +215,28 @@ const createAttesterApp = () => (
   </Route>
 );
 
+const createNoSideBar = () => (
+  <Route
+    element={
+      <BaseProvider>
+        <NoSidebar />
+      </BaseProvider>
+    }
+  >
+    <Route
+      element={
+        <Container>
+          <PageSbt />
+        </Container>
+      }
+      path='sbt/:digest'
+    />
+  </Route>
+);
+
 const AppClaimer = createClaimerApp();
 const AppAttester = createAttesterApp();
+const AppNoSidebar = createNoSideBar();
 
 const App: React.FC = () => {
   useGaInitial();
@@ -225,6 +245,7 @@ const App: React.FC = () => {
     <Routes>
       {AppClaimer}
       {AppAttester}
+      {AppNoSidebar}
       <Route element={<Account />} path='account'>
         <Route element={<PageCreateAccount />} path='create' />
         <Route element={<PageRestoreAccount />} path='restore' />

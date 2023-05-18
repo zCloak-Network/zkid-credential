@@ -19,5 +19,12 @@
     "@zcloak/login-did": "^1.1.12",
     "@zcloak/login-providers": "^1.2.6",
     "@zcloak/ui-store": "^0.9.7"
+  },
+  "peerDependencies": {
+    "@mui/icons-material": "^*",
+    "@mui/material": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-router-dom": "*"
   }
 }
