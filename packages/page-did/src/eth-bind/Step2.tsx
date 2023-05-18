@@ -18,12 +18,13 @@ const Step2: React.FC<{ next: () => void; onZkSigChange: (sig: string) => void }
   }, [did?.id, address]);
 
   const signBinding = useCallback(async () => {
-    console.log('[ binding.length ] >', binding.length);
-    const sig = await did.signWithKey(stringToHex(binding), 'controller');
+    try {
+      const sig = await did.signWithKey(stringToHex(binding), 'controller');
 
-    onZkSigChange(u8aToHex(sig.signature));
+      onZkSigChange(u8aToHex(sig.signature));
 
-    next();
+      next();
+    } catch (error) {}
   }, [onZkSigChange, next, did, binding]);
 
   return (

@@ -53,7 +53,7 @@ const KeyCell: React.FC<{ name: string; publicKey?: Uint8Array | HexString | nul
 
 const DidProfile: React.FC = () => {
   const { did } = useContext(DidsContext);
-  const [tab, setTab] = useState(1);
+  const [tab, setTab] = useState(0);
 
   const onTabChange = useCallback((e: React.SyntheticEvent, val: number) => setTab(val), []);
 

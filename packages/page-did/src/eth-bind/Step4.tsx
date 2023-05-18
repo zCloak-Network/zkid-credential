@@ -3,26 +3,37 @@
 
 import { useCallback, useContext } from 'react';
 
-import { zCloakSBTAbi } from '@credential/app-config';
+import { zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
 import { Button, useAccount, useContractWrite } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
 
 import TextWithBg from './TextWithBg';
 
-const Step4: React.FC<{ zkSig?: string; metaSig?: string }> = ({ metaSig, zkSig }) => {
+const Step4: React.FC<{
+  zkSig?: string;
+  metaSig?: string;
+  onError?: (error: Error) => void;
+  onPublish?: () => void;
+}> = ({ metaSig, onError, onPublish, zkSig }) => {
   const { did } = useContext(DidsContext);
   const { address } = useAccount();
   const { writeAsync } = useContractWrite({
     abi: zCloakSBTAbi,
-    address: '0xA0c532091CbcBa56a5EAf657aEf7Db77e1C50D68',
+    address: ZKSBT_ADDRESS,
     functionName: 'setBinding',
-    args: [did.identifier, address, zkSig, metaSig]
+    chainId: ZKSBT_CHAIN_ID,
+    onError
   });
 
   const bind = useCallback(async () => {
     if (!address || !zkSig || !metaSig) return;
-    await writeAsync({ args: [did.identifier, address, zkSig, metaSig] });
-  }, [did, address, writeAsync, zkSig, metaSig]);
+
+    try {
+      await writeAsync({ args: [did.identifier, address, zkSig, metaSig] });
+
+      onPublish?.();
+    } catch (error) {}
+  }, [did, address, writeAsync, zkSig, metaSig, onPublish]);
 
   return (
     <>

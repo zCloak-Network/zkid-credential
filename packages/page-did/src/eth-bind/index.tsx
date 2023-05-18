@@ -2,23 +2,84 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Step, StepLabel, Stepper } from '@mui/material';
-import { useCallback, useState } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useCallback, useContext, useState } from 'react';
 
-import { Dialog, DialogHeader } from '@credential/react-components';
+import { IconFalied, IconSuccess, zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  Stack,
+  Typography,
+  useAccount,
+  useContractEvent
+} from '@credential/react-components';
+import { DidsContext } from '@credential/react-dids';
 
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 import Step4 from './Step4';
 
-const steps = ['', '', '', ''];
+const steps = ['Connect Wallet', 'Sign with zkID', 'Sign with Metamask', 'Publish'];
 
-const EthBind: React.FC<{ open: boolean; onClose: () => void }> = ({ onClose, open }) => {
+const EthBind: React.FC<{ open: boolean; onClose: () => void; refetch: () => Promise<any> }> = ({
+  onClose,
+  open,
+  refetch
+}) => {
   const [step, setStep] = useState(0);
   const [zkSig, setZkSig] = useState<string>();
   const [metaSig, setMetaSig] = useState<string>();
-  // const prev = useCallback(() => setStep(step - 1), [step]);
   const next = useCallback(() => setStep(step + 1), [step]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [error, setError] = useState<Error>();
+  const { did } = useContext(DidsContext);
+  const { address } = useAccount();
+
+  const onError = useCallback((error: Error) => {
+    setError(error);
+
+    setLoading(false);
+  }, []);
+
+  const onSuccess = useCallback(async () => {
+    await refetch();
+
+    setError(undefined);
+
+    setLoading(false);
+
+    setSuccess(true);
+  }, [refetch]);
+
+  const _onClose = useCallback(() => {
+    setStep(0);
+    setZkSig(undefined);
+    setMetaSig(undefined);
+    setError(undefined);
+    setSuccess(false);
+    setLoading(false);
+    onClose();
+  }, [onClose]);
+
+  const unwatch = useContractEvent({
+    abi: zCloakSBTAbi,
+    address: ZKSBT_ADDRESS,
+    chainId: ZKSBT_CHAIN_ID,
+    eventName: 'BindingSetSuccess',
+    listener(logs: any) {
+      const args = logs?.[0]?.args;
+
+      if (args?.bindedAddr === address && args?.bindingAddr === did.identifier) {
+        onSuccess();
+
+        unwatch?.();
+      }
+    }
+  });
 
   return (
     <Dialog
@@ -33,19 +94,61 @@ const EthBind: React.FC<{ open: boolean; onClose: () => void }> = ({ onClose, op
         }
       }}
     >
-      <DialogHeader onClose={onClose} />
-      <Stepper activeStep={step} variant='outlined'>
-        {steps.map((label, index) => (
-          <Step key={index}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      {step === 0 && <Step1 next={next} />}
-      {step === 1 && <Step2 next={next} onZkSigChange={setZkSig} />}
-      {step === 2 && <Step3 next={next} onMetaSigChange={setMetaSig} zkSig={zkSig} />}
-      {step === 3 && <Step4 metaSig={metaSig} zkSig={zkSig} />}
+      <DialogHeader onClose={_onClose} />
+      {loading || error || success ? (
+        <>
+          <Stack alignItems='center' fontSize={60} justifyContent='center' mb={8} spacing={1}>
+            {loading && <Loading />}
+            {error && <Failed message={error.name} />}
+            {success && <Success />}
+          </Stack>
+          <Button onClick={_onClose} variant='contained'>
+            Confirm
+          </Button>
+        </>
+      ) : (
+        <>
+          <Stepper activeStep={step} variant='outlined'>
+            {steps.map((label, index) => (
+              <Step key={index}>
+                <StepLabel> </StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          {step === 0 && <Step1 next={next} />}
+          {step === 1 && <Step2 next={next} onZkSigChange={setZkSig} />}
+          {step === 2 && <Step3 next={next} onMetaSigChange={setMetaSig} zkSig={zkSig} />}
+          {step === 3 && <Step4 metaSig={metaSig} onError={onError} onPublish={() => setLoading(true)} zkSig={zkSig} />}
+        </>
+      )}
     </Dialog>
+  );
+};
+
+const Loading = () => {
+  return (
+    <>
+      <CircularProgress />
+      <Typography color='#8F95B2'>Pending...</Typography>
+    </>
+  );
+};
+
+const Failed: React.FC<{ message?: string }> = ({ message }) => {
+  return (
+    <>
+      <IconFalied fontSize='inherit' />
+      <Typography color='#8F95B2'>{message}</Typography>
+    </>
+  );
+};
+
+const Success = () => {
+  return (
+    <>
+      <IconSuccess fontSize='inherit' />
+      <Typography color='#8F95B2'>Success!</Typography>
+    </>
   );
 };
 

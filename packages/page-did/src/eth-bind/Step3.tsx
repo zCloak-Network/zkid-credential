@@ -23,7 +23,6 @@ const Step3: React.FC<{ zkSig?: string; onMetaSigChange: (sig: string) => void; 
 
   const signBinding = useCallback(async () => {
     try {
-      console.log('[ binding.length ] >', binding.length);
       const sig = await signMessageAsync({ message: binding });
 
       onMetaSigChange(sig);

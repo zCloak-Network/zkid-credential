@@ -2,4 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export { useMediaQuery, useTheme } from '@mui/material';
-export { useAccount, useSignMessage, useContractWrite } from 'wagmi';
+export {
+  useAccount,
+  useSignMessage,
+  useContractWrite,
+  useContractEvent,
+  useContractRead,
+  useSwitchNetwork,
+  useNetwork
+} from 'wagmi';

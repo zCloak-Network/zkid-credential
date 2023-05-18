@@ -7,3 +7,4 @@ export * from './isRelease';
 export * from './vc';
 export * from './hk-event';
 export * from './abi';
+export * from './contract';
