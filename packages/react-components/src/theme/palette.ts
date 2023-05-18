@@ -54,7 +54,12 @@ const createPalette = (mode: PaletteMode): PaletteOptions => ({
     A700: '#666666'
   },
   common: { black: '#1C1D21', white: '#fff' },
-  secondary: { main: '#9c27b0', light: '#ba68c8', dark: '#7b1fa2', contrastText: '#fff' },
+  secondary: {
+    main: alpha('#6768ac', 0.1),
+    light: alpha('#6768ac', 0.1),
+    dark: alpha('#6768ac', 0.1),
+    contrastText: '#6768ac'
+  },
   info: { main: '#0288d1', light: '#03a9f4', dark: '#01579b', contrastText: '#fff' },
   text: {
     primary: '#1C1D21',

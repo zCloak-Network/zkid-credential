@@ -12,6 +12,9 @@ function getPublicInput() {
 
 const config: ZkProgramConfig[] = [
   {
+    name: 'Audlt Check',
+    description: 'Check you are audlt.',
+    author: 'did:zk:0xdC6BF231a4f18074288C07C3f31f2eD170E368aD',
     program: `        proc.number_add.4
   dup.0 loc_store.0 push.0 eq
   push.0 loc_store.3
@@ -173,13 +176,17 @@ begin
   mem_load.99 exec.number_add mul.1 mem_load.102 lt mem_load.101 and mem_store.101
   mem_load.101 padw mem_loadw.100
 end `,
+    leaves: [1],
     outputs: [
-      ['Is Audit', '0'],
-      ['Not Audit', '1']
+      ['Age > 18', 'Adult'],
+      ['Age <= 18', 'Adult']
     ],
     getPublicInput
   },
   {
+    name: 'Continent Check',
+    description: 'Check which continent you are on.',
+    author: 'did:zk:0xdC6BF231a4f18074288C07C3f31f2eD170E368aD',
     program: `        proc.number_add.4
     dup.0 loc_store.0 push.0 eq
     push.0 loc_store.3
@@ -404,16 +411,20 @@ begin
     end
     mem_load.101 padw mem_loadw.100
  end `,
+    leaves: [2],
     outputs: [
-      ['Member of "Africa"', '0'],
-      ['Member of "Asia"', '1'],
-      ['Member of "Europe"', '2'],
-      ['Member of "North America"', '3'],
-      ['Member of "Oceania"', '4'],
-      ['Member of "South America"', '5']
+      ['Nationality in "Africa"', 'Africa'],
+      ['Nationality in "Asia"', 'Asia'],
+      ['Nationality in "Europe"', 'Europe'],
+      ['Nationality in "North America"', 'North America'],
+      ['Nationality in "Oceania"', 'Oceania'],
+      ['Nationality in "South America"', 'South America']
     ]
   },
   {
+    name: 'Continent & Audlt Check',
+    description: 'Check which continent you are on and if you are an adult.',
+    author: 'did:zk:0xdC6BF231a4f18074288C07C3f31f2eD170E368aD',
     program: `proc.number_add.4
     dup.0 loc_store.0 push.0 eq
     push.0 loc_store.3
@@ -647,19 +658,20 @@ begin
     end
     mem_load.101 mul.2 mem_load.102 add padw mem_loadw.100
  end`,
+    leaves: [1, 2],
     outputs: [
-      ['Member of Africa and Audit', '0'],
-      ['Member of Africa not Audit', '1'],
-      ['Member of Asia and Audit', '2'],
-      ['Member of Asia not Audit', '3'],
-      ['Member of Europe and Audit', '4'],
-      ['Member of Europe not Audit', '5'],
-      ['Member of North America and Audit', '6'],
-      ['Member of North America not Audit', '7'],
-      ['Member of Oceania and Audit', '8'],
-      ['Member of Oceania not Audit', '9'],
-      ['Member of South America and Audit', '10'],
-      ['Member of South America not Audit', '11']
+      ['Nationality in Africa and Audlt', 'Africa & Audlt'],
+      ['Nationality in Africa not Audlt', 'Africa & No-Audlt'],
+      ['Nationality in Asia and Audlt', 'Asia & Audlt'],
+      ['Nationality in Asia not Audlt', 'Asia & No-Audlt'],
+      ['Nationality in Europe and Audlt', 'Europe & Audlt'],
+      ['Nationality in Europe not Audlt', 'Europe & No-Audlt'],
+      ['Nationality in North America and Audlt', 'North America & Audlt'],
+      ['Nationality in North America not Audlt', 'North & No-Audlt'],
+      ['Nationality in Oceania and Audlt', 'Oceania & Audlt'],
+      ['Nationality in Oceania not Audlt', 'Oceania & No-Audlt'],
+      ['Nationality in South America and Audlt', 'South America & Audlt'],
+      ['Nationality in South America not Audlt', 'South America & No-Audlt']
     ],
     getPublicInput
   }

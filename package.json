@@ -39,6 +39,7 @@
     "@emotion/styled": "^11.11.0",
     "@esbuild-kit/esm-loader": "^2.5.5",
     "@mui/icons-material": "^5.11.16",
+    "@mui/lab": "^5.0.0-alpha.130",
     "@mui/material": "^5.13.0",
     "@types/file-saver": "^2.0.5",
     "@types/jest": "^29.4.2",

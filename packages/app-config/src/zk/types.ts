@@ -2,7 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export interface ZkProgramConfig {
+  name: string;
+  description: string;
+  author: string;
   program: string;
+  leaves: number[];
   outputs: [string, string][];
   getPublicInput?: () => string;
 }
