@@ -1,6 +1,8 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { SbtResult } from './types';
+
 import { alpha, Container, Divider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -11,6 +13,7 @@ import { ThemeProvider } from '@credential/react-components';
 
 import Computation from './Computation';
 import CredentialDetails from './CredentialDetails';
+import Mint from './Mint';
 import Top from './Top';
 import ZkProgram from './ZkProgram';
 
@@ -19,6 +22,7 @@ const PageSbt: React.FC = () => {
   const navigate = useNavigate();
   const [credential, setCredential] = useState<Credential>();
   const [selectIndex, setSelectIndex] = useState<number>();
+  const [result, setResult] = useState<SbtResult>();
 
   const config = credential ? zkConfig[credential.ctype] : undefined;
 
@@ -52,13 +56,19 @@ const PageSbt: React.FC = () => {
         }
       }}
     >
-      <Top vc={credential.vc} />
-      <Container maxWidth='xl'>
-        <CredentialDetails status='approved' vc={credential.vc} />
-        <Divider sx={{ marginY: '50px', borderColor: '#EBEAED' }} />
-        <ZkProgram config={config || []} onSelect={setSelectIndex} selectIndex={selectIndex} />
-        <Computation program={config?.[selectIndex ?? -1]} vc={credential.vc} />
-      </Container>
+      {result ? (
+        <Mint onCancel={() => setResult(undefined)} result={result} vc={credential.vc} />
+      ) : (
+        <>
+          <Top vc={credential.vc} />
+          <Container maxWidth='xl'>
+            <CredentialDetails status='approved' vc={credential.vc} />
+            <Divider sx={{ marginY: '50px', borderColor: '#EBEAED' }} />
+            <ZkProgram config={config || []} onSelect={setSelectIndex} selectIndex={selectIndex} vc={credential.vc} />
+            <Computation onSuccess={setResult} program={config?.[selectIndex ?? -1]} vc={credential.vc} />
+          </Container>
+        </>
+      )}
     </ThemeProvider>
   ) : (
     <></>

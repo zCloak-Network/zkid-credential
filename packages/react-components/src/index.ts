@@ -35,6 +35,7 @@ export { default as InputPassword } from './InputPassword';
 export { default as InputString } from './InputString';
 export { default as QrScanner } from './QrScanner';
 export { default as Recaptcha } from './Recaptcha';
+export { default as SbtCard } from './SbtCard';
 export { default as StepIcon } from './StepIcon';
 export { default as TaskStatusDisplay } from './TaskStatusDisplay';
 export { default as WagmiProvider } from './WagmiProvider';

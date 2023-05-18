@@ -1,7 +1,10 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+/* eslint-disable camelcase */
+
 import type { VerifiableCredential } from '@zcloak/vc/types';
+import type { SbtResult } from './types';
 
 import type { ZkProgramConfig } from '@credential/app-config/zk/types';
 
@@ -16,13 +19,17 @@ import { provider, resolver } from '@credential/react-dids/instance';
 interface Props {
   vc: VerifiableCredential<boolean>;
   program?: ZkProgramConfig;
+  onSuccess: (value: SbtResult) => void;
 }
 
-function Computation({ program, vc }: Props) {
+function Computation({ onSuccess, program, vc }: Props) {
   const [loading, setLoading] = useState(false);
-  const [{ error, isDone }, setResults] = useState<{ isDone: boolean; result: string; error: Error | null }>({
+  const [{ error, isDone, result }, setResults] = useState<{
+    isDone: boolean;
+    result?: SbtResult;
+    error: Error | null;
+  }>({
     isDone: false,
-    result: '',
     error: null
   });
 
@@ -34,17 +41,19 @@ function Computation({ program, vc }: Props) {
     try {
       await initMidenWasm();
 
+      const publicInput = program.getPublicInput?.() || '';
+
       const result = await provider.generateZkp({
         ctype: vc.ctype,
         attester: vc.issuer,
         program: program.program,
-        publicInput: program.getPublicInput?.() || '',
+        publicInput,
         leaves: program.leaves
       });
 
-      await resolver.zkVerify(result, {
+      const { desc, sbt_link, verifier_signature } = await resolver.zkVerify(result, {
         program_hash: generateProgramHash(program.program),
-        stack_inputs: program.getPublicInput?.() || '',
+        stack_inputs: publicInput,
         user_did: vc.holder,
         ctype: vc.ctype,
         vc_version: vc.version,
@@ -56,13 +65,16 @@ function Computation({ program, vc }: Props) {
 
       setResults({
         isDone: true,
-        result,
+        result: {
+          desc,
+          signature: verifier_signature,
+          image: sbt_link
+        },
         error: null
       });
     } catch (error) {
       setResults({
         isDone: true,
-        result: '',
         error: error as Error
       });
     }
@@ -100,7 +112,7 @@ function Computation({ program, vc }: Props) {
           ) : (
             <>
               <Stack spacing={2}>
-                <Typography></Typography>
+                <Typography>{result?.desc}</Typography>
                 <Typography>Verified ✅</Typography>
               </Stack>
             </>
@@ -112,7 +124,11 @@ function Computation({ program, vc }: Props) {
           ZKP Computation
         </LoadingButton>
       ) : (
-        <Button>Claim zkID Card</Button>
+        result && (
+          <Button onClick={() => onSuccess(result)} size='large' variant='contained'>
+            Claim zkID Card
+          </Button>
+        )
       )}
     </Box>
   );
