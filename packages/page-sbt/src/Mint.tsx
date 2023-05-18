@@ -47,10 +47,10 @@ function Mint({ onCancel, result, vc }: Props) {
           </Typography>
         </Box>
         <Box>
-          <Typography marginBottom={3} variant='h6'>
-            Preview
-          </Typography>
-          <SbtCard attester={vc.issuer} multiply={1.2} output={result.desc} />
+          <Typography variant='h6'>Preview</Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingY: 6 }}>
+            <SbtCard attester={vc.issuer} multiply={1.2} output={result.desc} />
+          </Box>
         </Box>
         <Box>
           <ButtonEnableMetamask fullWidth size='large' variant='contained'>

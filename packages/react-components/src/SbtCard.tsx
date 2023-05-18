@@ -19,7 +19,9 @@ function SbtCard({ attester, multiply = 1, output }: Props) {
         height: 384 * multiply,
         background: 'url(images/sbt-card.webp) no-repeat',
         backgroundSize: 'cover',
-        backgroundPosition: 'center'
+        backgroundPosition: 'center',
+        boxShadow: '0px 0px 90px 1px #00CEF9',
+        borderRadius: `${8 * multiply}px`
       }}
     >
       <Typography
@@ -33,7 +35,8 @@ function SbtCard({ attester, multiply = 1, output }: Props) {
           lineHeight: `${28 * multiply}px`,
           textShadow: '0px 3px 6px rgba(0,0,0,0.3)',
           fontSize: 28 * multiply,
-          textAlign: 'center'
+          textAlign: 'center',
+          userSelect: 'none'
         }}
       >
         {output}
@@ -49,7 +52,8 @@ function SbtCard({ attester, multiply = 1, output }: Props) {
           lineHeight: `${13 * multiply}px`,
           fontSize: 13 * multiply,
           textAlign: 'center',
-          wordBreak: 'break-all'
+          wordBreak: 'break-all',
+          userSelect: 'none'
         }}
       >
         {attester}
