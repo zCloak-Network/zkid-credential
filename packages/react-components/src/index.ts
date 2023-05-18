@@ -41,6 +41,7 @@ export { default as TaskStatusDisplay } from './TaskStatusDisplay';
 export { default as WagmiProvider } from './WagmiProvider';
 export { default as ButtonEnableMetamask } from './ButtonEnableMetamask';
 export * from './WagmiProvider/chain';
+export * from './Status';
 
 // export @mui/material
 export {

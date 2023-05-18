@@ -2,16 +2,17 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Step, StepLabel, Stepper } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
 import { useCallback, useContext, useState } from 'react';
 
-import { IconFalied, IconSuccess, zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
+import { zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
 import {
   Button,
   Dialog,
   DialogHeader,
+  Failed,
+  Loading,
   Stack,
-  Typography,
+  Success,
   useAccount,
   useContractEvent
 } from '@credential/react-components';
@@ -87,7 +88,7 @@ const EthBind: React.FC<{ open: boolean; onClose: () => void; refetch: () => Pro
       sx={{
         '.MuiDialog-paper': {
           padding: '50px 60px',
-          width: 580
+          width: 600
         },
         '.MuiDialogTitle-root': {
           paddingY: 2
@@ -108,7 +109,15 @@ const EthBind: React.FC<{ open: boolean; onClose: () => void; refetch: () => Pro
         </>
       ) : (
         <>
-          <Stepper activeStep={step} variant='outlined'>
+          <Stepper
+            activeStep={step}
+            sx={{
+              '.MuiStepIcon-root': {
+                color: '#0042F1!important'
+              }
+            }}
+            variant='outlined'
+          >
             {steps.map((label, index) => (
               <Step key={index}>
                 <StepLabel> </StepLabel>
@@ -122,33 +131,6 @@ const EthBind: React.FC<{ open: boolean; onClose: () => void; refetch: () => Pro
         </>
       )}
     </Dialog>
-  );
-};
-
-const Loading = () => {
-  return (
-    <>
-      <CircularProgress />
-      <Typography color='#8F95B2'>Pending...</Typography>
-    </>
-  );
-};
-
-const Failed: React.FC<{ message?: string }> = ({ message }) => {
-  return (
-    <>
-      <IconFalied fontSize='inherit' />
-      <Typography color='#8F95B2'>{message}</Typography>
-    </>
-  );
-};
-
-const Success = () => {
-  return (
-    <>
-      <IconSuccess fontSize='inherit' />
-      <Typography color='#8F95B2'>Success!</Typography>
-    </>
   );
 };
 

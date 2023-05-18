@@ -32,7 +32,13 @@ const Step1: React.FC<{ next: () => void }> = ({ next }) => {
       >
         Connect your common used Ethereum Address
       </Typography>
-      <ButtonEnableMetamask disabled={!switchNetworkAsync} onClick={changeNetwork} onEnable={next} variant='contained'>
+      <ButtonEnableMetamask
+        disabled={!switchNetworkAsync}
+        onClick={changeNetwork}
+        onEnable={next}
+        size='large'
+        variant='contained'
+      >
         Connect Wallet
       </ButtonEnableMetamask>
     </Stack>

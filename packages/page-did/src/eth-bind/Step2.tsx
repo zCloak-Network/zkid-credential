@@ -4,7 +4,8 @@
 import { stringToHex, u8aToHex } from '@polkadot/util';
 import { useCallback, useContext, useMemo } from 'react';
 
-import { Button, Copy, Stack, Typography, useAccount } from '@credential/react-components';
+import { IconZkid } from '@credential/app-config';
+import { Button, Copy, IconButton, Stack, Typography, useAccount } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
 
 import TextWithBg from './TextWithBg';
@@ -31,7 +32,18 @@ const Step2: React.FC<{ next: () => void; onZkSigChange: (sig: string) => void }
     <Stack mt={6}>
       <TextWithBg bgcolor='rgba(108,93,211,0.05)'>
         <Stack alignItems='center' borderRadius='10px' direction='row' spacing={0.5} width='100%'>
-          <Typography>{did?.id}</Typography>
+          <IconButton
+            disabled
+            size='small'
+            sx={{
+              '&.Mui-disabled': {
+                bgcolor: '#FFF'
+              }
+            }}
+          >
+            <IconZkid />
+          </IconButton>
+          <Typography fontSize={15}>{did?.id}</Typography>
           {did?.id && <Copy value={did?.id} />}
         </Stack>
       </TextWithBg>
@@ -68,7 +80,7 @@ const Step2: React.FC<{ next: () => void; onZkSigChange: (sig: string) => void }
           • If the Ethereum address is changed, all on-chain zkID Cards will be destroyed.
         </Typography>
       </Stack>
-      <Button fullWidth onClick={signBinding} variant='contained'>
+      <Button fullWidth onClick={signBinding} size='large' variant='contained'>
         Sign
       </Button>
     </Stack>

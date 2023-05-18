@@ -39,7 +39,7 @@ const Step4: React.FC<{
     <>
       <TextWithBg bgcolor='#F7F8FA' label='zkID Sig:' mb={2} mt={4} value={zkSig} />
       <TextWithBg bgcolor='#F7F8FA' label='Ethereum Address Sig:' mb={4} value={metaSig} />
-      <Button fullWidth onClick={bind} variant='contained'>
+      <Button fullWidth onClick={bind} size='large' variant='contained'>
         Publish
       </Button>
     </>

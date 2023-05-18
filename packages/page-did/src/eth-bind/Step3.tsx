@@ -3,7 +3,17 @@
 
 import { useCallback, useContext, useMemo } from 'react';
 
-import { Button, Copy, Divider, Stack, Typography, useAccount, useSignMessage } from '@credential/react-components';
+import { IconEth } from '@credential/app-config';
+import {
+  Button,
+  Copy,
+  Divider,
+  IconButton,
+  Stack,
+  Typography,
+  useAccount,
+  useSignMessage
+} from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
 
 import TextWithBg from './TextWithBg';
@@ -35,6 +45,17 @@ const Step3: React.FC<{ zkSig?: string; onMetaSigChange: (sig: string) => void; 
     <Stack>
       <TextWithBg bgcolor='rgba(108,93,211,0.05)' mb={4} mt={4}>
         <Stack alignItems='center' borderRadius='10px' direction='row' spacing={0.5} width='100%'>
+          <IconButton
+            disabled
+            size='small'
+            sx={{
+              '&.Mui-disabled': {
+                bgcolor: '#6768AC'
+              }
+            }}
+          >
+            <IconEth />
+          </IconButton>
           <Typography>{address}</Typography>
           {address && <Copy value={address} />}
         </Stack>
@@ -42,7 +63,7 @@ const Step3: React.FC<{ zkSig?: string; onMetaSigChange: (sig: string) => void; 
       <Divider />
       <TextWithBg bgcolor='#F7F8FA' label='zkID Sig:' mt={3} value={zkSig} />
       <TextWithBg bgcolor='#F7F8FA' label='Sign this document with Ethereum Address' mb={4} mt={3} value={binding} />
-      <Button fullWidth onClick={signBinding} variant='contained'>
+      <Button fullWidth onClick={signBinding} size='large' variant='contained'>
         Sign
       </Button>
     </Stack>
