@@ -51,8 +51,10 @@ function Computation({ onSuccess, program, vc }: Props) {
         leaves: program.leaves
       });
 
+      const programHash = generateProgramHash(program.program);
+
       const { desc, sbt_link, verifier_signature } = await resolver.zkVerify(result, {
-        program_hash: generateProgramHash(program.program),
+        program_hash: programHash,
         stack_inputs: publicInput,
         user_did: vc.holder,
         ctype: vc.ctype,
@@ -68,7 +70,9 @@ function Computation({ onSuccess, program, vc }: Props) {
         result: {
           desc,
           signature: verifier_signature,
-          image: sbt_link
+          image: sbt_link,
+          programHash,
+          output: JSON.parse(result).outputs.stack
         },
         error: null
       });

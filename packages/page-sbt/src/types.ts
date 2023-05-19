@@ -5,4 +5,6 @@ export type SbtResult = {
   desc: string;
   image: string;
   signature: string;
+  programHash: string;
+  output: number[];
 };

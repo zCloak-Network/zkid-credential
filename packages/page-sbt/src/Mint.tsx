@@ -5,8 +5,28 @@ import type { VerifiableCredential } from '@zcloak/vc/types';
 import type { SbtResult } from './types';
 
 import { Box, Container, Stack, Typography } from '@mui/material';
+import { hexToU8a, u8aToHex } from '@polkadot/util';
+import { useCallback, useContext, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { Button, ButtonEnableMetamask, ellipsisMixin, SbtCard } from '@credential/react-components';
+import { base58Decode } from '@zcloak/crypto';
+import { helpers } from '@zcloak/did';
+
+import { VERIFIER_ADDRESS, zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
+import {
+  Button,
+  ButtonEnableMetamask,
+  Copy,
+  ellipsisMixin,
+  IdentityIcon,
+  SbtCard,
+  useAccount,
+  useContractRead,
+  useContractWrite
+} from '@credential/react-components';
+import { DidsContext } from '@credential/react-dids';
+
+import MintStatus from './modal/MintStatus';
 
 interface Props {
   vc: VerifiableCredential<boolean>;
@@ -15,6 +35,82 @@ interface Props {
 }
 
 function Mint({ onCancel, result, vc }: Props) {
+  const { did } = useContext(DidsContext);
+  const [binded, setBinded] = useState<string>();
+  const [error, setError] = useState<Error>();
+  const [open, setIsOpen] = useState(false);
+  const [success, setIsSuccess] = useState(false);
+
+  const { isFetching } = useContractRead({
+    address: ZKSBT_ADDRESS,
+    abi: zCloakSBTAbi,
+    functionName: 'checkBindingDB',
+    args: [did.identifier],
+    onSuccess: (data: any) => {
+      const addr = hexToU8a(data).filter((item) => Boolean(item)).length ? data : undefined;
+
+      setBinded(addr);
+    }
+  });
+
+  const { writeAsync } = useContractWrite({
+    abi: zCloakSBTAbi,
+    address: ZKSBT_ADDRESS,
+    functionName: 'mint',
+    chainId: ZKSBT_CHAIN_ID,
+    onSuccess: () => {
+      setIsOpen(true);
+      setIsSuccess(true);
+    }
+  });
+
+  // const { write } = useContractWrite({
+  //   abi: zCloakSBTAbi,
+  //   address: ZKSBT_ADDRESS,
+  //   functionName: 'setAssertionMethod',
+  //   chainId: ZKSBT_CHAIN_ID,
+  //   args: [ethereumEncode(did.get(did.getKeyUrl('assertionMethod')).publicKey)]
+  // });
+
+  // console.log();
+
+  // useEffect(() => {
+
+  //   write();
+  // }, []);
+
+  const recipient = useMemo(() => binded ?? did.identifier, [did.identifier, binded]);
+
+  const mint = useCallback(async () => {
+    try {
+      const attesterSig = u8aToHex(base58Decode(vc.proof[0].proofValue));
+      const attester = await helpers.fromDid(vc.issuer);
+      const version = '0x0001';
+
+      const params = [
+        recipient, // recipient
+        vc.ctype, // ctype
+        `0x${result.programHash}`, // programHash
+        vc.digest, // digest
+        VERIFIER_ADDRESS, // verifier
+        attester.identifier, // attester
+        attesterSig, // attester sig
+        result.output, // output
+        vc.issuanceDate, // issuanceTimestamp
+        0, // expirationTimestamp
+        version, // vcVersion
+        result.image // sbtlink
+      ];
+
+      await writeAsync({
+        args: [params, result.signature]
+      });
+    } catch (error) {
+      setIsOpen(true);
+      setError(error as Error);
+    }
+  }, [recipient, vc, result, writeAsync]);
+
   return (
     <Container
       maxWidth='md'
@@ -53,7 +149,13 @@ function Mint({ onCancel, result, vc }: Props) {
           </Box>
         </Box>
         <Box>
-          <ButtonEnableMetamask fullWidth size='large' variant='contained'>
+          <Typography fontWeight={500} mb={2}>
+            To
+          </Typography>
+          <To recipient={recipient} />
+        </Box>
+        <Box>
+          <ButtonEnableMetamask disabled={isFetching} fullWidth onClick={mint} size='large' variant='contained'>
             Mint
           </ButtonEnableMetamask>
           <Button color='secondary' fullWidth onClick={onCancel} size='large' sx={{ marginTop: 3 }} variant='contained'>
@@ -61,8 +163,70 @@ function Mint({ onCancel, result, vc }: Props) {
           </Button>
         </Box>
       </Stack>
+      {open && (
+        <MintStatus
+          error={error}
+          onClose={() => setIsOpen(false)}
+          open={open}
+          recipient={recipient}
+          success={success}
+        />
+      )}
     </Container>
   );
 }
+
+const To: React.FC<{ recipient: string }> = ({ recipient }) => {
+  const { address, isConnected } = useAccount();
+
+  return (
+    <>
+      <Stack
+        alignItems='center'
+        direction='row'
+        paddingX={2}
+        paddingY={1.75}
+        spacing={1}
+        sx={{
+          background: 'rgba(108,93,211,0.05)',
+          height: 64,
+          width: '100%',
+          borderRadius: '4px'
+        }}
+      >
+        <IdentityIcon diameter={36} value={recipient} />
+        <Typography>{recipient}</Typography>
+        <Copy value={recipient} />
+      </Stack>
+      <Typography
+        mb={5}
+        mt={3}
+        pl={2}
+        sx={{
+          position: 'relative',
+          '::before': {
+            content: "''",
+            width: 4,
+            height: '100%',
+            background: '#0042F1',
+            borderRadius: '4px',
+            position: 'absolute',
+            left: 0,
+            top: 0
+          }
+        }}
+      >
+        {isConnected ? (
+          `${address} will pay for the gas fees.`
+        ) : (
+          <>
+            Have another common used Ethereum Address?
+            <Link to='/did/profile'>Try to bond Ethereum Address to as recipient.</Link>
+          </>
+        )}
+      </Typography>
+    </>
+  );
+};
 
 export default Mint;
