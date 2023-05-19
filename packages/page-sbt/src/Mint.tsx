@@ -221,7 +221,7 @@ const To: React.FC<{ recipient: string }> = ({ recipient }) => {
         ) : (
           <>
             Have another common used Ethereum Address?
-            <Link to='/did/profile'>Try to bond Ethereum Address to as recipient.</Link>
+            <Link to='/claimer/did/profile'>Try to bond Ethereum Address to as recipient.</Link>
           </>
         )}
       </Typography>
