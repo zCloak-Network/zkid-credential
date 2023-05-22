@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Box, Typography } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { DidsContext } from '@credential/react-dids';
 
 interface Props {
   output: string;
@@ -11,6 +13,8 @@ interface Props {
 }
 
 function SbtCard({ attester, multiply = 1, output }: Props) {
+  const { did } = useContext(DidsContext);
+
   return (
     <Box
       sx={{
@@ -40,6 +44,23 @@ function SbtCard({ attester, multiply = 1, output }: Props) {
         }}
       >
         {output}
+      </Typography>
+      <Typography
+        sx={{
+          position: 'absolute',
+          bottom: `${85 * multiply}px`,
+          width: '100%',
+          paddingX: 4 * multiply,
+          fontWeight: 700,
+          color: '#fc1ea1',
+          lineHeight: `${13 * multiply}px`,
+          fontSize: 13 * multiply,
+          textAlign: 'center',
+          wordBreak: 'break-all',
+          userSelect: 'none'
+        }}
+      >
+        {did.id}
       </Typography>
       <Typography
         sx={{
