@@ -26,7 +26,7 @@ function PreviewModal({ attester, onClose, open, output }: Props) {
         alignItems: 'center'
       }}
     >
-      <SbtCard attester={attester} multiply={upSm ? 2 : 1} output={output} />
+      <SbtCard attester={attester} multiply={upSm ? 1 : 0.7} output={output} />
     </Modal>
   );
 }

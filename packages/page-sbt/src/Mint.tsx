@@ -141,7 +141,7 @@ function Mint({ onCancel, result, vc }: Props) {
         <Box>
           <Typography variant='h6'>Preview</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingY: 6 }}>
-            <SbtCard attester={vc.issuer} multiply={1.2} output={result.desc} />
+            <SbtCard attester={vc.issuer} multiply={0.7} output={result.desc} />
           </Box>
         </Box>
         <Box>

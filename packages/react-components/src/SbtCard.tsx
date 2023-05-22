@@ -19,26 +19,27 @@ function SbtCard({ attester, multiply = 1, output }: Props) {
     <Box
       sx={{
         position: 'relative',
-        width: 274 * multiply,
-        height: 384 * multiply,
+        width: 548,
+        height: 768,
         background: 'url(images/sbt-card.webp) no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         boxShadow: '0px 0px 90px 1px #00CEF9',
-        borderRadius: `${8 * multiply}px`
+        borderRadius: '16px',
+        zoom: multiply
       }}
     >
       <Typography
         sx={{
           position: 'absolute',
-          bottom: `${120 * multiply}px`,
+          top: '460px',
           width: '100%',
-          paddingX: 4 * multiply,
+          paddingX: 4,
           fontWeight: 700,
           color: '#23AFED',
-          lineHeight: `${28 * multiply}px`,
+          lineHeight: '30px',
           textShadow: '0px 3px 6px rgba(0,0,0,0.3)',
-          fontSize: 28 * multiply,
+          fontSize: 30,
           textAlign: 'center',
           userSelect: 'none'
         }}
@@ -48,16 +49,17 @@ function SbtCard({ attester, multiply = 1, output }: Props) {
       <Typography
         sx={{
           position: 'absolute',
-          bottom: `${85 * multiply}px`,
+          top: '520px',
           width: '100%',
-          paddingX: 4 * multiply,
+          paddingX: 4,
           fontWeight: 700,
           color: '#fc1ea1',
-          lineHeight: `${13 * multiply}px`,
-          fontSize: 13 * multiply,
+          lineHeight: '15px',
+          fontSize: 15,
           textAlign: 'center',
           wordBreak: 'break-all',
-          userSelect: 'none'
+          userSelect: 'none',
+          textDecoration: 'underline'
         }}
       >
         {did.id}
@@ -65,13 +67,13 @@ function SbtCard({ attester, multiply = 1, output }: Props) {
       <Typography
         sx={{
           position: 'absolute',
-          bottom: `${38 * multiply}px`,
+          top: '660px',
           width: '100%',
-          paddingX: 4 * multiply,
+          paddingX: 4,
           fontWeight: 700,
           color: '#fff',
-          lineHeight: `${13 * multiply}px`,
-          fontSize: 13 * multiply,
+          lineHeight: '15px',
+          fontSize: 15,
           textAlign: 'center',
           wordBreak: 'break-all',
           userSelect: 'none'
