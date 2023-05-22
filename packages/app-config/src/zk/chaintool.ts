@@ -12,8 +12,8 @@ function getPublicInput() {
 
 const config: ZkProgramConfig[] = [
   {
-    name: 'Audlt Check',
-    description: 'Check you are audlt.',
+    name: 'Adult Check',
+    description: 'Check you are adult.',
     author: 'did:zk:0xdC6BF231a4f18074288C07C3f31f2eD170E368aD',
     program: `        proc.number_add.4
   dup.0 loc_store.0 push.0 eq
@@ -422,7 +422,7 @@ begin
     ]
   },
   {
-    name: 'Continent & Audlt Check',
+    name: 'Continent & Adult Check',
     description: 'Check which country you are on and if you are an adult.',
     author: 'did:zk:0xdC6BF231a4f18074288C07C3f31f2eD170E368aD',
     program: `proc.number_add.4
@@ -660,18 +660,18 @@ begin
  end`,
     leaves: [1, 2],
     outputs: [
-      ['Country in Africa and Audlt', 'Africa & Audlt'],
-      ['Country in Africa not Audlt', 'Africa & No-Audlt'],
-      ['Country in Asia and Audlt', 'Asia & Audlt'],
-      ['Country in Asia not Audlt', 'Asia & No-Audlt'],
-      ['Country in Europe and Audlt', 'Europe & Audlt'],
-      ['Country in Europe not Audlt', 'Europe & No-Audlt'],
-      ['Country in North America and Audlt', 'North America & Audlt'],
-      ['Country in North America not Audlt', 'North & No-Audlt'],
-      ['Country in Oceania and Audlt', 'Oceania & Audlt'],
-      ['Country in Oceania not Audlt', 'Oceania & No-Audlt'],
-      ['Country in South America and Audlt', 'South America & Audlt'],
-      ['Country in South America not Audlt', 'South America & No-Audlt']
+      ['Country in Africa and Adult', 'Africa & Adult'],
+      ['Country in Africa not Adult', 'Africa & No-Adult'],
+      ['Country in Asia and Adult', 'Asia & Adult'],
+      ['Country in Asia not Adult', 'Asia & No-Adult'],
+      ['Country in Europe and Adult', 'Europe & Adult'],
+      ['Country in Europe not Adult', 'Europe & No-Adult'],
+      ['Country in North America and Adult', 'North America & Adult'],
+      ['Country in North America not Adult', 'North & No-Adult'],
+      ['Country in Oceania and Adult', 'Oceania & Adult'],
+      ['Country in Oceania not Adult', 'Oceania & No-Adult'],
+      ['Country in South America and Adult', 'South America & Adult'],
+      ['Country in South America not Adult', 'South America & No-Adult']
     ],
     getPublicInput
   }

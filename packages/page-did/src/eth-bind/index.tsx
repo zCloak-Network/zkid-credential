@@ -2,9 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Step, StepLabel, Stepper } from '@mui/material';
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import { zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
+import { HexString } from '@zcloak/crypto/types';
+
 import {
   Button,
   Dialog,
@@ -13,10 +14,8 @@ import {
   Loading,
   Stack,
   Success,
-  useAccount,
-  useContractEvent
+  useWaitForTransaction
 } from '@credential/react-components';
-import { DidsContext } from '@credential/react-dids';
 
 import Step1 from './Step1';
 import Step2 from './Step2';
@@ -36,9 +35,13 @@ const EthBind: React.FC<{ open: boolean; onClose: () => void; refetch: () => Pro
   const next = useCallback(() => setStep(step + 1), [step]);
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+  const [hash, setHash] = useState<HexString>();
   const [error, setError] = useState<Error>();
-  const { did } = useContext(DidsContext);
-  const { address } = useAccount();
+
+  const onPublish = useCallback((hash?: HexString) => {
+    setHash(hash);
+    setLoading(true);
+  }, []);
 
   const onError = useCallback((error: Error) => {
     setError(error);
@@ -56,6 +59,11 @@ const EthBind: React.FC<{ open: boolean; onClose: () => void; refetch: () => Pro
     setSuccess(true);
   }, [refetch]);
 
+  useWaitForTransaction({
+    hash,
+    onSuccess
+  });
+
   const _onClose = useCallback(() => {
     setStep(0);
     setZkSig(undefined);
@@ -65,22 +73,6 @@ const EthBind: React.FC<{ open: boolean; onClose: () => void; refetch: () => Pro
     setLoading(false);
     onClose();
   }, [onClose]);
-
-  const unwatch = useContractEvent({
-    abi: zCloakSBTAbi,
-    address: ZKSBT_ADDRESS,
-    chainId: ZKSBT_CHAIN_ID,
-    eventName: 'BindingSetSuccess',
-    listener(logs: any) {
-      const args = logs?.[0]?.args;
-
-      if (args?.bindedAddr === address && args?.bindingAddr === did.identifier) {
-        onSuccess();
-
-        unwatch?.();
-      }
-    }
-  });
 
   return (
     <Dialog
@@ -127,7 +119,7 @@ const EthBind: React.FC<{ open: boolean; onClose: () => void; refetch: () => Pro
           {step === 0 && <Step1 next={next} />}
           {step === 1 && <Step2 next={next} onZkSigChange={setZkSig} />}
           {step === 2 && <Step3 next={next} onMetaSigChange={setMetaSig} zkSig={zkSig} />}
-          {step === 3 && <Step4 metaSig={metaSig} onError={onError} onPublish={() => setLoading(true)} zkSig={zkSig} />}
+          {step === 3 && <Step4 metaSig={metaSig} onError={onError} onPublish={onPublish} zkSig={zkSig} />}
         </>
       )}
     </Dialog>

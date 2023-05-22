@@ -9,5 +9,6 @@ export {
   useContractEvent,
   useContractRead,
   useSwitchNetwork,
-  useNetwork
+  useNetwork,
+  useWaitForTransaction
 } from 'wagmi';

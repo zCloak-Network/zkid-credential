@@ -3,6 +3,8 @@
 
 import { useCallback, useContext } from 'react';
 
+import { HexString } from '@zcloak/crypto/types';
+
 import { zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
 import { Button, useAccount, useContractWrite } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
@@ -13,7 +15,7 @@ const Step4: React.FC<{
   zkSig?: string;
   metaSig?: string;
   onError?: (error: Error) => void;
-  onPublish?: () => void;
+  onPublish?: (hash: HexString) => void;
 }> = ({ metaSig, onError, onPublish, zkSig }) => {
   const { did } = useContext(DidsContext);
   const { address } = useAccount();
@@ -29,9 +31,9 @@ const Step4: React.FC<{
     if (!address || !zkSig || !metaSig) return;
 
     try {
-      await writeAsync({ args: [did.identifier, address, zkSig, metaSig] });
+      const data = await writeAsync({ args: [did.identifier, address, zkSig, metaSig] });
 
-      onPublish?.();
+      onPublish?.(data.hash);
     } catch (error) {}
   }, [did, address, writeAsync, zkSig, metaSig, onPublish]);
 

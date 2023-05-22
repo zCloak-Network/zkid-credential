@@ -10,6 +10,7 @@ import { useCallback, useContext, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { base58Decode } from '@zcloak/crypto';
+import { HexString } from '@zcloak/crypto/types';
 import { helpers } from '@zcloak/did';
 
 import { VERIFIER_ADDRESS, zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
@@ -22,7 +23,8 @@ import {
   SbtCard,
   useAccount,
   useContractRead,
-  useContractWrite
+  useContractWrite,
+  useWaitForTransaction
 } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
 
@@ -40,6 +42,7 @@ function Mint({ onCancel, result, vc }: Props) {
   const [error, setError] = useState<Error>();
   const [open, setIsOpen] = useState(false);
   const [success, setIsSuccess] = useState(false);
+  const [hash, setHash] = useState<HexString>();
 
   const { isFetching } = useContractRead({
     address: ZKSBT_ADDRESS,
@@ -60,24 +63,8 @@ function Mint({ onCancel, result, vc }: Props) {
     chainId: ZKSBT_CHAIN_ID,
     onSuccess: () => {
       setIsOpen(true);
-      setIsSuccess(true);
     }
   });
-
-  // const { write } = useContractWrite({
-  //   abi: zCloakSBTAbi,
-  //   address: ZKSBT_ADDRESS,
-  //   functionName: 'setAssertionMethod',
-  //   chainId: ZKSBT_CHAIN_ID,
-  //   args: [ethereumEncode(did.get(did.getKeyUrl('assertionMethod')).publicKey)]
-  // });
-
-  // console.log();
-
-  // useEffect(() => {
-
-  //   write();
-  // }, []);
 
   const recipient = useMemo(() => binded ?? did.identifier, [did.identifier, binded]);
 
@@ -102,14 +89,23 @@ function Mint({ onCancel, result, vc }: Props) {
         result.image // sbtlink
       ];
 
-      await writeAsync({
+      const data = await writeAsync({
         args: [params, result.signature]
       });
+
+      setHash(data.hash);
     } catch (error) {
       setIsOpen(true);
       setError(error as Error);
     }
   }, [recipient, vc, result, writeAsync]);
+
+  useWaitForTransaction({
+    hash,
+    onSuccess: () => {
+      setIsSuccess(true);
+    }
+  });
 
   return (
     <Container
