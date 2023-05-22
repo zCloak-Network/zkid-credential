@@ -1,13 +1,11 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { hexToU8a } from '@polkadot/util';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
-import { zCloakSBTAbi, ZKSBT_ADDRESS } from '@credential/app-config';
-import { Button, Stack, Typography, useContractRead } from '@credential/react-components';
+import { Button, Stack, Typography } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
-import { useToggle } from '@credential/react-hooks';
+import { useBindEth, useToggle } from '@credential/react-hooks';
 
 import TextWithBg from './eth-bind/TextWithBg';
 import EthBind from './eth-bind';
@@ -15,20 +13,7 @@ import EthBind from './eth-bind';
 const OnChainRecipient = () => {
   const [open, toggle] = useToggle();
   const { did } = useContext(DidsContext);
-  const [binded, setBinded] = useState<string>();
-  const { isFetching, refetch } = useContractRead({
-    address: ZKSBT_ADDRESS,
-    abi: zCloakSBTAbi,
-    functionName: 'checkBindingDB',
-    args: [did.identifier],
-    onSuccess: (data: any) => {
-      const addr = hexToU8a(data).filter((item) => Boolean(item)).length ? data : undefined;
-
-      setBinded(addr);
-
-      return addr;
-    }
-  });
+  const { binded, isFetching, refetch } = useBindEth(did);
 
   return (
     <Stack mt={4}>

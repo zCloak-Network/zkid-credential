@@ -5,15 +5,15 @@ import type { VerifiableCredential } from '@zcloak/vc/types';
 import type { SbtResult } from './types';
 
 import { Box, Container, Stack, Typography } from '@mui/material';
-import { hexToU8a, u8aToHex } from '@polkadot/util';
+import { u8aToHex } from '@polkadot/util';
 import { useCallback, useContext, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { base58Decode } from '@zcloak/crypto';
 import { HexString } from '@zcloak/crypto/types';
 import { helpers } from '@zcloak/did';
 
 import { VERIFIER_ADDRESS, zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
+import EthBind from '@credential/page-did/eth-bind';
 import {
   Button,
   ButtonEnableMetamask,
@@ -22,11 +22,11 @@ import {
   IdentityIcon,
   SbtCard,
   useAccount,
-  useContractRead,
   useContractWrite,
   useWaitForTransaction
 } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
+import { useBindEth, useToggle } from '@credential/react-hooks';
 
 import MintStatus from './modal/MintStatus';
 
@@ -38,23 +38,13 @@ interface Props {
 
 function Mint({ onCancel, result, vc }: Props) {
   const { did } = useContext(DidsContext);
-  const [binded, setBinded] = useState<string>();
+
   const [error, setError] = useState<Error>();
   const [open, setIsOpen] = useState(false);
   const [success, setIsSuccess] = useState(false);
   const [hash, setHash] = useState<HexString>();
 
-  const { isFetching } = useContractRead({
-    address: ZKSBT_ADDRESS,
-    abi: zCloakSBTAbi,
-    functionName: 'checkBindingDB',
-    args: [did.identifier],
-    onSuccess: (data: any) => {
-      const addr = hexToU8a(data).filter((item) => Boolean(item)).length ? data : undefined;
-
-      setBinded(addr);
-    }
-  });
+  const { binded, isFetching, refetch } = useBindEth(did);
 
   const { writeAsync } = useContractWrite({
     abi: zCloakSBTAbi,
@@ -148,7 +138,7 @@ function Mint({ onCancel, result, vc }: Props) {
           <Typography fontWeight={500} mb={2}>
             To
           </Typography>
-          <To recipient={recipient} />
+          <To isBinded={!!binded} recipient={recipient} refetch={refetch} />
         </Box>
         <Box>
           <ButtonEnableMetamask disabled={isFetching} fullWidth onClick={mint} size='large' variant='contained'>
@@ -172,8 +162,13 @@ function Mint({ onCancel, result, vc }: Props) {
   );
 }
 
-const To: React.FC<{ recipient: string }> = ({ recipient }) => {
-  const { address, isConnected } = useAccount();
+const To: React.FC<{ recipient: string; refetch: () => Promise<any>; isBinded: boolean }> = ({
+  isBinded,
+  recipient,
+  refetch
+}) => {
+  const { address } = useAccount();
+  const [open, toggle] = useToggle();
 
   return (
     <>
@@ -194,33 +189,38 @@ const To: React.FC<{ recipient: string }> = ({ recipient }) => {
         <Typography>{recipient}</Typography>
         <Copy value={recipient} />
       </Stack>
-      <Typography
-        mb={5}
-        mt={3}
-        pl={2}
-        sx={{
-          position: 'relative',
-          '::before': {
-            content: "''",
-            width: 4,
-            height: '100%',
-            background: '#0042F1',
-            borderRadius: '4px',
-            position: 'absolute',
-            left: 0,
-            top: 0
-          }
-        }}
-      >
-        {isConnected ? (
-          `${address} will pay for the gas fees.`
-        ) : (
-          <>
-            Have another common used Ethereum Address?
-            <Link to='/claimer/did/profile'>Try to bond Ethereum Address to as recipient.</Link>
-          </>
-        )}
-      </Typography>
+      {!isBinded && (
+        <Typography
+          mt={3}
+          pl={2}
+          sx={{
+            position: 'relative',
+            '::before': {
+              content: "''",
+              width: 4,
+              height: '100%',
+              background: '#0042F1',
+              borderRadius: '4px',
+              position: 'absolute',
+              left: 0,
+              top: 0
+            }
+          }}
+        >
+          Have another common used Ethereum Address?
+          <Button component='a' onClick={toggle} size='small' variant='text'>
+            Try to bond Ethereum Address to as recipient.
+          </Button>
+        </Typography>
+      )}
+
+      {address && (
+        <Typography color='grey.A700' fontSize={14} mt={3}>
+          {address} will pay for the gas fees.
+        </Typography>
+      )}
+
+      {open && <EthBind onClose={toggle} open={open} refetch={refetch} />}
     </>
   );
 };
