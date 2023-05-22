@@ -60,7 +60,7 @@ const PageSbt: React.FC = () => {
         <Mint onCancel={() => setResult(undefined)} result={result} vc={credential.vc} />
       ) : (
         <>
-          <Top vc={credential.vc} />
+          <Top />
           <Container maxWidth='xl'>
             <CredentialDetails status='approved' vc={credential.vc} />
             <Divider sx={{ marginY: '50px', borderColor: '#EBEAED' }} />
