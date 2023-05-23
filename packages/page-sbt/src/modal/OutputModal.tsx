@@ -12,10 +12,10 @@ interface Props {
   onClose: () => void;
 }
 
-function Item({ condation, result }: { condation: string; result: string }) {
+function Item({ condition, result }: { condition: string; result: string }) {
   return (
     <Stack alignItems='center' direction='row' justifyContent='space-between' spacing={2}>
-      <Typography color='#8F95B2'>{condation}</Typography>
+      <Typography color='#8F95B2'>{condition}</Typography>
       <Typography color='primary.main' textAlign='right'>
         {result}
       </Typography>
@@ -31,10 +31,10 @@ function OutputModal({ name, onClose, open, outputs }: Props) {
       </DialogHeader>
       <DialogContent>
         <Stack spacing={3}>
-          <Item condation='Condation' result='Output' />
+          <Item condition='Condition' result='Output' />
           <Divider />
-          {outputs.map(([condation, result], index) => (
-            <Item condation={condation} key={index} result={result} />
+          {outputs.map(([condition, result], index) => (
+            <Item condition={condition} key={index} result={result} />
           ))}
         </Stack>
       </DialogContent>
