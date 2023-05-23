@@ -11,7 +11,7 @@ import Title from './Title';
 
 const optional: StepCardProps = {
   label: 'Optional',
-  content: 'Use more common used Ethereum Address to receive zkId Card.',
+  content: 'Use an Ethereum wallet address to receive your zkID card.',
   Icon: <IconEth />,
   title: 'Set up on-chain recipient address',
   isLocked: false

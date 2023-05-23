@@ -30,7 +30,7 @@ const Step1: React.FC<{ next: () => void }> = ({ next }) => {
         textAlign='center'
         variant='inherit'
       >
-        Connect your common used Ethereum Address
+        Connect with your Ethereum address
       </Typography>
       <ButtonEnableMetamask
         disabled={!switchNetworkAsync}

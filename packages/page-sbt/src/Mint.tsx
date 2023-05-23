@@ -209,7 +209,7 @@ const To: React.FC<{ recipient: string; refetch: () => Promise<any>; isBinded: b
             }
           }}
         >
-          Have another common used Ethereum Address?
+          You can also bond this SBT to a Ethereum wallet address if you want.
           <Button component='a' onClick={toggle} size='small' variant='text'>
             Try to bond Ethereum Address to as recipient.
           </Button>
@@ -218,7 +218,7 @@ const To: React.FC<{ recipient: string; refetch: () => Promise<any>; isBinded: b
 
       {address && (
         <Typography color='grey.A700' fontSize={14} mt={3}>
-          {address} will pay for the gas fees.
+          {address} will pay for the gas fee.
         </Typography>
       )}
 
