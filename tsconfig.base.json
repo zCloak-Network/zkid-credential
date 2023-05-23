@@ -26,6 +26,8 @@
       "@credential/page-message/*": ["page-message/src/*"],
       "@credential/page-sbt": ["page-sbt/src"],
       "@credential/page-sbt/*": ["page-sbt/src/*"],
+      "@credential/page-sbt-event": ["page-sbt-event/src"],
+      "@credential/page-sbt-event/*": ["page-sbt-event/src/*"],
       "@credential/page-tasks": ["page-tasks/src"],
       "@credential/page-tasks/*": ["page-tasks/src/*"],
       "@credential/react-components": ["react-components/src"],

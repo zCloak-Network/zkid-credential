@@ -11,3 +11,5 @@ export const ZKSBT_ADDRESS = isRelease
 
 export const ZKSBT_CHAIN_ID = isRelease ? optimism.id : optimismGoerli.id;
 export const VERIFIER_ADDRESS = '0xC2BADDbf6DCeDA9b68638a9de84063c1E0ee4350';
+
+export const ZKSBT_CTYPE = '0x2e0e5ba41f58ffdccb9dba906715b9142e40929d80896310906cde392862fc9e';

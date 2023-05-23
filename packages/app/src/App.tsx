@@ -17,6 +17,7 @@ import Issue from '@credential/page-issue';
 import PageMessage from '@credential/page-message';
 import PageAttesterMessage from '@credential/page-message/attester';
 import PageSbt from '@credential/page-sbt';
+import PageSbtEvent from '@credential/page-sbt-event';
 import PageTasks from '@credential/page-tasks';
 import PageRequestDetails from '@credential/page-tasks/RequestDetails';
 import { AppProvider, Box, CTypeProvider, useMediaQuery, useTheme, WagmiProvider } from '@credential/react-components';
@@ -230,6 +231,14 @@ const createNoSideBar = () => (
         </Container>
       }
       path='sbt/:digest'
+    />
+    <Route
+      element={
+        <Container>
+          <PageSbtEvent />
+        </Container>
+      }
+      path='event/2'
     />
   </Route>
 );

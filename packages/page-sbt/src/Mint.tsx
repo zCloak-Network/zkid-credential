@@ -6,7 +6,7 @@ import type { SbtResult } from './types';
 
 import { Box, Container, Stack, Typography } from '@mui/material';
 import { u8aToHex } from '@polkadot/util';
-import { useCallback, useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { base58Decode } from '@zcloak/crypto';
 import { HexString } from '@zcloak/crypto/types';
@@ -65,7 +65,7 @@ function Mint({ onCancel, result, vc }: Props) {
       const version = '0x0001';
 
       const params = [
-        recipient, // recipient
+        did.identifier, // recipient
         vc.ctype, // ctype
         `0x${result.programHash}`, // programHash
         vc.digest, // digest
@@ -88,7 +88,7 @@ function Mint({ onCancel, result, vc }: Props) {
       setIsOpen(true);
       setError(error as Error);
     }
-  }, [recipient, vc, result, writeAsync]);
+  }, [vc, result, writeAsync, did.identifier]);
 
   useWaitForTransaction({
     hash,
@@ -96,6 +96,8 @@ function Mint({ onCancel, result, vc }: Props) {
       setIsSuccess(true);
     }
   });
+
+  useEffect(() => onCancel, [did, onCancel]);
 
   return (
     <Container

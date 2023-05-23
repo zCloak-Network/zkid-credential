@@ -26,6 +26,7 @@
     "@credential/page-did": "workspace:^",
     "@credential/page-issue": "workspace:^",
     "@credential/page-message": "workspace:^",
+    "@credential/page-sbt-event": "workspace:^",
     "@credential/page-tasks": "workspace:^",
     "@credential/react-components": "workspace:^",
     "@credential/react-dids": "workspace:^",
