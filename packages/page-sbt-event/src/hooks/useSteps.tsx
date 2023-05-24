@@ -6,6 +6,9 @@ import { stringToHex } from '@polkadot/util';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Did } from '@zcloak/did';
+import { Message, MessageData } from '@zcloak/message/types';
+
 import { IconCard, IconChaintool, IconLogoZkid, ZKSBT_CTYPE } from '@credential/app-config';
 import { getCredentials } from '@credential/app-store';
 import { NotificationContext } from '@credential/react-components';
@@ -49,12 +52,18 @@ const stepsConfig: StepCardProps[] = [
   }
 ];
 
+function getMessage(messages: Message<keyof MessageData>[], did: Did) {
+  return messages.filter(
+    (message) => message.msgType === 'Send_issuedVC' && message.receiver === did.getKeyUrl('keyAgreement')
+  );
+}
+
 export function useSteps() {
   const { did } = useContext(DidsContext);
   const { notifyError } = useContext(NotificationContext);
   const messages = useMessages('all');
 
-  const message = useMemo(() => messages.filter((message) => message.ctype === ZKSBT_CTYPE)[0], [messages]);
+  const message = getMessage(messages, did)[0];
 
   const credentials = useLiveQuery(getCredentials, [])?.filter((credential) => credential.ctype === ZKSBT_CTYPE);
   const _credential = useMemo(() => credentials?.[credentials?.length - 1], [credentials]);
