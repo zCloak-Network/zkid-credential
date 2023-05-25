@@ -1,6 +1,8 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { HexString } from '@zcloak/crypto/types';
+
 import React, { useState } from 'react';
 
 import { CredentialSubject } from '@zcloak/vc/types';
@@ -9,7 +11,7 @@ import { Box, Button, ClaimDisplay, Container, Stack } from '@credential/react-c
 
 interface Props {
   contents: CredentialSubject;
-  ctype: string;
+  ctype: HexString;
 }
 
 const Details: React.FC<Props> = ({ contents, ctype }) => {
