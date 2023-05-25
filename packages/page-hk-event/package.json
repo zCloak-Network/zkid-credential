@@ -16,8 +16,8 @@
   "type": "module",
   "version": "0.5.0",
   "dependencies": {
-    "@zcloak/login-did": "^1.1.9",
-    "@zcloak/login-providers": "^1.2.4",
+    "@zcloak/login-did": "^1.1.12",
+    "@zcloak/login-providers": "^1.2.6",
     "@zcloak/ui-store": "^0.9.7"
   }
 }
