@@ -5,7 +5,15 @@ import type { CTypeSchema } from '@zcloak/ctype/types';
 
 import { useEffect, useState } from 'react';
 
-import { Autocomplete, FormControl, InputBool, InputLabel, OutlinedInput, Stack } from '@credential/react-components';
+import {
+  Autocomplete,
+  FormControl,
+  InputBool,
+  InputLabel,
+  InputString,
+  OutlinedInput,
+  Stack
+} from '@credential/react-components';
 
 import ArrayRestrictions from './ArrayRestrictions';
 import EnumType from './EnumType';
@@ -31,6 +39,7 @@ function ItemCreation({
   const [restrictions, setRestrictions] = useState<CTypeSchema>();
   const [enums, setEnums] = useState<(string | number)[]>();
   const [required, setRequired] = useState(false);
+  const [format, setFormat] = useState<string>();
 
   useEffect(() => {
     if (!name) return;
@@ -51,8 +60,12 @@ function ItemCreation({
       schema.enum = enums;
     }
 
+    if (format) {
+      schema.format = format;
+    }
+
     onChange(schema);
-  }, [enums, onChange, required, restrictions, type]);
+  }, [enums, format, onChange, required, restrictions, type]);
 
   return (
     <Stack spacing={3}>
@@ -73,6 +86,7 @@ function ItemCreation({
           </FormControl>
         )}
       />
+      <InputString onChange={setFormat} placeholder='E.g: timestamp,national-code,did' />
       {type && <InputBool label='Required' onChange={setRequired} />}
       {(type === 'number' || type === 'integer') && <NumberRestrictions onChange={setRestrictions} />}
       {type === 'string' && <StringRestrictions onChange={setRestrictions} />}

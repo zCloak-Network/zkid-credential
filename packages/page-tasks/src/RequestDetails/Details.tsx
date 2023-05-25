@@ -9,9 +9,10 @@ import { Box, Button, ClaimDisplay, Container, Stack } from '@credential/react-c
 
 interface Props {
   contents: CredentialSubject;
+  ctype: string;
 }
 
-const Details: React.FC<Props> = ({ contents }) => {
+const Details: React.FC<Props> = ({ contents, ctype }) => {
   const [active, setActive] = useState<number>(0);
 
   return (
@@ -39,10 +40,9 @@ const Details: React.FC<Props> = ({ contents }) => {
       >
         {active === 0 && (
           <Container maxWidth='sm'>
-            <ClaimDisplay contents={contents} />
+            <ClaimDisplay contents={contents} ctype={ctype} />
           </Container>
         )}
-        {/* message history */}
       </Box>
     </Box>
   );
