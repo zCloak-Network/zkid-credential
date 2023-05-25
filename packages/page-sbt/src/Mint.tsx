@@ -26,6 +26,7 @@ import {
   useWaitForTransaction
 } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
+import { provider } from '@credential/react-dids/instance';
 import { useBindEth, useToggle } from '@credential/react-hooks';
 
 import MintStatus from './modal/MintStatus';
@@ -97,7 +98,13 @@ function Mint({ onCancel, result, vc }: Props) {
     }
   });
 
-  useEffect(() => onCancel, [did, onCancel]);
+  useEffect(() => {
+    provider?.on('did_changed', onCancel);
+
+    return () => {
+      provider?.off('did_changed', onCancel);
+    };
+  }, [onCancel]);
 
   return (
     <Container

@@ -15,7 +15,7 @@ const Step2: React.FC<{ next: () => void; onZkSigChange: (sig: string) => void }
   const { address } = useAccount();
 
   const binding = useMemo(() => {
-    return `${did.id} will transfer the on-chain zkID Card to ${address} for use.\n\n I am aware that:\n If someone maliciously claims it on behalf, ${did.id} will face corresponding legal risks.\n If the Ethereum address is changed, all on-chain zkID Cards will be destroyed.`;
+    return `${did.id} will transfer the on-chain zkID Card to ${address} for use.\n\n I am aware that:\n If someone maliciously claims it on behalf, ${did.id} will face corresponding legal consequences.\n If the Ethereum address is changed, all on-chain zklD Cards will be invalidated.`;
   }, [did?.id, address]);
 
   const signBinding = useCallback(async () => {
@@ -74,10 +74,10 @@ const Step2: React.FC<{ next: () => void; onZkSigChange: (sig: string) => void }
         </Typography>
         <Typography>I am aware that:</Typography>
         <Typography color='#0042F1'>
-          • If someone maliciously claims it on behalf, {did?.id} will face corresponding legal risks.
+          • If someone maliciously claims it on behalf, {did?.id} will face corresponding legal consequences.
         </Typography>
         <Typography color='#0042F1'>
-          • If the Ethereum address is changed, all on-chain zkID Cards will be destroyed.
+          • If the Ethereum address is changed, all on-chain zklD Cards will be invalidated.
         </Typography>
       </Stack>
       <Button fullWidth onClick={signBinding} size='large' variant='contained'>
