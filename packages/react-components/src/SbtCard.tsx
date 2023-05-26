@@ -53,7 +53,7 @@ function SbtCard({ attester, multiply = 1, output }: Props) {
           width: '100%',
           paddingX: 4,
           fontWeight: 700,
-          color: '#fc1ea1',
+          color: '#fff',
           lineHeight: '15px',
           fontSize: 15,
           textAlign: 'center',
