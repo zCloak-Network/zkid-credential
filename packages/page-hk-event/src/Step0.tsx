@@ -38,7 +38,7 @@ const Step0: React.FC<{
       <Stack
         alignItems='center'
         sx={{
-          background: 'url(/images/bag_welcome.svg)',
+          background: 'url(/hk-event/bag_welcome.svg)',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           height: 268

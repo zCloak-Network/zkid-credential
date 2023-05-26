@@ -62,7 +62,7 @@ const RequestDetails: React.FC = () => {
       </DialogHeader>
       <Container component={DialogContent} maxWidth='lg' sx={{ background: 'transparent !important' }}>
         <ClaimInfo showActions task={decryptedTask} />
-        <Details contents={decryptedTask.data.credentialSubject} />
+        <Details contents={decryptedTask.data.credentialSubject} ctype={decryptedTask.data.ctype} />
       </Container>
       <DialogActions>
         <Stack alignItems='center' direction='row' spacing={1.5} sx={{ display: { md: 'none', xs: 'flex' } }}>

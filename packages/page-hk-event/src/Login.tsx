@@ -13,8 +13,8 @@ const Login = () => {
       position='relative'
       sx={{
         height: 730,
-        background: 'url(/hk-event/bag_texas.svg) no-repeat #F4F5F9',
-        backgroundPosition: 'top center'
+        background: 'url(/hk-event/bag_edcon.webp) no-repeat,linear-gradient(180deg, #BAC8E9 0%, #F6E3CD 100%)',
+        backgroundPosition: 'bottom center'
       }}
     >
       <Box
@@ -46,25 +46,12 @@ const Login = () => {
           }}
         >
           <Stack direction='row' mt={3} spacing={3.75}>
-            <Box
-              className='Logo_Icons'
-              sx={{
-                background: 'url(/hk-event/logo_1.png) no-repeat #F4F5F9',
-                backgroundSize: 'cover'
-              }}
-            />
-            <Box
-              className='Logo_Icons'
-              sx={{
-                background: 'url(/hk-event/logo_2.png) no-repeat #F4F5F9',
-                backgroundSize: 'cover'
-              }}
-            />
+            <img src='/hk-event/logo_edcon.svg' />
           </Stack>
           <Typography className='HK_TITLE' mt={3.5}>
             WELCOME TO
           </Typography>
-          <Typography className='HK_TITLE'>ETH Austin & Consensus </Typography>
+          <Typography className='HK_TITLE'>EDCON & DAO Montenegro</Typography>
           <Typography className='HK_TITLE' mb={2}>
             2023
           </Typography>

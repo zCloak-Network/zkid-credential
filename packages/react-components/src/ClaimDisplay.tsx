@@ -1,16 +1,23 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { HexString } from '@zcloak/crypto/types';
 import type { CredentialSubject, NativeType, NativeTypeWithOutNull } from '@zcloak/vc/types';
 
 import { alpha, Box, Stack, Typography } from '@mui/material';
 import { isHex } from '@polkadot/util';
 import React, { useMemo } from 'react';
 
+import { national } from '@credential/app-config';
+import { getCacheCType } from '@credential/app-store';
+import { DidName } from '@credential/react-dids';
+import { useLiveQuery } from '@credential/react-hooks';
+
 export const ClaimItem: React.FC<{
   label: string;
   value: React.ReactElement | NativeType | NativeTypeWithOutNull[];
-}> = ({ label, value }) => {
+  format?: string; // 'date' | 'time' | 'date-time' | 'url' | 'email' | 'hostname' | 'ipv4' | 'ipv6' | 'int32' | 'int64' | 'uint32' | 'uint64' | 'float' | 'double' | 'bytes' | 'hex' | 'did' | 'timestamp' | 'national-code'
+}> = ({ format, label, value }) => {
   const el = useMemo(() => {
     if (value && React.isValidElement(value)) {
       return value;
@@ -19,6 +26,16 @@ export const ClaimItem: React.FC<{
     const type = typeof value;
 
     if (['string', 'number', 'undefined'].includes(type)) {
+      if (format === 'timestamp') {
+        return <>{new Date(Number(value)).toLocaleString()}</>;
+      } else if (format === 'did') {
+        return <DidName value={value as string} />;
+      } else if (format === 'national-code') {
+        const finded = national.find((item) => item.place === value);
+
+        return <>{finded ? finded.country : JSON.stringify(value)}</>;
+      }
+
       return <>{value}</>;
     } else if (typeof value === 'boolean') {
       return (
@@ -40,7 +57,7 @@ export const ClaimItem: React.FC<{
     } else {
       return <>{JSON.stringify(value)}</>;
     }
-  }, [value]);
+  }, [format, value]);
 
   return (
     <Stack alignItems='baseline' direction='row' justifyContent='space-between' paddingX={3} spacing={3}>
@@ -50,11 +67,13 @@ export const ClaimItem: React.FC<{
   );
 };
 
-function ClaimDisplay({ contents }: { contents: CredentialSubject }) {
+function ClaimDisplay({ contents, ctype }: { ctype: HexString; contents: CredentialSubject }) {
+  const local = useLiveQuery(getCacheCType, [ctype]);
+
   return !isHex(contents) ? (
     <Stack spacing={2}>
       {Object.entries(contents).map(([key, value]) => (
-        <ClaimItem key={key} label={key} value={value} />
+        <ClaimItem format={local?.properties?.[key].format} key={key} label={key} value={value} />
       ))}
     </Stack>
   ) : (
