@@ -6,7 +6,7 @@ import type { SbtResult } from './types';
 
 import { Box, Container, Stack, Typography } from '@mui/material';
 import { u8aToHex } from '@polkadot/util';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 
 import { base58Decode } from '@zcloak/crypto';
 import { HexString } from '@zcloak/crypto/types';
@@ -26,7 +26,6 @@ import {
   useWaitForTransaction
 } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
-import { provider } from '@credential/react-dids/instance';
 import { useBindEth, useToggle } from '@credential/react-hooks';
 
 import MintStatus from './modal/MintStatus';
@@ -97,14 +96,6 @@ function Mint({ onCancel, result, vc }: Props) {
       setIsSuccess(true);
     }
   });
-
-  useEffect(() => {
-    provider?.on('did_changed', onCancel);
-
-    return () => {
-      provider?.off('did_changed', onCancel);
-    };
-  }, [onCancel]);
 
   return (
     <Container

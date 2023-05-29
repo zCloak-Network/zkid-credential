@@ -10,6 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { zkConfig } from '@credential/app-config';
 import { Credential, getCredential } from '@credential/app-store';
 import { ThemeProvider } from '@credential/react-components';
+import { provider } from '@credential/react-dids/instance';
 
 import Computation from './Computation';
 import CredentialDetails from './CredentialDetails';
@@ -36,6 +37,19 @@ const PageSbt: React.FC = () => {
         }
       });
   }, [digest, navigate]);
+
+  useEffect(() => {
+    const didChanged = () => {
+      setResult(undefined);
+      navigate('/claimer/claims');
+    };
+
+    provider?.on('did_changed', didChanged);
+
+    return () => {
+      provider?.off('did_changed', didChanged);
+    };
+  }, [navigate]);
 
   return credential ? (
     <ThemeProvider

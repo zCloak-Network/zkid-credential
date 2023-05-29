@@ -16,7 +16,7 @@ const Item: React.FC<Props> = ({ label, value }) => {
       <Typography fontSize='1.5rem' fontWeight={600}>
         {value}
       </Typography>
-      <Typography color='#8A7F7B' fontSize='1.125rem' fontWeight={400}>
+      <Typography color='#8A7F7B' fontSize='1.125rem' fontWeight={400} textAlign='right'>
         {label}
       </Typography>
     </Stack>
@@ -41,8 +41,7 @@ const Introduction = () => {
         a user without disclosing their privacy.
       </Typography>
       <Stack direction='row' mb={6} mt={6} spacing={10}>
-        <Item label='SOCIAL' value='1000' />
-        <Item label='Event duration ' value='May 30th, 2023 - June 30th, 2023' />
+        <Item label='Start Time ' value='May 30th, 2023 - June 30th, 2023' />
       </Stack>
       <Divider
         sx={{
