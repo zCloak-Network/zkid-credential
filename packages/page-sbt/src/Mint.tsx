@@ -38,13 +38,12 @@ interface Props {
 function Mint({ onCancel, result, vc }: Props) {
   const { did } = useContext(DidsContext);
 
-  const [error, setError] = useState<Error>();
   const [open, setIsOpen] = useState(false);
   const [success, setIsSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const { binded, isFetching, refetch } = useBindEth(did);
 
-  const { data, writeAsync } = useContractWrite({
+  const { data, error, writeAsync } = useContractWrite({
     abi: zCloakSBTAbi,
     address: ZKSBT_ADDRESS,
     functionName: 'mint',
@@ -84,7 +83,6 @@ function Mint({ onCancel, result, vc }: Props) {
       });
     } catch (error) {
       setIsOpen(true);
-      setError(error as Error);
     } finally {
       setLoading(false);
     }

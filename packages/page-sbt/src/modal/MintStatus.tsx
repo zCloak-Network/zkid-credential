@@ -9,7 +9,7 @@ import { Button, DialogHeader, Failed, Loading, Success } from '@credential/reac
 const MintStatus: React.FC<{
   open: boolean;
   onClose: () => void;
-  error?: Error;
+  error?: Error | null;
   recipient: string;
   success: boolean;
   hash?: string;
@@ -19,7 +19,7 @@ const MintStatus: React.FC<{
       <DialogHeader onClose={onClose}>Mint zkID Card</DialogHeader>
       <DialogContent>
         <Stack alignItems='center' fontSize={60} mb={4} spacing={2}>
-          {error ? <Failed message={error.name} /> : <>{success ? <Success /> : <Loading />}</>}
+          {error ? <Failed message={(error as any)?.metaMessages?.[0]} /> : <>{success ? <Success /> : <Loading />}</>}
         </Stack>
         {success && hash && recipient && (
           <Stack direction='row' justifyContent='center' paddingY={2}>
