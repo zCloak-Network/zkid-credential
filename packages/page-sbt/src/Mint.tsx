@@ -4,12 +4,11 @@
 import type { VerifiableCredential } from '@zcloak/vc/types';
 import type { SbtResult } from './types';
 
-import { Box, Container, Stack, Typography } from '@mui/material';
+import { Box, Container, Link, Stack, Typography } from '@mui/material';
 import { u8aToHex } from '@polkadot/util';
 import { useCallback, useContext, useMemo, useState } from 'react';
 
 import { base58Decode } from '@zcloak/crypto';
-import { HexString } from '@zcloak/crypto/types';
 import { helpers } from '@zcloak/did';
 
 import { VERIFIER_ADDRESS, zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
@@ -42,11 +41,10 @@ function Mint({ onCancel, result, vc }: Props) {
   const [error, setError] = useState<Error>();
   const [open, setIsOpen] = useState(false);
   const [success, setIsSuccess] = useState(false);
-  const [hash, setHash] = useState<HexString>();
-
+  const [loading, setLoading] = useState(false);
   const { binded, isFetching, refetch } = useBindEth(did);
 
-  const { writeAsync } = useContractWrite({
+  const { data, writeAsync } = useContractWrite({
     abi: zCloakSBTAbi,
     address: ZKSBT_ADDRESS,
     functionName: 'mint',
@@ -60,6 +58,8 @@ function Mint({ onCancel, result, vc }: Props) {
 
   const mint = useCallback(async () => {
     try {
+      setLoading(true);
+
       const attesterSig = u8aToHex(base58Decode(vc.proof[0].proofValue));
       const attester = await helpers.fromDid(vc.issuer);
       const version = '0x0001';
@@ -79,19 +79,19 @@ function Mint({ onCancel, result, vc }: Props) {
         result.image // sbtlink
       ];
 
-      const data = await writeAsync({
+      await writeAsync({
         args: [params, result.signature]
       });
-
-      setHash(data.hash);
     } catch (error) {
       setIsOpen(true);
       setError(error as Error);
+    } finally {
+      setLoading(false);
     }
   }, [vc, result, writeAsync, did.identifier]);
 
   useWaitForTransaction({
-    hash,
+    hash: data?.hash,
     onSuccess: () => {
       setIsSuccess(true);
     }
@@ -141,7 +141,14 @@ function Mint({ onCancel, result, vc }: Props) {
           <To isBinded={!!binded} recipient={recipient} refetch={refetch} />
         </Box>
         <Box>
-          <ButtonEnableMetamask disabled={isFetching} fullWidth onClick={mint} size='large' variant='contained'>
+          <ButtonEnableMetamask
+            disabled={isFetching}
+            fullWidth
+            loading={loading}
+            onClick={mint}
+            size='large'
+            variant='contained'
+          >
             Mint
           </ButtonEnableMetamask>
           <Button color='secondary' fullWidth onClick={onCancel} size='large' sx={{ marginTop: 3 }} variant='contained'>
@@ -152,6 +159,7 @@ function Mint({ onCancel, result, vc }: Props) {
       {open && (
         <MintStatus
           error={error}
+          hash={data?.hash}
           onClose={() => setIsOpen(false)}
           open={open}
           recipient={recipient}
@@ -215,8 +223,11 @@ const To: React.FC<{ recipient: string; refetch: () => Promise<any>; isBinded: b
       )}
 
       {address && (
-        <Typography color='grey.A700' fontSize={14} mt={3}>
-          {address} will pay for the gas fee.
+        <Typography color='grey.A700' fontSize={12} mt={3}>
+          {address} will pay for the gas fee.{' --> '}
+          <Link href='https://faucet.quicknode.com/optimism/goerli' target='_blank'>
+            Faucet
+          </Link>
         </Typography>
       )}
 

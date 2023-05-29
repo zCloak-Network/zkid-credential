@@ -16,7 +16,7 @@ const Item: React.FC<Props> = ({ label, value }) => {
       <Typography fontSize='1.5rem' fontWeight={600}>
         {value}
       </Typography>
-      <Typography color='#8A7F7B' fontSize='1.125rem' fontWeight={400} textAlign='right'>
+      <Typography color='#8A7F7B' fontSize='1.125rem' fontWeight={400}>
         {label}
       </Typography>
     </Stack>

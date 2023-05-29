@@ -1,7 +1,7 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button, ButtonProps, ButtonTypeMap } from '@mui/material';
+import { LoadingButton, LoadingButtonProps, LoadingButtonTypeMap } from '@mui/lab';
 import { OverrideProps } from '@mui/material/OverridableComponent';
 import { optimism, optimismGoerli } from '@wagmi/core/chains';
 import React, { useCallback } from 'react';
@@ -14,16 +14,16 @@ type EnableProps = {
   onEnable?: (...args: any) => void;
 };
 
-type Props = ButtonProps & EnableProps;
+type Props = LoadingButtonProps & EnableProps;
 
 function ButtonEnableMetamask(props: Props): React.ReactElement;
 function ButtonEnableMetamask<C extends React.ElementType>(
-  props: { component: C } & OverrideProps<ButtonTypeMap, C> & EnableProps
+  props: { component: C } & OverrideProps<LoadingButtonTypeMap, C> & EnableProps
 ): React.ReactElement;
 function ButtonEnableMetamask<C extends React.ElementType>({
   onEnable,
   ...props
-}: Props | ({ component: C } & OverrideProps<ButtonTypeMap, C>)) {
+}: Props | ({ component: C } & OverrideProps<LoadingButtonTypeMap, C>)) {
   const { isConnected } = useAccount();
 
   const { connectAsync, connectors } = useConnect();
@@ -43,21 +43,21 @@ function ButtonEnableMetamask<C extends React.ElementType>({
 
   return window?.ethereum ? (
     isConnected ? (
-      <Button {...props} />
+      <LoadingButton {...props} />
     ) : (
-      <Button {...props} disabled={false} onClick={connect}>
+      <LoadingButton {...props} disabled={false} onClick={connect}>
         Connect Wallet
-      </Button>
+      </LoadingButton>
     )
   ) : (
-    <Button
+    <LoadingButton
       {...(props as any)}
       component='a'
       href='https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn'
       target='_blank'
     >
       Install Metamask
-    </Button>
+    </LoadingButton>
   );
 }
 
