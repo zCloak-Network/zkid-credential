@@ -51,7 +51,7 @@ const CredentialContents: React.FC<Props> = ({ attester, contents, ctypeHash, ow
       <ClaimItem label='Credential owner' value={<DidName value={owner} />} />
       <Divider sx={({ palette }) => ({ marginY: 3, borderColor: palette.grey[300] })} />
       <Box paddingBottom={5}>
-        <ClaimDisplay contents={contents} />
+        <ClaimDisplay contents={contents} ctype={ctypeHash} />
       </Box>
     </Paper>
   );

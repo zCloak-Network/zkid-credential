@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.25.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.24.0...v0.25.0) (2023-05-18)
+
+
+### Features
+
+* Edcon event ([#31](https://github.com/zCloak-Network/zkid-credential/issues/31)) ([35ba4a3](https://github.com/zCloak-Network/zkid-credential/commit/35ba4a3d0379ce7868b6cb94f3989380d59ae5cb))
+
+
 ## [0.24.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.23.0...v0.24.0) (2023-05-12)
 
 
