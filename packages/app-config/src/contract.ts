@@ -6,7 +6,7 @@ import { optimismGoerli } from '@credential/react-components';
 import { isRelease } from './isRelease';
 
 export const ZKSBT_ADDRESS = isRelease
-  ? '0x1addc21e939b93e9337f8A663F62a64583b62233'
+  ? '0x08f1a8Eeb39E861FcC78812fd1C79291cd3f88A7'
   : '0x1addc21e939b93e9337f8A663F62a64583b62233';
 
 export const ZKSBT_CHAIN_ID = isRelease ? optimismGoerli.id : optimismGoerli.id;
