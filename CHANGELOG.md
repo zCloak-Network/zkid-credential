@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.27.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.26.0...v0.27.0) (2023-05-30)
+
+
+### Features
+
+* add zksbt ctypehash config ([#34](https://github.com/zCloak-Network/zkid-credential/issues/34)) ([e68f372](https://github.com/zCloak-Network/zkid-credential/commit/e68f372535263c20267e3b4baafbcf8c1eb82b11))
+
+
 ## [0.26.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.25.0...v0.26.0) (2023-05-30)
 
 
