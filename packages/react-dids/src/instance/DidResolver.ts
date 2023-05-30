@@ -10,6 +10,7 @@ import type { ServerCtypes, ServerMessage } from '../types';
 
 import { ArweaveDidResolver } from '@zcloak/did-resolver';
 
+import { VALID_SERVICE } from '@credential/app-config/endpoints';
 import { putDid, queryDid } from '@credential/app-store/cache-did';
 
 import { get, post } from '../utils/request';
@@ -195,6 +196,16 @@ export class CredentialDidResolver extends ArweaveDidResolver {
     verifier_signature: string;
   }> {
     const res = await post(`${this.server}/zk/verify`, { ...data, zkp_result: JSON.parse(result) });
+
+    if (res?.code !== 200) {
+      throw new Error(res?.message);
+    } else {
+      return res.data;
+    }
+  }
+
+  public async getVid(did: string): Promise<string | null> {
+    const res = await post(`${VALID_SERVICE}/api/valid_name/resolve`, { did });
 
     if (res?.code !== 200) {
       throw new Error(res?.message);

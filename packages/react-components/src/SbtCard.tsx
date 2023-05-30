@@ -4,7 +4,10 @@
 import { Box, Typography } from '@mui/material';
 import React, { useContext } from 'react';
 
+import { DidUrl } from '@zcloak/did-resolver/types';
+
 import { DidsContext } from '@credential/react-dids';
+import { useVid } from '@credential/react-hooks';
 
 interface Props {
   output: string;
@@ -14,6 +17,7 @@ interface Props {
 
 function SbtCard({ attester, multiply = 1, output }: Props) {
   const { did } = useContext(DidsContext);
+  const { vid } = useVid(attester as DidUrl);
 
   return (
     <Box
@@ -79,7 +83,7 @@ function SbtCard({ attester, multiply = 1, output }: Props) {
           userSelect: 'none'
         }}
       >
-        {attester}
+        {vid}
       </Typography>
     </Box>
   );
