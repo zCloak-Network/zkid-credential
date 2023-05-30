@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [0.26.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.25.0...v0.26.0) (2023-05-30)
+
+
+### Features
+
+* support format for create ctype, and support credential display by format ([#33](https://github.com/zCloak-Network/zkid-credential/issues/33)) ([8c2b988](https://github.com/zCloak-Network/zkid-credential/commit/8c2b98802e079e003e6281affd5dd1d5e5adb0e8))
+* zk calculation for some ctype hash ([#32](https://github.com/zCloak-Network/zkid-credential/issues/32)) ([945a663](https://github.com/zCloak-Network/zkid-credential/commit/945a663b8588e6fb745f9c0b0a1f020c8d41c8d6))
+
+
 ## [0.25.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.24.0...v0.25.0) (2023-05-18)
 
 
