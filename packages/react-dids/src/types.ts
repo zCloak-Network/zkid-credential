@@ -8,12 +8,9 @@ import type { Message, MessageType } from '@zcloak/message/types';
 
 import type { CType } from '@credential/app-store';
 
-export type DidRole = 'attester' | 'claimer';
-
 export interface DidsState {
   all: Did[];
   did: Did;
-  didRole: DidRole;
   isLocked: boolean;
   lock: () => void;
 }

@@ -2,14 +2,17 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { type PaletteMode, type Theme } from '@mui/material';
-import { createTheme as createMuiTheme, ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import { createTheme as createMuiTheme, PaletteOptions, ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
 
 import { createComponents } from './components';
 import { createPalette } from './palette';
 import { createTypography } from './typography';
 
+type Custom = { palette?: Partial<PaletteOptions> };
+
 type ThemeProviderProps = {
+  custom?: Custom;
   children: React.ReactNode;
 };
 
@@ -19,9 +22,9 @@ type ThemeProviderProps = {
  * @see https://mui.com/customization/theming/
  * @see https://mui.com/customization/default-theme/
  */
-function createTheme(mode: PaletteMode): Theme {
+function createTheme(mode: PaletteMode, custom?: Custom): Theme {
   return createMuiTheme({
-    palette: createPalette(mode),
+    palette: { ...createPalette(mode), ...custom?.palette },
     components: createComponents(mode),
     typography: createTypography(),
     breakpoints: {
@@ -36,21 +39,24 @@ function createTheme(mode: PaletteMode): Theme {
   });
 }
 
-/* eslint-disable-next-line @typescript-eslint/no-empty-function */
-const ToggleThemeContext = React.createContext(() => {});
+interface State {
+  toggleTheme: () => void;
+}
+
+const ThemeContext = React.createContext<State>({} as State);
 
 function ThemeProvider(props: ThemeProviderProps): JSX.Element {
-  const [theme, setTheme] = React.useState(() => createTheme('light'));
+  const [theme, setTheme] = React.useState(() => createTheme('light', props.custom));
 
   const toggleTheme = React.useCallback(() => {
-    setTheme((theme) => createTheme(theme.palette.mode === 'light' ? 'dark' : 'light'));
-  }, []);
+    setTheme((theme) => createTheme(theme.palette.mode === 'light' ? 'dark' : 'light', props.custom));
+  }, [props]);
 
   return (
     <MuiThemeProvider theme={theme}>
-      <ToggleThemeContext.Provider value={toggleTheme}>{props.children}</ToggleThemeContext.Provider>
+      <ThemeContext.Provider value={{ toggleTheme }}>{props.children}</ThemeContext.Provider>
     </MuiThemeProvider>
   );
 }
 
-export { ThemeProvider, ToggleThemeContext };
+export { ThemeProvider, ThemeContext };

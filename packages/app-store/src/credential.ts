@@ -28,6 +28,10 @@ export function getCredentials(): Promise<Credential[]> {
   return didManager.db.credential.toArray();
 }
 
+export function getCredential(digest: string): Promise<Credential | undefined> {
+  return didManager.db.credential.filter(({ digest: _digest }) => digest === _digest).first();
+}
+
 export async function addVC(vc: VerifiableCredential<boolean> | null | undefined): Promise<Credential | null> {
   if (!vc) return null;
 

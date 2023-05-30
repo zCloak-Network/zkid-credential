@@ -20,13 +20,8 @@
     "@credential/app-store": "workspace:^",
     "@credential/react-dids": "workspace:^",
     "@credential/react-hooks": "workspace:^",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
     "@metamask/jazzicon": "^2.0.0",
-    "@mui/icons-material": "^5.11.11",
-    "@mui/material": "^5.11.13",
-    "@mui/system": "^5.11.13",
-    "@polkadot/util": "^11.0.2",
+    "@polkadot/util": "^12.2.1",
     "@zcloak/ctype": "^1.3.0",
     "@zcloak/did": "^1.3.9",
     "@zcloak/did-resolver": "^1.1.3",
@@ -39,6 +34,15 @@
     "qrcode-generator": "^1.4.4",
     "react-dropzone": "^14.2.3",
     "react-transition-group": "^4.4.5",
-    "socket.io-client": "^4.6.1"
+    "socket.io-client": "^4.6.1",
+    "viem": "^0.3.26",
+    "wagmi": "^1.0.5"
+  },
+  "peerDependencies": {
+    "@mui/icons-material": "^*",
+    "@mui/material": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-router-dom": "*"
   }
 }

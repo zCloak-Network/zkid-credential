@@ -6,4 +6,7 @@ export * from './images';
 export * from './isRelease';
 export * from './vc';
 export * from './hk-event';
+export * from './zk';
+export * from './abi';
+export * from './contract';
 export * from './national';

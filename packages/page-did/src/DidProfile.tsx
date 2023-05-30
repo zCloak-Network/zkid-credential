@@ -4,11 +4,13 @@
 import type { HexString } from '@zcloak/crypto/types';
 
 import { isU8a, u8aToHex } from '@polkadot/util';
-import React, { useContext, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 
 import { Box, Container, Copy, IdentityIcon, Stack, Tab, Tabs, Typography } from '@credential/react-components';
 import { ellipsisMixin } from '@credential/react-components/utils';
 import { DidCell, DidsContext } from '@credential/react-dids';
+
+import OnChainRecipient from './OnChainRecipient';
 
 const KeyCell: React.FC<{ name: string; publicKey?: Uint8Array | HexString | null }> = ({ name, publicKey }) => {
   const text = useMemo(() => (publicKey ? (isU8a(publicKey) ? u8aToHex(publicKey) : publicKey) : null), [publicKey]);
@@ -51,6 +53,9 @@ const KeyCell: React.FC<{ name: string; publicKey?: Uint8Array | HexString | nul
 
 const DidProfile: React.FC = () => {
   const { did } = useContext(DidsContext);
+  const [tab, setTab] = useState(0);
+
+  const onTabChange = useCallback((e: React.SyntheticEvent, val: number) => setTab(val), []);
 
   const authenticationKey = useMemo(() => {
     try {
@@ -148,16 +153,21 @@ const DidProfile: React.FC = () => {
         </Box>
       </Stack>
       <Container maxWidth='md' sx={{ marginTop: { xs: 7, md: 14 } }}>
-        <Tabs value={0}>
-          <Tab label='Keys' />
+        <Tabs onChange={onTabChange} value={tab}>
+          <Tab label='Keys' value={0} />
+          <Tab label='On-chain Recipient' value={1} />
         </Tabs>
-        <Stack spacing={4}>
-          <KeyCell name='Authentication Key' publicKey={authenticationKey} />
-          <KeyCell name='Assertion Method Set' publicKey={assertionMethodKey} />
-          <KeyCell name='Key Agreement Key' publicKey={keyAgreementKey} />
-          <KeyCell name='Capability Delegation Key' publicKey={capabilityDelegationKey} />
-          <KeyCell name='Capability Invocation Key' publicKey={capabilityInvocationKey} />
-        </Stack>
+        {tab === 0 ? (
+          <Stack spacing={4}>
+            <KeyCell name='Authentication Key' publicKey={authenticationKey} />
+            <KeyCell name='Assertion Method Set' publicKey={assertionMethodKey} />
+            <KeyCell name='Key Agreement Key' publicKey={keyAgreementKey} />
+            <KeyCell name='Capability Delegation Key' publicKey={capabilityDelegationKey} />
+            <KeyCell name='Capability Invocation Key' publicKey={capabilityInvocationKey} />
+          </Stack>
+        ) : (
+          <OnChainRecipient />
+        )}
       </Container>
     </Box>
   );

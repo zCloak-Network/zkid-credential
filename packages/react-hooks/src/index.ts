@@ -16,3 +16,6 @@ export * from './useStopPropagation';
 export * from './useTasks';
 export * from './useMessages';
 export * from './useDecryptedMessage';
+
+export * from './useBindEth';
+export * from './useVid';

@@ -10,7 +10,7 @@ import UnlockModal from '@credential/react-dids/UnlockModal';
 
 import { didManager, keyring, resolver } from './instance';
 import { isLoginDid } from './is';
-import { DidRole, DidsState } from './types';
+import { DidsState } from './types';
 
 function getIsLocked(did: Did) {
   if (isLoginDid(did)) {
@@ -28,7 +28,7 @@ function getIsLocked(did: Did) {
 
 export const DidsContext = createContext({} as DidsState);
 
-function DidsProvider({ children, didRole }: { didRole: DidRole; children: React.ReactNode }) {
+function DidsProvider({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const [all, setAll] = useState<Did[]>(didManager.all());
   const [did, setDid] = useState<Did | null>(didManager.current);
@@ -83,7 +83,6 @@ function DidsProvider({ children, didRole }: { didRole: DidRole; children: React
   return did ? (
     <DidsContext.Provider
       value={{
-        didRole,
         all,
         did,
         isLocked,
