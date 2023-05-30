@@ -22,6 +22,8 @@ import {
   SbtCard,
   useAccount,
   useContractWrite,
+  useNetwork,
+  useSwitchNetwork,
   useWaitForTransaction
 } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
@@ -43,6 +45,9 @@ function Mint({ onCancel, result, vc }: Props) {
   const [loading, setLoading] = useState(false);
   const { binded, isFetching, refetch } = useBindEth(did);
 
+  const { chain } = useNetwork();
+  const { switchNetworkAsync } = useSwitchNetwork();
+
   const { data, error, writeAsync } = useContractWrite({
     abi: zCloakSBTAbi,
     address: ZKSBT_ADDRESS,
@@ -58,6 +63,10 @@ function Mint({ onCancel, result, vc }: Props) {
   const mint = useCallback(async () => {
     try {
       setLoading(true);
+
+      if (chain?.id !== ZKSBT_CHAIN_ID) {
+        await switchNetworkAsync?.(ZKSBT_CHAIN_ID);
+      }
 
       const attesterSig = u8aToHex(base58Decode(vc.proof[0].proofValue));
       const attester = await helpers.fromDid(vc.issuer);
@@ -80,13 +89,14 @@ function Mint({ onCancel, result, vc }: Props) {
 
       await writeAsync({
         args: [params, result.signature]
+      }).catch(() => {
+        setIsOpen(true);
       });
     } catch (error) {
-      setIsOpen(true);
     } finally {
       setLoading(false);
     }
-  }, [vc, result, writeAsync, did.identifier]);
+  }, [vc, result, writeAsync, did.identifier, switchNetworkAsync, chain]);
 
   useWaitForTransaction({
     hash: data?.hash,
@@ -129,7 +139,7 @@ function Mint({ onCancel, result, vc }: Props) {
         <Box>
           <Typography variant='h6'>Preview</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingY: 6 }}>
-            <SbtCard attester={vc.issuer} multiply={0.7} output={result.desc} />
+            <SbtCard attester={vc.issuer} isExample={false} multiply={0.7} output={result.desc} />
           </Box>
         </Box>
         <Box>
