@@ -2,8 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useMemo } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import Banner from '@credential/page-sbt-event/Banner';
 import { Box, useMediaQuery, useTheme } from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
@@ -19,6 +20,7 @@ const Claimer: React.FC = () => {
   const [open, toggleOpen] = useToggle(!!upMd);
   const { pathname } = useLocation();
   const unreads = useNotification();
+  const navigate = useNavigate();
 
   const items = useMemo(
     () => [
@@ -47,6 +49,7 @@ const Claimer: React.FC = () => {
   return (
     <Box bgcolor='#F5F6FA' overflow='hidden' paddingTop='70px'>
       <Header toggleOpen={toggleOpen} unreads={unreads} />
+      <Banner onClick={() => navigate('/event/zk-kyc2023')} />
       <Box overflow='hidden' position='relative'>
         <Sidebar accountType='claimer' items={items} open={open} toggleOpen={toggleOpen} />
         <Box

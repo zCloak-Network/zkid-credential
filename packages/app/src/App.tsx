@@ -238,7 +238,7 @@ const createNoSideBar = () => (
           <PageSbtEvent />
         </Container>
       }
-      path='event/2'
+      path='event/zk-kyc2023'
     />
   </Route>
 );

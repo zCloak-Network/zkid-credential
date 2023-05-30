@@ -11,7 +11,7 @@ const TextWithBg: React.FC<
   return (
     <Box mb={mb} mt={mt}>
       {label && (
-        <Typography color='#8F95B2' fontSize={0.875} mb={1}>
+        <Typography color='#8F95B2' fontSize={14} mb={1}>
           {label}
         </Typography>
       )}
@@ -25,7 +25,7 @@ const TextWithBg: React.FC<
           wordWrap: 'break-word'
         }}
       >
-        {value && <Typography fontSize={0.875}>{value}</Typography>}
+        {value && <Typography fontSize={14}>{value}</Typography>}
         {children}
       </Box>
     </Box>
