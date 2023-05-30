@@ -9,7 +9,7 @@ import { zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-con
 import { ButtonEnableMetamask, useAccount, useContractWrite } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
 
-import TextWithBg from './TextWithBg';
+import SigItem from './SigItem';
 
 const Step4: React.FC<{
   zkSig?: string;
@@ -46,8 +46,8 @@ const Step4: React.FC<{
 
   return (
     <>
-      <TextWithBg bgcolor='#F7F8FA' label='zkID Sig:' mb={2} mt={4} value={zkSig} />
-      <TextWithBg bgcolor='#F7F8FA' label='Ethereum Address Sig:' mb={4} value={metaSig} />
+      <SigItem label='zkID Sig:' mb={2} mt={4} value={zkSig} />
+      <SigItem label='Ethereum Address Sig:' mb={4} value={metaSig} />
       <ButtonEnableMetamask fullWidth loading={loading} onClick={bind} size='large' variant='contained'>
         Publish
       </ButtonEnableMetamask>
