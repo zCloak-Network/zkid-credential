@@ -92,7 +92,11 @@ const EthBind: React.FC<{ open: boolean; onClose: () => void; refetch: () => Pro
         <>
           <Stack alignItems='center' fontSize={60} justifyContent='center' mb={8} spacing={1}>
             {loading && <Loading />}
-            {error && <Failed message={error.name} />}
+            {error && (
+              <Failed
+                message={error?.name === 'TransactionExecutionError' ? (error as any)?.shortMessage : error.name}
+              />
+            )}
             {success && <Success />}
           </Stack>
           <Button onClick={_onClose} variant='contained'>

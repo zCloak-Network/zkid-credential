@@ -41,7 +41,7 @@ const Introduction = () => {
         a user without disclosing their privacy.
       </Typography>
       <Stack direction='row' mb={6} mt={6} spacing={10}>
-        <Item label='Start Time ' value='May 30th, 2023 - June 30th, 2023' />
+        <Item label='Start Time ' value='May 31th, 2023' />
       </Stack>
       <Divider
         sx={{

@@ -180,8 +180,8 @@ begin
  end `,
     leaves: [3],
     outputs: [
-      ['Age > 18', 'Adult'],
-      ['Age <= 18', 'Adult']
+      ['Age >= 18', 'Adult'],
+      ['Age < 18', 'Non-Adult']
     ],
     getPublicInput
   },

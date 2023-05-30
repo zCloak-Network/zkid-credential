@@ -71,7 +71,7 @@ function ZkProgram({ config, onSelect, selectIndex, vc }: Props) {
                   cursor: 'pointer',
                   padding: 2.5,
                   bgcolor: 'common.white',
-                  border: '1px solid transparent',
+                  border: '2px solid transparent',
                   borderColor: selectIndex === index ? 'primary.main' : 'transparent',
                   boxShadow: selectIndex === index ? '0px 6px 20px 1px rgba(206,214,235,0.73)' : 'none',
                   ':hover': {

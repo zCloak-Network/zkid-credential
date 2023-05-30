@@ -39,10 +39,10 @@ const PageSbtEvent = () => {
 const Banner = () => {
   return (
     <Box
-      pt={7}
+      pt={3}
       sx={{
         width: '100%',
-        minHeight: 540,
+        minHeight: 400,
         background: 'url(/images/png_fingerprint.webp) no-repeat, url(/images/bac_banner.webp) no-repeat',
         backgroundPosition: 'center 70%',
         backgroundSize: 'contain,cover'
@@ -63,7 +63,7 @@ const Banner = () => {
       </Typography>
       <Typography
         color='#fff'
-        mt={40}
+        mt={30}
         sx={{
           span: {
             fontWeight: 600

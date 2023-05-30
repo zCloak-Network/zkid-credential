@@ -3,12 +3,11 @@
 
 import { LoadingButton, LoadingButtonProps, LoadingButtonTypeMap } from '@mui/lab';
 import { OverrideProps } from '@mui/material/OverridableComponent';
-import { optimism, optimismGoerli } from '@wagmi/core/chains';
 import React, { useCallback } from 'react';
 import { useAccount, useConnect } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 
-import { isRelease } from '@credential/app-config';
+import { ZKSBT_CHAIN_ID } from '@credential/app-config';
 
 type EnableProps = {
   onEnable?: (...args: any) => void;
@@ -32,10 +31,8 @@ function ButtonEnableMetamask<C extends React.ElementType>({
       return c instanceof MetaMaskConnector;
     })[0];
 
-    const chainId = isRelease ? optimism.id : optimismGoerli.id;
-
     try {
-      await connectAsync({ connector, chainId });
+      await connectAsync({ connector, chainId: ZKSBT_CHAIN_ID });
 
       onEnable && onEnable();
     } catch (error) {}

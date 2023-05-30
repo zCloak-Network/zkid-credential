@@ -13,9 +13,10 @@ interface Props {
   output: string;
   attester: string;
   multiply?: number;
+  isExample: boolean;
 }
 
-function SbtCard({ attester, multiply = 1, output }: Props) {
+function SbtCard({ attester, isExample = false, multiply = 1, output }: Props) {
   const { did } = useContext(DidsContext);
   const { vid } = useVid(attester as DidUrl);
 
@@ -33,6 +34,19 @@ function SbtCard({ attester, multiply = 1, output }: Props) {
         zoom: multiply
       }}
     >
+      {isExample && (
+        <Typography
+          sx={{
+            position: 'absolute',
+            top: 260,
+            left: 200,
+            fontSize: 40,
+            color: '#fff'
+          }}
+        >
+          Example
+        </Typography>
+      )}
       <Typography
         sx={{
           position: 'absolute',
