@@ -14,7 +14,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.27.0",
+  "version": "0.27.1",
   "dependencies": {
     "@credential/react-dids": "workspace:^",
     "@polkadot/util": "^12.2.1",

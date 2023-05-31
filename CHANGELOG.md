@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.29.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.29.0...v0.29.1) (2023-05-31)
+
+
+### Bug Fixes
+
+* message ctype filter ([#38](https://github.com/zCloak-Network/zkid-credential/issues/38)) ([daf510b](https://github.com/zCloak-Network/zkid-credential/commit/daf510b8753d29acf5b91c9be6e6edb8e3032990))
+
+
 ## [0.29.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.28.0...v0.29.0) (2023-05-31)
 
 
