@@ -16,6 +16,7 @@ import {
 } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
 
+import SigItem from './SigItem';
 import TextWithBg from './TextWithBg';
 
 const Step3: React.FC<{ zkSig?: string; onMetaSigChange: (sig: string) => void; next: () => void }> = ({
@@ -61,8 +62,8 @@ const Step3: React.FC<{ zkSig?: string; onMetaSigChange: (sig: string) => void; 
         </Stack>
       </TextWithBg>
       <Divider />
-      <TextWithBg bgcolor='#F7F8FA' label='zkID Sig:' mt={3} value={zkSig} />
-      <TextWithBg bgcolor='#F7F8FA' label='Sign this document with Ethereum Address' mb={4} mt={3} value={binding} />
+      <SigItem label='zkID Sig:' mt={3} value={zkSig} />
+      <SigItem label='Sign this document with Ethereum Address' mb={4} mt={3} value={binding} />
       <Button fullWidth onClick={signBinding} size='large' variant='contained'>
         Sign
       </Button>
