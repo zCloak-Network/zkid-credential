@@ -340,7 +340,7 @@ end
 begin
     push.999 mem_store.101 adv_push.4 mem_storew.100 dropw
     exec.read_new_leaf exec.read_and_copy exec.multi_rphash dupw mem_storew.40 dropw adv_push.4 hmerge
-    adv_push.4 swapw hmerge adv_push.4 hmerge adv_push.4 swapw hmerge
+    adv_push.4 hmerge adv_push.4 swapw hmerge
     padw mem_loadw.100 dupw mem_storew.100 dropw movup.4 eq swap movup.4 eq movup.2 movup.4
     eq movup.3 movup.4 eq and and and not
     if.true
@@ -359,6 +359,7 @@ begin
     mem_load.108 push.1 eq 
     if.true
       push.660.28.533.44.52.84.60.92.124.136.188.192.531.212.214.222 push.304.308.312.320.332.340.388.474.484.500.558 push.591.630.652.659.662.663.666.670.534.780.796.840.850
+
     repeat.40
       mem_load.107 eq
       if.true
@@ -369,7 +370,8 @@ begin
       mem_load.108 push.1 eq 
       if.true
         push.8.20.40.112.56.70.100.191.196.203.208.233.234 push.246.250.276.292.300.831.348.352.372.833.380.832.428 push.438.440.442.470.498.492.499.528.807 push.578.616.620.642.643.674.688.703.705.724.752.756.804.826.336
-        repeat.50
+        push.248.744
+        repeat.52
             mem_load.107 eq
             if.true
               push.2 mem_store.101 push.0 mem_store.108
@@ -379,7 +381,8 @@ begin
         mem_load.108 push.1 eq 
         if.true
           push.32.68.76.152.170.218.238.254.328.600.604.740.858.862
-          repeat.14
+          push.535.239
+          repeat.16
               mem_load.107 eq
               if.true
                 push.5 mem_store.101 push.0 mem_store.108
@@ -389,7 +392,8 @@ begin
           mem_load.108 push.1 eq 
           if.true
             push.16.36.184.242.258.316.296.584.583.520.540 push.554.570.580.585.598.882.90.772.776.798.548.876
-            repeat.23
+            push.162.166.334.574.612.581
+            repeat.29
               mem_load.107 eq
                 if.true
                   push.4 mem_store.101 push.0 mem_store.108
@@ -399,13 +403,27 @@ begin
             mem_load.108 push.1 eq 
             if.true
               push.12.24.204.72.854.108.120.132.140.148.174 push.262.180.818.226.232.748.231.266.270.288.324 push.624.384.404.426.430.434.450.454.466 push.478.480.175.504.508.516.562.566.178 push.638.646.678.686.690.694.706 push.710.728.729.834.768.788.800.732.894.716 
-              
-              repeat.57
+              push.86.654.260
+              repeat.60
               mem_load.107 eq
                 if.true
-                    push.0 mem_store.101 push.0 
+                    push.0 mem_store.101 push.0 mem_store.108
                 end
               end
+              
+              mem_load.108 push.1 eq 
+                  if.true
+                      push.10
+                      mem_load.107 eq
+                      if.true
+                          push.6 mem_store.101 push.0
+                      end
+                      push.74
+                      mem_load.107 eq
+                      if.true
+                          push.6 mem_store.101 push.0
+                      end
+                  end
             end
           end
         end
@@ -413,14 +431,15 @@ begin
     end
     mem_load.101 padw mem_loadw.100
  end `,
-    leaves: [5],
+    leaves: [4],
     outputs: [
       ['Country in "Africa"', 'Africa'],
       ['Country in "Asia"', 'Asia'],
       ['Country in "Europe"', 'Europe'],
       ['Country in "North America"', 'North America'],
       ['Country in "Oceania"', 'Oceania'],
-      ['Country in "South America"', 'South America']
+      ['Country in "South America"', 'South America'],
+      ['Country in "Antarctica"', 'Antarctica']
     ]
   },
   {
@@ -589,15 +608,15 @@ begin
     mem_load.99 exec.number_add mul.1 mem_load.103 lt mem_load.102 and mem_store.102
   
     exec.read_new_leaf exec.read_and_copy exec.multi_rphash dupw mem_storew.40 dropw adv_push.4 hmerge
-    adv_push.4 swapw hmerge adv_push.4 hmerge adv_push.4 swapw hmerge
+    adv_push.4 hmerge adv_push.4 swapw hmerge
     padw mem_loadw.100 dupw mem_storew.100 dropw movup.4 eq swap movup.4 eq movup.2 movup.4
     eq movup.3 movup.4 eq and and and not
     if.true
         padw mem_storew.100 dropw
-    end 
+    end
     mem_load.99 exec.number_add  mem_store.107 push.1 mem_store.108
 
-    push.4.51.31.48.50.64.96.116.156.268.344.356.360 push.364.368.376.392.400.398.414.417.418.422.446.458 push.462.496.104.524.408.512.586.275 push.608.634.682.702.410.144.760.158 push.762.764.626.792.795.784.860.704.887 
+   push.4.51.31.48.50.64.96.116.156.268.344.356.360 push.364.368.376.392.400.398.414.417.418.422.446.458 push.462.496.104.524.408.512.586.275 push.608.634.682.702.410.144.760.158 push.762.764.626.792.795.784.860.704.887 
       repeat.50
         mem_load.107 eq
         if.true
@@ -608,6 +627,7 @@ begin
     mem_load.108 push.1 eq 
     if.true
       push.660.28.533.44.52.84.60.92.124.136.188.192.531.212.214.222 push.304.308.312.320.332.340.388.474.484.500.558 push.591.630.652.659.662.663.666.670.534.780.796.840.850
+
     repeat.40
       mem_load.107 eq
       if.true
@@ -618,7 +638,8 @@ begin
       mem_load.108 push.1 eq 
       if.true
         push.8.20.40.112.56.70.100.191.196.203.208.233.234 push.246.250.276.292.300.831.348.352.372.833.380.832.428 push.438.440.442.470.498.492.499.528.807 push.578.616.620.642.643.674.688.703.705.724.752.756.804.826.336
-        repeat.50
+        push.248.744
+        repeat.52
             mem_load.107 eq
             if.true
               push.2 mem_store.101 push.0 mem_store.108
@@ -628,7 +649,8 @@ begin
         mem_load.108 push.1 eq 
         if.true
           push.32.68.76.152.170.218.238.254.328.600.604.740.858.862
-          repeat.14
+          push.535.239
+          repeat.16
               mem_load.107 eq
               if.true
                 push.5 mem_store.101 push.0 mem_store.108
@@ -638,7 +660,8 @@ begin
           mem_load.108 push.1 eq 
           if.true
             push.16.36.184.242.258.316.296.584.583.520.540 push.554.570.580.585.598.882.90.772.776.798.548.876
-            repeat.23
+            push.162.166.334.574.612.581
+            repeat.29
               mem_load.107 eq
                 if.true
                   push.4 mem_store.101 push.0 mem_store.108
@@ -648,13 +671,27 @@ begin
             mem_load.108 push.1 eq 
             if.true
               push.12.24.204.72.854.108.120.132.140.148.174 push.262.180.818.226.232.748.231.266.270.288.324 push.624.384.404.426.430.434.450.454.466 push.478.480.175.504.508.516.562.566.178 push.638.646.678.686.690.694.706 push.710.728.729.834.768.788.800.732.894.716 
-              
-              repeat.57
+              push.86.654.260
+              repeat.60
               mem_load.107 eq
                 if.true
-                    push.0 mem_store.101 push.0 
+                    push.0 mem_store.101 push.0 mem_store.108
                 end
               end
+              
+              mem_load.108 push.1 eq 
+                  if.true
+                      push.10
+                      mem_load.107 eq
+                      if.true
+                          push.6 mem_store.101 push.0
+                      end
+                      push.74
+                      mem_load.107 eq
+                      if.true
+                          push.6 mem_store.101 push.0
+                      end
+                  end
             end
           end
         end
@@ -670,7 +707,7 @@ begin
         add padw mem_loadw.100
     end
  end`,
-    leaves: [3, 5],
+    leaves: [3, 4],
     outputs: [
       ['Country in Africa and Adult', 'Africa & Adult'],
       ['Country in Africa not Adult', 'Africa & No-Adult'],
@@ -683,7 +720,9 @@ begin
       ['Country in Oceania and Adult', 'Oceania & Adult'],
       ['Country in Oceania not Adult', 'Oceania & No-Adult'],
       ['Country in South America and Adult', 'South America & Adult'],
-      ['Country in South America not Adult', 'South America & No-Adult']
+      ['Country in South America not Adult', 'South America & No-Adult'],
+      ['Country in Antarctica not Adult', 'Antarctica & No-Adult'],
+      ['Country in Antarctica and Adult', 'Antarctica & Adult']
     ],
     getPublicInput
   }
