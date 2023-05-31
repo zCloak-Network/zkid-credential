@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [0.29.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.28.0...v0.29.0) (2023-05-31)
+
+
+### Features
+
+* change zksbt ctype and program ([#37](https://github.com/zCloak-Network/zkid-credential/issues/37)) ([ec6bdea](https://github.com/zCloak-Network/zkid-credential/commit/ec6bdea0f032c07afad2958c17d278163d949596))
+* update national config ([38a636c](https://github.com/zCloak-Network/zkid-credential/commit/38a636cd314ea2c605435315c4d91b23546ee879))
+
+
 ## [0.28.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.27.1...v0.28.0) (2023-05-31)
 
 
