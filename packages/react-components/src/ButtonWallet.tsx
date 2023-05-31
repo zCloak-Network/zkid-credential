@@ -3,11 +3,10 @@
 
 import type { ButtonProps } from '@mui/material';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { LoginDid } from '@zcloak/login-did';
 
-import { provider } from '@credential/react-dids/instance';
 import { useLoginWalletCallback } from '@credential/react-hooks';
 
 import Button from './Button';
@@ -19,9 +18,10 @@ interface Props extends ButtonProps {
 const ButtonWallet = React.forwardRef<any, Props>(function ({ onDone, ...props }, ref) {
   const [loading, setLoading] = useState(false);
   const loginWalletCallback = useLoginWalletCallback();
+  const isInstalled = useMemo(() => !!window?.zkid, []);
 
   const loginWallet = useCallback(() => {
-    if (!provider) return;
+    if (!isInstalled) return;
 
     setLoading(true);
     loginWalletCallback()
@@ -31,7 +31,7 @@ const ButtonWallet = React.forwardRef<any, Props>(function ({ onDone, ...props }
       .finally(() => {
         setLoading(false);
       });
-  }, [onDone, loginWalletCallback]);
+  }, [onDone, loginWalletCallback, isInstalled]);
 
   const download = useCallback(() => {
     window.open('https://chrome.google.com/webstore/detail/zkid-wallet/ahkpfejaeoepmfopmbhjgjekibmfcfgo');
@@ -40,12 +40,12 @@ const ButtonWallet = React.forwardRef<any, Props>(function ({ onDone, ...props }
   return (
     <Button
       {...props}
-      color={provider ? props.color : 'info'}
+      color={isInstalled ? props.color : 'info'}
       disabled={loading}
-      onClick={provider ? loginWallet : download}
+      onClick={isInstalled ? loginWallet : download}
       ref={ref}
     >
-      {provider ? 'Login with zkID Wallet' : 'Download zkID Wallet'}
+      {isInstalled ? 'Login with zkID Wallet' : 'Download zkID Wallet'}
     </Button>
   );
 });

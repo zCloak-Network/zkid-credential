@@ -31,9 +31,11 @@ import { UseNotification } from '../Notification/useNotification';
 function Logo() {
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up('md'));
+  const navigate = useNavigate();
 
   return (
     <Link
+      onClick={() => navigate('/claimer/ctype')}
       sx={{
         display: 'flex',
         alignItems: 'center',

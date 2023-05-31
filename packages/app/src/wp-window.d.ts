@@ -11,4 +11,5 @@ interface Window {
     chainId: string;
   };
   web3?: Record<string, unknown>;
+  zkid?: { request: any; events: any };
 }
