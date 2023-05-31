@@ -31,7 +31,7 @@ const ButtonWallet = React.forwardRef<any, Props>(function ({ onDone, ...props }
       .finally(() => {
         setLoading(false);
       });
-  }, [onDone, loginWalletCallback]);
+  }, [onDone, loginWalletCallback, isInstalled]);
 
   const download = useCallback(() => {
     window.open('https://chrome.google.com/webstore/detail/zkid-wallet/ahkpfejaeoepmfopmbhjgjekibmfcfgo');
