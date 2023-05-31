@@ -14,7 +14,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.28.1",
+  "version": "0.29.0",
   "dependencies": {
     "@credential/react-components": "workspace:^",
     "@zcloak/crypto": "^1.4.2",

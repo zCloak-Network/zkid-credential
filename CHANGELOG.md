@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.28.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.27.1...v0.28.0) (2023-05-31)
+
+
+### Features
+
+* add zk sbt banner ([#36](https://github.com/zCloak-Network/zkid-credential/issues/36)) ([7aa827d](https://github.com/zCloak-Network/zkid-credential/commit/7aa827dffd86b8eb798c50279134f4d1040283ab))
+
+
 ## [0.27.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.27.0...v0.27.1) (2023-05-30)
 
 
