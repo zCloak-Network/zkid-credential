@@ -444,7 +444,7 @@ begin
   },
   {
     name: 'Continent & Adult Check',
-    description: 'Check which country you are on and if you are an adult.',
+    description: 'Check which continent you are on and if you are an adult.',
     author: 'did:zk:0xdC6BF231a4f18074288C07C3f31f2eD170E368aD',
     program: `proc.number_add.4
     dup.0 loc_store.0 push.0 eq
