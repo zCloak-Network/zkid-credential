@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.30.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.30.0...v0.30.1) (2023-06-01)
+
+
+### Bug Fixes
+
+* program config text ([#39](https://github.com/zCloak-Network/zkid-credential/issues/39)) ([4a64daf](https://github.com/zCloak-Network/zkid-credential/commit/4a64daf84cda9c423c67b57da0ad7120c91b1f38))
+
+
 ## [0.30.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.29.1...v0.30.0) (2023-06-01)
 
 
