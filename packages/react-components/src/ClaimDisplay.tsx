@@ -31,9 +31,9 @@ export const ClaimItem: React.FC<{
       } else if (format === 'did') {
         return <DidName value={value as string} />;
       } else if (format === 'national-code') {
-        const finded = national.find((item) => item.place === value);
+        const finded = national[String(value)];
 
-        return <>{finded ? finded.country : JSON.stringify(value)}</>;
+        return <>{finded ? finded.name : JSON.stringify(value)}</>;
       }
 
       return <>{value}</>;

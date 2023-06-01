@@ -3,4 +3,21 @@
 
 import data from './national.json';
 
-export const national: any[] = data as any[];
+type NationalType = {
+  name: string;
+  'alpha-2': string;
+  'alpha-3': string;
+  'country-code': string;
+  'iso_3166-2': string;
+  region: string;
+  'intermediate-region': string;
+  'region-code': string;
+  'sub-region-code': string;
+  'intermediate-region-code': string;
+};
+
+export const national = (data as Array<NationalType>).reduce<Record<string, NationalType>>((national, item) => {
+  national[item['country-code']] = item;
+
+  return national;
+}, {});
