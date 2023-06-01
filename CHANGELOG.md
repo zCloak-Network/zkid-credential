@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.30.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.29.1...v0.30.0) (2023-06-01)
+
+
+### Features
+
+* update national code config ([0d6678f](https://github.com/zCloak-Network/zkid-credential/commit/0d6678fb726320050c506b45a9d0be338e921f06))
+
+
 ## [0.29.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.29.0...v0.29.1) (2023-05-31)
 
 
