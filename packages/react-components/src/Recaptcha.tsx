@@ -19,9 +19,9 @@ const Recaptcha: React.FunctionComponent<Props> = ({ onCallback }) => {
     script.onload = () => {
       const { grecaptcha } = window as any;
 
-      grecaptcha.ready(() => {
+      grecaptcha.enterprise.ready(() => {
         if (container.current) {
-          grecaptcha.render(container.current, {
+          grecaptcha.enterprise.render(container.current, {
             callback: (response: any) => {
               onCallback(response);
             },
@@ -35,7 +35,7 @@ const Recaptcha: React.FunctionComponent<Props> = ({ onCallback }) => {
       setError(error.toString());
     };
 
-    script.src = 'https://www.google.com/recaptcha/api.js';
+    script.src = 'https://www.google.com/recaptcha/enterprise.js';
 
     document.body.appendChild(script);
   }, [onCallback]);
