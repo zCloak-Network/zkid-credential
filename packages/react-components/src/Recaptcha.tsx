@@ -25,7 +25,7 @@ const Recaptcha: React.FunctionComponent<Props> = ({ onCallback }) => {
             callback: (response: any) => {
               onCallback(response);
             },
-            sitekey: '6Lewv3AmAAAAAFdw_X1qNblrZLMurZ3ssIA11oZc'
+            sitekey: '6LdRdHEmAAAAAB6sCexgvlzcefHetcyUF506W6Z9'
           });
         }
       });
