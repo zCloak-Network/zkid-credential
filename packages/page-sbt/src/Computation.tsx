@@ -46,6 +46,7 @@ function Computation({ onSuccess, program, vc }: Props) {
       const result = await provider.generateZkp({
         ctype: vc.ctype,
         attester: vc.issuer,
+        digest: vc.digest,
         program: program.program,
         publicInput,
         leaves: program.leaves
