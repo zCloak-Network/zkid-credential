@@ -14,7 +14,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "dependencies": {
     "@zcloak/login-did": "^1.1.13",
     "@zcloak/login-providers": "^1.2.7",
