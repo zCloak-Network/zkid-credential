@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.32.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.31.0...v0.32.0) (2023-06-13)
+
+
+### Features
+
+* add Non-American check program config ([#41](https://github.com/zCloak-Network/zkid-credential/issues/41)) ([3e5e883](https://github.com/zCloak-Network/zkid-credential/commit/3e5e883942381904a5002c60b31c35b87fc66aaa))
+
+
 ## [0.31.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.30.1...v0.31.0) (2023-06-09)
 
 
