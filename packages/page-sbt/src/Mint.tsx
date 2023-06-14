@@ -11,11 +11,12 @@ import { useCallback, useContext, useMemo, useState } from 'react';
 import { base58Decode } from '@zcloak/crypto';
 import { helpers } from '@zcloak/did';
 
-import { VERIFIER_ADDRESS, zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
+import { VERIFIER_ADDRESS } from '@credential/app-config';
 import EthBind from '@credential/page-did/eth-bind';
 import {
+  baseGoerli,
   Button,
-  ButtonEnableMetamask,
+  ConnectWallet,
   Copy,
   ellipsisMixin,
   IdentityIcon,
@@ -23,11 +24,10 @@ import {
   useAccount,
   useContractWrite,
   useNetwork,
-  useSwitchNetwork,
   useWaitForTransaction
 } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
-import { useBindEth, useToggle } from '@credential/react-hooks';
+import { useBindEth, useContractConfig, useToggle } from '@credential/react-hooks';
 
 import MintStatus from './modal/MintStatus';
 
@@ -44,15 +44,16 @@ function Mint({ onCancel, result, vc }: Props) {
   const [success, setIsSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const { binded, isFetching, refetch } = useBindEth(did);
+  const [openBind, toggleBind] = useToggle();
 
   const { chain } = useNetwork();
-  const { switchNetworkAsync } = useSwitchNetwork();
+
+  const { abi, toAddress } = useContractConfig(chain?.id);
 
   const { data, error, writeAsync } = useContractWrite({
-    abi: zCloakSBTAbi,
-    address: ZKSBT_ADDRESS,
+    abi,
+    address: toAddress,
     functionName: 'mint',
-    chainId: ZKSBT_CHAIN_ID,
     onSuccess: () => {
       setIsOpen(true);
     }
@@ -64,15 +65,11 @@ function Mint({ onCancel, result, vc }: Props) {
     try {
       setLoading(true);
 
-      if (chain?.id !== ZKSBT_CHAIN_ID) {
-        await switchNetworkAsync?.(ZKSBT_CHAIN_ID);
-      }
-
       const attesterSig = u8aToHex(base58Decode(vc.proof[0].proofValue));
       const attester = await helpers.fromDid(vc.issuer);
       const version = '0x0001';
 
-      const params = [
+      const params: any[] = [
         did.identifier, // recipient
         vc.ctype, // ctype
         `0x${result.programHash}`, // programHash
@@ -87,6 +84,12 @@ function Mint({ onCancel, result, vc }: Props) {
         result.image // sbtlink
       ];
 
+      if (chain?.id === baseGoerli.id) {
+        const publicInput = result.publicInput === '' ? [] : result.publicInput.split(',');
+
+        params.splice(3, 0, publicInput);
+      }
+
       await writeAsync({
         args: [params, result.signature]
       }).catch(() => {
@@ -96,7 +99,7 @@ function Mint({ onCancel, result, vc }: Props) {
     } finally {
       setLoading(false);
     }
-  }, [vc, result, writeAsync, did.identifier, switchNetworkAsync, chain]);
+  }, [vc, result, writeAsync, did.identifier, chain]);
 
   useWaitForTransaction({
     hash: data?.hash,
@@ -146,19 +149,29 @@ function Mint({ onCancel, result, vc }: Props) {
           <Typography fontWeight={500} mb={2}>
             To
           </Typography>
-          <To isBinded={!!binded} recipient={recipient} refetch={refetch} />
+          <To recipient={recipient} refetch={refetch} />
         </Box>
         <Box>
-          <ButtonEnableMetamask
-            disabled={isFetching}
-            fullWidth
-            loading={loading}
-            onClick={mint}
-            size='large'
-            variant='contained'
-          >
-            Mint
-          </ButtonEnableMetamask>
+          {binded ? (
+            <ConnectWallet
+              disabled={isFetching}
+              fullWidth
+              loading={loading}
+              onClick={mint}
+              size='large'
+              variant='contained'
+            >
+              Mint
+            </ConnectWallet>
+          ) : (
+            <>
+              <Button fullWidth onClick={toggleBind} size='large' variant='contained'>
+                Bond Ethereum Address
+              </Button>
+              {openBind && <EthBind onClose={toggleBind} open={openBind} refetch={refetch} />}
+            </>
+          )}
+
           <Button color='secondary' fullWidth onClick={onCancel} size='large' sx={{ marginTop: 3 }} variant='contained'>
             Cancel
           </Button>
@@ -178,11 +191,7 @@ function Mint({ onCancel, result, vc }: Props) {
   );
 }
 
-const To: React.FC<{ recipient: string; refetch: () => Promise<any>; isBinded: boolean }> = ({
-  isBinded,
-  recipient,
-  refetch
-}) => {
+const To: React.FC<{ recipient: string; refetch: () => Promise<any> }> = ({ recipient, refetch }) => {
   const { address } = useAccount();
   const [open, toggle] = useToggle();
 
@@ -205,7 +214,7 @@ const To: React.FC<{ recipient: string; refetch: () => Promise<any>; isBinded: b
         <Typography>{recipient}</Typography>
         <Copy value={recipient} />
       </Stack>
-      {!isBinded && (
+      {/* {!isBinded && (
         <Typography
           mt={3}
           pl={2}
@@ -228,7 +237,7 @@ const To: React.FC<{ recipient: string; refetch: () => Promise<any>; isBinded: b
             Try to bond Ethereum Address to as recipient.
           </Button>
         </Typography>
-      )}
+      )} */}
 
       {address && (
         <Typography color='grey.A700' fontSize={12} mt={3}>

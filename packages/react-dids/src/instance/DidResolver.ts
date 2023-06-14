@@ -189,13 +189,20 @@ export class CredentialDidResolver extends ArweaveDidResolver {
       expiration_date: number;
       attester_did: string;
       attester_proof: Proof;
-    }
+    },
+    verifyingContract: string,
+    chainId: number
   ): Promise<{
     desc: string;
     sbt_link: string;
     verifier_signature: string;
   }> {
-    const res = await post(`${this.server}/zk/verify`, { ...data, zkp_result: JSON.parse(result) });
+    const res = await post(`${this.server}/zk/verify`, {
+      ...data,
+      verifyingContract,
+      chainId,
+      zkp_result: JSON.parse(result)
+    });
 
     if (res?.code !== 200) {
       throw new Error(res?.message);

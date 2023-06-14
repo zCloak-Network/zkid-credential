@@ -19,3 +19,5 @@ export * from './useDecryptedMessage';
 
 export * from './useBindEth';
 export * from './useVid';
+
+export * from './useContractConfig';
