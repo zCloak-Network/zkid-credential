@@ -32,4 +32,7 @@ export const ZKSBT_CTYPE = isRelease
   : '0x0faa3462b6d45be3ce01dc570d8465035f68f516610b267a7b01d9b895d04351';
 
 export const ETHERSCAN_URL = 'https://goerli-optimism.etherscan.io/tx';
+export const BASESCAN_URL = 'https://goerli.basescan.org/tx/';
+
+export const ZONIC_URL = 'https://testnet.zonic.app/profile?filter={"tab":0,"chain":84531}';
 export const OPENSEA_URL = 'https://testnets.opensea.io';

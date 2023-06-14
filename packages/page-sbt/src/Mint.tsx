@@ -4,9 +4,10 @@
 import type { VerifiableCredential } from '@zcloak/vc/types';
 import type { SbtResult } from './types';
 
-import { Box, Container, Link, Stack, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import { u8aToHex } from '@polkadot/util';
-import { useCallback, useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 import { base58Decode } from '@zcloak/crypto';
 import { helpers } from '@zcloak/did';
@@ -30,6 +31,7 @@ import { DidsContext } from '@credential/react-dids';
 import { useBindEth, useContractConfig, useToggle } from '@credential/react-hooks';
 
 import MintStatus from './modal/MintStatus';
+import Faucet from './Faucet';
 
 interface Props {
   vc: VerifiableCredential<boolean>;
@@ -58,8 +60,6 @@ function Mint({ onCancel, result, vc }: Props) {
       setIsOpen(true);
     }
   });
-
-  const recipient = useMemo(() => binded ?? did.identifier, [did.identifier, binded]);
 
   const mint = useCallback(async () => {
     try {
@@ -108,6 +108,11 @@ function Mint({ onCancel, result, vc }: Props) {
     }
   });
 
+  const onClose = useCallback(() => {
+    setIsOpen(false);
+    onCancel();
+  }, [onCancel]);
+
   return (
     <Container
       maxWidth='md'
@@ -146,54 +151,57 @@ function Mint({ onCancel, result, vc }: Props) {
           </Box>
         </Box>
         <Box>
-          <Typography fontWeight={500} mb={2}>
-            To
-          </Typography>
-          <To recipient={recipient} refetch={refetch} />
+          <Stack direction='row' justifyContent='space-between' mb={2}>
+            <Typography fontWeight={500} mb={2}>
+              To
+            </Typography>
+            <Faucet />
+          </Stack>
+          {binded ? (
+            <>
+              <To recipient={binded} />
+            </>
+          ) : (
+            <LoadingButton fullWidth loading={isFetching} onClick={toggleBind} size='large' variant='contained'>
+              Bond Ethereum Address
+            </LoadingButton>
+          )}
         </Box>
         <Box>
-          {binded ? (
-            <ConnectWallet
-              disabled={isFetching}
-              fullWidth
-              loading={loading}
-              onClick={mint}
-              size='large'
-              variant='contained'
-            >
-              Mint
-            </ConnectWallet>
-          ) : (
-            <>
-              <Button fullWidth onClick={toggleBind} size='large' variant='contained'>
-                Bond Ethereum Address
-              </Button>
-              {openBind && <EthBind onClose={toggleBind} open={openBind} refetch={refetch} />}
-            </>
-          )}
+          <ConnectWallet
+            disabled={isFetching || !binded}
+            fullWidth
+            loading={loading}
+            onClick={mint}
+            size='large'
+            variant='contained'
+          >
+            Mint
+          </ConnectWallet>
 
           <Button color='secondary' fullWidth onClick={onCancel} size='large' sx={{ marginTop: 3 }} variant='contained'>
             Cancel
           </Button>
         </Box>
       </Stack>
-      {open && (
+      {open && binded && (
         <MintStatus
           error={error}
           hash={data?.hash}
-          onClose={() => setIsOpen(false)}
+          onClose={onClose}
           open={open}
-          recipient={recipient}
+          recipient={binded}
           success={success}
         />
       )}
+
+      {openBind && <EthBind onClose={toggleBind} open={openBind} refetch={refetch} />}
     </Container>
   );
 }
 
-const To: React.FC<{ recipient: string; refetch: () => Promise<any> }> = ({ recipient, refetch }) => {
+const To: React.FC<{ recipient: string }> = ({ recipient }) => {
   const { address } = useAccount();
-  const [open, toggle] = useToggle();
 
   return (
     <>
@@ -214,41 +222,12 @@ const To: React.FC<{ recipient: string; refetch: () => Promise<any> }> = ({ reci
         <Typography>{recipient}</Typography>
         <Copy value={recipient} />
       </Stack>
-      {/* {!isBinded && (
-        <Typography
-          mt={3}
-          pl={2}
-          sx={{
-            position: 'relative',
-            '::before': {
-              content: "''",
-              width: 4,
-              height: '100%',
-              background: '#0042F1',
-              borderRadius: '4px',
-              position: 'absolute',
-              left: 0,
-              top: 0
-            }
-          }}
-        >
-          You can also bond this SBT to a Ethereum wallet address if you want.
-          <Button component='a' onClick={toggle} size='small' variant='text'>
-            Try to bond Ethereum Address to as recipient.
-          </Button>
-        </Typography>
-      )} */}
 
       {address && (
         <Typography color='grey.A700' fontSize={12} mt={3}>
-          {address} will pay for the gas fee.{' --> '}
-          <Link href='https://faucet.quicknode.com/optimism/goerli' target='_blank'>
-            Faucet
-          </Link>
+          {address} will pay for the gas fee.
         </Typography>
       )}
-
-      {open && <EthBind onClose={toggle} open={open} refetch={refetch} />}
     </>
   );
 };

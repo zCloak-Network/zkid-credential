@@ -3,10 +3,12 @@
 
 // import type { VerifiableCredential } from '@zcloak/vc/types';
 
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import React from 'react';
 
 import { ConnectWallet, Network, useAccount } from '@credential/react-components';
+
+import Faucet from './Faucet';
 
 // import { CTypeName } from '@credential/react-components';
 // import { DidName } from '@credential/react-dids';
@@ -41,7 +43,10 @@ function Top() {
       <Container maxWidth='xl' sx={{ display: 'flex', flexDirection: 'row', gap: 2, justifyContent: 'space-between' }}>
         <Typography variant='h1'>Mint zkID Card</Typography>
         {isConnected ? (
-          <Network />
+          <Stack direction='row' spacing={2}>
+            <Faucet />
+            <Network />
+          </Stack>
         ) : (
           <ConnectWallet sx={{ width: 200 }} variant='outlined'>
             Connect Wallet
