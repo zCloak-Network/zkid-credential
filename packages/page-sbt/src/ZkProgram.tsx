@@ -6,9 +6,10 @@ import type { VerifiableCredential } from '@zcloak/vc/types';
 import type { ZkProgramConfig } from '@credential/app-config/zk/types';
 
 import { Box, Button, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { IconZk } from '@credential/app-config';
+import { baseGoerli, useNetwork } from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
 import { useToggle } from '@credential/react-hooks';
 
@@ -26,7 +27,15 @@ function ZkProgram({ config, onSelect, selectIndex, vc }: Props) {
   const [outputOpen, toggleOutputOpen] = useToggle();
   const [previewOpen, togglePreviewOpen] = useToggle();
   const [program, setProgram] = useState<ZkProgramConfig>();
+  const [filterConfig, setFilterConfig] = useState<ZkProgramConfig[]>(config);
   const [preview, setPreview] = useState<{ attester: string; output: string }>();
+  const { chain } = useNetwork();
+
+  useEffect(() => {
+    if (chain?.id === baseGoerli.id) {
+      setFilterConfig(config.filter((c) => c.name !== 'Non-American Check'));
+    }
+  }, [chain, config]);
 
   const _handleOutput = useCallback(
     (program: ZkProgramConfig) => {
@@ -62,7 +71,7 @@ function ZkProgram({ config, onSelect, selectIndex, vc }: Props) {
           <Typography variant='h3'>zkProgram</Typography>
         </Box>
         <Grid columns={{ xs: 12 }} container marginTop={3} spacing={5}>
-          {config.map((item, index) => (
+          {filterConfig.map((item, index) => (
             <Grid key={index} lg={3} md={4} sm={6} xs={12}>
               <Stack
                 onClick={() => onSelect(index)}

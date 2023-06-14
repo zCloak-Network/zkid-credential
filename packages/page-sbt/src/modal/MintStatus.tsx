@@ -9,6 +9,7 @@ import {
   ETHERSCAN_URL,
   IconEtherscan,
   IconOpensea,
+  IconZonic,
   OPENSEA_URL,
   ZONIC_URL
 } from '@credential/app-config';
@@ -64,7 +65,12 @@ const MintStatus: React.FC<{
         )}
         {success && hash && recipient && chain?.id === baseGoerli.id && (
           <Stack direction='row' justifyContent='center' paddingY={2}>
-            <Button onClick={() => window.open(`${ZONIC_URL}`)}>Zonic</Button>
+            <Button
+              onClick={() => window.open(`${ZONIC_URL}`)}
+              startIcon={<img height={20} src={IconZonic} width={20} />}
+            >
+              Zonic
+            </Button>
             <Button onClick={() => window.open(`${BASESCAN_URL}/${hash}`)} startIcon={<IconEtherscan />}>
               Basescan
             </Button>
