@@ -21,7 +21,7 @@ const optimismGoerliConfig = isRelease
 
 export const CONTRACTS_CONFIG: CONTRACT_CONFIG = {
   [optimismGoerli.id]: optimismGoerliConfig,
-  [baseGoerli.id]: '0x813a5289cd75e1339247b751becdb20cb9214130'
+  [baseGoerli.id]: '0x77f5C950eDdB349a04215df3A22169e4AcCC6287'
 };
 
 export const ZKSBT_CHAIN_ID = isRelease ? optimismGoerli.id : optimismGoerli.id;
