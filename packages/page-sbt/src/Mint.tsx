@@ -110,8 +110,8 @@ function Mint({ onCancel, result, vc }: Props) {
 
   const onClose = useCallback(() => {
     setIsOpen(false);
-    onCancel();
-  }, [onCancel]);
+    !error && onCancel();
+  }, [onCancel, error]);
 
   return (
     <Container

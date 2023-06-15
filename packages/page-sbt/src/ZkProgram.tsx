@@ -34,6 +34,8 @@ function ZkProgram({ config, onSelect, selectIndex, vc }: Props) {
   useEffect(() => {
     if (chain?.id === baseGoerli.id) {
       setFilterConfig(config.filter((c) => c.name !== 'Non-American Check'));
+    } else {
+      setFilterConfig(config);
     }
   }, [chain, config]);
 

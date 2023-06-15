@@ -21,7 +21,7 @@ const optimismGoerliConfig = isRelease
 
 export const CONTRACTS_CONFIG: CONTRACT_CONFIG = {
   [optimismGoerli.id]: optimismGoerliConfig,
-  [baseGoerli.id]: '0x77f5C950eDdB349a04215df3A22169e4AcCC6287'
+  [baseGoerli.id]: '0x5F5ff21a6D7136BBf21f55CfD9627673dBeed8cd'
 };
 
 export const ZKSBT_CHAIN_ID = isRelease ? optimismGoerli.id : optimismGoerli.id;
@@ -34,5 +34,5 @@ export const ZKSBT_CTYPE = isRelease
 export const ETHERSCAN_URL = 'https://goerli-optimism.etherscan.io/tx';
 export const BASESCAN_URL = 'https://goerli.basescan.org/tx/';
 
-export const ZONIC_URL = 'https://testnet.zonic.app/profile?filter={"tab":0,"chain":84531}';
+export const ZONIC_URL = 'https://testnet.zonic.app/profile/';
 export const OPENSEA_URL = 'https://testnets.opensea.io';

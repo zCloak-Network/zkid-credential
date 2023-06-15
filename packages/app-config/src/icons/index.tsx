@@ -47,6 +47,7 @@ export { default as IconSlider } from './IconSlider';
 export { default as IconStar } from './IconStar';
 export { default as IconSuccess } from './IconSuccess';
 export { default as IconTask } from './IconTask';
+export { default as IconTestnet } from './IconTestnet';
 export { default as IconTips } from './IconTips';
 export { default as IconTwitter } from './IconTwitter';
 export { default as IconZkid } from './IconZkid';
