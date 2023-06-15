@@ -19,9 +19,13 @@ const optimismGoerliConfig = isRelease
   ? '0x08f1a8Eeb39E861FcC78812fd1C79291cd3f88A7'
   : '0x1addc21e939b93e9337f8A663F62a64583b62233';
 
+const baseGoerliConfig = isRelease
+  ? '0x1F042d47ddFd675A47F0aB2b99bea4Bb1d078032'
+  : '0x1603bAdff8e39749D8f33dbDd234C5dab10313Dd';
+
 export const CONTRACTS_CONFIG: CONTRACT_CONFIG = {
   [optimismGoerli.id]: optimismGoerliConfig,
-  [baseGoerli.id]: '0x5F5ff21a6D7136BBf21f55CfD9627673dBeed8cd'
+  [baseGoerli.id]: baseGoerliConfig
 };
 
 export const ZKSBT_CHAIN_ID = isRelease ? optimismGoerli.id : optimismGoerli.id;

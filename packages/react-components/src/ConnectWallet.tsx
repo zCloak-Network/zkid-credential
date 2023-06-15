@@ -56,7 +56,6 @@ function ConnectWallet<C extends React.ElementType>({
             <Stack spacing={3}>
               {connectors.map((connector) => (
                 <LoadingButton
-                  disabled={!connector.ready}
                   fullWidth
                   key={connector.id}
                   loading={isLoading && pendingConnector?.id === connector.id}
