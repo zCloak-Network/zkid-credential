@@ -894,8 +894,7 @@ begin
     outputs: [
       ['American', 'American'],
       ['Non-American', 'Non-American']
-    ],
-    getPublicInput
+    ]
   }
 ];
 

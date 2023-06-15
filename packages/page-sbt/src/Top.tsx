@@ -3,8 +3,12 @@
 
 // import type { VerifiableCredential } from '@zcloak/vc/types';
 
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import React from 'react';
+
+import { ConnectWallet, Network, useAccount } from '@credential/react-components';
+
+import Faucet from './Faucet';
 
 // import { CTypeName } from '@credential/react-components';
 // import { DidName } from '@credential/react-dids';
@@ -32,12 +36,22 @@ import React from 'react';
 // }
 
 function Top() {
+  const { isConnected } = useAccount();
+
   return (
     <Box sx={{ bgcolor: 'common.white', paddingTop: '36px', paddingBottom: '20px' }}>
-      <Container maxWidth='xl' sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Container maxWidth='xl' sx={{ display: 'flex', flexDirection: 'row', gap: 2, justifyContent: 'space-between' }}>
         <Typography variant='h1'>Mint zkID Card</Typography>
-        {/* <Item label='cType:' value={<CTypeName cTypeHash={vc.ctype} />} /> */}
-        {/* <Item label='Attester:' value={<DidName shorten={false} value={vc.issuer} />} /> */}
+        {isConnected ? (
+          <Stack direction='row' spacing={2}>
+            <Faucet />
+            <Network />
+          </Stack>
+        ) : (
+          <ConnectWallet sx={{ width: 200 }} variant='outlined'>
+            Connect Wallet
+          </ConnectWallet>
+        )}
       </Container>
     </Box>
   );

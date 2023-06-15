@@ -5,7 +5,7 @@ import { LoadingButton, LoadingButtonProps, LoadingButtonTypeMap } from '@mui/la
 import { OverrideProps } from '@mui/material/OverridableComponent';
 import React, { useCallback } from 'react';
 import { useAccount, useConnect } from 'wagmi';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 
 import { ZKSBT_CHAIN_ID } from '@credential/app-config';
 
@@ -15,11 +15,11 @@ type EnableProps = {
 
 type Props = LoadingButtonProps & EnableProps;
 
-function ButtonEnableMetamask(props: Props): React.ReactElement;
-function ButtonEnableMetamask<C extends React.ElementType>(
+function ButtonEnableCoinbase(props: Props): React.ReactElement;
+function ButtonEnableCoinbase<C extends React.ElementType>(
   props: { component: C } & OverrideProps<LoadingButtonTypeMap, C> & EnableProps
 ): React.ReactElement;
-function ButtonEnableMetamask<C extends React.ElementType>({
+function ButtonEnableCoinbase<C extends React.ElementType>({
   onEnable,
   ...props
 }: Props | ({ component: C } & OverrideProps<LoadingButtonTypeMap, C>)) {
@@ -28,7 +28,7 @@ function ButtonEnableMetamask<C extends React.ElementType>({
   const { connectAsync, connectors } = useConnect();
   const connect = useCallback(async () => {
     const connector = connectors.filter((c) => {
-      return c instanceof MetaMaskConnector;
+      return c instanceof CoinbaseWalletConnector;
     })[0];
 
     try {
@@ -38,7 +38,7 @@ function ButtonEnableMetamask<C extends React.ElementType>({
     } catch (error) {}
   }, [onEnable, connectAsync, connectors]);
 
-  return !window?.ethereum ? (
+  return window?.ethereum ? (
     isConnected ? (
       <LoadingButton {...props} />
     ) : (
@@ -53,9 +53,9 @@ function ButtonEnableMetamask<C extends React.ElementType>({
       href='https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn'
       target='_blank'
     >
-      Install Metamask
+      Install Coinbase
     </LoadingButton>
   );
 }
 
-export default ButtonEnableMetamask;
+export default ButtonEnableCoinbase;

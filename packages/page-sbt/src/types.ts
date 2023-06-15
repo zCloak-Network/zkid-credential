@@ -7,4 +7,5 @@ export type SbtResult = {
   signature: string;
   programHash: string;
   output: number[];
+  publicInput: string;
 };

@@ -6,15 +6,19 @@ import { useState } from 'react';
 
 import { Did } from '@zcloak/did';
 
-import { zCloakSBTAbi, ZKSBT_ADDRESS } from '@credential/app-config';
-import { useContractRead } from '@credential/react-components';
+import { useContractRead, useNetwork } from '@credential/react-components';
+
+import { useContractConfig } from './useContractConfig';
 
 export function useBindEth(did: Did) {
   const [binded, setBinded] = useState<string>();
+  const { chain } = useNetwork();
+
+  const { abi, toAddress } = useContractConfig(chain?.id);
 
   const { isFetching, refetch } = useContractRead({
-    address: ZKSBT_ADDRESS,
-    abi: zCloakSBTAbi,
+    address: toAddress,
+    abi,
     functionName: 'checkBindingDB',
     args: [did.identifier],
     onSuccess: (data: any) => {
