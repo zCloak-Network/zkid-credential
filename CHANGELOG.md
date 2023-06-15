@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.33.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.32.0...v0.33.0) (2023-06-15)
+
+
+### Features
+
+* multi chain support ([#42](https://github.com/zCloak-Network/zkid-credential/issues/42)) ([2f5ca86](https://github.com/zCloak-Network/zkid-credential/commit/2f5ca864748a42646ab55acd84943f5212a39067))
+
+
 ## [0.32.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.31.0...v0.32.0) (2023-06-13)
 
 
