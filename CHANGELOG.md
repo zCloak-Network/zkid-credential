@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [0.34.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.33.0...v0.34.0) (2023-06-16)
+
+
+### Features
+
+* add wallet logout ([#43](https://github.com/zCloak-Network/zkid-credential/issues/43)) ([eb4810b](https://github.com/zCloak-Network/zkid-credential/commit/eb4810b8fb0468b03bb45eb88dbe6c6f7a7439e8))
+* replace recaptcha ([#40](https://github.com/zCloak-Network/zkid-credential/issues/40)) ([244a8f0](https://github.com/zCloak-Network/zkid-credential/commit/244a8f0774adef6e73752cd34eae463bcb4e9c49))
+
+
 ## [0.33.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.32.0...v0.33.0) (2023-06-15)
 
 
