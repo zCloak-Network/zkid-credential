@@ -10,10 +10,12 @@ import type { ZkProgramConfig } from '@credential/app-config/zk/types';
 
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { generateProgramHash, initMidenWasm } from '@zcloak/miden';
 
+import { CONTRACTS_CONFIG } from '@credential/app-config';
+import { useNetwork } from '@credential/react-components';
 import { provider, resolver } from '@credential/react-dids/instance';
 
 interface Props {
@@ -24,6 +26,7 @@ interface Props {
 
 function Computation({ onSuccess, program, vc }: Props) {
   const [loading, setLoading] = useState(false);
+  const { chain, chains } = useNetwork();
   const [{ error, isDone, result }, setResults] = useState<{
     isDone: boolean;
     result?: SbtResult;
@@ -33,8 +36,10 @@ function Computation({ onSuccess, program, vc }: Props) {
     error: null
   });
 
+  const isWrongNet = useMemo(() => chains.filter((_c) => _c.id === chain?.id).length === 0, [chains, chain]);
+
   const handleCompute = useCallback(async () => {
-    if (!program || !provider) return;
+    if (!program || !provider || !chain) return;
 
     setLoading(true);
 
@@ -46,6 +51,7 @@ function Computation({ onSuccess, program, vc }: Props) {
       const result = await provider.generateZkp({
         ctype: vc.ctype,
         attester: vc.issuer,
+        digest: vc.digest,
         program: program.program,
         publicInput,
         leaves: program.leaves
@@ -53,17 +59,22 @@ function Computation({ onSuccess, program, vc }: Props) {
 
       const programHash = generateProgramHash(program.program);
 
-      const { desc, sbt_link, verifier_signature } = await resolver.zkVerify(result, {
-        program_hash: programHash,
-        stack_inputs: publicInput,
-        user_did: vc.holder,
-        ctype: vc.ctype,
-        vc_version: vc.version,
-        issuance_date: vc.issuanceDate,
-        expiration_date: vc.expirationDate || 0,
-        attester_did: vc.issuer,
-        attester_proof: vc.proof[0]
-      });
+      const { desc, sbt_link, verifier_signature } = await resolver.zkVerify(
+        result,
+        {
+          program_hash: programHash,
+          stack_inputs: publicInput,
+          user_did: vc.holder,
+          ctype: vc.ctype,
+          vc_version: vc.version,
+          issuance_date: vc.issuanceDate,
+          expiration_date: vc.expirationDate || 0,
+          attester_did: vc.issuer,
+          attester_proof: vc.proof[0]
+        },
+        CONTRACTS_CONFIG[chain.id],
+        chain.id
+      );
 
       setResults({
         isDone: true,
@@ -72,6 +83,7 @@ function Computation({ onSuccess, program, vc }: Props) {
           signature: verifier_signature,
           image: sbt_link,
           programHash,
+          publicInput,
           output: JSON.parse(result).outputs.stack
         },
         error: null
@@ -84,7 +96,7 @@ function Computation({ onSuccess, program, vc }: Props) {
     }
 
     setLoading(false);
-  }, [program, vc]);
+  }, [program, vc, chain]);
 
   return (
     <Box alignItems='center' display='flex' flexDirection='column' marginTop={6}>
@@ -124,7 +136,13 @@ function Computation({ onSuccess, program, vc }: Props) {
         </Box>
       )}
       {!isDone || error ? (
-        <LoadingButton disabled={!program} loading={loading} onClick={handleCompute} size='large' variant='contained'>
+        <LoadingButton
+          disabled={!program || isWrongNet}
+          loading={loading}
+          onClick={handleCompute}
+          size='large'
+          variant='contained'
+        >
           ZKP Computation
         </LoadingButton>
       ) : (

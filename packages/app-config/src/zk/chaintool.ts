@@ -6,7 +6,7 @@ import type { ZkProgramConfig, ZkProgramOption } from './types';
 import { ZKSBT_CTYPE } from '../contract';
 
 function getPublicInput() {
-  const currentDate = new Date();
+  const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
   const compareDate = currentDate.setFullYear(currentDate.getFullYear() - 18);
 
   return `${Math.floor(new Date(compareDate).getTime())}`;
@@ -725,6 +725,176 @@ begin
       ['Country in Antarctica and Adult', 'Antarctica & Adult']
     ],
     getPublicInput
+  },
+  {
+    name: 'Non-American Check',
+    description: 'Check you are not American.',
+    author: 'did:zk:0xdC6BF231a4f18074288C07C3f31f2eD170E368aD',
+    program: `proc.number_add.4
+    dup.0 loc_store.0 push.0 eq
+    push.0 loc_store.3
+    if.true
+        dup.0 push.128 lt
+        if.true
+            dup.0
+        else
+            push.0
+        end
+    else
+        push.1.1 loc_store.1
+        while.true
+            loc_load.1 dup.0
+            add.1 loc_store.1 sub.1 dup.0 push.0 gt
+            if.true
+                push.1
+                while.true
+                    push.256 swap sub.1 dup.0 push.0 gt
+                end
+                drop
+            else
+                drop
+            end
+            loc_load.1 dup.0 loc_store.1 sub.1 dup.0 loc_store.2 push.1 gt
+            while.true
+                mul loc_load.2 sub.1 dup.0 loc_store.2 push.1 gt
+            end
+            loc_load.3 add loc_store.3
+            loc_load.1 dup.0 loc_store.1
+            loc_load.0 dup.0 loc_store.0 lte
+        end
+        loc_load.3
+    end
+    swap drop
+end
+
+proc.read_and_copy.60
+    mem_load.99 dup.0 mem_store.99 dup.0 push.0 eq
+    if.true
+        drop drop dup.0 adv_push.7
+    else
+        swap dup.1 sub loc_store.0 adv_push.1 swap dup.0 sub.1 push.0 gt
+        while.true
+            adv_push.1 swap sub.1 dup.0 push.1 gt
+        end
+        drop mem_load.99 dup.0 mem_store.99 add.1
+        dup.0 u32checked_mod.4 loc_store.1 u32checked_div.4 add.50
+        loc_store.2 mem_storew.50 dropw push.51 loc_load.2 dup.0 loc_store.2 push.50 gt
+        while.true
+            dup.0 movdn.5 mem_storew dropw dup.0 add.1
+            swap loc_load.2 dup.0 loc_store.2 lt
+        end
+        drop loc_load.2 dup.0 loc_store.2 dup.0 dup.0 dup.0 dup.0 mem_loadw
+        push.4 loc_load.1 dup.0 loc_store.1 sub dup.0 push.4 eq
+        if.true
+            drop
+        else
+            dup.0 loc_store.3 push.1
+            while.true
+                movup.4 swap sub.1 dup.0 push.0 gt
+            end
+            drop loc_load.3 dup.0 push.0 gt
+            while.true
+                swap drop sub.1 dup.0 push.0 gt
+            end
+            drop
+        end
+        loc_load.2 dup.0 loc_store.2 sub.1 dup.0 sub.49 push.1 gte
+        while.true
+            dup.0 dup.0 dup.0 dup.0 dup.0 push.50 eq
+            if.true
+                mem_loadw.50
+            else
+                mem_loadw
+            end
+            movup.4 sub.1 dup.0 sub.49 push.1 gte
+        end
+        drop loc_load.2 dup.0 loc_store.2 dup.0 dup.0 dup.0 dup.0 mem_loadw
+        push.4 loc_load.1 dup.0 loc_store.1 sub dup.0 push.4 eq
+        if.true
+            drop
+        else
+            dup.0 loc_store.3 push.1
+            while.true
+                movup.4 swap sub.1 dup.0 push.0 gt
+            end
+            drop loc_load.3 dup.0 push.0 gt
+            while.true
+                swap drop sub.1 dup.0 push.0 gt
+            end
+            drop
+        end
+        loc_load.2 dup.0 loc_store.2 sub.1 dup.0 sub.49 push.1 gte
+        while.true
+            dup.0 dup.0 dup.0 dup.0 dup.0 push.50 eq
+            if.true
+                mem_loadw.50
+            else
+                mem_loadw
+            end
+            movup.4 sub.1 dup.0 sub.49 push.1 gte
+        end
+        drop loc_load.0 dup.0 push.0 eq
+        if.true
+            drop
+        else
+            adv_push.1 swap dup.0 sub.1 push.0 gt
+            while.true
+                adv_push.1 swap sub.1 dup.0 push.1 gt
+            end
+            drop
+        end
+    end
+end
+
+proc.read_new_leaf
+    adv_push.1 dup.0 dup.0 push.0 gt swap push.129 lt and
+    if.true
+        push.7 push.0 mem_store.99  push.1 mem_store.200
+    else
+        dup.0 push.128 gt push.1
+        assert_eq dup.0 sub.128 dup.0 dup.0
+        mem_store.99 push.8 lt
+        if.true
+            drop push.7
+            push.1 mem_store.200
+        else
+            u32checked_div.4 dup.0 mem_store.200 mul.4 add.3
+        end
+    end
+end
+
+proc.multi_rphash
+    mem_load.200 dup.0 push.1 eq
+    if.true
+        drop hmerge
+    else
+        push.1
+        while.true
+            sub.1
+            movdn.8 hmerge
+            movup.4 dup.0 push.1 gte
+        end
+        drop
+    end
+end
+
+begin
+    adv_push.4 mem_storew.100 dropw
+    exec.read_new_leaf exec.read_and_copy exec.multi_rphash dupw mem_storew.40 dropw adv_push.4 hmerge
+    adv_push.4 hmerge adv_push.4 swapw hmerge
+    padw mem_loadw.100 dupw mem_storew.100 dropw movup.4 eq swap movup.4 eq movup.2 movup.4
+    eq movup.3 movup.4 eq and and and not
+    if.true
+        padw mem_storew.100 dropw
+    end
+    mem_load.99 exec.number_add push.840 neq 
+    padw mem_loadw.100
+ end`,
+    leaves: [4],
+    outputs: [
+      ['American', 'American'],
+      ['Non-American', 'Non-American']
+    ]
   }
 ];
 

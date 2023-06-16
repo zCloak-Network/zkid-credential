@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## [0.33.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.32.0...v0.33.0) (2023-06-15)
+
+
+### Features
+
+* multi chain support ([#42](https://github.com/zCloak-Network/zkid-credential/issues/42)) ([2f5ca86](https://github.com/zCloak-Network/zkid-credential/commit/2f5ca864748a42646ab55acd84943f5212a39067))
+
+
+## [0.32.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.31.0...v0.32.0) (2023-06-13)
+
+
+### Features
+
+* add Non-American check program config ([#41](https://github.com/zCloak-Network/zkid-credential/issues/41)) ([3e5e883](https://github.com/zCloak-Network/zkid-credential/commit/3e5e883942381904a5002c60b31c35b87fc66aaa))
+
+
+## [0.31.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.30.1...v0.31.0) (2023-06-09)
+
+
+### Features
+
+* update zkid sdk to select vc by digest in zkid-wallet ([82829b7](https://github.com/zCloak-Network/zkid-credential/commit/82829b7e3c44aac8f34e50b9acbdacba5d12bd73))
+
+
 ## [0.30.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.30.0...v0.30.1) (2023-06-01)
 
 

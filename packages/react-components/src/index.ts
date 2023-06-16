@@ -40,6 +40,10 @@ export { default as StepIcon } from './StepIcon';
 export { default as TaskStatusDisplay } from './TaskStatusDisplay';
 export { default as WagmiProvider } from './WagmiProvider';
 export { default as ButtonEnableMetamask } from './ButtonEnableMetamask';
+export { default as ConnectWallet } from './ConnectWallet';
+export { default as Network } from './Network';
+export { default as EthWalletAddress } from './EthWalletAddress';
+
 export * from './WagmiProvider/chain';
 export * from './Status';
 

@@ -3,11 +3,12 @@
 
 import { PropsWithChildren } from 'react';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, optimism, optimismGoerli } from 'wagmi/chains';
+import { baseGoerli, optimismGoerli } from 'wagmi/chains';
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { publicProvider } from 'wagmi/providers/public';
 
-const { chains, publicClient } = configureChains([optimismGoerli, mainnet, optimism], [publicProvider()]);
+const { chains, publicClient } = configureChains([optimismGoerli, baseGoerli], [publicProvider()]);
 
 const config = createConfig({
   autoConnect: true,
@@ -17,6 +18,12 @@ const config = createConfig({
       chains,
       options: {
         UNSTABLE_shimOnConnectSelectAccount: true
+      }
+    }),
+    new CoinbaseWalletConnector({
+      chains,
+      options: {
+        appName: 'zkid'
       }
     })
   ]

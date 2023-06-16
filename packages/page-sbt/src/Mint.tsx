@@ -4,18 +4,20 @@
 import type { VerifiableCredential } from '@zcloak/vc/types';
 import type { SbtResult } from './types';
 
-import { Box, Container, Link, Stack, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import { u8aToHex } from '@polkadot/util';
-import { useCallback, useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 import { base58Decode } from '@zcloak/crypto';
 import { helpers } from '@zcloak/did';
 
-import { VERIFIER_ADDRESS, zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
+import { VERIFIER_ADDRESS } from '@credential/app-config';
 import EthBind from '@credential/page-did/eth-bind';
 import {
+  baseGoerli,
   Button,
-  ButtonEnableMetamask,
+  ConnectWallet,
   Copy,
   ellipsisMixin,
   IdentityIcon,
@@ -23,13 +25,13 @@ import {
   useAccount,
   useContractWrite,
   useNetwork,
-  useSwitchNetwork,
   useWaitForTransaction
 } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
-import { useBindEth, useToggle } from '@credential/react-hooks';
+import { useBindEth, useContractConfig, useToggle } from '@credential/react-hooks';
 
 import MintStatus from './modal/MintStatus';
+import Faucet from './Faucet';
 
 interface Props {
   vc: VerifiableCredential<boolean>;
@@ -44,35 +46,30 @@ function Mint({ onCancel, result, vc }: Props) {
   const [success, setIsSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const { binded, isFetching, refetch } = useBindEth(did);
+  const [openBind, toggleBind] = useToggle();
 
   const { chain } = useNetwork();
-  const { switchNetworkAsync } = useSwitchNetwork();
+
+  const { abi, toAddress } = useContractConfig(chain?.id);
 
   const { data, error, writeAsync } = useContractWrite({
-    abi: zCloakSBTAbi,
-    address: ZKSBT_ADDRESS,
+    abi,
+    address: toAddress,
     functionName: 'mint',
-    chainId: ZKSBT_CHAIN_ID,
     onSuccess: () => {
       setIsOpen(true);
     }
   });
 
-  const recipient = useMemo(() => binded ?? did.identifier, [did.identifier, binded]);
-
   const mint = useCallback(async () => {
     try {
       setLoading(true);
-
-      if (chain?.id !== ZKSBT_CHAIN_ID) {
-        await switchNetworkAsync?.(ZKSBT_CHAIN_ID);
-      }
 
       const attesterSig = u8aToHex(base58Decode(vc.proof[0].proofValue));
       const attester = await helpers.fromDid(vc.issuer);
       const version = '0x0001';
 
-      const params = [
+      const params: any[] = [
         did.identifier, // recipient
         vc.ctype, // ctype
         `0x${result.programHash}`, // programHash
@@ -87,6 +84,12 @@ function Mint({ onCancel, result, vc }: Props) {
         result.image // sbtlink
       ];
 
+      if (chain?.id === baseGoerli.id) {
+        const publicInput = result.publicInput === '' ? [] : result.publicInput.split(',');
+
+        params.splice(3, 0, publicInput);
+      }
+
       await writeAsync({
         args: [params, result.signature]
       }).catch(() => {
@@ -96,7 +99,7 @@ function Mint({ onCancel, result, vc }: Props) {
     } finally {
       setLoading(false);
     }
-  }, [vc, result, writeAsync, did.identifier, switchNetworkAsync, chain]);
+  }, [vc, result, writeAsync, did.identifier, chain]);
 
   useWaitForTransaction({
     hash: data?.hash,
@@ -104,6 +107,11 @@ function Mint({ onCancel, result, vc }: Props) {
       setIsSuccess(true);
     }
   });
+
+  const onClose = useCallback(() => {
+    setIsOpen(false);
+    !error && onCancel();
+  }, [onCancel, error]);
 
   return (
     <Container
@@ -143,14 +151,25 @@ function Mint({ onCancel, result, vc }: Props) {
           </Box>
         </Box>
         <Box>
-          <Typography fontWeight={500} mb={2}>
-            To
-          </Typography>
-          <To isBinded={!!binded} recipient={recipient} refetch={refetch} />
+          <Stack direction='row' justifyContent='space-between' mb={2}>
+            <Typography fontWeight={500} mb={2}>
+              To
+            </Typography>
+            <Faucet />
+          </Stack>
+          {binded ? (
+            <>
+              <To recipient={binded} />
+            </>
+          ) : (
+            <LoadingButton fullWidth loading={isFetching} onClick={toggleBind} size='large' variant='contained'>
+              Bond Ethereum Address
+            </LoadingButton>
+          )}
         </Box>
         <Box>
-          <ButtonEnableMetamask
-            disabled={isFetching}
+          <ConnectWallet
+            disabled={isFetching || !binded}
             fullWidth
             loading={loading}
             onClick={mint}
@@ -158,33 +177,31 @@ function Mint({ onCancel, result, vc }: Props) {
             variant='contained'
           >
             Mint
-          </ButtonEnableMetamask>
+          </ConnectWallet>
+
           <Button color='secondary' fullWidth onClick={onCancel} size='large' sx={{ marginTop: 3 }} variant='contained'>
             Cancel
           </Button>
         </Box>
       </Stack>
-      {open && (
+      {open && binded && (
         <MintStatus
           error={error}
           hash={data?.hash}
-          onClose={() => setIsOpen(false)}
+          onClose={onClose}
           open={open}
-          recipient={recipient}
+          recipient={binded}
           success={success}
         />
       )}
+
+      {openBind && <EthBind onClose={toggleBind} open={openBind} refetch={refetch} />}
     </Container>
   );
 }
 
-const To: React.FC<{ recipient: string; refetch: () => Promise<any>; isBinded: boolean }> = ({
-  isBinded,
-  recipient,
-  refetch
-}) => {
+const To: React.FC<{ recipient: string }> = ({ recipient }) => {
   const { address } = useAccount();
-  const [open, toggle] = useToggle();
 
   return (
     <>
@@ -205,41 +222,12 @@ const To: React.FC<{ recipient: string; refetch: () => Promise<any>; isBinded: b
         <Typography>{recipient}</Typography>
         <Copy value={recipient} />
       </Stack>
-      {!isBinded && (
-        <Typography
-          mt={3}
-          pl={2}
-          sx={{
-            position: 'relative',
-            '::before': {
-              content: "''",
-              width: 4,
-              height: '100%',
-              background: '#0042F1',
-              borderRadius: '4px',
-              position: 'absolute',
-              left: 0,
-              top: 0
-            }
-          }}
-        >
-          You can also bond this SBT to a Ethereum wallet address if you want.
-          <Button component='a' onClick={toggle} size='small' variant='text'>
-            Try to bond Ethereum Address to as recipient.
-          </Button>
-        </Typography>
-      )}
 
       {address && (
         <Typography color='grey.A700' fontSize={12} mt={3}>
-          {address} will pay for the gas fee.{' --> '}
-          <Link href='https://faucet.quicknode.com/optimism/goerli' target='_blank'>
-            Faucet
-          </Link>
+          {address} will pay for the gas fee.
         </Typography>
       )}
-
-      {open && <EthBind onClose={toggle} open={open} refetch={refetch} />}
     </>
   );
 };

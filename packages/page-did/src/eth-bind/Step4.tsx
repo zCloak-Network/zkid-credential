@@ -5,9 +5,9 @@ import { useCallback, useContext, useState } from 'react';
 
 import { HexString } from '@zcloak/crypto/types';
 
-import { zCloakSBTAbi, ZKSBT_ADDRESS, ZKSBT_CHAIN_ID } from '@credential/app-config';
-import { ButtonEnableMetamask, useAccount, useContractWrite } from '@credential/react-components';
+import { ConnectWallet, useAccount, useContractWrite, useNetwork } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
+import { useContractConfig } from '@credential/react-hooks';
 
 import SigItem from './SigItem';
 
@@ -19,13 +19,15 @@ const Step4: React.FC<{
 }> = ({ metaSig, onError, onPublish, zkSig }) => {
   const { did } = useContext(DidsContext);
   const { address } = useAccount();
+  const { chain } = useNetwork();
   const [loading, setLoading] = useState(false);
 
+  const { abi, toAddress } = useContractConfig(chain?.id);
+
   const { writeAsync } = useContractWrite({
-    abi: zCloakSBTAbi,
-    address: ZKSBT_ADDRESS,
+    abi,
+    address: toAddress,
     functionName: 'setBinding',
-    chainId: ZKSBT_CHAIN_ID,
     onError
   });
 
@@ -48,9 +50,9 @@ const Step4: React.FC<{
     <>
       <SigItem label='zkID Sig:' mb={2} mt={4} value={zkSig} />
       <SigItem label='Ethereum Address Sig:' mb={4} value={metaSig} />
-      <ButtonEnableMetamask fullWidth loading={loading} onClick={bind} size='large' variant='contained'>
+      <ConnectWallet fullWidth loading={loading} onClick={bind} size='large' variant='contained'>
         Publish
-      </ButtonEnableMetamask>
+      </ConnectWallet>
     </>
   );
 };

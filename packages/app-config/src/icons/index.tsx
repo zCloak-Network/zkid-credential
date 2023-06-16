@@ -1,6 +1,7 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+export { default as BaseLogo } from './BaseLogo';
 export { default as FirstTopLogo } from './FirstTopLogo';
 export { default as IconAddress } from './IconAddress';
 export { default as IconAnd } from './IconAnd';
@@ -9,6 +10,7 @@ export { default as IconAttester } from './IconAttester';
 export { default as IconCard } from './IconCard';
 export { default as IconChaintool } from './IconChaintool';
 export { default as IconClaimer } from './IconClaimer';
+export { default as IconCoinbase } from './IconCoinbase';
 export { default as IconCopy } from './IconCopy';
 export { default as IconCorwn } from './IconCorwn';
 export { default as IconCreate } from './IconCreate';
@@ -33,6 +35,7 @@ export { default as IconLogoZkid } from './IconLogoZkid';
 export { default as IconLogout } from './IconLogout';
 export { default as IconMessage } from './IconMessage';
 export { default as IconMyctype } from './IconMyctype';
+export { default as IconNetwork } from './IconNetwork';
 export { default as IconNewMessage } from './IconNewMessage';
 export { default as IconNewTask } from './IconNewTask';
 export { default as IconOpensea } from './IconOpensea';
@@ -45,6 +48,9 @@ export { default as IconSlider } from './IconSlider';
 export { default as IconStar } from './IconStar';
 export { default as IconSuccess } from './IconSuccess';
 export { default as IconTask } from './IconTask';
+export { default as IconTestnet } from './IconTestnet';
 export { default as IconTips } from './IconTips';
 export { default as IconTwitter } from './IconTwitter';
 export { default as IconZkid } from './IconZkid';
+export { default as LogoMetamask } from './LogoMetamask';
+export { default as OptimismLogo } from './OptimismLogo';
