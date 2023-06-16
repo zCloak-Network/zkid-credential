@@ -8,7 +8,20 @@ import { alpha, Button, Popover, Stack } from '@mui/material';
 import { useCallback, useMemo, useState } from 'react';
 import { useNetwork, useSwitchNetwork } from 'wagmi';
 
-import { IconNetwork } from '@credential/app-config';
+import { BaseLogo, OptimismLogo } from '@credential/app-config';
+
+import { baseGoerli, optimismGoerli } from '.';
+
+function ChainIcon({ chainId }: { chainId?: number }) {
+  switch (chainId) {
+    case baseGoerli.id:
+      return <BaseLogo />;
+    case optimismGoerli.id:
+      return <OptimismLogo />;
+    default:
+      return <WarningAmberIcon />;
+  }
+}
 
 const Network = () => {
   const { chain } = useNetwork();
@@ -45,17 +58,22 @@ const Network = () => {
       <Button
         endIcon={open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
         onClick={handleClick}
-        startIcon={isWrongNet ? <WarningAmberIcon /> : <IconNetwork />}
         sx={{
-          width: 200,
+          width: 50,
           bgcolor: alpha('#0012FF', 0.1),
           color: isWrongNet ? '' : 'primary.main'
         }}
       >
-        {isWrongNet ? 'Wrong network' : chain?.name}
+        <ChainIcon chainId={chain?.id} />
       </Button>
 
       <Popover
+        PaperProps={{
+          sx: {
+            borderRadius: '8px',
+            marginTop: '16px'
+          }
+        }}
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'bottom',
@@ -66,7 +84,12 @@ const Network = () => {
       >
         <Stack width={200}>
           {chains.map((x) => (
-            <Button disabled={!switchNetwork || x.id === chain?.id} key={x.id} onClick={() => changeNetwork(x.id)}>
+            <Button
+              disabled={!switchNetwork || x.id === chain?.id}
+              key={x.id}
+              onClick={() => changeNetwork(x.id)}
+              startIcon={<ChainIcon chainId={x.id} />}
+            >
               {x.name}
             </Button>
           ))}

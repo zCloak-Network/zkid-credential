@@ -6,7 +6,7 @@ import type { ZkProgramConfig, ZkProgramOption } from './types';
 import { ZKSBT_CTYPE } from '../contract';
 
 function getPublicInput() {
-  const currentDate = new Date();
+  const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
   const compareDate = currentDate.setFullYear(currentDate.getFullYear() - 18);
 
   return `${Math.floor(new Date(compareDate).getTime())}`;
