@@ -4,13 +4,13 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import { alpha, Button, Popover, Stack } from '@mui/material';
+import { alpha, Box, Button, Popover, Stack } from '@mui/material';
 import { useCallback, useMemo, useState } from 'react';
 import { useNetwork, useSwitchNetwork } from 'wagmi';
 
-import { BaseLogo, OptimismLogo } from '@credential/app-config';
+import { BaseLogo, LineaLogo, OptimismLogo } from '@credential/app-config';
 
-import { baseGoerli, optimismGoerli } from '.';
+import { baseGoerli, lineaTestnet, optimismGoerli } from '.';
 
 function ChainIcon({ chainId }: { chainId?: number }) {
   switch (chainId) {
@@ -18,6 +18,12 @@ function ChainIcon({ chainId }: { chainId?: number }) {
       return <BaseLogo />;
     case optimismGoerli.id:
       return <OptimismLogo />;
+    case lineaTestnet.id:
+      return (
+        <Box bgcolor='#000' width={16} height={16} display='flex' alignItems='center' justifyContent='center'>
+          <LineaLogo />
+        </Box>
+      );
     default:
       return <WarningAmberIcon />;
   }

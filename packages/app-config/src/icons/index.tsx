@@ -52,5 +52,6 @@ export { default as IconTestnet } from './IconTestnet';
 export { default as IconTips } from './IconTips';
 export { default as IconTwitter } from './IconTwitter';
 export { default as IconZkid } from './IconZkid';
+export { default as LineaLogo } from './LineaLogo';
 export { default as LogoMetamask } from './LogoMetamask';
 export { default as OptimismLogo } from './OptimismLogo';

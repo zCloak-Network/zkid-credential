@@ -3,7 +3,7 @@
 
 import { HexString } from '@zcloak/crypto/types';
 
-import { baseGoerli, optimismGoerli } from '@credential/react-components';
+import { baseGoerli, lineaTestnet, optimismGoerli } from '@credential/react-components';
 
 import { isRelease } from './isRelease';
 
@@ -23,9 +23,14 @@ const baseGoerliConfig = isRelease
   ? '0x1F042d47ddFd675A47F0aB2b99bea4Bb1d078032'
   : '0x1603bAdff8e39749D8f33dbDd234C5dab10313Dd';
 
+const lineaGerliConfig = isRelease
+  ? '0x2e842f6e3fBf093981938F4E24892185bBDAd727'
+  : '0x2e842f6e3fBf093981938F4E24892185bBDAd727';
+
 export const CONTRACTS_CONFIG: CONTRACT_CONFIG = {
   [optimismGoerli.id]: optimismGoerliConfig,
-  [baseGoerli.id]: baseGoerliConfig
+  [baseGoerli.id]: baseGoerliConfig,
+  [lineaTestnet.id]: lineaGerliConfig
 };
 
 export const ZKSBT_CHAIN_ID = isRelease ? optimismGoerli.id : optimismGoerli.id;

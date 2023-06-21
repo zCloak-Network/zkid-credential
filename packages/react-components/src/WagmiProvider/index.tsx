@@ -3,12 +3,13 @@
 
 import { PropsWithChildren } from 'react';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { baseGoerli, optimismGoerli } from 'wagmi/chains';
+
+import { baseGoerli, lineaTestnet, optimismGoerli } from 'wagmi/chains';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { publicProvider } from 'wagmi/providers/public';
 
-const { chains, publicClient } = configureChains([optimismGoerli, baseGoerli], [publicProvider()]);
+const { chains, publicClient } = configureChains([optimismGoerli, baseGoerli, lineaTestnet], [publicProvider()]);
 
 const config = createConfig({
   autoConnect: true,
