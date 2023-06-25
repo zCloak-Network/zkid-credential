@@ -21,7 +21,7 @@ const config = createConfig({
       }
     }),
     new CoinbaseWalletConnector({
-      chains,
+      chains: chains.filter((c) => c.id !== lineaTestnet.id),
       options: {
         appName: 'zkid'
       }
