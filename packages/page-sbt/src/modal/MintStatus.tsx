@@ -6,6 +6,8 @@ import { useMemo } from 'react';
 
 import {
   BASESCAN_URL,
+  BLOCK_SCOUT_URL,
+  BlockscoutLogo,
   ETHERSCAN_URL,
   IconEtherscan,
   IconOpensea,
@@ -18,6 +20,7 @@ import {
   Button,
   DialogHeader,
   Failed,
+  lineaTestnet,
   Loading,
   optimismGoerli,
   Success,
@@ -73,7 +76,17 @@ const MintStatus: React.FC<{
             </Button>
           </Stack>
         )}
-        <Button fullWidth onClick={onClose} variant='contained'>
+        {success && hash && recipient && chain?.id === lineaTestnet.id && (
+          <Stack direction='row' justifyContent='center' paddingY={2}>
+            <Button onClick={() => window.open(`${ZONIC_URL}/${recipient}`)} startIcon={<IconTestnet />}>
+              Zonic
+            </Button>
+            <Button onClick={() => window.open(`${BLOCK_SCOUT_URL}/${hash}`)} startIcon={<BlockscoutLogo />}>
+              Blockscout
+            </Button>
+          </Stack>
+        )}
+        <Button disabled={!(success || error)} fullWidth onClick={onClose} variant='contained'>
           Confirm
         </Button>
       </DialogContent>

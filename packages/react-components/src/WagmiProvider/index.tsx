@@ -3,7 +3,6 @@
 
 import { PropsWithChildren } from 'react';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-
 import { baseGoerli, lineaTestnet, optimismGoerli } from 'wagmi/chains';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';

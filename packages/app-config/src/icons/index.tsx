@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export { default as BaseLogo } from './BaseLogo';
+export { default as BlockscoutLogo } from './BlockscoutLogo';
 export { default as FirstTopLogo } from './FirstTopLogo';
 export { default as IconAddress } from './IconAddress';
 export { default as IconAnd } from './IconAnd';

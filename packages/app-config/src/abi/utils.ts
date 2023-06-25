@@ -4,8 +4,8 @@
 import { baseGoerli, lineaTestnet, optimismGoerli } from '@credential/react-components';
 
 import { baseSbtAbi } from './base-sbt';
-import { opSbtAbi } from './op-sbt';
 import { lineaAbi } from './linea-sbt';
+import { opSbtAbi } from './op-sbt';
 
 export function getAbi(chainId?: number) {
   switch (chainId) {

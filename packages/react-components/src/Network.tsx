@@ -20,7 +20,7 @@ function ChainIcon({ chainId }: { chainId?: number }) {
       return <OptimismLogo />;
     case lineaTestnet.id:
       return (
-        <Box bgcolor='#000' width={16} height={16} display='flex' alignItems='center' justifyContent='center'>
+        <Box alignItems='center' bgcolor='#000' display='flex' height={16} justifyContent='center' width={16}>
           <LineaLogo />
         </Box>
       );

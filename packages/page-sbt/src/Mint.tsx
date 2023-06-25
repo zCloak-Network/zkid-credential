@@ -21,6 +21,7 @@ import {
   Copy,
   ellipsisMixin,
   IdentityIcon,
+  lineaTestnet,
   SbtCard,
   useAccount,
   useContractWrite,
@@ -84,7 +85,7 @@ function Mint({ onCancel, result, vc }: Props) {
         result.image // sbtlink
       ];
 
-      if (chain?.id === baseGoerli.id) {
+      if (chain?.id === baseGoerli.id || chain?.id === lineaTestnet.id) {
         const publicInput = result.publicInput === '' ? [] : result.publicInput.split(',');
 
         params.splice(3, 0, publicInput);
