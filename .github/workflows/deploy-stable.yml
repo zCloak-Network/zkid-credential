@@ -21,10 +21,10 @@ jobs:
           node-version: "16"
           cache: "yarn"
 
-      - name: Install deps and build:app
+      - name: Install deps and build:code
         run: |
           yarn install --immutable | grep -v 'YN0013'
-          yarn build:app
+          yarn build:code
 
       - name: Deploy to server
         uses: appleboy/scp-action@master
