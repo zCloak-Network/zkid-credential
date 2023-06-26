@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [0.34.1](https://github.com/zCloak-Network/zkid-credential/compare/v0.34.0...v0.34.1) (2023-06-26)
+
+
 ## [0.34.0](https://github.com/zCloak-Network/zkid-credential/compare/v0.33.0...v0.34.0) (2023-06-16)
 
 

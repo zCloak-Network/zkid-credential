@@ -14,7 +14,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.35.0",
+  "version": "0.35.1",
   "dependencies": {
     "@babel/core": "^7.21.3",
     "@babel/polyfill": "^7.12.1",
