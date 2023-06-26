@@ -4,13 +4,13 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import { alpha, Button, Popover, Stack } from '@mui/material';
+import { alpha, Box, Button, Popover, Stack } from '@mui/material';
 import { useCallback, useMemo, useState } from 'react';
 import { useNetwork, useSwitchNetwork } from 'wagmi';
 
-import { BaseLogo, OptimismLogo } from '@credential/app-config';
+import { BaseLogo, LineaLogo, OptimismLogo } from '@credential/app-config';
 
-import { baseGoerli, optimismGoerli } from '.';
+import { baseGoerli, lineaTestnet, optimismGoerli } from '.';
 
 function ChainIcon({ chainId }: { chainId?: number }) {
   switch (chainId) {
@@ -18,6 +18,12 @@ function ChainIcon({ chainId }: { chainId?: number }) {
       return <BaseLogo />;
     case optimismGoerli.id:
       return <OptimismLogo />;
+    case lineaTestnet.id:
+      return (
+        <Box alignItems='center' bgcolor='#000' display='flex' height={20} justifyContent='center' width={20}>
+          <LineaLogo />
+        </Box>
+      );
     default:
       return <WarningAmberIcon />;
   }
@@ -58,14 +64,12 @@ const Network = () => {
       <Button
         endIcon={open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
         onClick={handleClick}
+        startIcon={<ChainIcon chainId={chain?.id} />}
         sx={{
-          width: 50,
           bgcolor: alpha('#0012FF', 0.1),
           color: isWrongNet ? '' : 'primary.main'
         }}
-      >
-        <ChainIcon chainId={chain?.id} />
-      </Button>
+      />
 
       <Popover
         PaperProps={{
@@ -82,13 +86,17 @@ const Network = () => {
         onClose={handleClose}
         open={open}
       >
-        <Stack width={200}>
+        <Stack padding={1} width={220}>
           {chains.map((x) => (
             <Button
               disabled={!switchNetwork || x.id === chain?.id}
               key={x.id}
               onClick={() => changeNetwork(x.id)}
               startIcon={<ChainIcon chainId={x.id} />}
+              sx={{
+                justifyContent: 'flex-start',
+                borderRadius: '8px'
+              }}
             >
               {x.name}
             </Button>

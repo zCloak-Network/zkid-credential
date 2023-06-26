@@ -3,17 +3,19 @@
 
 import { useCallback, useMemo } from 'react';
 
-import { baseGoerli, Button, useNetwork } from '@credential/react-components';
+import { Button, useNetwork } from '@credential/react-components';
 
-const baseFaucet = 'https://faucet.quicknode.com/base/goerli';
-const opFaucet = 'https://faucet.quicknode.com/optimism/goerli';
+import { useFaucet } from './hooks/useFaucet';
 
 const Faucet = () => {
   const { chain, chains } = useNetwork();
+  const { faucet } = useFaucet(chain?.id);
 
   const open = useCallback(() => {
-    window.open(chain?.id === baseGoerli.id ? baseFaucet : opFaucet, '_blank');
-  }, [chain]);
+    if (!faucet) return;
+
+    window.open(faucet, '_blank');
+  }, [faucet]);
 
   const isWrongNet = useMemo(() => chains.filter((_c) => _c.id === chain?.id).length === 0, [chains, chain]);
 
