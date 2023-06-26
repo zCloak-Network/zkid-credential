@@ -24,7 +24,7 @@ const baseGoerliConfig = isRelease
   : '0x1603bAdff8e39749D8f33dbDd234C5dab10313Dd';
 
 const lineaGerliConfig = isRelease
-  ? '0x2e842f6e3fBf093981938F4E24892185bBDAd727'
+  ? '0x5F5ff21a6D7136BBf21f55CfD9627673dBeed8cd'
   : '0x53a623B54016Ec65592f0026aBdc91C8194522b8';
 
 export const CONTRACTS_CONFIG: CONTRACT_CONFIG = {
