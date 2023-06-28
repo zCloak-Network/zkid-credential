@@ -22,7 +22,7 @@ function LogoIcon({ url }: { url: string }) {
         }
       }}
     >
-      <img src={url} width={44} height={44} />
+      <img height={44} src={url} width={44} />
     </Box>
   );
 }
@@ -70,7 +70,7 @@ const Login = () => {
           <Stack direction='row' mt={3} spacing={2}>
             <LogoIcon url='/hk-event/logo_zcloak.png' />
             <LogoIcon url='/hk-event/logo_seedao.png' />
-            <LogoIcon url='/hk-event/logo_deepdao.png'/>
+            <LogoIcon url='/hk-event/logo_deepdao.png' />
           </Stack>
           <Typography className='HK_TITLE' mt={3.5}>
             DAO Salon
