@@ -5,6 +5,28 @@ import { Box, Stack, Typography } from '@mui/material';
 
 import ConnectWallet from './ConnectWallet';
 
+function LogoIcon({ url }: { url: string }) {
+  return (
+    <Box
+      sx={{
+        width: 50,
+        height: 50,
+        bgcolor: '#fff',
+        borderRadius: '8px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+        img: {
+          userSelect: 'none'
+        }
+      }}
+    >
+      <img src={url} width={44} height={44} />
+    </Box>
+  );
+}
+
 const Login = () => {
   return (
     <Box
@@ -13,7 +35,7 @@ const Login = () => {
       position='relative'
       sx={{
         height: 730,
-        background: 'url(/hk-event/bag_edcon.webp) no-repeat,linear-gradient(180deg, #BAC8E9 0%, #F6E3CD 100%)',
+        background: 'url(/hk-event/bag_shanghai.webp) no-repeat,linear-gradient(180deg, #BAC8E9 0%, #F6E3CD 100%)',
         backgroundPosition: 'bottom center'
       }}
     >
@@ -45,15 +67,16 @@ const Login = () => {
             }
           }}
         >
-          <Stack direction='row' mt={3} spacing={3.75}>
-            <img src='/hk-event/logo_edcon.svg' />
+          <Stack direction='row' mt={3} spacing={2}>
+            <LogoIcon url='/hk-event/logo_zcloak.png' />
+            <LogoIcon url='/hk-event/logo_seedao.png' />
+            <LogoIcon url='/hk-event/logo_deepdao.png'/>
           </Stack>
           <Typography className='HK_TITLE' mt={3.5}>
-            WELCOME TO
+            DAO Salon
           </Typography>
-          <Typography className='HK_TITLE'>EDCON & DAO Montenegro</Typography>
           <Typography className='HK_TITLE' mb={2}>
-            2023
+            Shanghai July 2nd 2023
           </Typography>
           <ConnectWallet />
         </Stack>

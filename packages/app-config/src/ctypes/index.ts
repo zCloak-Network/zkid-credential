@@ -50,6 +50,12 @@ export const ctypeMeta: Record<HexString, CTypeMeta> = {
     type: 'all',
     card: 'hk-event/bag_card_edcon.png',
     icon: 'hk-event/icon_logo.png'
+  },
+  // dao salon
+  '0x541556a04e6d3deccaa2884ae840596cdfe4de597a8334878181ee76aaee745f': {
+    type: 'all',
+    card: 'hk-event/bag_card_shanghai.svg',
+    icon: 'hk-event/icon_logo.png'
   }
 };
 
