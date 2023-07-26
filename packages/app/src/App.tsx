@@ -11,7 +11,6 @@ import PageClaims from '@credential/page-claims';
 import PageCType from '@credential/page-ctype';
 import PageCreateCType from '@credential/page-ctype/create';
 import PageOwnerCType from '@credential/page-ctype/OwnerCType';
-import PageDemo from '@credential/page-demo';
 import PageDidProfile from '@credential/page-did/DidProfile';
 import PageHkEvent from '@credential/page-hk-event';
 import Issue from '@credential/page-issue';
@@ -146,15 +145,6 @@ const createClaimerApp = () => (
       }
       path='message'
     />
-    <Route
-      element={
-        <Container hasPaddingTop hasPaddingX>
-          <PageDemo />
-        </Container>
-      }
-      path='demo'
-    />
-
     <Route element={<NoMatch to='ctype' />} path='*' />
     <Route element={<NoMatch to='ctype' />} index />
   </Route>

@@ -38,8 +38,6 @@
       "@credential/react-dids/*": ["react-dids/src/*"],
       "@credential/react-hooks": ["react-hooks/src"],
       "@credential/react-hooks/*": ["react-hooks/src/*"],
-      "@credential/page-demo": ["page-demo/src"],
-      "@credential/page-demo/*": ["page-demo/src/*"],
     },
     "skipLibCheck": true
   }

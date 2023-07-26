@@ -1,21 +1,17 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import {
   Box,
   ConnectWallet,
-  EthWalletAddress,
-  Network,
   optimismGoerli,
-  Typography,
   useAccount,
   useContractRead,
   useContractWrite,
   useDisconnect,
   useMediaQuery,
-  useNetwork,
   useSwitchNetwork,
   useTheme
 } from '@credential/react-components';
@@ -27,21 +23,21 @@ import { useNotification } from '../Notification/useNotification';
 import { opDemoAbi } from './opDemoAbi';
 
 const TransferDemo: React.FC = () => {
-  const { breakpoints, palette, transitions } = useTheme();
+  const { breakpoints } = useTheme();
   const upMd = useMediaQuery(breakpoints.up('md'));
-  const [open, toggleOpen] = useToggle(!!upMd);
+  const [toggleOpen] = useToggle(!!upMd);
   const unreads = useNotification();
   const { did } = useContext(DidsContext);
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
 
-  const { chain } = useNetwork();
+  // const { chain } = useNetwork();
 
   // const { abi, toAddress } = useContractConfig(chain?.id);
   const [abi, setAbi] = useState();
   const [contractAdress, setContractAdress] = useState('');
 
-  const { chains, switchNetwork, switchNetworkAsync } = useSwitchNetwork();
+  const { switchNetwork } = useSwitchNetwork();
   const [receiver, setReceiver] = useState('');
 
   useEffect(() => {
@@ -55,14 +51,10 @@ const TransferDemo: React.FC = () => {
     if (isConnected) {
       switchNetwork(optimismGoerli.id);
     }
-  }, [isConnected]);
+  }, [switchNetwork, isConnected]);
 
-  const {
-    isLoading,
-    isSuccess,
-    write: writeFaucet
-  } = useContractWrite({
-    abi: opDemoAbi,
+  const { isLoading, write: writeFaucet } = useContractWrite({
+    abi,
     address: contractAdress,
     functionName: 'getFaucet',
     onSuccess: () => {
@@ -71,14 +63,12 @@ const TransferDemo: React.FC = () => {
     }
   });
 
-  const {
-    write: writeTransfer
-  } = useContractWrite({
-    abi: opDemoAbi,
+  const { write: writeTransfer } = useContractWrite({
+    abi,
     address: contractAdress,
     functionName: 'transfer',
     enabled: false,
-    args: [receiver, 1*1000000000000000000],
+    args: [receiver, 1 * 1000000000000000000],
     onSuccess: () => {
       console.log('writeFaucet success');
       refetchBalanceOf();
@@ -103,7 +93,7 @@ const TransferDemo: React.FC = () => {
     address: contractAdress,
     functionName: 'balanceOf',
     args: [address],
-    abi: opDemoAbi, // easy to forget
+    abi, // easy to forget
     onSuccess: (data: any) => {
       console.log(`balanceOf: ${data}`);
     }
@@ -113,7 +103,7 @@ const TransferDemo: React.FC = () => {
     address: contractAdress,
     functionName: 'conditionalTransferCheckSender',
     args: [address],
-    abi: opDemoAbi, // easy to forget
+    abi, // easy to forget
     onSuccess: (data: any) => {
       console.log(`conditionalTransferCheckSender: ${data}`);
     },
@@ -128,7 +118,7 @@ const TransferDemo: React.FC = () => {
     functionName: 'conditionalTransferCheckReceiver',
     args: [receiver],
     enabled: false,
-    abi: opDemoAbi, // easy to forget
+    abi, // easy to forget
     onSuccess: (data: any) => {
       console.log(`conditionalTransferCheckReceiver: ${data}`);
     },
@@ -144,10 +134,10 @@ const TransferDemo: React.FC = () => {
   // console.log(`isFetching: ${isFetching}, isRefetching:${isRefetching}, data:${data}`);
   return (
     <Box bgcolor='#F5F6FA' overflow='hidden' paddingTop='70px'>
-      {did.identifier},
+      {address},
       {isConnected ? (
         <>
-          <span>connected</span>
+          <span> connected</span>
           <span onClick={disconnect}>(Disconnect)</span>
         </>
       ) : (
