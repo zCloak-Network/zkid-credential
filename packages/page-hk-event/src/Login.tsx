@@ -5,28 +5,6 @@ import { Box, Stack, Typography } from '@mui/material';
 
 import ConnectWallet from './ConnectWallet';
 
-function LogoIcon({ url }: { url: string }) {
-  return (
-    <Box
-      sx={{
-        width: 50,
-        height: 50,
-        bgcolor: '#fff',
-        borderRadius: '8px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-
-        img: {
-          userSelect: 'none'
-        }
-      }}
-    >
-      <img height={44} src={url} width={44} />
-    </Box>
-  );
-}
-
 const Login = () => {
   return (
     <Box
@@ -35,8 +13,8 @@ const Login = () => {
       position='relative'
       sx={{
         height: 730,
-        background: 'url(/hk-event/bag_shanghai.webp) no-repeat,linear-gradient(180deg, #BAC8E9 0%, #F6E3CD 100%)',
-        backgroundPosition: 'bottom center'
+        background: 'url(/yantai-event/jpg_yt.webp) no-repeat, #F5DBB2',
+        backgroundPosition: 'bottom left'
       }}
     >
       <Box
@@ -62,22 +40,34 @@ const Login = () => {
           sx={{
             '.HK_TITLE': {
               color: '#000',
-              fontSize: '39px',
-              fontFamily: 'BebasNeue'
+              fontSize: '34px',
+              fontFamily: 'Montserrat',
+              fontWeight: 600
             }
           }}
         >
-          <Stack direction='row' mt={3} spacing={2}>
-            <LogoIcon url='/hk-event/logo_zcloak.png' />
-            <LogoIcon url='/hk-event/logo_seedao.png' />
-            <LogoIcon url='/hk-event/logo_deepdao.png' />
-          </Stack>
+          <Box
+            mt={5}
+            sx={{
+              width: 60,
+              height: 60,
+              borderRadius: '50px',
+              background: 'url(/yantai-event/logo_zcloak.svg) no-repeat, #000000',
+              backgroundPosition: 'center center'
+            }}
+          />
           <Typography className='HK_TITLE' mt={3.5}>
-            DAO Salon
+            SURFING SUMMER
           </Typography>
           <Typography className='HK_TITLE' mb={2}>
-            Shanghai July 2nd 2023
+            YANTAI
           </Typography>
+          <Box margin='auto' mb={3} px={6}>
+            <Typography fontFamily='Montserrat' fontSize={14} fontWeight={400}>
+              Surfing Summer 2023 is an offline Web3 event organized by CSWA on July 28-30, 2023 in Yantai, Shandong.
+              This credential serves as zCloak’s free commemorative cards issued to all attendees.
+            </Typography>
+          </Box>
           <ConnectWallet />
         </Stack>
       </Box>
