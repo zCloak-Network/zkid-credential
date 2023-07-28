@@ -56,6 +56,12 @@ export const ctypeMeta: Record<HexString, CTypeMeta> = {
     type: 'all',
     card: 'hk-event/bag_card_shanghai.svg',
     icon: 'hk-event/icon_logo.png'
+  },
+  // yantai event
+  '0x341829ca64a7105ff941b4b8a9710e2806053cbfb7c97fc9cfd569ab4b5d55d2': {
+    type: 'all',
+    card: 'yantai-event/bag_card_yantai.svg',
+    icon: 'hk-event/icon_logo.png'
   }
 };
 
