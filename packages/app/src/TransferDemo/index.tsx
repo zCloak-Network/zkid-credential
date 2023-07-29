@@ -4,23 +4,82 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import {
+  alpha,
   Box,
+  Button,
+  CircularProgress,
   ConnectWallet,
+  IconButton,
+  IdentityIcon,
+  Link,
   optimismGoerli,
+  Paper,
+  Snackbar,
+  Stack,
+  styled,
+  Typography,
   useAccount,
   useContractRead,
   useContractWrite,
   useDisconnect,
   useMediaQuery,
+  useNetwork,
   useSwitchNetwork,
   useTheme
 } from '@credential/react-components';
-import { DidsContext } from '@credential/react-dids';
+import { DidName, DidsContext } from '@credential/react-dids';
 import { useToggle } from '@credential/react-hooks';
 
-import Header from '../Header';
 import { useNotification } from '../Notification/useNotification';
+import Logo from './Logo';
 import { opDemoAbi } from './opDemoAbi';
+
+// const useStyles = makeStyles((theme) => ({
+//   paperStyle: {
+//     width: 198,
+//     height: 128,
+//     borderRadius: 4,
+//     border: '1px solid #E5E5E5',
+//     display: 'flex',
+//     justifyContent: 'space-evenly',
+//     flexDirection: 'column',
+//     alignItems: 'center',
+//     transition: 'background-color 0.3s ease',
+//     '&:hover': {
+//       backgroundColor: '#f5f5f5',
+//     },
+//   },
+// }));
+
+const StyledPaper = styled(Paper)(({ selected, theme }) => ({
+  width: 198,
+  height: 128,
+  borderRadius: 4,
+  border: selected ? '2px solid #ff9d00' : '1px solid #E5E5E5',
+  display: 'flex',
+  justifyContent: 'space-evenly',
+  flexDirection: 'column',
+  alignItems: 'center',
+  transition: 'background-color 0.3s ease',
+  '&:hover': {
+    backgroundColor: '#f5f5f5'
+  }
+}));
+
+const StyledTransferButton = styled(Button)({
+  width: 625,
+  height: 60,
+  color: 'white',
+  fontSize: 18,
+  fontWeight: 600,
+  marginTop: 30,
+  display: 'flex',
+  borderRadius: 4,
+  background: '#0042F1',
+  justifyContent: 'center',
+  alignItems: 'center',
+  textDecoration: 'none'
+});
 
 const TransferDemo: React.FC = () => {
   const { breakpoints } = useTheme();
@@ -30,6 +89,10 @@ const TransferDemo: React.FC = () => {
   const { did } = useContext(DidsContext);
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
+  // const { did, isLocked, lock } = useContext(DidsContext);
+  // const [notiOpen, toggleNotiOpen] = useToggle();
+  // const theme = useTheme();
+  // const upMd = useMediaQuery(theme.breakpoints.up('md'));
 
   // const { chain } = useNetwork();
 
@@ -37,21 +100,39 @@ const TransferDemo: React.FC = () => {
   const [abi, setAbi] = useState();
   const [contractAdress, setContractAdress] = useState('');
 
+  const { chain } = useNetwork();
   const { switchNetwork } = useSwitchNetwork();
   const [receiver, setReceiver] = useState('');
 
+  const [senderStatus, setSenderStatus] = useState(0);
+  const [receiverStatus, setReceiverStatus] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  const handleClose = (event) => {
+    setOpen(false);
+  };
+
+  const handleReceiverClick = (suggestAddress: React.SetStateAction<string>) => {
+    // const val = e.target.getAttribute('aria-hidden');
+
+    setReceiver(suggestAddress);
+  };
+
   useEffect(() => {
     setAbi(opDemoAbi);
-    setContractAdress('0x883cF50A207810Dc55D3f45AaBb9e4e8f7D2e9f2');
+    setContractAdress('0x1A3C1baacd6D7269547a1b877C79709e9B60aBb2');
   }, []);
 
   useEffect(() => {
-    console.log('switching network');
+    console.log(`check current network: ${chain?.id}, isConnected: ${isConnected}`);
 
     if (isConnected) {
-      switchNetwork(optimismGoerli.id);
+      if (chain && chain.id !== 420) {
+        console.log('switching network...');
+        switchNetwork(optimismGoerli.id);
+      }
     }
-  }, [switchNetwork, isConnected]);
+  }, [isConnected]);
 
   const { isLoading, write: writeFaucet } = useContractWrite({
     abi,
@@ -63,79 +144,89 @@ const TransferDemo: React.FC = () => {
     }
   });
 
-  const { write: writeTransfer } = useContractWrite({
+  const { isLoading: loadingTransfer, write: writeTransfer } = useContractWrite({
     abi,
     address: contractAdress,
     functionName: 'transfer',
     enabled: false,
     args: [receiver, 1 * 1000000000000000000],
     onSuccess: () => {
-      console.log('writeFaucet success');
+      console.log('writeTransfer success');
       refetchBalanceOf();
+      setOpen(true);
     }
   });
-
-  // useEffect(() => {
-  //   console.log(`isSuccess ${isSuccess}`);
-  // }, [isSuccess]);
-
-  // const { data: dataCheckGetFaucet } = useContractRead({
-  //   address: contractAdress,
-  //   functionName: 'CheckGetFaucet',
-  //   args: [address],
-  //   abi: opDemoAbi, // easy to forget
-  //   onSuccess: (data: any) => {
-  //     console.log(`checkGetFaucet: ${data}`);
-  //   }
-  // });
-
   const { data: balanceOf, refetch: refetchBalanceOf } = useContractRead({
     address: contractAdress,
     functionName: 'balanceOf',
     args: [address],
     abi, // easy to forget
     onSuccess: (data: any) => {
-      console.log(`balanceOf: ${data}`);
+      console.log(`balanceOf: ${data}, ${typeof data}`);
     }
   });
 
-  const { refetch: refetchCheckSender } = useContractRead({
+  const { isFetching: fetchingCheckSender, refetch: refetchCheckSender } = useContractRead({
     address: contractAdress,
     functionName: 'conditionalTransferCheckSender',
     args: [address],
+    enabled: true,
     abi, // easy to forget
     onSuccess: (data: any) => {
       console.log(`conditionalTransferCheckSender: ${data}`);
+
+      if (data) {
+        setSenderStatus(1);
+      } else {
+        setSenderStatus(2);
+      }
     },
     onError() {
       // it means revert
       console.log('sender status: revert');
+      setSenderStatus(3);
     }
   });
 
-  const { refetch: refetchCheckReceiver } = useContractRead({
+  const { isFetching: fetchingCheckReceiver, refetch: refetchCheckReceiver } = useContractRead({
     address: contractAdress,
     functionName: 'conditionalTransferCheckReceiver',
     args: [receiver],
-    enabled: false,
+    enabled: true,
     abi, // easy to forget
     onSuccess: (data: any) => {
       console.log(`conditionalTransferCheckReceiver: ${data}`);
+
+      if (data) {
+        setReceiverStatus(1);
+      } else {
+        setReceiverStatus(2);
+      }
     },
-    onError() {
+    onError(error: { name: string }) {
       // it means revert
       // console.log('Error', error);
+      console.log(error.name);
       console.log('receiver status: revert');
+
+      if (error.name !== 'InvalidAddressError') {
+        setReceiverStatus(3);
+      }
     }
   });
 
   // console.log(`status ${status}`);
   // console.log(`isConnected: ${isConnected}, chain.id:${chain?.id},address:${address} contractAdress:${contractAdress}`);
   // console.log(`isFetching: ${isFetching}, isRefetching:${isRefetching}, data:${data}`);
+  // console.log(`loadingCheckSender: ${loadingCheckSender}`);
+  // console.log(`loadingCheckReceiver: ${loadingCheckReceiver}`);
+  // console.log(`senderStatus: ${senderStatus}`);
+  console.log(`network: ${JSON.stringify(chain?.id)}`);
+
   return (
     <Box bgcolor='#F5F6FA' overflow='hidden' paddingTop='70px'>
-      {address},
-      {isConnected ? (
+      {/* {address}, */}
+      {/* {isConnected ? (
         <>
           <span> connected</span>
           <span onClick={disconnect}>(Disconnect)</span>
@@ -144,15 +235,66 @@ const TransferDemo: React.FC = () => {
         <ConnectWallet sx={{ width: 200 }} variant='outlined'>
           Connect Wallet
         </ConnectWallet>
-      )}
-      <div>Balance: {`${balanceOf}`}</div>
-      <div onClick={refetchBalanceOf}>refetchBalanceOf</div>
-      {isLoading ? <div>loading...</div> : <div onClick={writeFaucet}>get cToken</div>}
-      <div onClick={refetchCheckSender}>refetchCheckSender</div>
-      <input onChange={(e) => setReceiver(e.target.value)} placeholder='receiver address' value={receiver} />
-      <div onClick={refetchCheckReceiver}>refetchCheckReceiver</div>
-      <div onClick={writeTransfer}>writeTransfer</div>
-      <Header toggleOpen={toggleOpen} unreads={unreads} />
+      )} */}
+      {/* {balanceOf && <div>Balance: {`${balanceOf / 10n ** 18n}`}</div>} */}
+      {/* <div onClick={refetchBalanceOf}>refetchBalanceOf</div> */}
+      {/* {isLoading ? <div>loading...</div> : <div onClick={writeFaucet}>get cToken</div>} */}
+      {/* <div onClick={refetchCheckSender}>refetchCheckSender</div> */}
+      {/* <input onChange={(e) => setReceiver(e.target.value)} placeholder='receiver address' value={receiver} /> */}
+      {/* <div onClick={refetchCheckReceiver}>refetchCheckReceiver</div> */}
+      {/* <div onClick={writeTransfer}>writeTransfer</div> */}
+      {/* <Header toggleOpen={toggleOpen} unreads={unreads} /> */}
+      <Stack
+        alignItems='center'
+        direction='row'
+        height={70}
+        justifyContent='space-between'
+        sx={({ palette }) => ({
+          paddingX: upMd ? 5 : 2,
+          zIndex: 999,
+          position: 'fixed',
+          top: 0,
+          width: '100%',
+          background: palette.common.white,
+          borderBottom: '1px solid',
+          borderBottomColor: alpha(palette.primary.main, 0.1)
+        })}
+      >
+        <Stack alignItems='center' direction='row' spacing={upMd ? 2 : 1}>
+          <Logo />
+        </Stack>
+        <Stack alignItems='center' direction='row' spacing={upMd ? 2 : 1}>
+          {/* <DidInfo did={did} /> */}
+
+          {isConnected && (
+            <Button
+              endIcon={<IdentityIcon value={did.id} />}
+              onClick={disconnect}
+              size={upMd ? 'medium' : 'small'}
+              sx={({ palette }) => ({
+                border: '1px solid',
+                borderColor: alpha(palette.primary.main, 0.12),
+                background: palette.common.white,
+                borderRadius: 50,
+                boxShadow: 'none',
+                color: palette.text.primary,
+                ':hover': {
+                  background: palette.common.white
+                }
+              })}
+              variant='contained'
+            >
+              {`${address.slice(0, 8)}...${address.slice(-4)}`}
+            </Button>
+          )}
+
+          {!isConnected && (
+            <ConnectWallet initialNetworkId={420} sx={{ width: 200 }} variant='outlined'>
+              Connect Wallet
+            </ConnectWallet>
+          )}
+        </Stack>
+      </Stack>
       <div style={{ width: '100%', display: 'flex', justifyContent: 'center', border: '0' }}>
         <div style={styles.content}>
           <div style={styles.title}>Conditional Transfer</div>
@@ -181,11 +323,13 @@ const TransferDemo: React.FC = () => {
             <div style={styles.main_transfer_desc}>
               <div style={{ fontSize: 20, fontWeight: 500 }}>Transfer</div>
               <div style={{ display: 'flex', justifyContent: 'space-between', width: 220, fontSize: 12 }}>
-                <div style={{ color: '#8F95B2' }}>Your Balance: 0 cToken</div>
+                <div style={{ color: '#8F95B2' }}>
+                  Your Balance: {balanceOf ? `${balanceOf / 10n ** 18n}` : 0} cToken
+                </div>
                 <div>
-                  <a href='#' style={{ textDecoration: 'none', color: '#0042F1' }}>
+                  <div onClick={writeFaucet} style={{ cursor: 'pointer', color: '#0042F1' }}>
                     Get 10 cToken
-                  </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -216,11 +360,22 @@ const TransferDemo: React.FC = () => {
                   </div>
                   <div style={{}}>cToken</div>
                   <div style={{ height: 24 }}>
-                    <img src='/transfer-demo/icon_down.png' style={styles.main_transfer_icon_down} />
+                    <img src='/transfer-demo/icon_down.png' />
                   </div>
                 </div>
               </div>
-              <div style={{ color: '#1C1D21', marginRight: 20 }}>0</div>
+              <div style={{ color: '#1C1D21', marginRight: 20 }}>
+                <input
+                  style={{
+                    border: 0,
+                    backgroundColor: 'rgba(108, 93, 211, 0)',
+                    textAlign: 'right',
+                    fontSize: 16,
+                    height: 40
+                  }}
+                  type='number'
+                />
+              </div>
             </div>
           </div>
 
@@ -236,7 +391,14 @@ const TransferDemo: React.FC = () => {
                 borderRadius: 4
               }}
             >
-              <div style={{ marginLeft: 15, color: '#8F95B2' }}>To Address</div>
+              <div style={{ marginLeft: 15, color: '#8F95B2' }}>
+                <input
+                  onChange={(e) => setReceiver(e.target.value)}
+                  placeholder='To Address'
+                  style={{ border: 0, backgroundColor: 'rgba(108, 93, 211, 0)', fontSize: 16, height: 40, width: 400 }}
+                  value={receiver}
+                />
+              </div>
             </div>
           </div>
 
@@ -244,61 +406,67 @@ const TransferDemo: React.FC = () => {
           <div style={styles.main_suggest}>
             <div style={{ fontSize: 16, fontWeight: 400, marginBottom: 5 }}>Suggest Receiver Address</div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <div
-                style={{
-                  width: 198,
-                  height: 128,
-                  borderRadius: 4,
-                  border: '1px solid #E5E5E5',
-                  display: 'flex',
-                  justifyContent: 'space-evenly',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}
+              <StyledPaper
+                elevation={0}
+                onClick={() => handleReceiverClick('0x05476EE9235335ADd2e50c09B2D16a3A2cC4ebEC')}
+                selected={receiver === '0x05476EE9235335ADd2e50c09B2D16a3A2cC4ebEC'}
               >
-                <div style={{ fontSize: 18, fontWeight: 500 }}>Alice</div>
-                <div style={{ fontSize: 14, fontWeight: 400 }}>Non Adult</div>
-                <div style={{ fontSize: 12, fontWeight: 400, color: '#8F95B2' }}>did:zk:0x3sos…cz</div>
-              </div>
+                <Typography component='div' fontWeight={500} variant='h6'>
+                  Alice
+                </Typography>
+                <Typography component='div' fontWeight={400} variant='body1'>
+                  Non Adult
+                </Typography>
+                <Typography color='textSecondary' component='div' fontWeight={400} variant='body2'>
+                  did:zk:0x0547...EC
+                </Typography>
+              </StyledPaper>
 
-              <div
-                style={{
-                  width: 198,
-                  height: 128,
-                  borderRadius: 4,
-                  border: '1px solid #E5E5E5',
-                  display: 'flex',
-                  justifyContent: 'space-evenly',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}
+              <StyledPaper
+                elevation={0}
+                onClick={() => handleReceiverClick('0xFeDE01Ff4402e35c6f6d20De9821d64bDF4Ba563')}
+                selected={receiver === '0xFeDE01Ff4402e35c6f6d20De9821d64bDF4Ba563'}
               >
-                <div style={{ fontSize: 18, fontWeight: 500 }}>Bob</div>
-                <div style={{ fontSize: 14, fontWeight: 400 }}>Adult</div>
-                <div style={{ fontSize: 12, fontWeight: 400, color: '#8F95B2' }}>did:zk:0x3sos…cz</div>
-              </div>
-
-              <div
-                style={{
-                  width: 198,
-                  height: 128,
-                  borderRadius: 4,
-                  border: '1px solid #E5E5E5',
-                  display: 'flex',
-                  justifyContent: 'space-evenly',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}
+                <Typography component='div' fontWeight={500} variant='h6'>
+                  Bob
+                </Typography>
+                <Typography component='div' fontWeight={400} variant='body1'>
+                  Adult
+                </Typography>
+                <Typography color='textSecondary' component='div' fontWeight={400} variant='body2'>
+                  did:zk:0xFeDE...63
+                </Typography>
+              </StyledPaper>
+              <StyledPaper
+                elevation={0}
+                onClick={() => handleReceiverClick('0x61625acF58Bae797F4cE6E398A0C6857C22D1475')}
+                selected={receiver === '0x61625acF58Bae797F4cE6E398A0C6857C22D1475'}
               >
-                <div style={{ fontSize: 18, fontWeight: 500 }}>Charlie</div>
-                <div style={{ fontSize: 14, fontWeight: 400 }}>No SBT</div>
-                <div style={{ fontSize: 12, fontWeight: 400, color: '#8F95B2' }}>did:zk:0x3sos…cz</div>
-              </div>
+                <Typography component='div' fontWeight={500} variant='h6'>
+                  Charlie
+                </Typography>
+                <Typography component='div' fontWeight={400} variant='body1'>
+                  No SBT
+                </Typography>
+                <Typography color='textSecondary' component='div' fontWeight={400} variant='body2'>
+                  did:zk:0x6162...75
+                </Typography>
+              </StyledPaper>
             </div>
           </div>
 
           {/* Validify */}
-          <div style={styles.main_valid}>
+          <div
+            style={{
+              width: 625,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginTop: 30,
+              display: 'flex',
+              justifyContent: 'space-between',
+              borderRadius: 4
+            }}
+          >
             <div
               style={{
                 borderRadius: 4,
@@ -353,18 +521,34 @@ const TransferDemo: React.FC = () => {
                   borderRadius: 4
                 }}
               >
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: 28,
-                    width: 28
-                  }}
-                >
-                  <img src='/transfer-demo/icon_error.png' style={{ height: 28, width: 28 }} />
-                </div>
-                <div>No zkSBT</div>
+                {fetchingCheckSender ? (
+                  <div>loading...</div>
+                ) : (
+                  <>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: 28,
+                        width: 28
+                      }}
+                    >
+                      {senderStatus === 1 && (
+                        <img src='/transfer-demo/icon_pass.png' style={{ height: 28, width: 28 }} />
+                      )}
+                      {senderStatus === 2 && (
+                        <img src='/transfer-demo/icon_non.png' style={{ height: 28, width: 28 }} />
+                      )}
+                      {senderStatus === 3 && (
+                        <img src='/transfer-demo/icon_error.png' style={{ height: 28, width: 28 }} />
+                      )}
+                    </div>
+                    {senderStatus === 1 && <div>Pass</div>}
+                    {senderStatus === 2 && <div>Non-Adult</div>}
+                    {senderStatus === 3 && <div>No zkSBT</div>}
+                  </>
+                )}
               </div>
             </div>
 
@@ -422,28 +606,61 @@ const TransferDemo: React.FC = () => {
                   borderRadius: 4
                 }}
               >
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: 28,
-                    width: 28
-                  }}
-                >
-                  <img src='/transfer-demo/icon_pass.png' style={{ height: 28, width: 28 }} />
-                </div>
-                <div>Pass</div>
+                {fetchingCheckReceiver ? (
+                  <CircularProgress color='primary' />
+                ) : (
+                  <>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: 28,
+                        width: 28
+                      }}
+                    >
+                      {receiverStatus === 1 && (
+                        <img src='/transfer-demo/icon_pass.png' style={{ height: 28, width: 28 }} />
+                      )}
+                      {receiverStatus === 2 && (
+                        <img src='/transfer-demo/icon_non.png' style={{ height: 28, width: 28 }} />
+                      )}
+                      {receiverStatus === 3 && (
+                        <img src='/transfer-demo/icon_error.png' style={{ height: 28, width: 28 }} />
+                      )}
+                    </div>
+                    {receiverStatus === 1 && <div>Pass</div>}
+                    {receiverStatus === 2 && <div>Non-Adult</div>}
+                    {receiverStatus === 3 && <div>No zkSBT</div>}
+                  </>
+                )}
               </div>
             </div>
           </div>
 
           {/* Transfer Button */}
-          <div style={{}}>
-            <a href='#' style={styles.transferButton}>
-              Transfer
-            </a>
+
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <StyledTransferButton disabled={loadingTransfer || senderStatus!==1 || receiverStatus!==1 } onClick={writeTransfer} variant='contained'>
+              {loadingTransfer ? <CircularProgress color='primary' size={24} /> : 'Transfer'}
+            </StyledTransferButton>
           </div>
+
+          <Snackbar
+            action={
+              <Button color='secondary' onClick={handleClose} size='small'>
+                Close
+              </Button>
+            }
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right'
+            }}
+            autoHideDuration={4000}
+            message='Transfer Successfully!'
+            onClose={handleClose}
+            open={open}
+          />
         </div>
       </div>
     </Box>
@@ -511,31 +728,8 @@ const styles = {
     marginRight: 'auto',
     marginTop: 30
   },
-  main_valid: {
-    width: 625,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: 30,
-    display: 'flex',
-    justifyContent: 'space-between',
-    borderRadius: 4
-  },
-  transferButton: {
-    width: 625,
-    height: 60,
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 600,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: 30,
-    display: 'flex',
-    borderRadius: 4,
-    background: '#0042F1',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textDecoration: 'none'
-  }
+  main_valid: {},
+  transferButton: {}
 };
 
 export default TransferDemo;
