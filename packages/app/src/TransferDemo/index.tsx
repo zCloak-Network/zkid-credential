@@ -9,9 +9,13 @@ import {
   Button,
   CircularProgress,
   ConnectWallet,
+  Container,
   IconButton,
   IdentityIcon,
+  Input,
   Link,
+  Menu,
+  MenuItem,
   optimismGoerli,
   Paper,
   Snackbar,
@@ -27,13 +31,10 @@ import {
   useSwitchNetwork,
   useTheme
 } from '@credential/react-components';
-import { DidName, DidsContext } from '@credential/react-dids';
 import { useToggle } from '@credential/react-hooks';
 
-import { useNotification } from '../Notification/useNotification';
 import Logo from './Logo';
 import { opDemoAbi } from './opDemoAbi';
-
 // const useStyles = makeStyles((theme) => ({
 //   paperStyle: {
 //     width: 198,
@@ -84,11 +85,9 @@ const StyledTransferButton = styled(Button)({
 const TransferDemo: React.FC = () => {
   const { breakpoints } = useTheme();
   const upMd = useMediaQuery(breakpoints.up('md'));
-  const [toggleOpen] = useToggle(!!upMd);
-  const unreads = useNotification();
-  const { did } = useContext(DidsContext);
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
+
   // const { did, isLocked, lock } = useContext(DidsContext);
   // const [notiOpen, toggleNotiOpen] = useToggle();
   // const theme = useTheme();
@@ -107,6 +106,28 @@ const TransferDemo: React.FC = () => {
   const [senderStatus, setSenderStatus] = useState(0);
   const [receiverStatus, setReceiverStatus] = useState(0);
   const [open, setOpen] = useState(false);
+  const [inputValue, setInputValue] = useState(0);
+
+  const {
+    data: balanceOf,
+    isFetching: fetchingBalanceOf,
+    refetch: refetchBalanceOf
+  } = useContractRead({
+    address: contractAdress,
+    functionName: 'balanceOf',
+    args: [address],
+    abi, // easy to forget
+    onSuccess: (data: any) => {
+      console.log(`balanceOf: ${data}, ${typeof data}`);
+    }
+  });
+
+  const handleInputChange = (event) => {
+    const value = event.target.value;
+
+    console.log(value, typeof value);
+    setInputValue(Number(value));
+  };
 
   const handleClose = (event) => {
     setOpen(false);
@@ -134,7 +155,7 @@ const TransferDemo: React.FC = () => {
     }
   }, [isConnected]);
 
-  const { isLoading, write: writeFaucet } = useContractWrite({
+  const { isLoading: loadingFaucet, write: writeFaucet } = useContractWrite({
     abi,
     address: contractAdress,
     functionName: 'getFaucet',
@@ -149,20 +170,11 @@ const TransferDemo: React.FC = () => {
     address: contractAdress,
     functionName: 'transfer',
     enabled: false,
-    args: [receiver, 1 * 1000000000000000000],
+    args: [receiver, inputValue * 1000000000000000000],
     onSuccess: () => {
       console.log('writeTransfer success');
       refetchBalanceOf();
       setOpen(true);
-    }
-  });
-  const { data: balanceOf, refetch: refetchBalanceOf } = useContractRead({
-    address: contractAdress,
-    functionName: 'balanceOf',
-    args: [address],
-    abi, // easy to forget
-    onSuccess: (data: any) => {
-      console.log(`balanceOf: ${data}, ${typeof data}`);
     }
   });
 
@@ -221,7 +233,7 @@ const TransferDemo: React.FC = () => {
   // console.log(`loadingCheckSender: ${loadingCheckSender}`);
   // console.log(`loadingCheckReceiver: ${loadingCheckReceiver}`);
   // console.log(`senderStatus: ${senderStatus}`);
-  console.log(`network: ${JSON.stringify(chain?.id)}`);
+  // console.log(`network: ${JSON.stringify(chain?.id)}`);
 
   return (
     <Box bgcolor='#F5F6FA' overflow='hidden' paddingTop='70px'>
@@ -267,25 +279,27 @@ const TransferDemo: React.FC = () => {
           {/* <DidInfo did={did} /> */}
 
           {isConnected && (
-            <Button
-              endIcon={<IdentityIcon value={did.id} />}
-              onClick={disconnect}
-              size={upMd ? 'medium' : 'small'}
-              sx={({ palette }) => ({
-                border: '1px solid',
-                borderColor: alpha(palette.primary.main, 0.12),
-                background: palette.common.white,
-                borderRadius: 50,
-                boxShadow: 'none',
-                color: palette.text.primary,
-                ':hover': {
-                  background: palette.common.white
-                }
-              })}
-              variant='contained'
-            >
-              {`${address.slice(0, 8)}...${address.slice(-4)}`}
-            </Button>
+            <>
+              <Button
+                endIcon={<IdentityIcon value={address} />}
+                size={upMd ? 'medium' : 'small'}
+                sx={({ palette }) => ({
+                  border: '1px solid',
+                  borderColor: alpha(palette.primary.main, 0.12),
+                  background: palette.common.white,
+                  borderRadius: 50,
+                  boxShadow: 'none',
+                  color: palette.text.primary,
+                  ':hover': {
+                    background: palette.common.white
+                  }
+                })}
+                variant='contained'
+              >
+                {`${address.slice(0, 8)}...${address.slice(-4)}`}
+              </Button>
+              <Button onClick={disconnect}>logout</Button>
+            </>
           )}
 
           {!isConnected && (
@@ -318,24 +332,52 @@ const TransferDemo: React.FC = () => {
             </div>
           </div>
 
-          {/*  transfer */}
-          <div style={styles.main_transfer}>
-            <div style={styles.main_transfer_desc}>
+          {/*  transfer input */}
+          <div
+            style={{
+              width: 625,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginTop: 30
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                flex: 'row wrap',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
               <div style={{ fontSize: 20, fontWeight: 500 }}>Transfer</div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', width: 220, fontSize: 12 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', width: 260, fontSize: 13 }}>
                 <div style={{ color: '#8F95B2' }}>
-                  Your Balance: {balanceOf ? `${balanceOf / 10n ** 18n}` : 0} cToken
+                  Your Balance:
+                  {fetchingBalanceOf ? ' -- ' : balanceOf ? ` ${balanceOf / 10n ** 18n} cToken` : 0}
+                </div>
+                <div onClick={refetchBalanceOf}>
+                  <img src='/transfer-demo/icon_refresh.png' style={{ width: 20, height: 20 }} />
                 </div>
                 <div>
                   <div onClick={writeFaucet} style={{ cursor: 'pointer', color: '#0042F1' }}>
-                    Get 10 cToken
+                    {loadingFaucet ? <>loading...</> : <>Get 10 cToken</>}
                   </div>
                 </div>
               </div>
             </div>
 
-            <div style={styles.main_transfer_form}>
-              <div style={{}}>
+            <div
+              style={{
+                display: 'flex',
+                flex: 'row wrap',
+                justifyContent: 'space-between',
+                height: 64,
+                alignItems: 'center',
+                background: 'rgba(108,93,211,0.05)',
+                borderRadius: 4
+              }}
+            >
+              <div>
                 <div
                   style={{
                     display: 'flex',
@@ -366,14 +408,16 @@ const TransferDemo: React.FC = () => {
               </div>
               <div style={{ color: '#1C1D21', marginRight: 20 }}>
                 <input
+                  onChange={handleInputChange}
                   style={{
-                    border: 0,
                     backgroundColor: 'rgba(108, 93, 211, 0)',
+                    border: inputValue > 0 && inputValue*1000000000000000000 < balanceOf ? '0' : 'red 1px solid',
                     textAlign: 'right',
                     fontSize: 16,
                     height: 40
                   }}
                   type='number'
+                  value={inputValue}
                 />
               </div>
             </div>
@@ -641,7 +685,11 @@ const TransferDemo: React.FC = () => {
           {/* Transfer Button */}
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <StyledTransferButton disabled={loadingTransfer || senderStatus!==1 || receiverStatus!==1 } onClick={writeTransfer} variant='contained'>
+            <StyledTransferButton
+              disabled={loadingTransfer || senderStatus !== 1 || receiverStatus !== 1}
+              onClick={writeTransfer}
+              variant='contained'
+            >
               {loadingTransfer ? <CircularProgress color='primary' size={24} /> : 'Transfer'}
             </StyledTransferButton>
           </div>
@@ -694,27 +742,9 @@ const styles = {
     background: 'url(/transfer-demo/png_bag.png) no-repeat'
   },
 
-  main_transfer: {
-    width: 625,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: 30
-  },
-  main_transfer_desc: {
-    display: 'flex',
-    flex: 'row wrap',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  main_transfer_form: {
-    display: 'flex',
-    flex: 'row wrap',
-    justifyContent: 'space-between',
-    height: 64,
-    alignItems: 'center',
-    background: 'rgba(108,93,211,0.05)',
-    borderRadius: 4
-  },
+  main_transfer: {},
+  main_transfer_desc: {},
+  main_transfer_form: {},
 
   main_to: {
     width: 625,
