@@ -4,6 +4,7 @@
 export { useMediaQuery, useTheme } from '@mui/material';
 export {
   useAccount,
+  useDisconnect,
   useSignMessage,
   useContractWrite,
   useContractEvent,

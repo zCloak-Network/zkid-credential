@@ -94,6 +94,7 @@ export {
   Paper,
   Stack,
   Step,
+  Snackbar,
   StepContent,
   StepConnector,
   StepLabel,

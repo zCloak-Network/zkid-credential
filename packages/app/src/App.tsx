@@ -28,6 +28,7 @@ import Account from './Account';
 import Attester from './Attester';
 import Claimer from './Claimer';
 import NoSidebar from './NoSidebar';
+import TransferDemo from './TransferDemo';
 
 const NoMatch: React.FC<{ to: string }> = ({ to }) => {
   return <Navigate replace to={to} />;
@@ -79,6 +80,17 @@ function BaseProvider({ children }: { children: any }) {
     </WagmiProvider>
   );
 }
+
+const createTransferDemo = () => (
+  <Route
+    element={
+      <BaseProvider>
+        <TransferDemo />
+      </BaseProvider>
+    }
+    path='demo'
+  />
+);
 
 const createClaimerApp = () => (
   <Route
@@ -246,6 +258,7 @@ const createNoSideBar = () => (
 const AppClaimer = createClaimerApp();
 const AppAttester = createAttesterApp();
 const AppNoSidebar = createNoSideBar();
+const TransferDemoApp = createTransferDemo();
 
 const App: React.FC = () => {
   useGaInitial();
@@ -254,6 +267,7 @@ const App: React.FC = () => {
     <Routes>
       {AppClaimer}
       {AppAttester}
+      {TransferDemoApp}
       {AppNoSidebar}
       <Route element={<Account />} path='account'>
         <Route element={<PageCreateAccount />} path='create' />
