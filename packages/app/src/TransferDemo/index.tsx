@@ -37,7 +37,7 @@ const StyledPaper = styled(Paper)<StyledPaperProps>(({ selected }) => ({
   width: 198,
   height: 128,
   borderRadius: 4,
-  border: selected ? '2px solid #ff9d00' : '1px solid #E5E5E5',
+  border: selected ? '2px solid #0042F1' : '1px solid #E5E5E5',
   display: 'flex',
   justifyContent: 'space-evenly',
   flexDirection: 'column',
@@ -79,7 +79,7 @@ const TransferDemo: React.FC = () => {
   const [senderStatus, setSenderStatus] = useState(0);
   const [receiverStatus, setReceiverStatus] = useState(0);
   const [open, setOpen] = useState(false);
-  const [inputValue, setInputValue] = useState(0);
+  const [inputValue, setInputValue] = useState('0');
 
   const {
     data: balanceOf,
@@ -98,7 +98,11 @@ const TransferDemo: React.FC = () => {
   const handleInputChange = (event: any) => {
     const value = event.target.value;
 
-    setInputValue(Number(value));
+    // setInputValue(Number(value));
+    // 检查输入是否符合一位小数的格式
+    if (/^\d*\.?\d{0,1}$/.test(value)) {
+      setInputValue(value);
+    }
   };
 
   const handleClose = () => {
@@ -143,7 +147,7 @@ const TransferDemo: React.FC = () => {
     abi,
     address: contractAdress as any,
     functionName: 'transfer',
-    args: [receiver, inputValue * 1000000000000000000],
+    args: [receiver, parseFloat(inputValue) * 1000000000000000000],
     onSuccess: () => {
       console.log('writeTransfer success');
       refetchBalanceOf();
@@ -352,8 +356,8 @@ const TransferDemo: React.FC = () => {
               <div style={{ fontSize: 20, fontWeight: 500 }}>Transfer</div>
               <div style={{ display: 'flex', justifyContent: 'space-between', width: 260, fontSize: 13 }}>
                 <div style={{ color: '#8F95B2' }}>
-                  Your Balance:
-                  {fetchingBalanceOf ? ' -- ' : balanceOf ? ` ${balanceOf / 10n ** 18n} cToken` : 0}
+                  Your Balance:&nbsp;
+                  {fetchingBalanceOf ? ' -- ' : balanceOf ? ` ${Number(balanceOf / 10n ** 17n) / 10} cToken` : 0}
                 </div>
                 <div onClick={() => refetchBalanceOf()}>
                   <img src='/transfer-demo/icon_refresh.png' style={{ width: 20, height: 20 }} />
@@ -411,12 +415,11 @@ const TransferDemo: React.FC = () => {
                   onChange={handleInputChange}
                   style={{
                     backgroundColor: 'rgba(108, 93, 211, 0)',
-                    border: inputValue > 0 && inputValue * 1000000000000000000 < balanceOf ? '0' : 'red 1px solid',
+                    border: 0,
                     textAlign: 'right',
                     fontSize: 16,
                     height: 40
                   }}
-                  type='number'
                   value={inputValue}
                 />
               </div>
@@ -518,7 +521,7 @@ const TransferDemo: React.FC = () => {
               alignItems='center'
               display='flex'
               justifyContent={'space-evenly'}
-              sx={{ width: 125, height: 40, borderRadius: 2, border: '2px solid #0042F1' }}
+              sx={{ width: 125, height: 40, borderRadius: 2, border: '1px solid #0042F1' }}
             >
               <img alt='icon' src='/transfer-demo/icon_validity.png' style={{ width: 22, height: 22 }} />
               <Typography variant='h5'>Validity</Typography>
@@ -620,7 +623,12 @@ const TransferDemo: React.FC = () => {
                     {(!address || senderStatus === 0) && <div>empty sender address.</div>}
                     {address && senderStatus === 1 && <div>Pass</div>}
                     {address && senderStatus === 2 && <div>Non-Adult</div>}
-                    {address && senderStatus === 3 && <div>No zkSBT</div>}
+                    {address && senderStatus === 3 && (
+                      <div>
+                       <div> No zkSBT </div>
+                      <div><a href='#/event/zk-kyc2023'>go to mint</a></div>
+                      </div>
+                    )}
                   </>
                 )}
               </div>

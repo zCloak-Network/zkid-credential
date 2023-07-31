@@ -16,6 +16,7 @@ import { provider } from '@credential/react-dids/instance';
 import { useLiveQuery, useMessages } from '@credential/react-hooks';
 
 import { StepCardProps } from '../StepCard';
+import IconDefi from '@credential/app-config/icons/IconDefi';
 
 const ImportedKey = 'import_to_zkID_wallet';
 
@@ -41,6 +42,14 @@ const stepsConfig: StepCardProps[] = [
     Icon: <IconCard />,
     title: 'Mint zkID Card',
     isLocked: true
+  },
+  {
+    label: 'Step4',
+    content: 'Try zkID Card usage in test Defi Demon.',
+    Icon: <IconDefi />,
+    title: 'Defi Demo',
+    isLocked: false,
+    onClick: () => window.open('#/demo', '_blank')
   }
 ];
 
