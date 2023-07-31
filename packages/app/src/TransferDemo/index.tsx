@@ -30,7 +30,10 @@ import {
 import Logo from './Logo';
 import { opDemoAbi } from './opDemoAbi';
 
-const StyledPaper = styled(Paper)(({ selected }) => ({
+interface StyledPaperProps {
+  selected?: boolean;
+}
+const StyledPaper = styled(Paper)<StyledPaperProps>(({ selected }) => ({
   width: 198,
   height: 128,
   borderRadius: 4,
@@ -266,7 +269,7 @@ const TransferDemo: React.FC = () => {
               >
                 {`${address?.slice(0, 8)}...${address?.slice(-4)}`}
               </Button>
-              <Button onClick={disconnect}>logout</Button>
+              <Button onClick={() => disconnect()}>logout</Button>
             </>
           )}
 
@@ -278,9 +281,38 @@ const TransferDemo: React.FC = () => {
         </Stack>
       </Stack>
       <div style={{ width: '100%', display: 'flex', justifyContent: 'center', border: '0' }}>
-        <div style={styles.content}>
-          <div style={styles.title}>Conditional Transfer</div>
-          <div style={styles.desc}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: 720,
+            height: 1207,
+            backgroundColor: 'white'
+          }}
+        >
+          <div
+            style={{
+              fontSize: 32,
+              fontWeight: 'bold',
+              height: 39,
+              textAlign: 'center',
+              marginTop: 40,
+              marginBottom: 30
+            }}
+          >
+            Conditional Transfer
+          </div>
+          <div
+            style={{
+              width: 625,
+              textAlign: 'center',
+              height: 120,
+              border: 'dashed 1px #000',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              background: 'url(/transfer-demo/png_bag.png) no-repeat'
+            }}
+          >
             <div style={{ marginTop: 24 }}>The restrictions for conditional transfer are:</div>
             <div
               style={{
@@ -323,11 +355,11 @@ const TransferDemo: React.FC = () => {
                   Your Balance:
                   {fetchingBalanceOf ? ' -- ' : balanceOf ? ` ${balanceOf / 10n ** 18n} cToken` : 0}
                 </div>
-                <div onClick={refetchBalanceOf}>
+                <div onClick={() => refetchBalanceOf()}>
                   <img src='/transfer-demo/icon_refresh.png' style={{ width: 20, height: 20 }} />
                 </div>
                 <div>
-                  <div onClick={writeFaucet} style={{ cursor: 'pointer', color: '#0042F1' }}>
+                  <div onClick={() => writeFaucet()} style={{ cursor: 'pointer', color: '#0042F1' }}>
                     {loadingFaucet ? <>loading...</> : <>Get 10 cToken</>}
                   </div>
                 </div>
@@ -684,8 +716,9 @@ const TransferDemo: React.FC = () => {
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <StyledTransferButton
-              disabled={loadingTransfer || senderStatus !== 1 || receiverStatus !== 1}
-              onClick={writeTransfer}
+              component={'div'}
+              disabled={loadingTransfer || receiverStatus !== 1}
+              onClick={() => writeTransfer()}
               variant='contained'
             >
               {loadingTransfer ? <CircularProgress color='primary' size={24} /> : 'Transfer'}
@@ -714,31 +747,6 @@ const TransferDemo: React.FC = () => {
 };
 
 const styles = {
-  content: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: 720,
-    height: 1207,
-    // border: 'dashed 1px #000',
-    backgroundColor: 'white'
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    height: 39,
-    textAlign: 'center',
-    marginTop: 40,
-    marginBottom: 30
-  },
-  desc: {
-    width: 625,
-    textAlign: 'center',
-    height: 120,
-    border: 'dashed 1px #000',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    background: 'url(/transfer-demo/png_bag.png) no-repeat'
-  },
   main_to: {
     width: 625,
     marginLeft: 'auto',
@@ -750,9 +758,7 @@ const styles = {
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: 30
-  },
-  main_valid: {},
-  transferButton: {}
+  }
 };
 
 export default TransferDemo;
