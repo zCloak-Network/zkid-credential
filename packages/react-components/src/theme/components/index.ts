@@ -183,11 +183,18 @@ const createComponents: Func = () => ({
       src: url("/fonts/PapyrusStd.OTF");
     }
     @font-face {
-      font-family: "BebasNeue";
+      font-family: "Montserrat";
+      font-style: normal;
+      font-display: swap;
+      font-weight: 600;
+      src: url("/fonts/Montserrat-SemiBold.ttf");
+    }
+    @font-face {
+      font-family: "Montserrat";
       font-style: normal;
       font-display: swap;
       font-weight: 400;
-      src: url("/fonts/BebasNeue-Regular.ttf");
+      src: url("/fonts/Montserrat-Regular.ttf");
     }
   `
   },

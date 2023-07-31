@@ -42,7 +42,7 @@ const Step1: React.FC<{ receiver: string; prev: () => void; retry: () => void; c
 
   useEffect(() => {
     if (!ctype || !org) return;
-    const contents: AnyJson = { Cohosts: 'zCloak Network, SeeDAO, DeepDAO' };
+    const contents: AnyJson = {};
 
     const raw = new Raw({
       contents,

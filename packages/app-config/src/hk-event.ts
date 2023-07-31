@@ -5,5 +5,5 @@ import { isRelease } from './isRelease';
 
 export const LOGGED_PREFIX = 'logged_hk_event:';
 export const CTYPE_ID = isRelease
-  ? '0x541556a04e6d3deccaa2884ae840596cdfe4de597a8334878181ee76aaee745f'
+  ? '0x341829ca64a7105ff941b4b8a9710e2806053cbfb7c97fc9cfd569ab4b5d55d2'
   : '0x6c62809700813f4ffb59ea97a31f4d34e206a4233bc2bb75bed1d705c4314930';
