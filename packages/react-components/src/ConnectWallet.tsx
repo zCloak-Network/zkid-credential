@@ -17,7 +17,11 @@ type EnableProps = {
   onEnable?: (...args: any) => void;
 };
 
-type Props = LoadingButtonProps & EnableProps;
+type InitialNetworkIdProps = {
+  initialnetworkid?: number;
+};
+
+type Props = LoadingButtonProps & EnableProps & InitialNetworkIdProps;
 
 function Icon({ name }: { name?: string }) {
   if (name === 'MetaMask') {
@@ -59,7 +63,9 @@ function ConnectWallet<C extends React.ElementType>({
                   fullWidth
                   key={connector.id}
                   loading={isLoading && pendingConnector?.id === connector.id}
-                  onClick={() => connect({ connector, chainId: baseGoerli.id })}
+                  onClick={() =>
+                    connect({ connector, chainId: props.initialnetworkid ? props.initialnetworkid : baseGoerli.id })
+                  }
                   startIcon={<Icon name={connector.name} />}
                   sx={{
                     background: '#EFF1F9',
