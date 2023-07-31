@@ -1,7 +1,7 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   alpha,
@@ -9,14 +9,8 @@ import {
   Button,
   CircularProgress,
   ConnectWallet,
-  Container,
   Divider,
-  IconButton,
   IdentityIcon,
-  Input,
-  Link,
-  Menu,
-  MenuItem,
   optimismGoerli,
   Paper,
   Snackbar,
@@ -32,28 +26,11 @@ import {
   useSwitchNetwork,
   useTheme
 } from '@credential/react-components';
-import { useToggle } from '@credential/react-hooks';
 
 import Logo from './Logo';
 import { opDemoAbi } from './opDemoAbi';
-// const useStyles = makeStyles((theme) => ({
-//   paperStyle: {
-//     width: 198,
-//     height: 128,
-//     borderRadius: 4,
-//     border: '1px solid #E5E5E5',
-//     display: 'flex',
-//     justifyContent: 'space-evenly',
-//     flexDirection: 'column',
-//     alignItems: 'center',
-//     transition: 'background-color 0.3s ease',
-//     '&:hover': {
-//       backgroundColor: '#f5f5f5',
-//     },
-//   },
-// }));
 
-const StyledPaper = styled(Paper)(({ selected, theme }) => ({
+const StyledPaper = styled(Paper)(({ selected }) => ({
   width: 198,
   height: 128,
   borderRadius: 4,
@@ -89,14 +66,6 @@ const TransferDemo: React.FC = () => {
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
 
-  // const { did, isLocked, lock } = useContext(DidsContext);
-  // const [notiOpen, toggleNotiOpen] = useToggle();
-  // const theme = useTheme();
-  // const upMd = useMediaQuery(theme.breakpoints.up('md'));
-
-  // const { chain } = useNetwork();
-
-  // const { abi, toAddress } = useContractConfig(chain?.id);
   const [abi, setAbi] = useState();
   const [contractAdress, setContractAdress] = useState('');
 
@@ -114,7 +83,7 @@ const TransferDemo: React.FC = () => {
     isFetching: fetchingBalanceOf,
     refetch: refetchBalanceOf
   } = useContractRead({
-    address: contractAdress,
+    address: contractAdress as any,
     functionName: 'balanceOf',
     args: [address],
     abi, // easy to forget
@@ -123,14 +92,13 @@ const TransferDemo: React.FC = () => {
     }
   });
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: any) => {
     const value = event.target.value;
 
-    console.log(value, typeof value);
     setInputValue(Number(value));
   };
 
-  const handleClose = (event) => {
+  const handleClose = () => {
     setOpen(false);
   };
 
@@ -141,24 +109,26 @@ const TransferDemo: React.FC = () => {
   };
 
   useEffect(() => {
-    setAbi(opDemoAbi);
+    setAbi(opDemoAbi as any);
     setContractAdress('0x1A3C1baacd6D7269547a1b877C79709e9B60aBb2');
   }, []);
 
   useEffect(() => {
     console.log(`check current network: ${chain?.id}, isConnected: ${isConnected}`);
 
-    if (isConnected) {
-      if (chain && chain.id !== 420) {
-        console.log('switching network...');
-        switchNetwork(optimismGoerli.id);
+    if (switchNetwork) {
+      if (isConnected) {
+        if (chain && chain.id !== 420) {
+          console.log('switching network...');
+          switchNetwork(optimismGoerli.id);
+        }
       }
     }
-  }, [isConnected]);
+  }, [chain, isConnected, switchNetwork]);
 
   const { isLoading: loadingFaucet, write: writeFaucet } = useContractWrite({
     abi,
-    address: contractAdress,
+    address: contractAdress as any,
     functionName: 'getFaucet',
     onSuccess: () => {
       console.log('writeFaucet success');
@@ -168,9 +138,8 @@ const TransferDemo: React.FC = () => {
 
   const { isLoading: loadingTransfer, write: writeTransfer } = useContractWrite({
     abi,
-    address: contractAdress,
+    address: contractAdress as any,
     functionName: 'transfer',
-    enabled: false,
     args: [receiver, inputValue * 1000000000000000000],
     onSuccess: () => {
       console.log('writeTransfer success');
@@ -179,8 +148,8 @@ const TransferDemo: React.FC = () => {
     }
   });
 
-  const { isFetching: fetchingCheckSender, refetch: refetchCheckSender } = useContractRead({
-    address: contractAdress,
+  const { isFetching: fetchingCheckSender } = useContractRead({
+    address: contractAdress as any,
     functionName: 'conditionalTransferCheckSender',
     args: [address],
     enabled: true,
@@ -198,14 +167,15 @@ const TransferDemo: React.FC = () => {
       // it means revert
       console.log(error.name);
       console.log('sender status: revert');
+
       if (error.name !== 'InvalidAddressError') {
         setSenderStatus(3);
       }
     }
   });
 
-  const { isFetching: fetchingCheckReceiver, refetch: refetchCheckReceiver } = useContractRead({
-    address: contractAdress,
+  const { isFetching: fetchingCheckReceiver } = useContractRead({
+    address: contractAdress as any,
     functionName: 'conditionalTransferCheckReceiver',
     args: [receiver],
     enabled: true,
@@ -231,12 +201,6 @@ const TransferDemo: React.FC = () => {
     }
   });
 
-  // console.log(`status ${status}`);
-  // console.log(`isConnected: ${isConnected}, chain.id:${chain?.id},address:${address} contractAdress:${contractAdress}`);
-  // console.log(`isFetching: ${isFetching}, isRefetching:${isRefetching}, data:${data}`);
-  // console.log(`loadingCheckSender: ${loadingCheckSender}`);
-  // console.log(`loadingCheckReceiver: ${loadingCheckReceiver}`);
-  // console.log(`senderStatus: ${senderStatus}`);
   // console.log(`network: ${JSON.stringify(chain?.id)}`);
 
   return (
@@ -300,14 +264,14 @@ const TransferDemo: React.FC = () => {
                 })}
                 variant='contained'
               >
-                {`${address.slice(0, 8)}...${address.slice(-4)}`}
+                {`${address?.slice(0, 8)}...${address?.slice(-4)}`}
               </Button>
               <Button onClick={disconnect}>logout</Button>
             </>
           )}
 
           {!isConnected && (
-            <ConnectWallet initialNetworkId={420} sx={{ width: 200 }} variant='outlined'>
+            <ConnectWallet initialnetworkid={420} sx={{ width: 200 }} variant='outlined'>
               Connect Wallet
             </ConnectWallet>
           )}
@@ -415,7 +379,7 @@ const TransferDemo: React.FC = () => {
                   onChange={handleInputChange}
                   style={{
                     backgroundColor: 'rgba(108, 93, 211, 0)',
-                    border: inputValue > 0 && inputValue*1000000000000000000 < balanceOf ? '0' : 'red 1px solid',
+                    border: inputValue > 0 && inputValue * 1000000000000000000 < balanceOf ? '0' : 'red 1px solid',
                     textAlign: 'right',
                     fontSize: 16,
                     height: 40
@@ -516,7 +480,7 @@ const TransferDemo: React.FC = () => {
             }}
           >
             <Box>
-              <Divider flexItem style={{ marginRight: 8,width:243 }} />
+              <Divider flexItem style={{ marginRight: 8, width: 243 }} />
             </Box>
             <Box
               alignItems='center'
@@ -528,7 +492,9 @@ const TransferDemo: React.FC = () => {
               <Typography variant='h5'>Validity</Typography>
             </Box>
 
-            <Box><Divider flexItem style={{ marginLeft: 8,width:243 }} /></Box>
+            <Box>
+              <Divider flexItem style={{ marginLeft: 8, width: 243 }} />
+            </Box>
           </Box>
 
           {/* Validify */}
@@ -580,7 +546,6 @@ const TransferDemo: React.FC = () => {
                       <img src='/transfer-demo/icon_sender.png' />
                     </div>
                   </div>
-                  <div></div>
                 </div>
                 <div>Sender</div>
               </div>
@@ -620,10 +585,10 @@ const TransferDemo: React.FC = () => {
                         <img src='/transfer-demo/icon_error.png' style={{ height: 28, width: 28 }} />
                       )}
                     </div>
-                    {senderStatus === 0 && <div>empty sender address.</div>}
-                    {senderStatus === 1 && <div>Pass</div>}
-                    {senderStatus === 2 && <div>Non-Adult</div>}
-                    {senderStatus === 3 && <div>No zkSBT</div>}
+                    {(!address || senderStatus === 0) && <div>empty sender address.</div>}
+                    {address && senderStatus === 1 && <div>Pass</div>}
+                    {address && senderStatus === 2 && <div>Non-Adult</div>}
+                    {address && senderStatus === 3 && <div>No zkSBT</div>}
                   </>
                 )}
               </div>
@@ -665,10 +630,9 @@ const TransferDemo: React.FC = () => {
                     <div>
                       <img src='/transfer-demo/icon_receiver.png' />
                     </div>
-                    <div></div>
                   </div>
-                  <div>Receiver</div>
                 </div>
+                <div>Receiver</div>
               </div>
 
               <div
@@ -775,11 +739,6 @@ const styles = {
     marginRight: 'auto',
     background: 'url(/transfer-demo/png_bag.png) no-repeat'
   },
-
-  main_transfer: {},
-  main_transfer_desc: {},
-  main_transfer_form: {},
-
   main_to: {
     width: 625,
     marginLeft: 'auto',

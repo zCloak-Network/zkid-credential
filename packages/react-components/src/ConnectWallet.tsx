@@ -18,8 +18,8 @@ type EnableProps = {
 };
 
 type InitialNetworkIdProps = {
-  initialNetworkId?: number;
-}
+  initialnetworkid?: number;
+};
 
 type Props = LoadingButtonProps & EnableProps & InitialNetworkIdProps;
 
@@ -64,7 +64,7 @@ function ConnectWallet<C extends React.ElementType>({
                   key={connector.id}
                   loading={isLoading && pendingConnector?.id === connector.id}
                   onClick={() =>
-                    connect({ connector, chainId: props.initialNetworkId ? props.initialNetworkId : baseGoerli.id })
+                    connect({ connector, chainId: props.initialnetworkid ? props.initialnetworkid : baseGoerli.id })
                   }
                   startIcon={<Icon name={connector.name} />}
                   sx={{
