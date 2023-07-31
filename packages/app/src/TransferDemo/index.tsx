@@ -10,6 +10,7 @@ import {
   CircularProgress,
   ConnectWallet,
   Container,
+  Divider,
   IconButton,
   IdentityIcon,
   Input,
@@ -193,10 +194,13 @@ const TransferDemo: React.FC = () => {
         setSenderStatus(2);
       }
     },
-    onError() {
+    onError(error) {
       // it means revert
+      console.log(error.name);
       console.log('sender status: revert');
-      setSenderStatus(3);
+      if (error.name !== 'InvalidAddressError') {
+        setSenderStatus(3);
+      }
     }
   });
 
@@ -499,6 +503,34 @@ const TransferDemo: React.FC = () => {
             </div>
           </div>
 
+          <Box
+            alignItems='center'
+            display='flex'
+            justifyContent={'center'}
+            style={{
+              width: 625,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginTop: 30,
+              display: 'flex'
+            }}
+          >
+            <Box>
+              <Divider flexItem style={{ marginRight: 8,width:243 }} />
+            </Box>
+            <Box
+              alignItems='center'
+              display='flex'
+              justifyContent={'space-evenly'}
+              sx={{ width: 125, height: 40, borderRadius: 2, border: '2px solid #0042F1' }}
+            >
+              <img alt='icon' src='/transfer-demo/icon_validity.png' style={{ width: 22, height: 22 }} />
+              <Typography variant='h5'>Validity</Typography>
+            </Box>
+
+            <Box><Divider flexItem style={{ marginLeft: 8,width:243 }} /></Box>
+          </Box>
+
           {/* Validify */}
           <div
             style={{
@@ -588,6 +620,7 @@ const TransferDemo: React.FC = () => {
                         <img src='/transfer-demo/icon_error.png' style={{ height: 28, width: 28 }} />
                       )}
                     </div>
+                    {senderStatus === 0 && <div>empty sender address.</div>}
                     {senderStatus === 1 && <div>Pass</div>}
                     {senderStatus === 2 && <div>Non-Adult</div>}
                     {senderStatus === 3 && <div>No zkSBT</div>}
@@ -673,6 +706,7 @@ const TransferDemo: React.FC = () => {
                         <img src='/transfer-demo/icon_error.png' style={{ height: 28, width: 28 }} />
                       )}
                     </div>
+                    {receiverStatus === 0 && <div>empty receiver address.</div>}
                     {receiverStatus === 1 && <div>Pass</div>}
                     {receiverStatus === 2 && <div>Non-Adult</div>}
                     {receiverStatus === 3 && <div>No zkSBT</div>}
