@@ -625,8 +625,10 @@ const TransferDemo: React.FC = () => {
                     {address && senderStatus === 2 && <div>Non-Adult</div>}
                     {address && senderStatus === 3 && (
                       <div>
-                       <div> No zkSBT </div>
-                      <div><a href='#/event/zk-kyc2023'>go to mint</a></div>
+                        <div> No zkSBT </div>
+                        <div>
+                          <a href='#/event/zk-kyc2023'>go to mint</a>
+                        </div>
                       </div>
                     )}
                   </>

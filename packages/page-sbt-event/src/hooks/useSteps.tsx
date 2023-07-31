@@ -9,6 +9,7 @@ import { Did } from '@zcloak/did';
 import { Message, MessageData } from '@zcloak/message/types';
 
 import { IconCard, IconChaintool, IconLogoZkid, ZKSBT_CTYPE } from '@credential/app-config';
+import IconDefi from '@credential/app-config/icons/IconDefi';
 import { getCredentials } from '@credential/app-store';
 import { AppContext, NotificationContext } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
@@ -16,7 +17,6 @@ import { provider } from '@credential/react-dids/instance';
 import { useLiveQuery, useMessages } from '@credential/react-hooks';
 
 import { StepCardProps } from '../StepCard';
-import IconDefi from '@credential/app-config/icons/IconDefi';
 
 const ImportedKey = 'import_to_zkID_wallet';
 
