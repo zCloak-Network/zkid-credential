@@ -9,7 +9,6 @@ import { Did } from '@zcloak/did';
 import { Message, MessageData } from '@zcloak/message/types';
 
 import { IconCard, IconChaintool, IconLogoZkid, ZKSBT_CTYPE } from '@credential/app-config';
-import IconDefi from '@credential/app-config/icons/IconDefi';
 import { getCredentials } from '@credential/app-store';
 import { AppContext, NotificationContext } from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
@@ -42,14 +41,6 @@ const stepsConfig: StepCardProps[] = [
     Icon: <IconCard />,
     title: 'Mint zkID Card',
     isLocked: true
-  },
-  {
-    label: 'Step4',
-    content: 'Try zkID Card usage in test Defi Demon.',
-    Icon: <IconDefi />,
-    title: 'Defi Demo',
-    isLocked: false,
-    onClick: () => window.open('#/demo', '_blank')
   }
 ];
 
