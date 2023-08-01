@@ -727,7 +727,7 @@ const TransferDemo: React.FC = () => {
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <StyledTransferButton
               component={'div'}
-              disabled={loadingTransfer || receiverStatus !== 1}
+              disabled={loadingTransfer || senderStatus !== 1 || receiverStatus !== 1}
               onClick={() => writeTransfer()}
               variant='contained'
             >
