@@ -6,7 +6,14 @@
 import { Box, Container, Stack, Typography } from '@mui/material';
 import React from 'react';
 
-import { ConnectWallet, EthWalletAddress, Network, useAccount } from '@credential/react-components';
+import {
+  arbitrum,
+  baseGoerli,
+  ConnectWallet,
+  EthWalletAddress,
+  Network,
+  useAccount
+} from '@credential/react-components';
 
 import Faucet from './Faucet';
 
@@ -33,7 +40,15 @@ function Top() {
             <EthWalletAddress />
           </Stack>
         ) : (
-          <ConnectWallet sx={{ width: 200 }} variant='outlined'>
+          <ConnectWallet
+            initialnetworkid={
+              location.href.includes('zk-kyc-demo2023') || location.href.includes('sbtdemo')
+                ? baseGoerli.id
+                : arbitrum.id
+            }
+            sx={{ width: 200 }}
+            variant='outlined'
+          >
             Connect Wallet
           </ConnectWallet>
         )}
