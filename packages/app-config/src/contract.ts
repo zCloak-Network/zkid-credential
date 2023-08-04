@@ -11,6 +11,10 @@ interface CONTRACT_CONFIG {
   [key: number]: HexString;
 }
 
+interface zkSBTVersion {
+  [key: number]: string;
+}
+
 export const ZKSBT_ADDRESS = isRelease
   ? '0x08f1a8Eeb39E861FcC78812fd1C79291cd3f88A7'
   : '0x1addc21e939b93e9337f8A663F62a64583b62233';
@@ -27,13 +31,20 @@ const lineaGerliConfig = isRelease
   ? '0x5F5ff21a6D7136BBf21f55CfD9627673dBeed8cd'
   : '0x53a623B54016Ec65592f0026aBdc91C8194522b8';
 
-const arbitrumGoerliConfig = '0x5a6acbd159a045e14bfce28af5623862b7191430';
+const arbitrumGoerliConfig = '0xEBE3dc938916cCa495598bbce35DCcB788F5B995';
 
 export const CONTRACTS_CONFIG: CONTRACT_CONFIG = {
   [optimismGoerli.id]: optimismGoerliConfig,
   [baseGoerli.id]: baseGoerliConfig,
   [lineaTestnet.id]: lineaGerliConfig,
   [arbitrumGoerli.id]: arbitrumGoerliConfig
+};
+
+export const zkSBTVersion: zkSBTVersion = {
+  [optimismGoerli.id]: '0',
+  [baseGoerli.id]: '1',
+  [lineaTestnet.id]: '1',
+  [arbitrumGoerli.id]: '1.1'
 };
 
 export const ZKSBT_CHAIN_ID = isRelease ? optimismGoerli.id : optimismGoerli.id;

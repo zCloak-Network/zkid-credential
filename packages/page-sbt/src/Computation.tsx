@@ -14,7 +14,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { generateProgramHash, initMidenWasm } from '@zcloak/miden';
 
-import { CONTRACTS_CONFIG } from '@credential/app-config';
+import { CONTRACTS_CONFIG, zkSBTVersion } from '@credential/app-config';
 import { useNetwork, useSwitchNetwork } from '@credential/react-components';
 import { provider, resolver } from '@credential/react-dids/instance';
 
@@ -59,7 +59,6 @@ function Computation({ onSuccess, program, vc }: Props) {
       });
 
       const programHash = generateProgramHash(program.program);
-
       const { desc, sbt_link, verifier_signature } = await resolver.zkVerify(
         result,
         {
@@ -76,7 +75,7 @@ function Computation({ onSuccess, program, vc }: Props) {
         CONTRACTS_CONFIG[chain.id],
         chain.id,
         program.isPublicInputUsedForCheck,
-        ''
+        zkSBTVersion[chain.id]
       );
 
       setResults({
