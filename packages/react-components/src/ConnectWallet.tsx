@@ -8,7 +8,7 @@ import React from 'react';
 import { useAccount, useConnect } from 'wagmi';
 
 import { IconCoinbase, LogoMetamask } from '@credential/app-config';
-import { arbitrum, baseGoerli } from '@credential/react-components';
+import { baseGoerli } from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
 import DialogHeader from './DialogHeader';
