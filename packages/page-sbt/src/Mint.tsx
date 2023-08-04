@@ -93,7 +93,7 @@ function Mint({ onCancel, result, vc }: Props) {
         params.splice(3, 0, publicInput);
       }
 
-      //add arbitrum isPublicInputUsedForCheck
+      // add arbitrum isPublicInputUsedForCheck
       if (chain?.id === arbitrumGoerli.id || chain?.id === arbitrum.id) {
         params.splice(4, 0, result.programConfig.isPublicInputUsedForCheck);
       }
