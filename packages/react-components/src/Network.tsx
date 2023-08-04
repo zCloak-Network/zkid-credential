@@ -10,7 +10,8 @@ import { useNetwork, useSwitchNetwork } from 'wagmi';
 
 import { BaseLogo, LineaLogo, OptimismLogo } from '@credential/app-config';
 
-import { baseGoerli, lineaTestnet, optimismGoerli } from '.';
+import ArbLogo from '../../app-config/src/assets/icon_arbitrum.png';
+import { arbitrum, arbitrumGoerli, baseGoerli, lineaTestnet, optimismGoerli } from '.';
 
 function ChainIcon({ chainId }: { chainId?: number }) {
   switch (chainId) {
@@ -24,6 +25,10 @@ function ChainIcon({ chainId }: { chainId?: number }) {
           <LineaLogo />
         </Box>
       );
+    case arbitrum.id:
+      return <img src={ArbLogo} />;
+    case arbitrumGoerli.id:
+      return <img src={ArbLogo} />;
     default:
       return <WarningAmberIcon />;
   }
@@ -46,9 +51,9 @@ const Network = () => {
   const open = Boolean(anchorEl);
 
   const changeNetwork = useCallback(
-    async (chainId?: number) => {
+    (chainId?: number) => {
       try {
-        switchNetworkAsync && (await switchNetworkAsync(chainId));
+        switchNetworkAsync && switchNetworkAsync(chainId);
       } catch (error) {
       } finally {
         setAnchorEl(null);
@@ -58,6 +63,9 @@ const Network = () => {
   );
 
   const isWrongNet = useMemo(() => chains.filter((_c) => _c.id === chain?.id).length === 0, [chains, chain]);
+
+  console.log(`#####${isWrongNet}@@@@${chain?.name}`);
+  console.log(chains);
 
   return (
     <>
