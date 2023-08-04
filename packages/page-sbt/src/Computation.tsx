@@ -74,7 +74,9 @@ function Computation({ onSuccess, program, vc }: Props) {
           attester_proof: vc.proof[0]
         },
         CONTRACTS_CONFIG[chain.id],
-        chain.id
+        chain.id,
+        program.isPublicInputUsedForCheck,
+        ''
       );
 
       setResults({
@@ -84,6 +86,7 @@ function Computation({ onSuccess, program, vc }: Props) {
           signature: verifier_signature,
           image: sbt_link,
           programHash,
+          programConfig: program,
           publicInput,
           output: JSON.parse(result).outputs.stack
         },
