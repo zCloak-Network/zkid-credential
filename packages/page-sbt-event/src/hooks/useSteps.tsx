@@ -10,7 +10,14 @@ import { Message, MessageData } from '@zcloak/message/types';
 
 import { IconCard, IconChaintool, IconLogoZkid, ZKSBT_CTYPE } from '@credential/app-config';
 import { getCredentials } from '@credential/app-store';
-import { AppContext, NotificationContext } from '@credential/react-components';
+import {
+  AppContext,
+  arbitrum,
+  baseGoerli,
+  NotificationContext,
+  useNetwork,
+  useSwitchNetwork
+} from '@credential/react-components';
 import { DidsContext } from '@credential/react-dids';
 import { provider } from '@credential/react-dids/instance';
 import { useLiveQuery, useMessages } from '@credential/react-hooks';
@@ -25,7 +32,13 @@ const stepsConfig: StepCardProps[] = [
     content: 'Finish Chaintool KYC',
     Icon: <IconChaintool />,
     title: 'Finish Chaintool KYC',
-    onClick: () => window.open('https://passport.chaintool.ai/', '_blank'),
+    onClick: () =>
+      window.open(
+        !location.href.includes('zk-kyc-demo2023')
+          ? 'https://passport.chaintool.ai/'
+          : 'https://passport.chaintool.ai/',
+        '_blank'
+      ),
     isLocked: false
   },
   {
@@ -65,11 +78,27 @@ export function useSteps() {
 
   const importedKey = `${ImportedKey}:${did.id}`;
   const [isImported, setIsImported] = useState<boolean>(window.localStorage.getItem(importedKey) === importedKey);
+  const { chain } = useNetwork();
+  const { switchNetworkAsync } = useSwitchNetwork();
 
   const { decrypt } = useContext(AppContext);
   const { notifyError } = useContext(NotificationContext);
 
   const navigate = useNavigate();
+
+  const changeNetwork = useCallback(async () => {
+    if (location.href.includes('sbtdemo') && chain?.id === arbitrum.id) {
+      try {
+        window.location.reload();
+        switchNetworkAsync && (await switchNetworkAsync(baseGoerli.id));
+      } catch (error) {}
+    } else if (!location.href.includes('sbtdemo') && chain?.id !== arbitrum.id) {
+      try {
+        window.location.reload();
+        switchNetworkAsync && (await switchNetworkAsync(arbitrum.id));
+      } catch (error) {}
+    }
+  }, [chain?.id, switchNetworkAsync]);
 
   const importVc = useCallback(async () => {
     if (!message) return;
@@ -84,7 +113,10 @@ export function useSteps() {
       const newSteps = [...stepsConfig];
 
       newSteps[2].isLocked = false;
-      newSteps[2].onClick = () => navigate(`/sbt/${credential.digest}`);
+      newSteps[2].onClick = () =>
+        navigate(
+          !location.href.includes('zk-kyc-demo2023') ? `/sbt/${credential.digest}` : `/sbtdemo/${credential.digest}`
+        );
 
       setSteps(newSteps);
 
@@ -106,7 +138,14 @@ export function useSteps() {
       newSteps[1].onClick = importVc;
 
       newSteps[2].isLocked = false;
-      newSteps[2].onClick = () => navigate(`/sbt/${credential.digest}`);
+
+      newSteps[2].onClick = () => {
+        navigate(
+          !location.href.includes('zk-kyc-demo2023') ? `/sbt/${credential.digest}` : `/sbtdemo/${credential.digest}`
+        );
+
+        changeNetwork();
+      };
 
       setSteps(newSteps);
     }
@@ -117,7 +156,7 @@ export function useSteps() {
 
       setSteps(newSteps);
     }
-  }, [decrypt, isImported, importVc, _credential, navigate]);
+  }, [decrypt, isImported, importVc, _credential, navigate, changeNetwork]);
 
   useEffect(() => {
     const newSteps = [...stepsConfig];

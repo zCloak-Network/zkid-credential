@@ -9,7 +9,6 @@ import { Box, Button, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/mat
 import { useCallback, useEffect, useState } from 'react';
 
 import { IconZk } from '@credential/app-config';
-import { baseGoerli, useNetwork } from '@credential/react-components';
 import { DidName } from '@credential/react-dids';
 import { useToggle } from '@credential/react-hooks';
 
@@ -29,15 +28,18 @@ function ZkProgram({ config, onSelect, selectIndex, vc }: Props) {
   const [program, setProgram] = useState<ZkProgramConfig>();
   const [filterConfig, setFilterConfig] = useState<ZkProgramConfig[]>(config);
   const [preview, setPreview] = useState<{ attester: string; output: string }>();
-  const { chain } = useNetwork();
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (chain?.id === baseGoerli.id) {
       setFilterConfig(config.filter((c) => c.name !== 'Non-American Check'));
     } else {
       setFilterConfig(config);
     }
-  }, [chain, config]);
+  }, [chain, config]); */
+
+  useEffect(() => {
+    setFilterConfig(config.filter((c) => c.name !== 'Non-American Check'));
+  }, [config]);
 
   const _handleOutput = useCallback(
     (program: ZkProgramConfig) => {

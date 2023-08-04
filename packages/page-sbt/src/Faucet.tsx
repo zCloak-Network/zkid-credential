@@ -1,14 +1,16 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
+import { useNetwork, useSwitchNetwork } from 'wagmi';
 
-import { Button, useNetwork } from '@credential/react-components';
+import { arbitrum, Button } from '@credential/react-components';
 
-import { useFaucet } from './hooks/useFaucet';
+import { useFaucet } from '../../page-sbt/src/hooks/useFaucet';
 
 const Faucet = () => {
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const { chains } = useSwitchNetwork();
   const { faucet } = useFaucet(chain?.id);
 
   const open = useCallback(() => {
@@ -17,10 +19,15 @@ const Faucet = () => {
     window.open(faucet, '_blank');
   }, [faucet]);
 
-  const isWrongNet = useMemo(() => chains.filter((_c) => _c.id === chain?.id).length === 0, [chains, chain]);
+  const isWrongNet = chains.filter((_c) => _c.id === chain?.id).length === 0;
+
+  console.log(`#####${isWrongNet}@@@@${chain?.name}`);
+  console.log(chains);
+
+  chains.join();
 
   return (
-    <Button disabled={isWrongNet} onClick={open} size='small'>
+    <Button disabled={isWrongNet || chain?.id === arbitrum.id} onClick={open} size='small'>
       💧 Faucet
     </Button>
   );

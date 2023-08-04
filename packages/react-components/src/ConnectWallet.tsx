@@ -5,10 +5,10 @@ import { LoadingButton, LoadingButtonProps, LoadingButtonTypeMap } from '@mui/la
 import { Button, Dialog, DialogContent, Stack, Typography } from '@mui/material';
 import { OverrideProps } from '@mui/material/OverridableComponent';
 import React from 'react';
-import { baseGoerli } from 'viem/chains';
 import { useAccount, useConnect } from 'wagmi';
 
 import { IconCoinbase, LogoMetamask } from '@credential/app-config';
+import { arbitrum, baseGoerli } from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
 import DialogHeader from './DialogHeader';
@@ -59,7 +59,15 @@ function ConnectWallet<C extends React.ElementType>({
                   fullWidth
                   key={connector.id}
                   loading={isLoading && pendingConnector?.id === connector.id}
-                  onClick={() => connect({ connector, chainId: baseGoerli.id })}
+                  onClick={() =>
+                    connect({
+                      connector,
+                      chainId:
+                        location.href.includes('zk-kyc-demo2023') || location.href.includes('sbtdemo')
+                          ? baseGoerli.id
+                          : arbitrum.id
+                    })
+                  }
                   startIcon={<Icon name={connector.name} />}
                   sx={{
                     background: '#EFF1F9',

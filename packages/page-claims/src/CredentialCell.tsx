@@ -219,7 +219,7 @@ function CredentialCell({ credential, issuer, messageId, status, time }: Credent
             hasProgram ? (
               <Button
                 fullWidth
-                onClick={() => navigate(`/sbt/${vc.digest}`)}
+                onClick={() => navigate(`/sbtdemo/${vc.digest}`)}
                 sx={({ spacing }) => ({
                   height: spacing(4.5),
                   borderRadius: spacing(1),

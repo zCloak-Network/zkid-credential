@@ -16,6 +16,8 @@ import {
   ZONIC_URL
 } from '@credential/app-config';
 import {
+  arbitrum,
+  arbitrumGoerli,
   baseGoerli,
   Button,
   DialogHeader,
@@ -67,6 +69,26 @@ const MintStatus: React.FC<{
           </Stack>
         )}
         {success && hash && recipient && chain?.id === baseGoerli.id && (
+          <Stack direction='row' justifyContent='center' paddingY={2}>
+            <Button onClick={() => window.open(`${ZONIC_URL}/${recipient}`)} startIcon={<IconTestnet />}>
+              Zonic
+            </Button>
+            <Button onClick={() => window.open(`${BASESCAN_URL}/${hash}`)} startIcon={<IconEtherscan />}>
+              Basescan
+            </Button>
+          </Stack>
+        )}
+        {success && hash && recipient && chain?.id === arbitrum.id && (
+          <Stack direction='row' justifyContent='center' paddingY={2}>
+            <Button onClick={() => window.open(`${ZONIC_URL}/${recipient}`)} startIcon={<IconTestnet />}>
+              Zonic
+            </Button>
+            <Button onClick={() => window.open(`${BASESCAN_URL}/${hash}`)} startIcon={<IconEtherscan />}>
+              Basescan
+            </Button>
+          </Stack>
+        )}
+        {success && hash && recipient && chain?.id === arbitrumGoerli.id && (
           <Stack direction='row' justifyContent='center' paddingY={2}>
             <Button onClick={() => window.open(`${ZONIC_URL}/${recipient}`)} startIcon={<IconTestnet />}>
               Zonic

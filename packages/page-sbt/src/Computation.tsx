@@ -15,7 +15,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { generateProgramHash, initMidenWasm } from '@zcloak/miden';
 
 import { CONTRACTS_CONFIG } from '@credential/app-config';
-import { useNetwork } from '@credential/react-components';
+import { useNetwork, useSwitchNetwork } from '@credential/react-components';
 import { provider, resolver } from '@credential/react-dids/instance';
 
 interface Props {
@@ -26,7 +26,8 @@ interface Props {
 
 function Computation({ onSuccess, program, vc }: Props) {
   const [loading, setLoading] = useState(false);
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const { chains } = useSwitchNetwork();
   const [{ error, isDone, result }, setResults] = useState<{
     isDone: boolean;
     result?: SbtResult;
