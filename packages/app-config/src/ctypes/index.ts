@@ -79,9 +79,9 @@ export const TOP_CTYPES_FOR_ISSUE: HexString[] = isRelease
 
 export const TOP_CTYPES_FOR_ATTEST: HexString[] = isRelease
   ? [
-      '0x28b5f594de884efe23886d1ade88a48db1670644664780364a7e6a6c55ee5c63',
-      '0x15ea88be73bd78986a41141fc86497f0cfef4a0d1b5463d100758edca37c546b',
-      '0x9884edce63d4de703c4b3ebf23063929705b7139ce2eeb3b6631c2fa25deb74f'
+      // '0x28b5f594de884efe23886d1ade88a48db1670644664780364a7e6a6c55ee5c63',
+      // '0x15ea88be73bd78986a41141fc86497f0cfef4a0d1b5463d100758edca37c546b',
+      // '0x9884edce63d4de703c4b3ebf23063929705b7139ce2eeb3b6631c2fa25deb74f'
     ]
   : [];
 
