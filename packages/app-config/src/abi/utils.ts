@@ -3,7 +3,7 @@
 
 import { arbitrumGoerli, baseGoerli, lineaTestnet, optimismGoerli } from '@credential/react-components';
 
-import { arbitrumGoerliSbtAbi } from './arbGoerli-sbt';
+import { arbitrumGoerliSbtAbi } from './arbiGoerli-sbt';
 import { baseSbtAbi } from './base-sbt';
 import { lineaAbi } from './linea-sbt';
 import { opSbtAbi } from './op-sbt';

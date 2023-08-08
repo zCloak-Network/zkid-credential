@@ -99,7 +99,7 @@ const Introduction = () => {
           <Link
             color='#1E5EFF'
             fontFamily='Kanit-SemiBold'
-            href='http://localhost:3000/#/event/zk-kyc-demo2023'
+            href='https://cred.zkid.xyz/#/event/zk-kyc-demo2023'
             rel='noopener'
             sx={{ textDecoration: 'underline' }}
           >
@@ -109,7 +109,7 @@ const Introduction = () => {
           <Link
             color='#1E5EFF'
             fontFamily='Kanit-SemiBold'
-            href='http://localhost:3000/#/event/zk-kyc2023'
+            href='https://cred.zkid.xyz/#/event/zk-kyc2023'
             rel='noopener'
             sx={{ textDecoration: 'underline' }}
           >

@@ -12,7 +12,7 @@ import { SvgIcon } from '@credential/react-components';
 import IconDefiSvg from '../assets/icon_defi.svg';
 
 function IconDefi(props: SvgIconProps) {
-  return <SvgIcon component={IconDefiSvg} fontSize='inherit' viewBox='0 0 40.81 40.224' {...props} />;
+  return <SvgIcon component={IconDefiSvg} fontSize='inherit' viewBox='0 0 36.849 40.47' {...props} />;
 }
 
 export default React.memo(IconDefi);

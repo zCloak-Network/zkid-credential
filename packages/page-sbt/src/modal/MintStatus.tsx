@@ -5,6 +5,7 @@ import { Dialog, DialogContent, Stack } from '@mui/material';
 import { useMemo } from 'react';
 
 import {
+  ARBISCAN_URL,
   BASESCAN_URL,
   BLOCK_SCOUT_URL,
   BlockscoutLogo,
@@ -28,6 +29,8 @@ import {
   Success,
   useNetwork
 } from '@credential/react-components';
+
+import ArbLogo from '../../../app-config/src/assets/icon_arbitrum.png';
 
 const MintStatus: React.FC<{
   open: boolean;
@@ -80,21 +83,21 @@ const MintStatus: React.FC<{
         )}
         {success && hash && recipient && chain?.id === arbitrum.id && (
           <Stack direction='row' justifyContent='center' paddingY={2}>
-            <Button onClick={() => window.open(`${ZONIC_URL}/${recipient}`)} startIcon={<IconTestnet />}>
-              Zonic
+            <Button onClick={() => window.open(`${OPENSEA_URL}/${recipient}`)} startIcon={<IconOpensea />}>
+              OpenSea
             </Button>
-            <Button onClick={() => window.open(`${BASESCAN_URL}/${hash}`)} startIcon={<IconEtherscan />}>
-              Basescan
+            <Button onClick={() => window.open(`${ARBISCAN_URL}/${hash}`)} startIcon={<img src={ArbLogo} />}>
+              Etherscan
             </Button>
           </Stack>
         )}
         {success && hash && recipient && chain?.id === arbitrumGoerli.id && (
           <Stack direction='row' justifyContent='center' paddingY={2}>
-            <Button onClick={() => window.open(`${ZONIC_URL}/${recipient}`)} startIcon={<IconTestnet />}>
-              Zonic
+            <Button onClick={() => window.open(`${OPENSEA_URL}/${recipient}`)} startIcon={<IconOpensea />}>
+              OpenSea
             </Button>
-            <Button onClick={() => window.open(`${BASESCAN_URL}/${hash}`)} startIcon={<IconEtherscan />}>
-              Basescan
+            <Button onClick={() => window.open(`${ARBISCAN_URL}/${hash}`)} startIcon={<img src={ArbLogo} />}>
+              Arbiscan
             </Button>
           </Stack>
         )}

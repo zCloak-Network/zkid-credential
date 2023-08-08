@@ -55,6 +55,7 @@ export const ZKSBT_CTYPE = isRelease
   : '0x0faa3462b6d45be3ce01dc570d8465035f68f516610b267a7b01d9b895d04351';
 
 export const ETHERSCAN_URL = 'https://goerli-optimism.etherscan.io/tx';
+export const ARBISCAN_URL = 'https://goerli.arbiscan.io/tx';
 export const BASESCAN_URL = 'https://goerli.basescan.org/tx';
 export const BLOCK_SCOUT_URL = 'https://explorer.goerli.linea.build/tx';
 
