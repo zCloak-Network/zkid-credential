@@ -128,7 +128,7 @@ export function useSteps() {
     } catch (error) {
       notifyError(error);
     }
-  }, [decrypt, message, importedKey, navigate, notifyError]);
+  }, [decrypt, message, importedKey, navigate, notifyError, changeNetwork]);
 
   useEffect(() => {
     const credential = _credential?.vc;
