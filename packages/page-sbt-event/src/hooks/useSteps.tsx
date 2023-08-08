@@ -89,12 +89,10 @@ export function useSteps() {
   const changeNetwork = useCallback(async () => {
     if (location.href.includes('sbtdemo') && chain?.id === arbitrum.id) {
       try {
-        
         switchNetworkAsync && (await switchNetworkAsync(baseGoerli.id));
       } catch (error) {}
     } else if (!location.href.includes('sbtdemo') && chain?.id !== arbitrum.id) {
       try {
-        
         switchNetworkAsync && (await switchNetworkAsync(arbitrum.id));
       } catch (error) {}
     }
@@ -113,6 +111,7 @@ export function useSteps() {
       const newSteps = [...stepsConfig];
 
       newSteps[2].isLocked = false;
+
       newSteps[2].onClick = () => {
         navigate(
           !location.href.includes('zk-kyc-demo2023') ? `/sbt/${credential.digest}` : `/sbtdemo/${credential.digest}`
