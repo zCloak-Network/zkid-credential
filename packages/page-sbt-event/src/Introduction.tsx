@@ -110,31 +110,33 @@ const Introduction: React.FC<{ isTest: boolean }> = ({ isTest }) => {
         results in the blockchain instead of the PII itself. Verifiers can use the no-code tool from zCloak to develop
         their own zkPrograms based on the regulation in their region. The zkProgram will be executed using user KYC data
         in their zkID wallet. The end result will become available in the blockchain as a zk-SBT, proving attributes of
-        a user without disclosing their privacy.{'\u00A0'}
-        {'\u00A0'}
-        {'\u00A0'}
-        {!isTest ? (
-          <Link
-            color='#1E5EFF'
-            fontFamily='Kanit-SemiBold'
-            href={refurl.test}
-            rel='noopener'
-            sx={{ textDecoration: 'underline' }}
-          >
-            Try On Testnet
-          </Link>
-        ) : (
-          <Link
-            color='#1E5EFF'
-            fontFamily='Kanit-SemiBold'
-            href={refurl.main}
-            rel='noopener'
-            sx={{ textDecoration: 'underline' }}
-          >
-            Try On Mainnet
-          </Link>
-        )}
+        a user without disclosing their privacy.
       </Typography>
+      {!isTest ? (
+        <Link
+          color='#1E5EFF'
+          fontSize={18}
+          href={refurl.test}
+          lineHeight='30px'
+          rel='noopener'
+          sx={{ textDecoration: 'underline' }}
+          target='_blank'
+        >
+          Try On Testnet
+        </Link>
+      ) : (
+        <Link
+          color='#1E5EFF'
+          fontSize={18}
+          href={refurl.main}
+          lineHeight='30px'
+          rel='noopener'
+          sx={{ textDecoration: 'underline' }}
+          target='_blank'
+        >
+          Try On Mainnet
+        </Link>
+      )}
 
       <Stack direction='row' mb={6} mt={6} spacing={10}>
         <Item label='Start Time ' value='May 31th, 2023' />
