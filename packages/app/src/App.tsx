@@ -240,7 +240,7 @@ const createNoSideBar = () => (
     <Route
       element={
         <Container>
-          <PageSbt />
+          <PageSbt isTest={true} />
         </Container>
       }
       path='sbtdemo/:digest'
@@ -248,7 +248,7 @@ const createNoSideBar = () => (
     <Route
       element={
         <Container>
-          <PageSbt />
+          <PageSbt isTest={false} />
         </Container>
       }
       path='sbt/:digest'
@@ -256,7 +256,7 @@ const createNoSideBar = () => (
     <Route
       element={
         <Container>
-          <PageSbtEvent />
+          <PageSbtEvent isTest={true} />
         </Container>
       }
       path='event/zk-kyc-demo2023'
@@ -264,7 +264,7 @@ const createNoSideBar = () => (
     <Route
       element={
         <Container>
-          <PageSbtEvent />
+          <PageSbtEvent isTest={false} />
         </Container>
       }
       path='event/zk-kyc2023'

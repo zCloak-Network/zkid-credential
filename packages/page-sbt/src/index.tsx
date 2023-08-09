@@ -18,7 +18,7 @@ import Mint from './Mint';
 import Top from './Top';
 import ZkProgram from './ZkProgram';
 
-const PageSbt: React.FC = () => {
+const PageSbt: React.FC<{ isTest: boolean }> = ({ isTest }) => {
   const { digest } = useParams();
   const navigate = useNavigate();
   const [credential, setCredential] = useState<Credential>();
@@ -74,7 +74,7 @@ const PageSbt: React.FC = () => {
         <Mint onCancel={() => setResult(undefined)} result={result} vc={credential.vc} />
       ) : (
         <>
-          <Top />
+          <Top isTest={isTest} />
           <Container maxWidth='xl'>
             <CredentialDetails status='approved' vc={credential.vc} />
             <Divider sx={{ marginY: '50px', borderColor: '#EBEAED' }} />

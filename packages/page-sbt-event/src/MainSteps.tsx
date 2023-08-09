@@ -7,7 +7,7 @@ import { useSteps } from './hooks/useSteps';
 import StepCard from './StepCard';
 import Title from './Title';
 
-const MainStep = () => {
+const MainStep: React.FC<{ isTest: boolean }> = () => {
   const { steps } = useSteps();
 
   return (

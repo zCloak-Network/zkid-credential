@@ -18,13 +18,13 @@ const config = createConfig({
   publicClient,
   connectors: [
     new MetaMaskConnector({
-      chains: chains.filter((c) => c.id !== arbitrum.id),
+      chains,
       options: {
         UNSTABLE_shimOnConnectSelectAccount: true
       }
     }),
     new CoinbaseWalletConnector({
-      chains: chains.filter((c) => c.id !== lineaTestnet.id && c.id !== arbitrum.id),
+      chains: chains.filter((c) => c.id !== lineaTestnet.id),
       options: {
         appName: 'zkid'
       }
@@ -32,31 +32,11 @@ const config = createConfig({
   ]
 });
 
-const configMain = createConfig({
-  autoConnect: true,
-  publicClient,
-  connectors: [
-    new MetaMaskConnector({
-      chains: chains.filter((c) => c.id === arbitrum.id),
-      options: {
-        UNSTABLE_shimOnConnectSelectAccount: true
-      }
-    }),
-    new CoinbaseWalletConnector({
-      chains: chains.filter((c) => c.id === arbitrum.id),
-      options: {
-        appName: 'zkid'
-      }
-    })
-  ]
-});
+export const TestChains = chains.filter((c) => c.id !== arbitrum.id);
+export const MainChains = chains.filter((c) => c.id === arbitrum.id);
 
 const WagmiProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <WagmiConfig config={location.href.includes('sbt/') || location.href.includes('/zk-kyc2023') ? configMain : config}>
-      {children}
-    </WagmiConfig>
-  );
+  return <WagmiConfig config={config}>{children}</WagmiConfig>;
 };
 
 export default WagmiProvider;

@@ -21,9 +21,6 @@ const Faucet = () => {
 
   const isWrongNet = chains.filter((_c) => _c.id === chain?.id).length === 0;
 
-  console.log(`#####${isWrongNet}@@@@${chain?.name}`);
-  console.log(chains);
-
   chains.join();
 
   return (

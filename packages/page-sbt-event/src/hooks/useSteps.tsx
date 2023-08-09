@@ -116,7 +116,6 @@ export function useSteps() {
         navigate(
           !location.href.includes('zk-kyc-demo2023') ? `/sbt/${credential.digest}` : `/sbtdemo/${credential.digest}`
         );
-        window.location.reload();
         changeNetwork();
       };
 
@@ -145,7 +144,6 @@ export function useSteps() {
         navigate(
           !location.href.includes('zk-kyc-demo2023') ? `/sbt/${credential.digest}` : `/sbtdemo/${credential.digest}`
         );
-        window.location.reload();
         changeNetwork();
       };
 

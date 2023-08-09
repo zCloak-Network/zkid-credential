@@ -8,7 +8,7 @@ import Introduction from './Introduction';
 import MainStep from './MainSteps';
 import OptionalStep from './OptionalStep';
 
-const PageSbtEvent = () => {
+const PageSbtEvent: React.FC<{ isTest: boolean }> = ({ isTest }) => {
   return (
     <Box
       sx={{
@@ -29,8 +29,8 @@ const PageSbtEvent = () => {
           backgroundPosition: 'left bottom'
         }}
       >
-        <Introduction />
-        <MainStep />
+        <Introduction isTest={isTest} />
+        <MainStep isTest={isTest} />
         <OptionalStep />
       </Container>
     </Box>

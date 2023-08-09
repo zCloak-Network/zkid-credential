@@ -17,7 +17,7 @@ import {
 
 import Faucet from './Faucet';
 
-function Top() {
+const Top: React.FC<{ isTest: boolean }> = ({ isTest }) => {
   const { isConnected } = useAccount();
 
   return (
@@ -36,25 +36,17 @@ function Top() {
             spacing={2}
           >
             <Faucet />
-            <Network />
+            <Network isTest={isTest} />
             <EthWalletAddress />
           </Stack>
         ) : (
-          <ConnectWallet
-            initialnetworkid={
-              location.href.includes('zk-kyc-demo2023') || location.href.includes('sbtdemo')
-                ? baseGoerli.id
-                : arbitrum.id
-            }
-            sx={{ width: 200 }}
-            variant='outlined'
-          >
+          <ConnectWallet initialnetworkid={isTest ? baseGoerli.id : arbitrum.id} sx={{ width: 200 }} variant='outlined'>
             Connect Wallet
           </ConnectWallet>
         )}
       </Container>
     </Box>
   );
-}
+};
 
 export default React.memo(Top);

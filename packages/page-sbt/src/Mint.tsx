@@ -87,8 +87,6 @@ function Mint({ onCancel, result, vc }: Props) {
         result.image // sbtlink
       ];
 
-      console.log(params);
-
       if (chain?.id === baseGoerli.id || chain?.id === lineaTestnet.id || chain?.id === arbitrumGoerli.id) {
         const publicInput = result.publicInput === '' ? [] : result.publicInput.split(',');
 

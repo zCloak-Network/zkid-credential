@@ -27,11 +27,29 @@ const Item: React.FC<Props> = ({ label, value }) => {
   );
 };
 
-const Introduction = () => {
+const Introduction: React.FC<{ isTest: boolean }> = ({ isTest }) => {
   const [open, setOpen] = React.useState(false);
 
-  console.log(`Introduction ${location.href}`);
-  console.log(`Introduction ${location.href.includes('main-zk-kyc2023')}`);
+  const URL = {
+    localref: {
+      test: 'http://localhost:3000/#/event/zk-kyc-demo2023',
+      main: 'http://localhost:3000/#/event/zk-kyc2023'
+    },
+    testref: {
+      test: 'https://cred.zkid.xyz/#/event/zk-kyc-demo2023',
+      main: 'https://cred.zkid.xyz/#/event/zk-kyc2023'
+    },
+    prodref: { test: 'https://cred.zkid.app/#/event/zk-kyc-demo2023', main: 'https://cred.zkid.app/#/event/zk-kyc2023' }
+  };
+  let refurl = { test: '', main: '' };
+
+  if (location.href.includes('localhost')) {
+    refurl = URL.localref;
+  } else if (location.hostname.includes('zkid.app')) {
+    refurl = URL.prodref;
+  } else if (location.hostname.includes('zkid.xyz')) {
+    refurl = URL.testref;
+  }
 
   return (
     <>
@@ -95,11 +113,11 @@ const Introduction = () => {
         a user without disclosing their privacy.{'\u00A0'}
         {'\u00A0'}
         {'\u00A0'}
-        {!location.href.includes('zk-kyc-demo2023') ? (
+        {!isTest ? (
           <Link
             color='#1E5EFF'
             fontFamily='Kanit-SemiBold'
-            href='https://cred.zkid.xyz/#/event/zk-kyc-demo2023'
+            href={refurl.test}
             rel='noopener'
             sx={{ textDecoration: 'underline' }}
           >
@@ -109,7 +127,7 @@ const Introduction = () => {
           <Link
             color='#1E5EFF'
             fontFamily='Kanit-SemiBold'
-            href='https://cred.zkid.xyz/#/event/zk-kyc2023'
+            href={refurl.main}
             rel='noopener'
             sx={{ textDecoration: 'underline' }}
           >
