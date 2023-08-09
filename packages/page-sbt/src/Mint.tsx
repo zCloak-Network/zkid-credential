@@ -15,6 +15,8 @@ import { helpers } from '@zcloak/did';
 import { VERIFIER_ADDRESS } from '@credential/app-config';
 import EthBind from '@credential/page-did/eth-bind';
 import {
+  arbitrum,
+  arbitrumGoerli,
   baseGoerli,
   Button,
   ConnectWallet,
@@ -85,10 +87,15 @@ function Mint({ onCancel, result, vc }: Props) {
         result.image // sbtlink
       ];
 
-      if (chain?.id === baseGoerli.id || chain?.id === lineaTestnet.id) {
+      if (chain?.id === baseGoerli.id || chain?.id === lineaTestnet.id || chain?.id === arbitrumGoerli.id) {
         const publicInput = result.publicInput === '' ? [] : result.publicInput.split(',');
 
         params.splice(3, 0, publicInput);
+      }
+
+      // add arbitrum isPublicInputUsedForCheck
+      if (chain?.id === arbitrumGoerli.id || chain?.id === arbitrum.id) {
+        params.splice(4, 0, result.programConfig.isPublicInputUsedForCheck);
       }
 
       await writeAsync({

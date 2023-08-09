@@ -6,11 +6,13 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { alpha, Box, Button, Popover, Stack } from '@mui/material';
 import { useCallback, useMemo, useState } from 'react';
-import { useNetwork, useSwitchNetwork } from 'wagmi';
+import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 
 import { BaseLogo, LineaLogo, OptimismLogo } from '@credential/app-config';
 
-import { baseGoerli, lineaTestnet, optimismGoerli } from '.';
+import ArbLogo from '../../app-config/src/assets/icon_arbitrum.png';
+import { MainChains, TestChains } from './WagmiProvider';
+import { arbitrum, arbitrumGoerli, baseGoerli, lineaTestnet, optimismGoerli } from '.';
 
 function ChainIcon({ chainId }: { chainId?: number }) {
   switch (chainId) {
@@ -24,15 +26,18 @@ function ChainIcon({ chainId }: { chainId?: number }) {
           <LineaLogo />
         </Box>
       );
+    case arbitrum.id:
+      return <img src={ArbLogo} />;
+    case arbitrumGoerli.id:
+      return <img src={ArbLogo} />;
     default:
       return <WarningAmberIcon />;
   }
 }
 
-const Network = () => {
-  const { chain } = useNetwork();
-  const { chains, switchNetwork, switchNetworkAsync } = useSwitchNetwork();
-
+const Network: React.FC<{ isTest: boolean }> = ({ isTest }) => {
+  const { chain, chains } = useNetwork();
+  const { switchNetwork, switchNetworkAsync } = useSwitchNetwork();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,6 +60,16 @@ const Network = () => {
       }
     },
     [switchNetworkAsync]
+  );
+  const account = useAccount();
+  const networks = useMemo(
+    () =>
+      isTest
+        ? account.connector?.id === 'coinbaseWallet'
+          ? TestChains.filter((c) => c.id !== lineaTestnet.id)
+          : TestChains
+        : MainChains,
+    [isTest, account]
   );
 
   const isWrongNet = useMemo(() => chains.filter((_c) => _c.id === chain?.id).length === 0, [chains, chain]);
@@ -87,7 +102,7 @@ const Network = () => {
         open={open}
       >
         <Stack padding={1} width={220}>
-          {chains.map((x) => (
+          {networks.map((x) => (
             <Button
               disabled={!switchNetwork || x.id === chain?.id}
               key={x.id}

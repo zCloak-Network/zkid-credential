@@ -5,10 +5,10 @@ import { LoadingButton, LoadingButtonProps, LoadingButtonTypeMap } from '@mui/la
 import { Button, Dialog, DialogContent, Stack, Typography } from '@mui/material';
 import { OverrideProps } from '@mui/material/OverridableComponent';
 import React from 'react';
-import { baseGoerli } from 'viem/chains';
 import { useAccount, useConnect } from 'wagmi';
 
 import { IconCoinbase, LogoMetamask } from '@credential/app-config';
+import { baseGoerli } from '@credential/react-components';
 import { useToggle } from '@credential/react-hooks';
 
 import DialogHeader from './DialogHeader';

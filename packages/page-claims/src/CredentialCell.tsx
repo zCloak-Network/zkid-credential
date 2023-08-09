@@ -5,7 +5,7 @@ import type { DidUrl } from '@zcloak/did-resolver/types';
 import type { RawCredential } from '@zcloak/vc/types';
 
 import moment from 'moment';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { isVC } from '@zcloak/vc/is';
@@ -13,6 +13,7 @@ import { isVC } from '@zcloak/vc/is';
 import { zkConfig } from '@credential/app-config';
 import { CredentialStatus } from '@credential/app-store/pending-credential';
 import {
+  arbitrum,
   Box,
   Button,
   CredentialModal,
@@ -24,7 +25,9 @@ import {
   Stack,
   styled,
   Tooltip,
-  Typography
+  Typography,
+  useNetwork,
+  useSwitchNetwork
 } from '@credential/react-components';
 import { alpha, ellipsisMixin } from '@credential/react-components/utils';
 import { DidName } from '@credential/react-dids';
@@ -119,6 +122,16 @@ function CredentialCell({ credential, issuer, messageId, status, time }: Credent
   const ctypeMeta = useCTypeMeta(vc?.ctype);
   const hasProgram = !!zkConfig[vc?.ctype || ''];
   const navigate = useNavigate();
+  const { chain } = useNetwork();
+  const { switchNetworkAsync } = useSwitchNetwork();
+
+  const changeNetwork = useCallback(async () => {
+    if (chain?.id !== arbitrum.id) {
+      try {
+        switchNetworkAsync && (await switchNetworkAsync(arbitrum.id));
+      } catch (error) {}
+    }
+  }, [chain?.id, switchNetworkAsync]);
 
   return (
     <>
@@ -219,7 +232,10 @@ function CredentialCell({ credential, issuer, messageId, status, time }: Credent
             hasProgram ? (
               <Button
                 fullWidth
-                onClick={() => navigate(`/sbt/${vc.digest}`)}
+                onClick={() => {
+                  navigate(`/sbt/${vc.digest}`);
+                  changeNetwork();
+                }}
                 sx={({ spacing }) => ({
                   height: spacing(4.5),
                   borderRadius: spacing(1),

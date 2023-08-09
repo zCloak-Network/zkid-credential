@@ -111,6 +111,7 @@ const createClaimerApp = () => (
         path='profile'
       />
     </Route>
+
     <Route path='ctype'>
       <Route
         element={
@@ -239,7 +240,15 @@ const createNoSideBar = () => (
     <Route
       element={
         <Container>
-          <PageSbt />
+          <PageSbt isTest={true} />
+        </Container>
+      }
+      path='sbtdemo/:digest'
+    />
+    <Route
+      element={
+        <Container>
+          <PageSbt isTest={false} />
         </Container>
       }
       path='sbt/:digest'
@@ -247,7 +256,15 @@ const createNoSideBar = () => (
     <Route
       element={
         <Container>
-          <PageSbtEvent />
+          <PageSbtEvent isTest={true} />
+        </Container>
+      }
+      path='event/zk-kyc-demo2023'
+    />
+    <Route
+      element={
+        <Container>
+          <PageSbtEvent isTest={false} />
         </Container>
       }
       path='event/zk-kyc2023'

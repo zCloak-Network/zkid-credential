@@ -191,7 +191,9 @@ export class CredentialDidResolver extends ArweaveDidResolver {
       attester_proof: Proof;
     },
     verifyingContract: string,
-    chainId: number
+    chainId: number,
+    isPublicInputUsedForCheck: boolean,
+    zkSBTVersion: string
   ): Promise<{
     desc: string;
     sbt_link: string;
@@ -201,7 +203,9 @@ export class CredentialDidResolver extends ArweaveDidResolver {
       ...data,
       verifyingContract,
       chainId,
-      zkp_result: JSON.parse(result)
+      zkp_result: JSON.parse(result),
+      isPublicInputUsedForCheck,
+      zkSBTVersion
     });
 
     if (res?.code !== 200) {

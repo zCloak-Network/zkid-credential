@@ -3,12 +3,16 @@
 
 import { HexString } from '@zcloak/crypto/types';
 
-import { baseGoerli, lineaTestnet, optimismGoerli } from '@credential/react-components';
+import { arbitrumGoerli, baseGoerli, lineaTestnet, optimismGoerli } from '@credential/react-components';
 
 import { isRelease } from './isRelease';
 
 interface CONTRACT_CONFIG {
   [key: number]: HexString;
+}
+
+interface zkSBTVersion {
+  [key: number]: string;
 }
 
 export const ZKSBT_ADDRESS = isRelease
@@ -27,10 +31,20 @@ const lineaGerliConfig = isRelease
   ? '0x5F5ff21a6D7136BBf21f55CfD9627673dBeed8cd'
   : '0x53a623B54016Ec65592f0026aBdc91C8194522b8';
 
+const arbitrumGoerliConfig = '0xEBE3dc938916cCa495598bbce35DCcB788F5B995';
+
 export const CONTRACTS_CONFIG: CONTRACT_CONFIG = {
   [optimismGoerli.id]: optimismGoerliConfig,
   [baseGoerli.id]: baseGoerliConfig,
-  [lineaTestnet.id]: lineaGerliConfig
+  [lineaTestnet.id]: lineaGerliConfig,
+  [arbitrumGoerli.id]: arbitrumGoerliConfig
+};
+
+export const zkSBTVersion: zkSBTVersion = {
+  [optimismGoerli.id]: '0',
+  [baseGoerli.id]: '1',
+  [lineaTestnet.id]: '1',
+  [arbitrumGoerli.id]: '1.1'
 };
 
 export const ZKSBT_CHAIN_ID = isRelease ? optimismGoerli.id : optimismGoerli.id;
@@ -41,6 +55,7 @@ export const ZKSBT_CTYPE = isRelease
   : '0x0faa3462b6d45be3ce01dc570d8465035f68f516610b267a7b01d9b895d04351';
 
 export const ETHERSCAN_URL = 'https://goerli-optimism.etherscan.io/tx';
+export const ARBISCAN_URL = 'https://goerli.arbiscan.io/tx';
 export const BASESCAN_URL = 'https://goerli.basescan.org/tx';
 export const BLOCK_SCOUT_URL = 'https://explorer.goerli.linea.build/tx';
 

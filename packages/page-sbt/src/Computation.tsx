@@ -14,8 +14,8 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { generateProgramHash, initMidenWasm } from '@zcloak/miden';
 
-import { CONTRACTS_CONFIG } from '@credential/app-config';
-import { useNetwork } from '@credential/react-components';
+import { CONTRACTS_CONFIG, zkSBTVersion } from '@credential/app-config';
+import { useNetwork, useSwitchNetwork } from '@credential/react-components';
 import { provider, resolver } from '@credential/react-dids/instance';
 
 interface Props {
@@ -26,7 +26,8 @@ interface Props {
 
 function Computation({ onSuccess, program, vc }: Props) {
   const [loading, setLoading] = useState(false);
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const { chains } = useSwitchNetwork();
   const [{ error, isDone, result }, setResults] = useState<{
     isDone: boolean;
     result?: SbtResult;
@@ -58,7 +59,6 @@ function Computation({ onSuccess, program, vc }: Props) {
       });
 
       const programHash = generateProgramHash(program.program);
-
       const { desc, sbt_link, verifier_signature } = await resolver.zkVerify(
         result,
         {
@@ -73,7 +73,9 @@ function Computation({ onSuccess, program, vc }: Props) {
           attester_proof: vc.proof[0]
         },
         CONTRACTS_CONFIG[chain.id],
-        chain.id
+        chain.id,
+        program.isPublicInputUsedForCheck,
+        zkSBTVersion[chain.id]
       );
 
       setResults({
@@ -83,6 +85,7 @@ function Computation({ onSuccess, program, vc }: Props) {
           signature: verifier_signature,
           image: sbt_link,
           programHash,
+          programConfig: program,
           publicInput,
           output: JSON.parse(result).outputs.stack
         },

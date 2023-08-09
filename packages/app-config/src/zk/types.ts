@@ -7,6 +7,7 @@ export interface ZkProgramConfig {
   author: string;
   program: string;
   leaves: number[];
+  isPublicInputUsedForCheck: boolean;
   outputs: [string, string][];
   getPublicInput?: () => string;
 }

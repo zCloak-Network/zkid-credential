@@ -3,10 +3,18 @@
 
 import { useCallback, useContext } from 'react';
 
-import { ConnectWallet, NotificationContext, Stack, Typography, useNetwork } from '@credential/react-components';
+import {
+  ConnectWallet,
+  NotificationContext,
+  Stack,
+  Typography,
+  useNetwork,
+  useSwitchNetwork
+} from '@credential/react-components';
 
 const Step1: React.FC<{ next: () => void }> = ({ next }) => {
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const { chains } = useSwitchNetwork();
   const { notifyError } = useContext(NotificationContext);
 
   const changeNetwork = useCallback(() => {

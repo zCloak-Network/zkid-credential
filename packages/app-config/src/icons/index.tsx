@@ -15,6 +15,7 @@ export { default as IconCoinbase } from './IconCoinbase';
 export { default as IconCopy } from './IconCopy';
 export { default as IconCorwn } from './IconCorwn';
 export { default as IconCreate } from './IconCreate';
+export { default as IconDefi } from './IconDefi';
 export { default as IconDelete } from './IconDelete';
 export { default as IconDetails } from './IconDetails';
 export { default as IconDownload } from './IconDownload';

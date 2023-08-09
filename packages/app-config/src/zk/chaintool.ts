@@ -17,6 +17,7 @@ const config: ZkProgramConfig[] = [
     name: 'Adult Check',
     description: 'Check you are adult.',
     author: 'did:zk:0xdC6BF231a4f18074288C07C3f31f2eD170E368aD',
+    isPublicInputUsedForCheck: false,
     program: `proc.number_add.4
     dup.0 loc_store.0 push.0 eq
     push.0 loc_store.3
@@ -189,6 +190,7 @@ begin
     name: 'Continent Check',
     description: 'Check which continent you are on.',
     author: 'did:zk:0xdC6BF231a4f18074288C07C3f31f2eD170E368aD',
+    isPublicInputUsedForCheck: false,
     program: ` proc.number_add.4
     dup.0 loc_store.0 push.0 eq
     push.0 loc_store.3
@@ -446,6 +448,7 @@ begin
     name: 'Continent & Adult Check',
     description: 'Check which continent you are on and if you are an adult.',
     author: 'did:zk:0xdC6BF231a4f18074288C07C3f31f2eD170E368aD',
+    isPublicInputUsedForCheck: false,
     program: `proc.number_add.4
     dup.0 loc_store.0 push.0 eq
     push.0 loc_store.3
@@ -730,6 +733,7 @@ begin
     name: 'Non-American Check',
     description: 'Check you are not American.',
     author: 'did:zk:0xdC6BF231a4f18074288C07C3f31f2eD170E368aD',
+    isPublicInputUsedForCheck: false,
     program: `proc.number_add.4
     dup.0 loc_store.0 push.0 eq
     push.0 loc_store.3
