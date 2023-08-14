@@ -53,7 +53,15 @@ const Introduction: React.FC<{ isTest: boolean }> = ({ isTest }) => {
 
   return (
     <>
-      <Stack ml='auto' width={250}>
+      <Stack
+        style={{
+          position: 'fixed',
+          top: '20%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)'
+        }}
+        width={250}
+      >
         <Collapse in={open}>
           <Alert
             action={

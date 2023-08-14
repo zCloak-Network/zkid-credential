@@ -12,6 +12,8 @@ function getPublicInput() {
   return `${Math.floor(new Date(compareDate).getTime())}`;
 }
 
+const zksbtCtype = location.href.includes('demo') ? ZKSBT_CTYPE.testnet : ZKSBT_CTYPE.mainnet;
+
 const config: ZkProgramConfig[] = [
   {
     name: 'Adult Check',
@@ -902,6 +904,6 @@ begin
   }
 ];
 
-const option: ZkProgramOption = [[ZKSBT_CTYPE], config];
+const option: ZkProgramOption = [[zksbtCtype], config];
 
 export default option;

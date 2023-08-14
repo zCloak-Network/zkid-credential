@@ -26,6 +26,8 @@ import { StepCardProps } from '../StepCard';
 
 const ImportedKey = 'import_to_zkID_wallet';
 
+const zksbtCtype = location.href.includes('demo') ? ZKSBT_CTYPE.testnet : ZKSBT_CTYPE.mainnet;
+
 const stepsConfig: StepCardProps[] = [
   {
     label: 'Step1',
@@ -34,9 +36,7 @@ const stepsConfig: StepCardProps[] = [
     title: 'Finish Chaintool KYC',
     onClick: () =>
       window.open(
-        !location.href.includes('zk-kyc-demo2023')
-          ? 'https://passport.chaintool.ai/'
-          : 'https://passport.chaintool.ai/',
+        !location.href.includes('zk-kyc-demo2023') ? 'https://zkkyc.chaintool.ai/' : 'https://passport.chaintool.ai/',
         '_blank'
       ),
     isLocked: false
@@ -62,7 +62,7 @@ function getMessage(messages: Message<keyof MessageData>[], did: Did): Message<k
     (message) =>
       message.msgType === 'Send_issuedVC' &&
       message.receiver === did.getKeyUrl('keyAgreement') &&
-      message?.ctype === ZKSBT_CTYPE
+      message?.ctype === zksbtCtype
   )[0];
 }
 
@@ -72,8 +72,7 @@ export function useSteps() {
 
   const messages = useMessages('all');
   const message = getMessage(messages, did);
-
-  const credentials = useLiveQuery(getCredentials, [])?.filter((credential) => credential.ctype === ZKSBT_CTYPE);
+  const credentials = useLiveQuery(getCredentials, [])?.filter((credential) => credential.ctype === zksbtCtype);
   const _credential = useMemo(() => credentials?.[credentials?.length - 1], [credentials]);
 
   const importedKey = `${ImportedKey}:${did.id}`;
@@ -83,6 +82,7 @@ export function useSteps() {
 
   const { decrypt } = useContext(AppContext);
   const { notifyError } = useContext(NotificationContext);
+  const isTestnet = location.href.includes('demo');
 
   const navigate = useNavigate();
 
@@ -113,9 +113,7 @@ export function useSteps() {
       newSteps[2].isLocked = false;
 
       newSteps[2].onClick = () => {
-        navigate(
-          !location.href.includes('zk-kyc-demo2023') ? `/sbt/${credential.digest}` : `/sbtdemo/${credential.digest}`
-        );
+        navigate(!isTestnet ? `/sbt/${credential.digest}` : `/sbtdemo/${credential.digest}`);
         changeNetwork();
       };
 
@@ -127,7 +125,7 @@ export function useSteps() {
     } catch (error) {
       notifyError(error);
     }
-  }, [decrypt, message, importedKey, navigate, notifyError, changeNetwork]);
+  }, [decrypt, message, importedKey, navigate, notifyError, changeNetwork, isTestnet]);
 
   useEffect(() => {
     const credential = _credential?.vc;
@@ -141,9 +139,7 @@ export function useSteps() {
       newSteps[2].isLocked = false;
 
       newSteps[2].onClick = () => {
-        navigate(
-          !location.href.includes('zk-kyc-demo2023') ? `/sbt/${credential.digest}` : `/sbtdemo/${credential.digest}`
-        );
+        navigate(!isTestnet ? `/sbt/${credential.digest}` : `/sbtdemo/${credential.digest}`);
         changeNetwork();
       };
 
@@ -156,7 +152,7 @@ export function useSteps() {
 
       setSteps(newSteps);
     }
-  }, [decrypt, isImported, importVc, _credential, navigate, changeNetwork]);
+  }, [decrypt, isImported, importVc, _credential, navigate, changeNetwork, isTestnet]);
 
   useEffect(() => {
     const newSteps = [...stepsConfig];
