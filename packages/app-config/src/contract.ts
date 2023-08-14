@@ -3,7 +3,7 @@
 
 import { HexString } from '@zcloak/crypto/types';
 
-import { arbitrumGoerli, baseGoerli, lineaTestnet, optimismGoerli } from '@credential/react-components';
+import { arbitrum, arbitrumGoerli, baseGoerli, lineaTestnet, optimismGoerli } from '@credential/react-components';
 
 import { isRelease } from './isRelease';
 
@@ -33,26 +33,36 @@ const lineaGerliConfig = isRelease
 
 const arbitrumGoerliConfig = '0xEBE3dc938916cCa495598bbce35DCcB788F5B995';
 
+const arbitrumConfig = '0xbd0adbaee8e3b5b375a40e2ce870e6af1e355e98';
+
 export const CONTRACTS_CONFIG: CONTRACT_CONFIG = {
   [optimismGoerli.id]: optimismGoerliConfig,
   [baseGoerli.id]: baseGoerliConfig,
   [lineaTestnet.id]: lineaGerliConfig,
-  [arbitrumGoerli.id]: arbitrumGoerliConfig
+  [arbitrumGoerli.id]: arbitrumGoerliConfig,
+  [arbitrum.id]: arbitrumConfig
 };
 
 export const zkSBTVersion: zkSBTVersion = {
   [optimismGoerli.id]: '0',
   [baseGoerli.id]: '1',
   [lineaTestnet.id]: '1',
-  [arbitrumGoerli.id]: '1.1'
+  [arbitrumGoerli.id]: '1.1',
+  [arbitrum.id]: '1.1'
 };
 
 export const ZKSBT_CHAIN_ID = isRelease ? optimismGoerli.id : optimismGoerli.id;
 export const VERIFIER_ADDRESS = '0xC2BADDbf6DCeDA9b68638a9de84063c1E0ee4350';
 
 export const ZKSBT_CTYPE = isRelease
-  ? '0x0289711acb57f600850341c7b0c8ab484b004ca8a6471777417cea2b8a88ba7a'
-  : '0x0faa3462b6d45be3ce01dc570d8465035f68f516610b267a7b01d9b895d04351';
+  ? {
+      testnet: '0x0289711acb57f600850341c7b0c8ab484b004ca8a6471777417cea2b8a88ba7a',
+      mainnet: '0x54f1fd6c1ada6d7c69d3e3ced40c12405648561e7f379c4778933c2c8aad1f70'
+    }
+  : {
+      testnet: '0x0faa3462b6d45be3ce01dc570d8465035f68f516610b267a7b01d9b895d04351',
+      mainnet: '0x54f1fd6c1ada6d7c69d3e3ced40c12405648561e7f379c4778933c2c8aad1f70'
+    };
 
 export const ETHERSCAN_URL = 'https://goerli-optimism.etherscan.io/tx';
 export const ARBISCAN_URL = 'https://goerli.arbiscan.io/tx';

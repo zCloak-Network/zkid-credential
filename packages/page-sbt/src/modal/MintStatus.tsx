@@ -87,7 +87,7 @@ const MintStatus: React.FC<{
               OpenSea
             </Button>
             <Button onClick={() => window.open(`${ARBISCAN_URL}/${hash}`)} startIcon={<img src={ArbLogo} />}>
-              Etherscan
+              Arbiscan
             </Button>
           </Stack>
         )}
