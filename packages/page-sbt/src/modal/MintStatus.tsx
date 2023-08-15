@@ -5,6 +5,7 @@ import { Dialog, DialogContent, Stack } from '@mui/material';
 import { useMemo } from 'react';
 
 import {
+  ARBISCAN_MAINURL,
   ARBISCAN_URL,
   BASESCAN_URL,
   BLOCK_SCOUT_URL,
@@ -13,6 +14,7 @@ import {
   IconEtherscan,
   IconOpensea,
   IconTestnet,
+  OPENSEA_MAINURL,
   OPENSEA_URL,
   ZONIC_URL
 } from '@credential/app-config';
@@ -83,10 +85,10 @@ const MintStatus: React.FC<{
         )}
         {success && hash && recipient && chain?.id === arbitrum.id && (
           <Stack direction='row' justifyContent='center' paddingY={2}>
-            <Button onClick={() => window.open(`${OPENSEA_URL}/${recipient}`)} startIcon={<IconOpensea />}>
+            <Button onClick={() => window.open(`${OPENSEA_MAINURL}/${recipient}`)} startIcon={<IconOpensea />}>
               OpenSea
             </Button>
-            <Button onClick={() => window.open(`${ARBISCAN_URL}/${hash}`)} startIcon={<img src={ArbLogo} />}>
+            <Button onClick={() => window.open(`${ARBISCAN_MAINURL}/${hash}`)} startIcon={<img src={ArbLogo} />}>
               Arbiscan
             </Button>
           </Stack>
