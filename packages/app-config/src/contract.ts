@@ -66,8 +66,10 @@ export const ZKSBT_CTYPE = isRelease
 
 export const ETHERSCAN_URL = 'https://goerli-optimism.etherscan.io/tx';
 export const ARBISCAN_URL = 'https://goerli.arbiscan.io/tx';
+export const ARBISCAN_MAINURL = 'https://arbiscan.io/tx';
 export const BASESCAN_URL = 'https://goerli.basescan.org/tx';
 export const BLOCK_SCOUT_URL = 'https://explorer.goerli.linea.build/tx';
 
 export const ZONIC_URL = 'https://testnet.zonic.app/profile';
 export const OPENSEA_URL = 'https://testnets.opensea.io';
+export const OPENSEA_MAINURL = 'https://opensea.io';
