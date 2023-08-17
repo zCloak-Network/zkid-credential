@@ -21,7 +21,7 @@ const ConnectWallet = () => {
     <Box
       sx={{
         width: '100%',
-        maxWidth: 230,
+        maxWidth: 260,
         paddingX: 2,
         margin: '0 auto'
       }}
@@ -38,7 +38,8 @@ const ConnectWallet = () => {
           height: 50,
           bgcolor: '#000',
           color: '#fff',
-          borderRadius: '25px',
+          borderRadius: '4px',
+          border: '1px solid #FFFFFF',
           boxShadow: '0px 4px 20px rgba(45,51,60,0.27)',
           ':hover': {
             bgcolor: '#000',

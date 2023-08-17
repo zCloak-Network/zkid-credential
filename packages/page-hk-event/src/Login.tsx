@@ -12,11 +12,19 @@ const Login = () => {
       flexDirection='column'
       position='relative'
       sx={{
-        height: 730,
-        background: 'url(/yantai-event/jpg_yt.webp) no-repeat, #F5DBB2',
-        backgroundPosition: 'bottom left'
+        height: 830,
+        background: '#000000'
+        // backgroundPosition: 'top center'
       }}
     >
+      <Box
+        sx={{
+          height: 510,
+          background: 'url(/shanghai-event/img_bag.svg) no-repeat',
+          backgroundPosition: 'top center',
+          backgroundSize: 'cover'
+        }}
+      />
       <Box
         sx={{
           display: 'flex',
@@ -33,45 +41,22 @@ const Login = () => {
           }
         }}
       >
-        <Stack
-          alignItems='center'
-          direction='column'
-          pt={6.25}
-          sx={{
-            '.HK_TITLE': {
-              color: '#000',
-              fontSize: '34px',
-              fontFamily: 'Montserrat',
-              fontWeight: 600
-            }
-          }}
-        >
-          <Box
-            mt={5}
-            sx={{
-              width: 60,
-              height: 60,
-              borderRadius: '50px',
-              background: 'url(/yantai-event/logo_zcloak.svg) no-repeat, #000000',
-              backgroundPosition: 'center center'
-            }}
-          />
-          <Typography className='HK_TITLE' mt={3.5}>
-            SURFING SUMMER
+        <Stack alignItems='center' direction='column' sx={{}}>
+          <Stack direction='row' mt={2} spacing={1.75}>
+            <img src='/shanghai-event/logo_zcloak.svg' />
+            <img src='/shanghai-event/logo_antalpha.svg' />
+            <img height={26} src='/shanghai-event/logo_buidler.png' width={91} />
+          </Stack>
+          <Stack mb={2} mt={3}>
+            <img src='/shanghai-event/svg_title.svg' />
+          </Stack>
+          <Typography color='#FFF' mb={2}>
+            Shanghai, August 18, 2023
           </Typography>
-          <Typography className='HK_TITLE' mb={2}>
-            YANTAI
-          </Typography>
-          <Box margin='auto' mb={3} px={6}>
-            <Typography fontFamily='Montserrat' fontSize={14} fontWeight={400}>
-              Surfing Summer 2023 is an offline Web3 event organized by CSWA on July 28-30, 2023 in Yantai, Shandong.
-              This credential serves as zCloak’s free commemorative cards issued to all attendees.
-            </Typography>
-          </Box>
           <ConnectWallet />
         </Stack>
       </Box>
-      <Stack alignItems='center' bottom={20} justifyContent='center' position='absolute' width='100%'>
+      {/* <Stack alignItems='center' bottom={20} justifyContent='center' position='absolute' width='100%'>
         <Typography
           sx={{
             fontSize: '13px',
@@ -80,7 +65,7 @@ const Login = () => {
         >
           Powered by zCloak
         </Typography>
-      </Stack>
+      </Stack> */}
     </Box>
   );
 };
