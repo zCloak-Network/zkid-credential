@@ -45,13 +45,13 @@ const Login = () => {
           <Stack direction='row' mt={2} spacing={1.75}>
             <img src='/shanghai-event/logo_zcloak.svg' />
             <img src='/shanghai-event/logo_antalpha.svg' />
-            <img height={26} src='/shanghai-event/logo_buidler.png' width={91} />
+            <img src='/shanghai-event/logo_706.svg' />
           </Stack>
           <Stack mb={2} mt={3}>
             <img src='/shanghai-event/svg_title.svg' />
           </Stack>
           <Typography color='#FFF' mb={2}>
-            Shanghai, August 18, 2023
+            Shenzhen, August 22, 2023
           </Typography>
           <ConnectWallet />
         </Stack>
